@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Artes | Bolsa Inmobiliaria CIASA</title>
+
+    <!-- Google Fonts -->
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/variables.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/layout.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/components.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/pages.css?v=20260820_v4">
+
+    <!-- JSZip (for batch download) -->
+    <script src="../js/relpath.js?v=20260820_v4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" defer></script>
+
+    <style>
+        body {
+            background: var(--light-blue, #EAF0F5);
+        }
+        .artes-header {
+            background: linear-gradient(135deg, #1B3A5C 0%, #5B9BD5 100%);
+            color: white;
+            padding: var(--space-12) 0 var(--space-10);
+            text-align: center;
+        }
+        .artes-header h1 {
+            color: white;
+            margin: 0 0 var(--space-3);
+            font-size: clamp(1.875rem, 4vw, 2.5rem);
+            font-weight: 700;
+        }
+        .artes-header p {
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 640px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+        }
+        .artes-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            padding: var(--space-8) 0 0;
+            align-items: center;
+        }
+        .artes-filters .filter-label {
+            font-size: .85rem;
+            color: var(--gray-500, #6B7A8B);
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-right: var(--space-2);
+        }
+        .filter-pill {
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: 1.5px solid var(--gray-300, #D3DCE5);
+            background: white;
+            color: var(--navy, #1B3A5C);
+            font-size: .9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .15s ease;
+            line-height: 1;
+        }
+        .filter-pill:hover {
+            border-color: var(--navy, #1B3A5C);
+        }
+        .filter-pill.active {
+            background: var(--navy, #1B3A5C);
+            border-color: var(--navy, #1B3A5C);
+            color: white;
+        }
+        .download-all-wrap {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        .download-all-btn {
+            padding: 8px 18px;
+            border-radius: 999px;
+            background: var(--gold, #7DB33A);
+            color: white;
+            border: none;
+            font-size: .88rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            line-height: 1;
+            transition: background .15s ease, opacity .15s ease;
+            font-family: inherit;
+        }
+        .download-all-btn:hover:not(:disabled) { background: var(--gold-dark, #5E8A2B); }
+        .download-all-btn:disabled { opacity: .55; cursor: progress; }
+        .download-all-btn svg { width: 16px; height: 16px; }
+
+        .filter-pill .filter-count {
+            margin-left: 6px;
+            opacity: .65;
+            font-weight: 500;
+            font-variant-numeric: tabular-nums;
+        }
+        .artes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: var(--space-6);
+            padding: var(--space-6) 0 var(--space-10);
+        }
+        .art-card.hidden { display: none; }
+        .art-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 0 var(--space-5) var(--space-4);
+        }
+        .art-tag {
+            font-size: .7rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: var(--light-blue, #EAF0F5);
+            color: var(--navy, #1B3A5C);
+            letter-spacing: .02em;
+        }
+        .art-card {
+            background: white;
+            border-radius: var(--radius-xl, 16px);
+            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(27, 58, 92, 0.10);
+            cursor: pointer;
+            transition: transform .2s ease, box-shadow .2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .art-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(27, 58, 92, 0.18);
+        }
+        .art-thumb {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            overflow: hidden;
+            background: #EAF0F5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .art-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .art-thumb.is-video {
+            position: relative;
+            background: #0e1c2a;
+        }
+        .art-thumb.is-video img {
+            object-fit: cover;
+        }
+        .art-thumb .play-badge {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        .art-thumb .play-badge::after {
+            content: '';
+            width: 72px;
+            height: 72px;
+            border-radius: 999px;
+            background: rgba(14, 28, 42, 0.82);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M8 5v14l11-7z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: 56% center;
+            background-size: 36px 36px;
+        }
+        .art-caption {
+            padding: var(--space-4) var(--space-5);
+            border-top: 1px solid var(--gray-100, #EEF2F6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        .art-caption h3 {
+            margin: 0;
+            font-size: .95rem;
+            font-weight: 600;
+            color: var(--navy, #1B3A5C);
+            letter-spacing: .02em;
+        }
+        .art-caption .art-ratio {
+            font-size: .8rem;
+            color: var(--gray-500, #6B7A8B);
+        }
+
+        /* Modal */
+        .art-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(14, 28, 42, 0.92);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: var(--space-6);
+        }
+        .art-modal.open {
+            display: flex;
+        }
+        .art-modal-inner {
+            max-width: min(92vw, 1100px);
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+            align-items: center;
+        }
+        .art-modal img,
+        .art-modal video {
+            max-width: 100%;
+            max-height: 78vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+            background: white;
+        }
+        .art-modal video {
+            background: black;
+            width: auto;
+        }
+        .art-modal-iframe-wrap {
+            display: none;
+            width: min(92vw, 1100px);
+            aspect-ratio: 16 / 9;
+            max-height: 78vh;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+            background: black;
+        }
+        .art-modal-iframe-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+        .art-modal-actions {
+            display: flex;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .art-modal-actions .btn {
+            min-width: 160px;
+        }
+        .art-modal-close {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            color: white;
+            border-radius: 999px;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.6rem;
+            line-height: 1;
+            transition: background .2s ease;
+        }
+        .art-modal-close:hover {
+            background: rgba(255, 255, 255, 0.26);
+        }
+        .art-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            color: white;
+            border-radius: 999px;
+            width: 52px;
+            height: 52px;
+            font-size: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background .2s ease;
+        }
+        .art-nav:hover { background: rgba(255, 255, 255, 0.26); }
+        .art-nav.prev { left: 24px; }
+        .art-nav.next { right: 24px; }
+        @media (max-width: 640px) {
+            .art-nav { width: 42px; height: 42px; font-size: 1.2rem; }
+            .art-nav.prev { left: 10px; }
+            .art-nav.next { right: 10px; }
+            .art-modal-close { top: 10px; right: 12px; width: 38px; height: 38px; font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="artes-header">
+        <div class="container">
+            <h1>Artes promocionales</h1>
+            <p>Piezas gráficas de la Bolsa Inmobiliaria CIASA listas para compartir. Haz clic en cualquier imagen para verla en grande y descargarla.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="artes-filters" id="artes-filters"></div>
+        <div class="artes-grid" id="artes-grid"></div>
+    </main>
+
+    <div class="art-modal" id="art-modal" role="dialog" aria-modal="true" aria-label="Vista de arte">
+        <button class="art-modal-close" id="art-modal-close" aria-label="Cerrar">&times;</button>
+        <button class="art-nav prev" id="art-prev" aria-label="Anterior">&#8249;</button>
+        <button class="art-nav next" id="art-next" aria-label="Siguiente">&#8250;</button>
+        <div class="art-modal-inner">
+            <img id="art-modal-img" src="" alt="" style="display:none;">
+            <video id="art-modal-video" controls preload="metadata" playsinline style="display:none;"></video>
+            <div class="art-modal-iframe-wrap" id="art-modal-iframe-wrap">
+                <iframe id="art-modal-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="Video"></iframe>
+            </div>
+            <div class="art-modal-actions">
+                <a id="art-download" href="#" download class="btn btn-primary btn-lg">Descargar</a>
+                <button type="button" id="art-share" class="btn btn-outline btn-lg" style="color: white; border-color: white; background: transparent; display: none;">Compartir</button>
+                <a id="art-open" href="#" target="_blank" rel="noopener" class="btn btn-outline btn-lg" style="color: white; border-color: white;">Abrir en nueva pestaña</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PILLAR_MAP = {
+            'patrimonio-regreso': 'Patrimonio & Regreso',
+            'transparencia-legal-fiscal': 'Transparencia Legal & Fiscal',
+            'proyectos-verificados': 'Proyectos Verificados',
+            'inversion-inteligente': 'Inversión Inteligente',
+            'comunidad-diasporica': 'Comunidad en el Exterior',
+            'vision-detras-camaras': 'Visión & Detrás de Cámaras',
+        };
+        const PILL_LABELS = [
+            'Patrimonio & Regreso',
+            'Transparencia Legal & Fiscal',
+            'Proyectos Verificados',
+            'Inversión Inteligente',
+            'Comunidad en el Exterior',
+            'Visión & Detrás de Cámaras',
+            'Videos',
+            'Tarjetas de Contacto',
+            'Tarjetas Paola',
+            'Tarjetas Giordana',
+            'Tarjetas Angeline',
+            'QR Codes',
+        ];
+        const REGION_DISPLAY = {
+            'punta-cana': 'Punta Cana',
+            'bayahibe': 'Bayahíbe',
+            'juan-dolio': 'Juan Dolio',
+            'distrito-nacional': 'Distrito Nacional',
+            'bani': 'Baní',
+            'miches': 'Miches',
+        };
+        const QR_REGIONS = ['punta-cana', 'bayahibe', 'juan-dolio', 'distrito-nacional', 'bani', 'miches'];
+        const QR_PROJECTS = [
+            { n: '001', codes: ['pc', 'bay', 'dn', 'spm', 'bni', 'mic'] },
+            { n: '002', codes: ['pc', 'bay', 'dn', 'spm', 'bni', 'mic'] },
+            { n: '003', codes: ['pc', 'bay'] },
+            { n: '004', codes: ['pc'] },
+            { n: '005', codes: ['pc'] },
+            { n: '006', codes: ['pc'] },
+            { n: '007', codes: ['pc'] },
+            { n: '008', codes: ['pc'] },
+            { n: '009', codes: ['pc'] },
+            { n: '010', codes: ['pc'] },
+            { n: '011', codes: ['pc'] },
+            { n: '012', codes: ['pc'] },
+            { n: '013', codes: ['pc'] },
+            { n: '014', codes: ['pc'] },
+            { n: '015', codes: ['pc'] },
+            { n: '016', codes: ['pc'] },
+        ];
+
+        const IMG_BASE = '../assets/images/flyers/';
+        const IMG_BASE_QR = '../assets/images/qr/';
+        const IMG_BASE_CARDS = '../assets/images/cards/';
+        const VIDEO_BASE = '../assets/videos/';
+
+        const grid = document.getElementById('artes-grid');
+        const filtersEl = document.getElementById('artes-filters');
+        const modal = document.getElementById('art-modal');
+        const modalImg = document.getElementById('art-modal-img');
+        const modalVideo = document.getElementById('art-modal-video');
+        const modalIframe = document.getElementById('art-modal-iframe');
+        const modalIframeWrap = document.getElementById('art-modal-iframe-wrap');
+        const modalDownload = document.getElementById('art-download');
+        const modalShare = document.getElementById('art-share');
+        const modalOpen = document.getElementById('art-open');
+        const modalClose = document.getElementById('art-modal-close');
+        const btnPrev = document.getElementById('art-prev');
+        const btnNext = document.getElementById('art-next');
+
+        let ARTES = [];
+        const cards = [];
+        let currentIndex = -1;
+        let activeFilter = 'Todos';
+
+        function thumbUrl(art) {
+            if (art.type === 'qr') return IMG_BASE_QR + art.file;
+            if (art.type === 'card') return IMG_BASE_CARDS + art.file;
+            if (art.type === 'video') return IMG_BASE + art.poster;
+            return IMG_BASE + art.file;
+        }
+        function assetUrl(art) {
+            if (art.type === 'qr') return IMG_BASE_QR + art.file;
+            if (art.type === 'card') return IMG_BASE_CARDS + art.file;
+            if (art.type === 'video') return VIDEO_BASE + art.file;
+            return IMG_BASE + art.file;
+        }
+
+        function buildArtes(manifest) {
+            const out = [];
+
+            Object.keys(manifest).sort().forEach((id) => {
+                const entry = manifest[id];
+                const pillarName = PILLAR_MAP[entry.pillar] || entry.pillar;
+                const nn = id.replace(/^CIASA-RD-/, '');
+                out.push({
+                    type: 'flyer',
+                    file: entry.file,
+                    title: `CIASA-RD ${nn}`,
+                    caption: entry.suggestedCaption,
+                    tags: [pillarName],
+                    pillarId: entry.pillar,
+                    pillarName,
+                    region: entry.region,
+                    suggestedQr: entry.suggestedQr,
+                });
+            });
+
+            out.push({
+                type: 'video',
+                file: 'CIASARD-Variante-A-04.mp4',
+                poster: 'CIASARD-Variante-A-04-poster.jpg',
+                youtubeId: 'IdX8tokE_dE',
+                title: 'Video · Variante A',
+                caption: 'El camino de regreso a casa · 1:18 · 1920×1080',
+                tags: ['Patrimonio & Regreso', 'Videos'],
+            });
+
+            // Tarjetas de presentación / contacto — generic set (sin foto)
+            [
+                { file: 'CIASA-Card-card-arch-1376x768.png',         title: 'Tarjeta · Arch',          caption: 'Variante arquitectónica · 1376×768' },
+                { file: 'CIASA-Card-card-glass-1376x768.png',        title: 'Tarjeta · Glass',         caption: 'Variante cristal · 1376×768' },
+                { file: 'CIASA-Card-card-photo-left-1376x768.png',   title: 'Tarjeta · Foto izquierda',caption: 'Foto a la izquierda · 1376×768' },
+                { file: 'CIASA-Card-card-photo-right-1376x768.png',  title: 'Tarjeta · Foto derecha',  caption: 'Foto a la derecha · 1376×768' },
+                { file: 'CIASA-Card-card-polaroid-1376x768.png',     title: 'Tarjeta · Polaroid',      caption: 'Estilo polaroid · 1376×768' },
+                { file: 'CIASA-Card-card-poster-1376x768.png',       title: 'Tarjeta · Poster',        caption: 'Estilo poster · 1376×768' },
+                { file: 'CIASA-Card-plain-01.jpeg',                  title: 'Tarjeta · Plana 01',      caption: 'Plana · ciasard.com' },
+                { file: 'CIASA-Card-plain-02.jpeg',                  title: 'Tarjeta · Plana 02',      caption: 'Plana · ciasard.com' },
+                { file: 'CIASA-Card-plain-03.jpeg',                  title: 'Tarjeta · Plana 03',      caption: 'Plana · ciasard.com' },
+            ].forEach((c) => {
+                out.push({
+                    type: 'card',
+                    file: c.file,
+                    title: c.title,
+                    caption: c.caption,
+                    tags: ['Tarjetas de Contacto'],
+                });
+            });
+
+            // Tarjetas personalizadas — 6 variantes por integrante del equipo
+            const TEAM_CARD_VARIANTS = [
+                { suffix: 'arch',         label: 'Arch',           desc: 'variante arquitectónica' },
+                { suffix: 'glass',        label: 'Glass',          desc: 'variante cristal' },
+                { suffix: 'photo-left',   label: 'Foto izquierda', desc: 'foto a la izquierda' },
+                { suffix: 'photo-right',  label: 'Foto derecha',   desc: 'foto a la derecha' },
+                { suffix: 'polaroid',     label: 'Polaroid',       desc: 'estilo polaroid' },
+                { suffix: 'poster',       label: 'Poster',         desc: 'estilo poster' },
+            ];
+            const TEAM_MEMBERS = [
+                { slug: 'paola',    display: 'Paola',    pillar: 'Tarjetas Paola' },
+                { slug: 'giordana', display: 'Giordana', pillar: 'Tarjetas Giordana' },
+                { slug: 'angeline', display: 'Angeline', pillar: 'Tarjetas Angeline' },
+            ];
+            TEAM_MEMBERS.forEach((m) => {
+                TEAM_CARD_VARIANTS.forEach((v) => {
+                    out.push({
+                        type: 'card',
+                        file: `CIASA-Card-${m.slug}-${v.suffix}-1376x768.png`,
+                        title: `Tarjeta · ${m.display} · ${v.label}`,
+                        caption: `${m.display} · ${v.desc} · 1376×768`,
+                        tags: [m.pillar, 'Tarjetas de Contacto'],
+                    });
+                });
+            });
+
+            out.push({
+                type: 'qr',
+                file: 'master.png',
+                title: 'QR · Master',
+                caption: 'Código QR · ciasard.com',
+                tags: ['QR Codes'],
+            });
+            out.push({
+                type: 'qr',
+                file: 'whatsapp.png',
+                title: 'QR · WhatsApp',
+                caption: 'Código QR · WhatsApp directo',
+                tags: ['QR Codes'],
+            });
+            QR_REGIONS.forEach((slug) => {
+                const label = REGION_DISPLAY[slug] || slug;
+                out.push({
+                    type: 'qr',
+                    file: `region-${slug}.png`,
+                    title: `QR · ${label}`,
+                    caption: `Código QR · Región ${label}`,
+                    tags: ['QR Codes'],
+                });
+            });
+            QR_PROJECTS.forEach(({ n, codes }) => {
+                codes.forEach((code) => {
+                    const upper = code.toUpperCase();
+                    out.push({
+                        type: 'qr',
+                        file: `project-ciasa-${n}-${code}.png`,
+                        title: `QR · CIASA ${n} · ${upper}`,
+                        caption: `Código QR · CIASA ${n} · ${upper}`,
+                        tags: ['QR Codes'],
+                    });
+                });
+            });
+
+            return out;
+        }
+
+        function renderGrid() {
+            grid.innerHTML = '';
+            cards.length = 0;
+            ARTES.forEach((art, i) => {
+                const card = document.createElement('div');
+                card.className = 'art-card';
+                card.dataset.tags = (art.tags || []).join('|');
+                const thumbClass = art.type === 'video' ? 'art-thumb is-video' : 'art-thumb';
+                const playBadge = art.type === 'video' ? '<span class="play-badge" aria-hidden="true"></span>' : '';
+                const tagsHtml = (art.tags || []).length
+                    ? `<div class="art-tags">${art.tags.map(t => `<span class="art-tag">${t}</span>`).join('')}</div>`
+                    : '';
+                card.innerHTML = `
+                    <div class="${thumbClass}">
+                        <img src="${thumbUrl(art)}" alt="${art.caption}" loading="lazy">
+                        ${playBadge}
+                    </div>
+                    <div class="art-caption">
+                        <h3>${art.title}</h3>
+                        <span class="art-ratio">${art.caption}</span>
+                    </div>
+                    ${tagsHtml}
+                `;
+                card.addEventListener('click', () => openModal(i));
+                grid.appendChild(card);
+                cards.push({ el: card, art });
+            });
+        }
+
+        function buildPill(label, count, isActive) {
+            const pill = document.createElement('button');
+            pill.className = 'filter-pill' + (isActive ? ' active' : '');
+            pill.innerHTML = `${label}<span class="filter-count">${count}</span>`;
+            pill.addEventListener('click', () => applyFilter(label));
+            return pill;
+        }
+
+        function renderFilters() {
+            filtersEl.innerHTML = '<span class="filter-label">Filtrar:</span>';
+            filtersEl.appendChild(buildPill('Todos', ARTES.length, activeFilter === 'Todos'));
+            PILL_LABELS.forEach(tag => {
+                const count = ARTES.filter(a => (a.tags || []).includes(tag)).length;
+                filtersEl.appendChild(buildPill(tag, count, activeFilter === tag));
+            });
+            // Batch download button — pinned to the right
+            const dlWrap = document.createElement('div');
+            dlWrap.className = 'download-all-wrap';
+            dlWrap.appendChild(downloadAllBtn);
+            filtersEl.appendChild(dlWrap);
+            updateDownloadAllCount();
+        }
+
+        function applyFilter(tag) {
+            activeFilter = tag;
+            filtersEl.querySelectorAll('.filter-pill').forEach(p => {
+                p.classList.toggle('active', p.textContent.replace(/\d+$/, '').trim() === tag);
+            });
+            cards.forEach(({ el, art }) => {
+                const show = tag === 'Todos' || (art.tags || []).includes(tag);
+                el.classList.toggle('hidden', !show);
+            });
+            updateDownloadAllCount();
+        }
+
+        function visibleDownloadable() {
+            return ARTES.filter(a => a.type !== 'video' && (activeFilter === 'Todos' || (a.tags || []).includes(activeFilter)));
+        }
+
+        function updateDownloadAllCount() {
+            const items = visibleDownloadable();
+            const txt = downloadAllBtn.querySelector('.dl-text');
+            if (txt && !downloadAllBtn.dataset.busy) {
+                txt.textContent = items.length > 0 ? `Descargar todo (${items.length})` : 'Descargar todo';
+            }
+            if (!downloadAllBtn.dataset.busy) {
+                downloadAllBtn.disabled = items.length === 0;
+            }
+        }
+
+        async function downloadAll() {
+            if (typeof JSZip === 'undefined') {
+                alert('Librería ZIP aún cargando. Intenta otra vez en unos segundos.');
+                return;
+            }
+            const items = visibleDownloadable();
+            if (items.length === 0) return;
+            const txt = downloadAllBtn.querySelector('.dl-text');
+            downloadAllBtn.dataset.busy = '1';
+            downloadAllBtn.disabled = true;
+            const zip = new JSZip();
+            let i = 0;
+            for (const art of items) {
+                i++;
+                if (txt) txt.textContent = `Descargando ${i}/${items.length}…`;
+                try {
+                    const res = await fetch(assetUrl(art));
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    const blob = await res.blob();
+                    zip.file(art.file, blob);
+                } catch (err) {
+                    console.warn('Skipping', art.file, err);
+                }
+            }
+            if (txt) txt.textContent = 'Empacando ZIP…';
+            const zipBlob = await zip.generateAsync({ type: 'blob' });
+            const slug = activeFilter === 'Todos'
+                ? 'todos'
+                : activeFilter.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            const date = new Date().toISOString().slice(0, 10);
+            const filename = `ciasard-artes-${slug}-${date}.zip`;
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(zipBlob);
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+            delete downloadAllBtn.dataset.busy;
+            updateDownloadAllCount();
+        }
+
+        // Persistent download-all button (re-attached on every renderFilters)
+        const downloadAllBtn = document.createElement('button');
+        downloadAllBtn.type = 'button';
+        downloadAllBtn.className = 'download-all-btn';
+        downloadAllBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="dl-text">Descargar todo</span>';
+        downloadAllBtn.addEventListener('click', downloadAll);
+
+        // Share button (modal) — Web Share API with clipboard fallback
+        modalShare.addEventListener('click', async () => {
+            const url = modalShare.dataset.shareUrl;
+            const title = modalShare.dataset.shareTitle || 'Video CIASA';
+            const text = modalShare.dataset.shareText || '';
+            if (!url) return;
+            if (navigator.share) {
+                try { await navigator.share({ title, text, url }); } catch (e) { /* user cancelled */ }
+                return;
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                try {
+                    await navigator.clipboard.writeText(url);
+                    const orig = modalShare.textContent;
+                    modalShare.textContent = '¡Enlace copiado!';
+                    setTimeout(() => { modalShare.textContent = orig; }, 1800);
+                    return;
+                } catch (e) { /* fall through */ }
+            }
+            window.prompt('Copia este enlace:', url);
+        });
+
+        function openModal(i) {
+            currentIndex = i;
+            const art = ARTES[i];
+            const url = assetUrl(art);
+            modalVideo.pause();
+            modalVideo.removeAttribute('src');
+            modalVideo.load();
+            modalIframe.src = '';
+            modalIframeWrap.style.display = 'none';
+            if (art.type === 'video' && art.youtubeId) {
+                modalImg.style.display = 'none';
+                modalImg.src = '';
+                modalVideo.style.display = 'none';
+                modalIframe.src = `https://www.youtube-nocookie.com/embed/${art.youtubeId}?rel=0&modestbranding=1&playsinline=1`;
+                modalIframeWrap.style.display = 'block';
+            } else if (art.type === 'video') {
+                modalImg.style.display = 'none';
+                modalImg.src = '';
+                modalVideo.src = url;
+                modalVideo.poster = IMG_BASE + art.poster;
+                modalVideo.style.display = 'block';
+            } else {
+                modalVideo.style.display = 'none';
+                modalImg.src = url;
+                modalImg.alt = art.caption;
+                modalImg.style.display = 'block';
+            }
+            modalDownload.href = url;
+            modalDownload.setAttribute('download', art.file);
+            modalOpen.href = url;
+            // Share button — for videos, share the branded /videos/ page
+            // (lands viewers on CIASA, not YouTube). Future per-video pages
+            // can use a slug; for now /videos/ holds the featured cut.
+            if (art.type === 'video') {
+                modalShare.style.display = 'inline-flex';
+                modalShare.dataset.shareUrl = `${window.location.origin}/videos/`;
+                modalShare.dataset.shareTitle = art.title || 'Video CIASA';
+                modalShare.dataset.shareText = art.caption || '';
+                modalShare.textContent = 'Compartir';
+            } else {
+                modalShare.style.display = 'none';
+            }
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalVideo.pause();
+            modalIframe.src = '';
+            modalIframeWrap.style.display = 'none';
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function step(delta) {
+            if (currentIndex < 0) return;
+            const visible = (a) => activeFilter === 'Todos' || (a.tags || []).includes(activeFilter);
+            const n = ARTES.length;
+            let next = currentIndex;
+            for (let k = 0; k < n; k++) {
+                next = (next + delta + n) % n;
+                if (visible(ARTES[next])) break;
+            }
+            openModal(next);
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        btnPrev.addEventListener('click', (e) => { e.stopPropagation(); step(-1); });
+        btnNext.addEventListener('click', (e) => { e.stopPropagation(); step(1); });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('open')) return;
+            if (e.key === 'Escape') closeModal();
+            else if (e.key === 'ArrowLeft') step(-1);
+            else if (e.key === 'ArrowRight') step(1);
+        });
+
+        fetch('../data/flyer-categorization.json')
+            .then(r => {
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                return r.json();
+            })
+            .then(manifest => {
+                ARTES = buildArtes(manifest);
+                renderGrid();
+                renderFilters();
+            })
+            .catch(err => {
+                console.error('Failed to load flyer manifest', err);
+                grid.innerHTML = '<p style="color: var(--navy, #1B3A5C); padding: var(--space-6);">No pudimos cargar el manifiesto de artes. Intenta recargar.</p>';
+            });
+    </script>
+</body>
+</html>

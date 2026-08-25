@@ -1,0 +1,348 @@
+<%- include('../layouts/header', { pageTitle: 'CIASA Bolsa Inmobiliaria — Inversión Inmobiliaria en RD', pageDesc: 'Portal oficial de CIASA Bolsa Inmobiliaria. Inversión inmobiliaria con Ley CONFOTUR para dominicanos en el exterior.', activePage: 'inicio' }) %>
+
+  <style>
+    .home-hero-section {
+      background: linear-gradient(rgba(10, 30, 54, 0.78), rgba(10, 30, 54, 0.92)), url('/assets/images/projects/marina-garden-2.jpg');
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
+    .home-hero-container {
+      padding-top: 80px;
+      padding-bottom: 120px;
+    }
+    .home-hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .home-video-wrapper {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      aspect-ratio: 16/9;
+      background: #0f172a;
+      position: relative;
+      width: 100%;
+    }
+    .home-stats-wrapper {
+      margin-top: -50px;
+      position: relative;
+      z-index: 10;
+    }
+    .home-stats-grid {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 30px 16px;
+    }
+    .home-stat-cell {
+      text-align: center;
+      padding: 0 16px;
+      border-right: 1px solid var(--border);
+    }
+    .home-stat-cell:last-child {
+      border-right: none;
+    }
+
+    @media (max-width: 900px) {
+      .home-hero-container {
+        padding-top: 40px;
+        padding-bottom: 75px;
+      }
+      .home-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .home-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px 0;
+        padding: 24px 12px;
+      }
+      .home-stat-cell {
+        padding: 10px 12px;
+      }
+      .home-stat-cell:nth-child(2) {
+        border-right: none;
+      }
+      .home-stat-cell:nth-child(3) {
+        border-right: 1px solid var(--border);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .home-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 18px 10px;
+      }
+      .home-stat-cell div:first-child {
+        font-size: 1.8rem !important;
+      }
+      .home-stat-cell div:last-child {
+        font-size: 0.76rem !important;
+      }
+    }
+  </style>
+
+  <!-- ==========================================================================
+       HERO SECTION (RESPONSIVE EN TODAS LAS PANTALLAS)
+       ========================================================================== -->
+  <section class="home-hero-section">
+    <div class="container home-hero-container">
+      <div class="home-hero-grid">
+        <div>
+          <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #A3E635; background: rgba(163, 230, 53, 0.12); padding: 6px 16px; border-radius: 50px; display: inline-block; margin-bottom: 16px; border: 1px solid rgba(163, 230, 53, 0.25);">
+            Para Dominicanos en el Exterior
+          </span>
+          <h1 style="font-size: clamp(2.1rem, 4vw, 3.4rem); font-weight: 900; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 18px;">
+            Tu ruta a la prosperidad en <span style="color: var(--green);">República Dominicana</span>
+          </h1>
+          <p style="font-size: 1.08rem; color: #CBD5E1; line-height: 1.6; margin-bottom: 28px; max-width: 540px;">
+            Asesoría patrimonial y legal especializada para adquirir propiedades de alta plusvalía en Punta Cana, Cap Cana, Santo Domingo, Juan Dolio y Samaná con beneficios de la <strong>Ley CONFOTUR</strong>.
+          </p>
+          <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <a href="/proyectos" style="background: #7DB33A; color: #ffffff; font-weight: 700; padding: 12px 28px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; font-size: 0.96rem; box-shadow: 0 4px 12px rgba(125, 179, 58, 0.35); transition: all 0.2s;">
+              Ver Proyectos
+            </a>
+            <a href="/mapa" style="background: transparent; color: #ffffff; border: 2px solid #ffffff; font-weight: 700; padding: 10px 24px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; font-size: 0.96rem; transition: all 0.2s;">
+              Explorar Mapa
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <div class="home-video-wrapper" id="homeVideoContainer" style="position: relative; group">
+            <video id="heroVideo" autoplay loop muted playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+              <source src="/videos/ciasa-hero-bg.mp4" type="video/mp4">
+            </video>
+
+            <!-- Controles Flotantes Elegantes (Play/Pause & Mute/Sonido) -->
+            <div style="position: absolute; bottom: 14px; right: 14px; display: flex; gap: 8px; z-index: 20;">
+              <!-- Botón Play / Pausa -->
+              <button type="button" id="videoPlayBtn" onclick="toggleVideoPlay()" style="background: rgba(10,30,54,0.75); border: 1px solid rgba(255,255,255,0.25); color: #ffffff; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(6px); transition: all 0.2s;" title="Pausar / Reproducir">
+                <i class="fa-solid fa-pause" id="playIcon" style="font-size: 0.95rem;"></i>
+              </button>
+
+              <!-- Botón Sonido / Mute -->
+              <button type="button" id="videoMuteBtn" onclick="toggleVideoMute()" style="background: rgba(10,30,54,0.75); border: 1px solid rgba(255,255,255,0.25); color: #ffffff; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(6px); transition: all 0.2s;" title="Activar / Silenciar Sonido">
+                <i class="fa-solid fa-volume-xmark" id="muteIcon" style="font-size: 0.95rem;"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function toggleVideoPlay() {
+      const v = document.getElementById('heroVideo');
+      const icon = document.getElementById('playIcon');
+      if (!v) return;
+      if (v.paused) {
+        v.play();
+        if (icon) icon.className = 'fa-solid fa-pause';
+      } else {
+        v.pause();
+        if (icon) icon.className = 'fa-solid fa-play';
+      }
+    }
+
+    function toggleVideoMute() {
+      const v = document.getElementById('heroVideo');
+      const icon = document.getElementById('muteIcon');
+      if (!v) return;
+      v.muted = !v.muted;
+      if (icon) {
+        icon.className = v.muted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high';
+      }
+    }
+  </script>
+
+  <!-- ==========================================================================
+       ESTADÍSTICAS RESPONSIVE (SIN DESBORDE EN MÓVIL)
+       ========================================================================== -->
+  <section class="container home-stats-wrapper">
+    <div class="home-stats-grid">
+      <div class="home-stat-cell">
+        <div style="font-size: 2.2rem; font-weight: 900; color: var(--navy); margin-bottom: 4px;">27+</div>
+        <div style="font-size: 0.84rem; color: var(--text-muted); font-weight: 600;">Proyectos Verificados</div>
+      </div>
+      <div class="home-stat-cell">
+        <div style="font-size: 2.2rem; font-weight: 900; color: var(--green); margin-bottom: 4px;">15 Años</div>
+        <div style="font-size: 0.84rem; color: var(--text-muted); font-weight: 600;">Exención Impuestos IPI</div>
+      </div>
+      <div class="home-stat-cell">
+        <div style="font-size: 2.2rem; font-weight: 900; color: var(--navy); margin-bottom: 4px;">8-14%</div>
+        <div style="font-size: 0.84rem; color: var(--text-muted); font-weight: 600;">ROI Anual Estimado (USD)</div>
+      </div>
+      <div class="home-stat-cell">
+        <div style="font-size: 2.2rem; font-weight: 900; color: var(--green); margin-bottom: 4px;">100%</div>
+        <div style="font-size: 0.84rem; color: var(--text-muted); font-weight: 600;">Asistencia a Distancia</div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- ==========================================================================
+         REGIONES DESTACADAS
+         ========================================================================== -->
+    <section class="section-pad">
+      <div class="container">
+        <div class="sec-head">
+          <span class="sec-tag">Polos de Desarrollo</span>
+          <h2 class="sec-title">Las Mejores Regiones para Invertir</h2>
+          <p class="sec-sub">Explora ubicaciones estratégicas con alto flujo turístico internacional y excelente rentabilidad.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+          <!-- Punta Cana -->
+          <a href="/proyectos?region=punta-cana" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+              <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Punta Cana & Cap Cana</div>
+              <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">12 Proyectos</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); flex: 1;">Epicentro turístico con aeropuerto propio, playas de arena blanca y alta demanda de alquileres vacacionales Airbnb.</p>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 6px;">Desde US$ 125,000 <i class="fa-solid fa-arrow-right"></i></div>
+          </a>
+
+          <!-- Santo Domingo -->
+          <a href="/proyectos?region=santo-domingo" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+              <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Santo Domingo & DN</div>
+              <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">5 Proyectos</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); flex: 1;">Centro financiero, corporativo y comercial. Inversión residencial premium en Piantini, Naco y Bella Vista.</p>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 6px;">Desde US$ 98,000 <i class="fa-solid fa-arrow-right"></i></div>
+          </a>
+
+          <!-- Juan Dolio -->
+          <a href="/proyectos?region=juan-dolio" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+              <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Juan Dolio & Guayacanes</div>
+              <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">3 Proyectos</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); flex: 1;">A solo 45 min de la capital y 20 min del Aeropuerto Las Américas (SDQ). Estilo de vida frente al mar.</p>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 6px;">Desde US$ 115,000 <i class="fa-solid fa-arrow-right"></i></div>
+          </a>
+
+          <!-- Bayahíbe -->
+          <a href="/proyectos?region=bayahibe" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+              <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Bayahíbe & Dominicus</div>
+              <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">3 Proyectos</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); flex: 1;">Aguas turquesas del Mar Caribe y punto de partida a Isla Saona. Exclusividad y entorno natural caribeño.</p>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 6px;">Desde US$ 160,000 <i class="fa-solid fa-arrow-right"></i></div>
+          </a>
+
+          <!-- Samaná -->
+          <a href="/proyectos?region=las-terrenas" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+              <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Las Terrenas & Samaná</div>
+              <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">2 Proyectos</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); flex: 1;">Península paradisíaca con vegetación exuberante, estilo de vida bohemio chic y alta demanda europea y norteamericana.</p>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 6px;">Desde US$ 175,000 <i class="fa-solid fa-arrow-right"></i></div>
+          </a>
+
+          <!-- Miches -->
+          <a href="/proyectos?region=miches" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+              <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Miches & Costa Esmeralda</div>
+              <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">2 Proyectos</span>
+            </div>
+            <p style="font-size: 0.88rem; color: var(--text-muted); flex: 1;">El nuevo polo de lujo sostenible del país con hoteles 5 estrellas y el mayor potencial de revalorización.</p>
+            <div style="font-size: 0.85rem; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 6px;">Desde US$ 63,000 <i class="fa-solid fa-arrow-right"></i></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         EQUIPO DIRECTIVO
+         ========================================================================== -->
+    <section class="section-pad" style="background: #ffffff; border-top: 1px solid var(--border);">
+      <div class="container">
+        <div class="sec-head">
+          <span class="sec-tag">Nuestro Equipo</span>
+          <h2 class="sec-title">Asesoría Directa y Personalizada</h2>
+          <p class="sec-sub">Profesionales con amplia trayectoria en el mercado inmobiliario dominicano.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px;">
+          <!-- Paola Caram -->
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
+            <div style="width: 100%; height: 300px; overflow: hidden; background: #E2E8F0;">
+              <img src="/assets/images/team/paola-caram.jpg" alt="Paola Caram" style="width: 100%; height: 100%; object-fit: cover; object-position: top center;">
+            </div>
+            <div style="padding: 24px; flex: 1; display: flex; flex-direction: column;">
+              <div style="font-size: 1.25rem; font-weight: 800; color: var(--navy); margin-bottom: 4px;">Paola Caram</div>
+              <div style="font-size: 0.85rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Directora Comercial & Estrategia</div>
+              <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; flex: 1;">Especialista en estructuración patrimonial y asesoría para dominicanos residentes en EE.UU. y el exterior.</p>
+              <a href="https://wa.me/18092995233?text=Hola%20Paola,%20deseo%20asesor%C3%ADa%20personalizada%20con%20CIASA." target="_blank" style="background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; padding: 10px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fa-brands fa-whatsapp"></i> Contactar a Paola
+              </a>
+            </div>
+          </div>
+
+          <!-- Angeline Pimentel -->
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
+            <div style="width: 100%; height: 300px; overflow: hidden; background: #E2E8F0;">
+              <img src="/assets/images/team/angeline-pimentel.jpg" alt="Angeline Pimentel" style="width: 100%; height: 100%; object-fit: cover; object-position: top center;">
+            </div>
+            <div style="padding: 24px; flex: 1; display: flex; flex-direction: column;">
+              <div style="font-size: 1.25rem; font-weight: 800; color: var(--navy); margin-bottom: 4px;">Angeline Pimentel</div>
+              <div style="font-size: 0.85rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Especialista en Punta Cana & Cap Cana</div>
+              <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; flex: 1;">Experta en proyectos turísticos de Punta Cana, Cap Cana y rentabilidad por alquileres vacacionales Airbnb.</p>
+              <a href="https://wa.me/18092995233?text=Hola%20Angeline,%20deseo%20informaci%C3%B3n%20sobre%20proyectos%20en%20Punta%20Cana." target="_blank" style="background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; padding: 10px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fa-brands fa-whatsapp"></i> Contactar a Angeline
+              </a>
+            </div>
+          </div>
+
+          <!-- Giordana Moscoso -->
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
+            <div style="width: 100%; height: 300px; overflow: hidden; background: #E2E8F0;">
+              <img src="/assets/images/team/giordana-moscoso.jpg" alt="Giordana Moscoso" style="width: 100%; height: 100%; object-fit: cover; object-position: top center;">
+            </div>
+            <div style="padding: 24px; flex: 1; display: flex; flex-direction: column;">
+              <div style="font-size: 1.25rem; font-weight: 800; color: var(--navy); margin-bottom: 4px;">Giordana Moscoso</div>
+              <div style="font-size: 0.85rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Consultora Inmobiliaria & Legal</div>
+              <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; flex: 1;">Guía a familias dominicanas en el proceso bancario, precalificación hipotecaria y beneficios de Ley CONFOTUR.</p>
+              <a href="https://wa.me/18092995233?text=Hola%20Giordana,%20deseo%20asesor%C3%ADa%20para%20comprar%20mi%20propiedad." target="_blank" style="background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; padding: 10px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fa-brands fa-whatsapp"></i> Contactar a Giordana
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         BANNER CONFOTUR
+         ========================================================================== -->
+    <section class="container" style="margin: 60px auto;">
+      <div style="background: linear-gradient(135deg, var(--navy) 0%, #153356 100%); border-radius: var(--radius-lg); padding: 44px 40px; color: #ffffff; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 280px;">
+          <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 12px;">Beneficios Fiscales <span style="color: #A3E635;">Ley CONFOTUR</span></h2>
+          <p style="font-size: 0.95rem; color: #CBD5E1; line-height: 1.6;">
+            Incentivos exclusivos para inversionistas y dominicanos en el exterior: 
+            <strong>15 años de exención del 100% de impuestos</strong> sobre la propiedad inmobiliaria (IPI), 0% impuesto de transferencia de título y 0% impuesto sobre la renta por alquileres.
+          </p>
+        </div>
+        <a href="/invertir" class="btn-cta" style="background: var(--green); padding: 14px 28px; font-size: 0.95rem;">
+          <i class="fa-solid fa-file-invoice-dollar"></i> Conocer Beneficios
+        </a>
+      </div>
+    </section>
+  </main>
+
+<%- include('../layouts/footer') %>

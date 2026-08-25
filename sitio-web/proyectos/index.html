@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos de Inversión | Bolsa Inmobiliaria</title>
+    <meta name="description" content="Explora proyectos de inversión inmobiliaria en República Dominicana. Filtra por región, tipo, precio y más. CONFOTUR, Airbnb-friendly, financiamiento disponible.">
+
+    <meta property="og:title" content="Proyectos de Inversión | Bolsa Inmobiliaria">
+    <meta property="og:description" content="Proyectos de inversión inmobiliaria en República Dominicana. Punta Cana, Bayahíbe, Juan Dolio y más.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_DO">
+    <meta property="og:image" content="https://ciasard.com/assets/images/branding/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <link rel="stylesheet" href="../css/variables.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/layout.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/components.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/pages.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/chat-widget.css?v=20260820_v4">
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="navbar-logo">
+        <img class="navbar-logomark" src="../assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Bolsa Inmobiliaria" aria-hidden="true">
+        <span class="navbar-logo-words">CIASA <span>Bolsa Inmobiliaria</span> <small class="navbar-tagline">Tu Ruta a la Prosperidad</small></span>
+      </a>
+      <ul class="navbar-links" id="navLinks">
+        <li><a href="/proyectos/" class="active" data-i18n="nav.proyectos">Proyectos</a></li>
+        <li><a href="/mapa/" data-i18n="nav.mapa">Mapa</a></li>
+        <li class="navbar-dropdown">
+          <button type="button" class="navbar-dropdown-trigger" aria-expanded="false" aria-controls="advisoryMenu" data-i18n="nav.asesoria">Asesoría</button>
+          <ul class="navbar-dropdown-menu" id="advisoryMenu">
+            <li><a href="/invertir/" data-i18n="nav.guia">Guía de Inversión</a></li>
+            <li><a href="/wizard/" data-i18n="nav.wizard">Wizard de Inversión</a></li>
+            <li><a href="/herramientas/" data-i18n="nav.calculadoras">Calculadoras</a></li>
+            <li><a href="/articulos/" data-i18n="nav.articulos">Artículos</a></li>
+          </ul>
+        </li>
+        <li><a href="/servicios/" data-i18n="nav.servicios">Servicios</a></li>
+        <li><a href="/nosotros/" data-i18n="nav.nosotros">Nosotros</a></li>
+        <li><a href="/contacto/" data-i18n="nav.contacto">Contacto</a></li>
+        <li><a href="/contacto/" class="btn btn-primary btn-sm" style="background:#7DB33A!important;color:#FFFFFF!important;font-weight:700!important;text-shadow:0 1px 2px rgba(0,0,0,0.35)!important;" data-i18n="nav.invertir">Invertir Ahora</a></li>
+        <li><button class="search-trigger" onclick="openSearch()" aria-label="Buscar" data-i18n-title="nav.buscar" title="Buscar (Ctrl+K)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button></li>
+        <li class="lang-dropdown-wrap" id="langDropdownWrap">
+          <button class="lang-trigger" id="langTrigger" onclick="toggleLangDropdown(event)" aria-label="Idioma / Language" aria-expanded="false" aria-controls="langDropdownMenu">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span id="langCurrentLabel">ES</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="lang-dropdown-menu" id="langDropdownMenu">
+            <button class="lang-btn lang-option active" data-lang="es" onclick="if(typeof setLang==='function')setLang('es');closeLangDropdown()">Español</button>
+            <button class="lang-btn lang-option" data-lang="en" onclick="if(typeof setLang==='function')setLang('en');closeLangDropdown()">English</button>
+            <button class="lang-btn lang-option" data-lang="fr" onclick="if(typeof setLang==='function')setLang('fr');closeLangDropdown()">Français</button>
+          </div>
+        </li>
+      </ul>
+      <button class="navbar-toggle" id="navToggle" type="button" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+    <main data-pagefind-body>
+
+    <section class="portfolio-header">
+        <div class="container">
+            <h1 data-i18n="section.proyectos">Nuestros Proyectos</h1>
+            <p id="portfolioSubtitle">Oportunidades de inversión inmobiliaria en República Dominicana</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="filter-bar">
+                <div class="form-group">
+                    <label class="form-label">Región</label>
+                    <select id="filterRegion" class="form-select">
+                        <option value="">Todas las Regiones</option>
+                        <option value="punta-cana">Punta Cana</option>
+                        <option value="bayahibe">Bayahíbe</option>
+                        <option value="juan-dolio">Juan Dolio</option>
+                        <option value="distrito-nacional">Distrito Nacional</option>
+                        <option value="bani">Baní / Peravia</option>
+                        <option value="miches">Miches</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tipo</label>
+                    <select id="filterType" class="form-select">
+                        <option value="">Todos los Tipos</option>
+                        <option value="apartamento">Apartamento</option>
+                        <option value="villa">Villa</option>
+                        <option value="townhouse">Townhouse</option>
+                        <option value="terreno">Terreno</option>
+                        <option value="comercial">Comercial</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Precio Máx</label>
+                    <select id="filterPrice" class="form-select">
+                        <option value="">Sin Límite</option>
+                        <option value="200000">Hasta $200K</option>
+                        <option value="300000">Hasta $300K</option>
+                        <option value="500000">Hasta $500K</option>
+                        <option value="1000000">Hasta $1M</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">CONFOTUR</label>
+                    <select id="filterConfotur" class="form-select">
+                        <option value="">Todos</option>
+                        <option value="true">Solo CONFOTUR</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Ordenar</label>
+                    <select id="sortBy" class="form-select">
+                        <option value="featured">Destacados</option>
+                        <option value="price-asc">Precio: Menor a Mayor</option>
+                        <option value="price-desc">Precio: Mayor a Menor</option>
+                        <option value="name">Código A-Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <p class="results-count" id="resultsCount"></p>
+
+            <div id="loadingState" style="text-align:center;padding:var(--space-12);color:var(--gray-400);">
+                Cargando proyectos…
+            </div>
+
+            <div class="projects-grid" id="projectsGrid" style="display:none"></div>
+
+            <div class="no-results hidden" id="noResults">
+                <h3>No se encontraron proyectos</h3>
+                <p>Intenta ajustar los filtros para ver más opciones.</p>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="footer" id="siteFooter">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logomark" src="../assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Logo" aria-hidden="true">
+            <span class="footer-brand-words">CIASA <span class="footer-brand-accent">Bolsa Inmobiliaria</span> <small class="navbar-tagline">Tu Ruta a la Prosperidad</small></span>
+          </div>
+          <p class="footer-description" data-i18n="footer.description">Conectamos a dominicanos en el exterior con las mejores oportunidades de inversión inmobiliaria en República Dominicana.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.explorar">Explorar</h4>
+          <ul class="footer-links">
+            <li><a href="/proyectos/" data-i18n="nav.proyectos">Proyectos</a></li>
+            <li><a href="/mapa/">Mapa Interactivo</a></li>
+            <li><a href="/invertir/" data-i18n="nav.guia">Guía de Inversión</a></li>
+            <li><a href="/nosotros/" data-i18n="nav.nosotros">Nosotros</a></li>
+            <li><a href="/contacto/" data-i18n="nav.contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Responsabilidad Social</h4>
+          <p style="font-size:var(--font-size-xs);color:var(--gray-400);line-height:1.6;margin:0 0 var(--space-3);">Parte de nuestro impacto va de regreso a la comunidad.</p>
+          <a href="https://www.evolutionfoundationusa.org.do" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;font-size:var(--font-size-sm);color:var(--teal);font-weight:600;text-decoration:none;">
+            ❤ Evolution Foundation
+          </a>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.herramientas">Herramientas</h4>
+          <ul class="footer-links">
+            <li><a href="/herramientas/" data-i18n="nav.calculadoras">Calculadoras</a></li>
+            <li><a href="/faq/">Preguntas Frecuentes</a></li>
+            <li><a href="/crm-npi" style="color:var(--teal);font-weight:600;"><i class="fa-solid fa-chart-line" style="margin-right:4px;"></i> NPI CRM</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.contacto">Contacto</h4>
+          <ul class="footer-links">
+            <li><a href="tel:+18092995233" data-sc="phone-href" data-sc-no-text>+1 (809) 299-5233</a></li>
+            <li><a href="mailto:paola.caram@ciasard.org.do" data-sc="email-href" data-sc-no-text>paola.caram@ciasard.org.do</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n-html="footer.rights">&copy; 2026 Bolsa Inmobiliaria. Todos los derechos reservados.</p>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <a href="/crm-npi" class="footer-crm-badge" title="Panel de CRM & Leads"><i class="fa-solid fa-lock" style="font-size:0.75rem;margin-right:4px;"></i> NPI CRM</a>
+          <p>Powered by CIASA</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+    <script src="../js/relpath.js?v=20260820_v4"></script>
+    <script src="../js/icons.js?v=20260820_v4"></script>
+    <script src="../js/i18n.js?v=20260820_v4"></script>
+    <script src="../js/components.js?v=20260820_v4"></script>
+    <script src="../js/regions-data.js?v=20260820_v4"></script>
+    <script src="../js/projects-data.js?v=20260820_v4"></script>
+    <script src="../js/lead-form.js?v=20260820_v4"></script>
+
+    <script>
+        var REGION_NAMES = {
+            'punta-cana': 'Punta Cana',
+            'bayahibe': 'Bayahíbe',
+            'juan-dolio': 'Juan Dolio / SPM',
+            'distrito-nacional': 'Distrito Nacional',
+            'bani': 'Baní / Peravia',
+            'miches': 'Miches',
+            'otros': 'Otros',
+        };
+
+        var _allProperties = [];
+
+        function _imgUrl(prop) {
+            if (prop.mainImage && prop.mainImage.url) return prop.mainImage.url;
+            if (prop.image) return (typeof window.relRoot === 'function' ? window.relRoot() : '') + prop.image;
+            return null;
+        }
+
+        function _formatPrice(prop) {
+            var lo = prop.priceFrom, hi = prop.priceTo;
+            var fmt = function(n) {
+                if (!n) return '';
+                if (n >= 1000000) return '$' + (n/1000000).toFixed(1).replace(/\.0$/,'') + 'M';
+                if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
+                return '$' + n;
+            };
+            if (lo && hi && lo !== hi) return fmt(lo) + ' – ' + fmt(hi);
+            return fmt(lo) || fmt(hi) || '';
+        }
+
+        function _detailUrl(prop) {
+            return '/proyectos/' + encodeURIComponent(prop._id) + '.html';
+        }
+
+        function filterAndRender() {
+            var region   = document.getElementById('filterRegion').value;
+            var type     = document.getElementById('filterType').value;
+            var maxPrice = document.getElementById('filterPrice').value;
+            var confotur = document.getElementById('filterConfotur').value;
+            var sortBy   = document.getElementById('sortBy').value;
+
+            var filtered = _allProperties.filter(function(p) {
+                if (region   && p.region !== region) return false;
+                if (type     && p.type   !== type)   return false;
+                if (maxPrice && (p.priceFrom || 0) > parseInt(maxPrice)) return false;
+                if (confotur === 'true' && !p.confotur) return false;
+                return true;
+            });
+
+            filtered.sort(function(a, b) {
+                switch (sortBy) {
+                    case 'price-asc':  return (a.priceFrom||0) - (b.priceFrom||0);
+                    case 'price-desc': return (b.priceFrom||0) - (a.priceFrom||0);
+                    case 'name':       return (a.code||'').localeCompare(b.code||'');
+                    default:           return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+                }
+            });
+
+            var grid      = document.getElementById('projectsGrid');
+            var noResults = document.getElementById('noResults');
+            var count     = document.getElementById('resultsCount');
+            grid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                noResults.classList.remove('hidden');
+                count.textContent = '';
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            count.textContent = filtered.length + ' proyecto' + (filtered.length !== 1 ? 's' : '') + ' encontrado' + (filtered.length !== 1 ? 's' : '');
+
+            filtered.forEach(function(prop) {
+                var card = document.createElement('a');
+                card.href = _detailUrl(prop);
+                card.className = 'card project-card';
+                card.style.cssText = 'text-decoration:none;color:inherit;';
+
+                var img = _imgUrl(prop);
+                var imgStyle = img
+                    ? 'background-image:url(' + img + ');background-size:cover;background-position:center;'
+                    : 'background:linear-gradient(135deg,var(--navy),var(--teal));';
+
+                var badges = '';
+                if (prop.confotur)      badges += '<span class="badge badge-confotur">CONFOTUR</span> ';
+                if (prop.roi)           badges += '<span class="badge badge-roi">ROI ' + prop.roi + '</span> ';
+                if (prop.airbnbFriendly) badges += '<span class="badge badge-airbnb">Airbnb</span>';
+
+                var regionLabel = REGION_NAMES[prop.region] || prop.region || '';
+                var location    = prop.distrito || '';
+                var size        = prop.sizeFrom ? (prop.sizeTo && prop.sizeTo !== prop.sizeFrom ? prop.sizeFrom + '–' + prop.sizeTo : prop.sizeFrom) + ' m²' : '';
+
+                card.innerHTML =
+                    '<div class="card-image" style="' + imgStyle + '">' +
+                        '<div style="position:absolute;bottom:var(--space-3);left:var(--space-3);">' + badges + '</div>' +
+                    '</div>' +
+                    '<div class="card-body">' +
+                        '<p class="card-subtitle">' + regionLabel + (location ? ' · ' + location : '') + '</p>' +
+                        '<h3 class="card-title">' + (prop.code || '—') + '</h3>' +
+                        '<p class="price">' + _formatPrice(prop) + '</p>' +
+                        '<div class="card-stats">' +
+                            (prop.bedrooms ? '<span class="stat"><strong>' + prop.bedrooms + '</strong> Hab</span>' : '') +
+                            (size          ? '<span class="stat"><strong>' + size + '</strong></span>' : '') +
+                            (prop.delivery ? '<span class="stat">Entrega: <strong>' + prop.delivery + '</strong></span>' : '') +
+                        '</div>' +
+                    '</div>';
+                grid.appendChild(card);
+            });
+        }
+
+        // Load from the bundled static catalog (PROJECTS in projects-data.js).
+        // The public listing shows the project code + district, never the
+        // private name/exact location (see getPublicLocation in projects-data.js).
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var preRegion = params.get('region');
+            if (preRegion) document.getElementById('filterRegion').value = preRegion;
+
+            ['filterRegion','filterType','filterPrice','filterConfotur','sortBy'].forEach(function(id) {
+                document.getElementById(id).addEventListener('change', filterAndRender);
+            });
+
+            _allProperties = PROJECTS.map(function(p) {
+                return Object.assign({}, p, {
+                    _id: p.id,
+                    distrito: (typeof getPublicLocation === 'function') ? getPublicLocation(p) : (p.subLocation || ''),
+                });
+            });
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('projectsGrid').style.display = '';
+            document.getElementById('portfolioSubtitle').textContent =
+                _allProperties.length + ' oportunidades de inversión inmobiliaria en República Dominicana';
+            filterAndRender();
+        })();
+    </script>
+
+    <script></script>
+
+</body>
+</html>

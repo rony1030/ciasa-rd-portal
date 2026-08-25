@@ -1,0 +1,735 @@
+{
+  "CIASA-RD-35": {
+    "pillar": "proyectos-verificados",
+    "confidence": 0.95,
+    "suggestedCaption": "¡No dejes pasar esta oportunidad! Pocas unidades de un proyecto en Punta Cana. Tu inversión con CONFOTUR.",
+    "suggestedQr": "project-ciasa-001-pc",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#1A3042",
+      "#51B5D3",
+      "#6DC64B"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca un proyecto específico (CIASA-PC-001) con detalles de ubicación, disponibilidad limitada y precio inicial.",
+    "file": "CIASA-RD-35.png"
+  },
+  "CIASA-RD-01": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Tu futuro te espera en Quisqueya. ¡Invierte en un proyecto para tu familia!",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#2A4465",
+      "#6DAD4E",
+      "#61B2BF"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer evoca la emoción de regresar a casa y establecer un legado familiar en República Dominicana, con una familia mirando hacia el futuro.",
+    "file": "CIASA-RD-01.png"
+  },
+  "CIASA-RD-02": {
+    "pillar": "transparencia-legal-fiscal",
+    "confidence": 0.95,
+    "suggestedCaption": "Invierte tranquilo: la RD te espera con beneficios fiscales. ¡Tu patrimonio crece!",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#EBF2F7",
+      "#173C65",
+      "#000000"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca los beneficios fiscales oficiales de la Ley CONFOTUR, incluyendo exenciones de ITBIS, impuesto sobre la renta y patrimonio.",
+    "file": "CIASA-RD-02.png"
+  },
+  "CIASA-RD-03": {
+    "pillar": "proyectos-verificados",
+    "confidence": 0.9,
+    "suggestedCaption": "CIASA 013 en Bavaro: Tu futuro frente al mar desde US$185,000. Beneficios CONFOTUR.",
+    "suggestedQr": "project-ciasa-013-pc",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#1F385B",
+      "#FFFFFF",
+      "#71B330"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca un proyecto específico (CIASA 013) con su código, ubicación, precio inicial, fecha de entrega y la mención de CONFOTUR como beneficio.",
+    "file": "CIASA-RD-03.png"
+  },
+  "CIASA-RD-04": {
+    "pillar": "proyectos-verificados",
+    "confidence": 0.9,
+    "suggestedCaption": "Tu inversión inmobiliaria ideal te espera en RD. 6 regiones, 27 proyectos, una sola plataforma.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#e6eff7",
+      "#1c335e",
+      "#76b92a"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca el alcance de la plataforma CIASA mostrando la cantidad de regiones y proyectos disponibles para invertir.",
+    "file": "CIASA-RD-04.png"
+  },
+  "CIASA-RD-05": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Tu legado desde Washington Heights a un hogar en Punta Cana. ¡Hazlo real!",
+    "suggestedQr": "master",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#556E81",
+      "#F7E0BF",
+      "#99D2D4"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "La narrativa contrasta la vida en el exterior con la inversión en RD, apelando a la nostalgia y el legado familiar.",
+    "file": "CIASA-RD-05.png"
+  },
+  "CIASA-RD-06": {
+    "pillar": "inversion-inteligente",
+    "confidence": 0.95,
+    "suggestedCaption": "Calcula tu futuro inmobiliario en RD. El Wizard te guía al proyecto ideal con ROI simulado.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#EBF4FB",
+      "#0F2447",
+      "#6AA84F"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": true,
+    "reasoning": "El flyer promociona una herramienta interactiva que ayuda a los dominicanos en el exterior a encontrar proyectos ideales y simular su retorno de inversión.",
+    "file": "CIASA-RD-06.png"
+  },
+  "CIASA-RD-07": {
+    "pillar": "transparencia-legal-fiscal",
+    "confidence": 0.9,
+    "suggestedCaption": "Invierte seguro en el país que te vio nacer. Plataforma oficial con proyectos CONFOTUR y beneficios fiscales.",
+    "suggestedQr": "whatsapp",
+    "region": null,
+    "primaryColors": [
+      "#e9eff4",
+      "#0a1f44",
+      "#f8c8a8"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca la seguridad legal con 100% proyectos CONFOTUR y la oferta de beneficios fiscales, pilares de la transparencia y asesoría.",
+    "file": "CIASA-RD-07.png"
+  },
+  "CIASA-RD-08": {
+    "pillar": "proyectos-verificados",
+    "confidence": 0.95,
+    "suggestedCaption": "Descubre 5 opciones de inversión inmobiliaria desde casa. ¡Únete a nuestro Open House Virtual!",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#0E466B",
+      "#FFFFFF",
+      "#00A9FF"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer promociona un Open House Virtual para recorrer 5 proyectos, presentando la oferta inmobiliaria de CIASA.",
+    "file": "CIASA-RD-08.png"
+  },
+  "CIASA-RD-09": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Tu casa en RD al alcance. Financiamiento flexible, pensado para los nuestros en el exterior.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#448ed4",
+      "#f9c480",
+      "#c5b9ac"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "La imagen de una pareja mayor feliz y el texto sobre financiamiento accesible para dominicanos en el exterior evocan el regreso y la construcción de patrimonio.",
+    "file": "CIASA-RD-09.png"
+  },
+  "CIASA-RD-10": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Invierte en tu tierra y conecta con tus raíces. Tu futuro y el de tu familia te esperan.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#F3F6F9",
+      "#202D44",
+      "#45A1D6"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "La frase principal 'Invierte donde tu corazón siempre ha vivido' apela fuertemente a la conexión emocional y el retorno, apoyado por beneficios fiscales.",
+    "file": "CIASA-RD-10.png"
+  },
+  "CIASA-RD-11": {
+    "pillar": "transparencia-legal-fiscal",
+    "confidence": 0.9,
+    "suggestedCaption": "Invierte en RD con 15 años de exención fiscal y respaldo legal.",
+    "suggestedQr": "whatsapp",
+    "region": null,
+    "primaryColors": [
+      "#174175",
+      "#FFFFFF",
+      "#6BAD3E"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca prominentemente los beneficios fiscales de CONFOTUR y la seguridad legal como principales atractivos para la inversión.",
+    "file": "CIASA-RD-11.png"
+  },
+  "CIASA-RD-12": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Tu tierra te espera. Invierte en tu futuro y patrimonio familiar en RD.",
+    "suggestedQr": "whatsapp",
+    "region": null,
+    "primaryColors": [
+      "#2C465A",
+      "#5CC8E8",
+      "#70C347"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "La narrativa principal apela a la nostalgia y el regreso, invitando a dominicanos en el exterior a invertir en su hogar y patrimonio en RD, complementado por beneficios CONFOTUR.",
+    "file": "CIASA-RD-12.png"
+  },
+  "CIASA-RD-13": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Retírate en tu tierra con calma. Planes flexibles para dominicanos en el exterior.",
+    "suggestedQr": "whatsapp",
+    "region": null,
+    "primaryColors": [
+      "#3f556b",
+      "#cfa05d",
+      "#e3e8ee"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "La imagen y el mensaje 'Tu retiro, Tu ritmo' evocan el anhelo de regresar con dignidad y asegurar un hogar.",
+    "file": "CIASA-RD-13.png"
+  },
+  "CIASA-RD-14": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.95,
+    "suggestedCaption": "Dominicanos en el exterior: tu hogar soñado en RD está más cerca de lo que piensas.",
+    "suggestedQr": "whatsapp",
+    "region": null,
+    "primaryColors": [
+      "#001a35",
+      "#ffffff",
+      "#87ceeb"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "La imagen y el texto principal apelan a la emoción del regreso, el legado familiar y la aspiración de un hogar, sin detalles de proyectos específicos o números de inversión.",
+    "file": "CIASA-RD-14.png"
+  },
+  "CIASA-RD-15": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.95,
+    "suggestedCaption": "Tu camino de Washington Heights a Punta Cana, tu futuro en casa.",
+    "suggestedQr": "master",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#263342",
+      "#45b7c7",
+      "#f3c26b"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "La imagen y el texto principal evocan la aspiración de los dominicanos en el exterior de invertir en bienes raíces en su país, conectando su vida actual con un futuro en casa.",
+    "file": "CIASA-RD-15.png"
+  },
+  "CIASA-RD-16": {
+    "pillar": "proyectos-verificados",
+    "confidence": 0.9,
+    "suggestedCaption": "Desde el exterior, tu patrimonio crece en RD. Descubre 27 proyectos en seis regiones clave.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#0b2158",
+      "#4392f1",
+      "#e6edf4"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca la variedad de ubicaciones y la cantidad de proyectos disponibles en un mapa.",
+    "file": "CIASA-RD-16.png"
+  },
+  "CIASA-RD-17": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Echa raíces en tu tierra. Elige el hogar que construye tu legado.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#173C5D",
+      "#EEF3F8",
+      "#70C0E7"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El titular 'Elige dónde echar raíces' y la presentación de múltiples proyectos apelan a la construcción de un legado y un posible regreso.",
+    "file": "CIASA-RD-17.png"
+  },
+  "CIASA-RD-18": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "De Washington Heights a Punta Cana: el camino de vuelta empieza hoy. Tu futuro en casa.",
+    "suggestedQr": "project-ciasa-001-pc",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#1F3A52",
+      "#4FA4D7"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "La imagen contrasta la vida en el exterior con un futuro aspiracional en República Dominicana, reforzando el mensaje emocional de regreso y legado.",
+    "file": "CIASA-RD-18.png"
+  },
+  "CIASA-RD-19": {
+    "pillar": "proyectos-verificados",
+    "confidence": 0.9,
+    "suggestedCaption": "Para tu familia en el exterior: el hogar que sueñas te espera en CIASA-CC-001 · Punta Cana.",
+    "suggestedQr": "project-ciasa-001-pc",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#22374E",
+      "#61A3E6",
+      "#7AB843"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca un proyecto específico con su código, ubicación y una imagen detallada, enmarcado en el sueño de un hogar familiar.",
+    "file": "CIASA-RD-19.png"
+  },
+  "CIASA-RD-20": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Tu casa en RD para un retiro digno y un legado duradero.",
+    "suggestedQr": "whatsapp",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#1A3C4E",
+      "#69B34A",
+      "#6FAFE2"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": true,
+    "reasoning": "El flyer prioriza el mensaje emocional de construir patrimonio y asegurar un retiro digno en República Dominicana, dirigido a dominicanos en el exterior.",
+    "file": "CIASA-RD-20.png"
+  },
+  "CIASA-RD-21": {
+    "pillar": "proyectos-verificados",
+    "confidence": 0.9,
+    "suggestedCaption": "Tu hogar de retiro en Punta Cana. Proyecto CIASA 002, para tu familia.",
+    "suggestedQr": "project-ciasa-002-pc",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#20344f",
+      "#ffffff",
+      "#62b647"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer se enfoca en presentar un proyecto específico, CIASA-PC-002, con sus características clave y ubicación.",
+    "file": "CIASA-RD-21.png"
+  },
+  "CIASA-RD-22": {
+    "pillar": "proyectos-verificados",
+    "confidence": 0.95,
+    "suggestedCaption": "Invierte en tu paraíso caribeño. CIASA-CC-001 en Cap Cana, lujo y golf.",
+    "suggestedQr": "project-ciasa-001-pc",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#1C3053",
+      "#32B0CA",
+      "#8BC34A"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca un proyecto específico con detalles de ubicación, unidades, habitaciones, entrega y precio.",
+    "file": "CIASA-RD-22.png"
+  },
+  "CIASA-RD-23": {
+    "pillar": "inversion-inteligente",
+    "confidence": 0.95,
+    "suggestedCaption": "La matemática clara: tu renta de allá, tu patrimonio de acá. ¡Invierte con cabeza!",
+    "suggestedQr": "master",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#0F3252",
+      "#F3F6F8",
+      "#6EC24F"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": true,
+    "reasoning": "El flyer presenta una comparación numérica directa entre pagar alquiler en el exterior y construir patrimonio en RD, mostrando el valor financiero y el retorno.",
+    "file": "CIASA-RD-23.png"
+  },
+  "CIASA-RD-24": {
+    "pillar": "transparencia-legal-fiscal",
+    "confidence": 0.95,
+    "suggestedCaption": "Ahorra con CONFOTUR: 15 años exento de impuestos. ¡Tu patrimonio crece en RD!",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#FFFFFF",
+      "#1B3766",
+      "#59B5E6"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": true,
+    "reasoning": "El flyer explica en detalle los beneficios fiscales de la Ley CONFOTUR, enfocándose en ahorros y exenciones.",
+    "file": "CIASA-RD-24.png"
+  },
+  "CIASA-RD-25": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Asegura tu patrimonio en República Dominicana, estés donde estés.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#1C3754",
+      "#7BC83E",
+      "#FFFFFF"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El mensaje principal 'Invierte en casa, sin viajar a casa' apela al deseo de establecer patrimonio en el país de origen para dominicanos en el exterior.",
+    "file": "CIASA-RD-25.png"
+  },
+  "CIASA-RD-26": {
+    "pillar": "comunidad-diasporica",
+    "confidence": 0.9,
+    "suggestedCaption": "Una tarde en Nueva York para planificar tu inversión en República Dominicana.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#203144",
+      "#FFFFFF",
+      "#8dc63f"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer anuncia un evento comunitario en NYC enfocado en inversión inmobiliaria para dominicanos en el exterior.",
+    "file": "CIASA-RD-26.png"
+  },
+  "CIASA-RD-27": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Tu pago de alquiler hoy, tu patrimonio mañana en RD. ¡Invierte en casa!",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#1E3F5B",
+      "#71A4C4",
+      "#72BC2C"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer contrasta el gasto de alquiler con la construcción de patrimonio en RD, apelando a la narrativa de legado y regreso para dominicanos en el exterior, y mencionando CONFOTUR.",
+    "file": "CIASA-RD-27.png"
+  },
+  "CIASA-RD-28": {
+    "pillar": "transparencia-legal-fiscal",
+    "confidence": 0.9,
+    "suggestedCaption": "Tu inversión segura en RD: CONFOTUR y financiamiento para dominicanos en el exterior.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#1A2C46",
+      "#FFFFFF",
+      "#CEC5B8"
+    ],
+    "containsCTA": false,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca 'CONFOTUR' y 'Financiamiento a distancia', elementos clave de seguridad y protección legal y fiscal para la inversión.",
+    "file": "CIASA-RD-28.png"
+  },
+  "CIASA-RD-29": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Tu hogar te espera: escoge tu pedacito de Quisqueya para volver con los tuyos.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#28364F",
+      "#508CDA",
+      "#E8ECF2"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El título 'Elige dónde volver' apela directamente al deseo de regresar a la patria y muestra opciones de ubicación.",
+    "file": "CIASA-RD-29.png"
+  },
+  "CIASA-RD-30": {
+    "pillar": "proyectos-verificados",
+    "confidence": 0.9,
+    "suggestedCaption": "Un proyecto en Punta Cana. Cerca de la playa, tu inversión desde $145k.",
+    "suggestedQr": "project-ciasa-001-pc",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#1F3550",
+      "#69B0C5",
+      "#78B042"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer presenta un proyecto específico (CIASA-PC-001) con ubicación, características clave y precio inicial.",
+    "file": "CIASA-RD-30.png"
+  },
+  "CIASA-RD-31": {
+    "pillar": "comunidad-diasporica",
+    "confidence": 0.9,
+    "suggestedCaption": "Tu casa en RD, 5 pasos y cero vuelos. ¡Así de fácil es invertir desde el exterior!",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#E6EDF7",
+      "#1E3F6D",
+      "#8AD446"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "Detalla 5 pasos para que dominicanos en el exterior compren propiedades sin viajar.",
+    "file": "CIASA-RD-31.png"
+  },
+  "CIASA-RD-32": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Dominicanos en el exterior: Su próximo hogar familiar les espera aquí.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#1A3249",
+      "#5299BD",
+      "#72B550"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca el mensaje emocional de 'Tu hogar te espera' con una imagen familiar, apelando a la nostalgia y el legado para dominicanos en el exterior.",
+    "file": "CIASA-RD-32.png"
+  },
+  "CIASA-RD-33": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 1,
+    "suggestedCaption": "Desde Queens, Rafael cumplió la promesa a su mamá en un proyecto en Punta Cana. ¡Tu vuelta es posible!",
+    "suggestedQr": "master",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#283B50",
+      "#FFFFFF",
+      "#8FC047"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "La narrativa emocional de regresar y cumplir promesas familiares es central en el mensaje, reflejando el regreso con dignidad.",
+    "file": "CIASA-RD-33.png"
+  },
+  "CIASA-RD-34": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "Más que invertir, es volver a ti. Construye tu patrimonio en casa.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#54A33B",
+      "#FFFFFF"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El mensaje 'Es volver a ti' apela directamente a la nostalgia, el regreso y la construcción de un legado familiar.",
+    "file": "CIASA-RD-34.png"
+  },
+  "CIASA-RD-36": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "¿Anhelas volver? Invierte en tu futuro y el de los tuyos en RD.",
+    "suggestedQr": "whatsapp",
+    "region": null,
+    "primaryColors": [
+      "#0D2146",
+      "#FFFFFF",
+      "#8BB0D8"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "La pregunta principal del flyer apela a la narrativa emocional del regreso y el futuro familiar, pilares de 'patrimonio-regreso'.",
+    "file": "CIASA-RD-36.png"
+  },
+  "CIASA-RD-37": {
+    "pillar": "vision-detras-camaras",
+    "confidence": 0.95,
+    "suggestedCaption": "27 oportunidades esperan a los dominicanos en el exterior. ¡Abre tu futuro!",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#182b4a",
+      "#ffffff",
+      "#77dd24"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer es un 'teaser' para la 'Trilogía CIASA · CAP 02' y usa lenguaje aspiracional.",
+    "file": "CIASA-RD-37.png"
+  },
+  "CIASA-RD-38": {
+    "pillar": "comunidad-diasporica",
+    "confidence": 1,
+    "suggestedCaption": "El bodeguero de la 167 ya invirtió. Tu colmado, tu conexión con RD.",
+    "suggestedQr": "whatsapp",
+    "region": null,
+    "primaryColors": [
+      "#1a2033",
+      "#92ff20",
+      "#ffffff"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer se enfoca en la red de aliados (bodegueros) en el exterior como puente para la inversión en RD.",
+    "file": "CIASA-RD-38.png"
+  },
+  "CIASA-RD-39": {
+    "pillar": "comunidad-diasporica",
+    "confidence": 0.95,
+    "suggestedCaption": "Dominicanos en Boston, les esperamos para un café sin presión y charlar de inversión en RD.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#1E3150",
+      "#F5F8FA",
+      "#8CC63F"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "Es una invitación a un evento de inversión en Boston dirigido a la comunidad dominicana en el exterior.",
+    "file": "CIASA-RD-39.png"
+  },
+  "CIASA-RD-40": {
+    "pillar": "vision-detras-camaras",
+    "confidence": 0.95,
+    "suggestedCaption": "Detrás de cámaras: 'El Regreso'. El arte de crear para nuestros dominicanos en el exterior.",
+    "suggestedQr": "master",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#323c44",
+      "#ffffff",
+      "#59ba41"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "El flyer destaca el proceso de filmación de la 'Trilogía CIASA' con 'El Regreso', mostrando el equipo y la visión creativa de la marca.",
+    "file": "CIASA-RD-40.png"
+  },
+  "CIASA-RD-41": {
+    "pillar": "inversion-inteligente",
+    "confidence": 1,
+    "suggestedCaption": "Misma cuota mensual, distinto futuro. En RD, tu inversión se convierte en patrimonio real.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#0B2F5C",
+      "#4C95DD",
+      "#8AC240"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": true,
+    "reasoning": "El flyer compara explícitamente el rendimiento financiero de invertir en Nueva York vs. República Dominicana, con números y el concepto de patrimonio.",
+    "file": "CIASA-RD-41.png"
+  },
+  "CIASA-RD-42": {
+    "pillar": "inversion-inteligente",
+    "confidence": 0.95,
+    "suggestedCaption": "Invierte inteligente: 15 años sin impuestos y un retorno neto superior al de EE.UU.",
+    "suggestedQr": "whatsapp",
+    "region": null,
+    "primaryColors": [
+      "#1E3A5F",
+      "#77C74C",
+      "#FFFFFF"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": true,
+    "reasoning": "El flyer destaca la comparación numérica de retornos y los beneficios fiscales de CONFOTUR, confirmando una inversión inteligente.",
+    "file": "CIASA-RD-42.png"
+  },
+  "CIASA-RD-43": {
+    "pillar": "comunidad-diasporica",
+    "confidence": 0.95,
+    "suggestedCaption": "Confía en tu comunidad dominicana en Miami para tu próxima inversión.",
+    "suggestedQr": "whatsapp",
+    "region": null,
+    "primaryColors": [
+      "#CCDDEB",
+      "#835C43",
+      "#71B23E"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "Destaca la colaboración con una red médica de la comunidad dominicana en Miami para generar confianza en la inversión.",
+    "file": "CIASA-RD-43.png"
+  },
+  "CIASA-RD-44": {
+    "pillar": "inversion-inteligente",
+    "confidence": 1,
+    "suggestedCaption": "Invierte en CIASA 001 · Punta Cana. Tu dinero crece con $11K anuales en Airbnb.",
+    "suggestedQr": "project-ciasa-001-pc",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#1E3A5F",
+      "#6BA13F"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": true,
+    "reasoning": "El flyer presenta proyecciones financieras detalladas de valorización y retorno por Airbnb, enfocándose en números de inversión.",
+    "file": "CIASA-RD-44.png"
+  },
+  "CIASA-RD-45": {
+    "pillar": "patrimonio-regreso",
+    "confidence": 0.9,
+    "suggestedCaption": "La primera noche en tu propio hogar dominicano. Un sueño hecho patrimonio.",
+    "suggestedQr": "master",
+    "region": null,
+    "primaryColors": [
+      "#141E2A",
+      "#FFFFFF",
+      "#36B836"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": false,
+    "reasoning": "La narrativa 'Tu primera noche en casa' evoca la emoción de tener un hogar propio y construir un legado en República Dominicana.",
+    "file": "CIASA-RD-45.png"
+  },
+  "CIASA-RD-46": {
+    "pillar": "inversion-inteligente",
+    "confidence": 0.95,
+    "suggestedCaption": "Un proyecto CIASA en Cap Cana rinde $27K al año. ¡Inversión inteligente para dominicanos en el exterior!",
+    "suggestedQr": "project-ciasa-001-pc",
+    "region": "punta-cana",
+    "primaryColors": [
+      "#082142",
+      "#317ee6",
+      "#ffffff"
+    ],
+    "containsCTA": true,
+    "containsRoiNumbers": true,
+    "reasoning": "El flyer destaca claramente el ROI anual, el ingreso proyectado y el tiempo de payback de una inversión específica.",
+    "file": "CIASA-RD-46.png"
+  }
+}

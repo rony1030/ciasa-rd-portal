@@ -1,0 +1,766 @@
+<%- include('../layouts/header', { pageTitle: `${project.name} — Inversión en ${project.region} | CIASA Bolsa Inmobiliaria`, pageDesc: `${project.name} en ${project.region}: Desde $${project.priceFrom ? project.priceFrom.toLocaleString('en-US') : ''} USD con Ley CONFOTUR.`, activePage: 'proyectos' }) %>
+
+  <!-- Leaflet CSS for Project Location Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <style>
+    .project-hero {
+      background: #0A1E36;
+      color: #ffffff;
+      padding: 35px 0 55px;
+    }
+    .breadcrumb-nav {
+      font-size: 0.84rem;
+      color: #94A3B8;
+      margin-bottom: 22px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .breadcrumb-nav a {
+      color: #94A3B8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .breadcrumb-nav a:hover {
+      color: #ffffff;
+    }
+
+    .project-header-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1.3fr;
+      gap: 36px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .project-header-grid { grid-template-columns: 1fr; }
+    }
+
+    .project-title-box h1 {
+      font-size: clamp(2rem, 3.5vw, 2.7rem);
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .project-code-tag {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: rgba(125, 179, 58, 0.15);
+      padding: 3px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    /* Dynamic Gallery Loader from Database */
+    <%
+      let cleanMainImg = (project.image || '').replace('assets/images/projects/', '').replace(/^\//, '');
+      let galleryImgs = [];
+      if (project.gallery && Array.isArray(project.gallery) && project.gallery.length > 0) {
+        galleryImgs = project.gallery.map(g => '/' + g.replace(/^\/+/, ''));
+      } else {
+        let cleanInteriorImg = cleanMainImg.replace('.jpg', '-interior.jpg');
+        galleryImgs = ['/assets/images/projects/' + cleanMainImg, '/assets/images/projects/' + cleanInteriorImg];
+      }
+    %>
+
+    .gallery-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      position: relative;
+    }
+    @media (max-width: 600px) {
+      .gallery-container { grid-template-columns: 1fr; }
+    }
+    .gallery-img-item {
+      height: 240px;
+      border-radius: 14px;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+    .gallery-img-item:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
+    .gallery-zoom-hint {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(10, 30, 54, 0.85);
+      backdrop-filter: blur(4px);
+      color: #ffffff;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+    }
+
+    /* Key Numbers Bar */
+    .numbers-bar {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      margin: -30px auto 40px;
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 20px;
+    }
+    .num-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .num-label {
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .num-val {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1.1;
+    }
+    .num-val.green { color: var(--green); }
+    .num-val.blue { color: #2563EB; }
+
+    /* Content Layout */
+    .project-content-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1.1fr;
+      gap: 45px;
+      margin-bottom: 70px;
+    }
+    @media (max-width: 991px) {
+      .project-content-grid { grid-template-columns: 1fr; }
+    }
+
+    .content-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    }
+    .content-card h2, .content-card h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+
+    /* Unique SVG / Dedicated Amenity Cards */
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .amenity-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--navy);
+      transition: all 0.2s ease;
+    }
+    .amenity-card:hover {
+      background: #ECFDF5;
+      border-color: var(--green);
+      transform: translateY(-2px);
+    }
+    .amenity-icon-wrap {
+      width: 34px;
+      height: 34px;
+      background: #EFF6FF;
+      color: #2563EB;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
+    }
+    .amenity-card:hover .amenity-icon-wrap {
+      background: #ECFDF5;
+      color: var(--green);
+    }
+
+    /* Sidebar */
+    .sidebar-sticky {
+      position: sticky;
+      top: 100px;
+    }
+    .lead-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+    }
+    .lead-box h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .form-input-field {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-family: inherit;
+      margin-bottom: 12px;
+      background: #F8FAFC;
+    }
+
+    /* Lightbox Modal */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(7, 21, 38, 0.94);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .lightbox-modal.open {
+      display: flex;
+    }
+    .lightbox-img-wrap {
+      max-width: 90vw;
+      max-height: 85vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .lightbox-main-img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      object-fit: contain;
+    }
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #ffffff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .lightbox-nav-btn:hover {
+      background: var(--green);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #ffffff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover {
+      background: #EF4444;
+    }
+    .lightbox-counter {
+      color: #CBD5E1;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-top: 12px;
+    }
+  </style>
+
+  <!-- Project Hero con Foto de Portada Integrada en Fondo -->
+  <section class="project-hero" style="background-image: linear-gradient(rgba(10, 30, 54, 0.78), rgba(10, 30, 54, 0.90)), url('/assets/images/projects/<%= cleanMainImg %>'); background-size: cover; background-position: center;">
+    <div class="container">
+      <div class="breadcrumb-nav">
+        <a href="/">Inicio</a>
+        <span>/</span>
+        <a href="/proyectos">Proyectos</a>
+        <span>/</span>
+        <span style="color: #ffffff;"><%= project.name %></span>
+      </div>
+
+      <div class="project-header-grid">
+        <div class="project-title-box">
+          <span class="project-code-tag"><%= project.code || 'CIASA' %></span>
+          <h1><%= project.name %></h1>
+          <p style="font-size: 1.1rem; color: #CBD5E1; line-height: 1.5; margin-bottom: 18px;">
+            <%= project.subLocation || project.region %> · <%= project.type %> de alta rentabilidad
+          </p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <% if (project.confotur) { %>
+              <span style="background: #ECFDF5; color: #059669; font-size: 0.8rem; font-weight: 800; padding: 5px 12px; border-radius: 6px;">
+                <i class="fa-solid fa-shield-check"></i> Exención de Impuestos (Ley CONFOTUR 158-01)
+              </span>
+            <% } %>
+            <% if (project.airbnbFriendly) { %>
+              <span style="background: #EFF6FF; color: #2563EB; font-size: 0.8rem; font-weight: 800; padding: 5px 12px; border-radius: 6px;">
+                <i class="fa-solid fa-hotel"></i> Apto para Airbnb / Rentas Cortas
+              </span>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Galería de Fotos Clickeables -->
+        <div class="gallery-container">
+          <div class="gallery-img-item" style="background-image: url('<%= galleryImgs[0] || ('/assets/images/projects/' + cleanMainImg) %>');" onclick="openLightbox(0)">
+            <span class="gallery-zoom-hint"><i class="fa-solid fa-expand"></i> Ver Portada</span>
+          </div>
+          <div class="gallery-img-item" style="background-image: url('<%= galleryImgs[1] || galleryImgs[0] || ('/assets/images/projects/' + cleanMainImg) %>');" onclick="openLightbox(1)">
+            <span class="gallery-zoom-hint"><i class="fa-solid fa-images"></i> Ver Galería (<%= galleryImgs.length %>)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <div class="container">
+      
+      <!-- 7 Stat Cards Grid (Idéntico a ciasard.com) -->
+      <div class="project-stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 16px; margin: -30px auto 40px; position: relative; z-index: 10;">
+        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
+          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">Precio</div>
+          <div style="font-size: 1.35rem; font-weight: 800; color: #0A1E36;"><%= project.priceFrom ? '$' + (project.priceFrom >= 1000 ? Math.round(project.priceFrom / 1000) + 'K' : project.priceFrom) : 'Consultar' %></div>
+          <div style="font-size: 0.74rem; color: #94A3B8; margin-top: 2px;">a partir de</div>
+        </div>
+
+        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
+          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">Tamaño</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #0A1E36;">
+            <%= (project.sizeFrom === project.sizeTo || !project.sizeTo) ? (project.sizeFrom ? project.sizeFrom + ' m²' : 'Consultar') : (project.sizeFrom + ' - ' + project.sizeTo + ' m²') %>
+          </div>
+        </div>
+
+        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
+          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">Habitaciones</div>
+          <div style="font-size: 1.35rem; font-weight: 800; color: #0A1E36;"><%= project.bedrooms || 1 %></div>
+        </div>
+
+        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
+          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">Reserva</div>
+          <div style="font-size: 1.35rem; font-weight: 800; color: #0A1E36;">$<%= project.reserveAmount ? project.reserveAmount.toLocaleString('en-US') : '1,000' %></div>
+        </div>
+
+        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
+          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">ROI Estimado</div>
+          <div style="font-size: 1.35rem; font-weight: 800; color: #2563EB;"><%= project.roi || '8.5%' %></div>
+          <div style="font-size: 0.74rem; color: #94A3B8; margin-top: 2px;">a partir de</div>
+        </div>
+
+        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
+          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">Entrega</div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: #0A1E36;"><%= project.delivery || 'En desarrollo' %></div>
+        </div>
+
+        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
+          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">CONFOTUR</div>
+          <div style="font-size: 1.35rem; font-weight: 800; color: <%= project.confotur ? '#059669' : '#64748B' %>;"><%= project.confotur ? 'Sí' : 'No' %></div>
+        </div>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="project-content-grid">
+        
+        <!-- Columna Izquierda: Información del Proyecto -->
+        <div>
+          
+          <!-- Descripción -->
+          <div class="content-card">
+            <h2>Sobre el Proyecto</h2>
+            <p style="color: #475569; font-size: 1rem; line-height: 1.7; margin-bottom: 20px;">
+              <%= project.description %>
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; background: #F8FAFC; padding: 18px; border-radius: 12px; border: 1px solid #E2E8F0;">
+              <% if (project.bedrooms) { %>
+                <div>
+                  <span style="font-size: 0.76rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Habitaciones</span>
+                  <strong style="display: block; color: var(--navy); font-size: 1.05rem;"><%= project.bedrooms %> Hab</strong>
+                </div>
+              <% } %>
+              <% if (project.bathrooms) { %>
+                <div>
+                  <span style="font-size: 0.76rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Baños</span>
+                  <strong style="display: block; color: var(--navy); font-size: 1.05rem;"><%= project.bathrooms %> Baños</strong>
+                </div>
+              <% } %>
+              <% if (project.sizeFrom) { %>
+                <div>
+                  <span style="font-size: 0.76rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Metraje</span>
+                  <strong style="display: block; color: var(--navy); font-size: 1.05rem;">
+                    <%= (project.sizeFrom === project.sizeTo || !project.sizeTo) ? (project.sizeFrom + ' m²') : (project.sizeFrom + ' - ' + project.sizeTo + ' m²') %>
+                  </strong>
+                </div>
+              <% } %>
+              <div>
+                <span style="font-size: 0.76rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Ley CONFOTUR</span>
+                <strong style="display: block; color: <%= project.confotur ? '#059669' : 'var(--navy)' %>; font-size: 1.05rem;">
+                  <%= project.confotur ? 'Sí (Exención 15 Años)' : 'No aplica' %>
+                </strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Amenidades con Iconos Únicos SVG / FontAwesome -->
+          <% if (project.amenities && project.amenities.length > 0) { %>
+            <div class="content-card">
+              <h3>Amenidades & Exclusividades</h3>
+              <div class="amenities-grid">
+                <% 
+                  const AMENITY_ICONS_MAP = {
+                    'piscina': 'fa-solid fa-water-ladder',
+                    'gimnasio': 'fa-solid fa-dumbbell',
+                    'área social': 'fa-solid fa-users',
+                    'area social': 'fa-solid fa-users',
+                    'seguridad 24/7': 'fa-solid fa-shield-halved',
+                    'seguridad': 'fa-solid fa-shield-halved',
+                    'parqueo': 'fa-solid fa-square-parking',
+                    'estacionamiento': 'fa-solid fa-car',
+                    'club de playa': 'fa-solid fa-umbrella-beach',
+                    'playa': 'fa-solid fa-umbrella-beach',
+                    'spa': 'fa-solid fa-spa',
+                    'jacuzzi': 'fa-solid fa-hot-tub-person',
+                    'restaurante': 'fa-solid fa-utensils',
+                    'bar': 'fa-solid fa-martini-glass',
+                    'cancha': 'fa-solid fa-baseball',
+                    'golf': 'fa-solid fa-golf-ball-tee',
+                    'tenis': 'fa-solid fa-table-tennis-paddle-ball',
+                    'padel': 'fa-solid fa-table-tennis-paddle-ball',
+                    'ascensor': 'fa-solid fa-elevator',
+                    'elevador': 'fa-solid fa-elevator',
+                    'terraza': 'fa-solid fa-building-user',
+                    'rooftop': 'fa-solid fa-building-user',
+                    'parque infantil': 'fa-solid fa-children',
+                    'jardín': 'fa-solid fa-tree',
+                    'jardin': 'fa-solid fa-tree',
+                    'marina': 'fa-solid fa-anchor',
+                    'muelle': 'fa-solid fa-sailboat',
+                    'lobby': 'fa-solid fa-hotel',
+                    'coworking': 'fa-solid fa-laptop',
+                    'cine': 'fa-solid fa-film',
+                    'mascotas': 'fa-solid fa-paw',
+                    'pet friendly': 'fa-solid fa-paw'
+                  };
+
+                  function matchAmenityIcon(str) {
+                    const low = (str || '').toLowerCase().trim();
+                    for (const [k, ic] of Object.entries(AMENITY_ICONS_MAP)) {
+                      if (low.includes(k)) return ic;
+                    }
+                    return 'fa-solid fa-circle-check';
+                  }
+                %>
+                <% project.amenities.forEach(a => { %>
+                  <div class="amenity-card">
+                    <div class="amenity-icon-wrap">
+                      <i class="<%= matchAmenityIcon(a) %>"></i>
+                    </div>
+                    <span><%= a %></span>
+                  </div>
+                <% }) %>
+              </div>
+            </div>
+          <% } %>
+
+          <!-- Ubicación con Mapa Interactivo Leaflet -->
+          <div class="content-card">
+            <h3>Ubicación</h3>
+            <p style="color: #64748B; font-size: 0.95rem; margin-bottom: 16px;">
+              <%= project.subLocation || project.region %>, República Dominicana
+            </p>
+            <div id="projectMap" style="width: 100%; height: 320px; border-radius: 12px; border: 1px solid #E2E8F0; z-index: 1;"></div>
+          </div>
+
+          <!-- Plan de Pagos Flexible -->
+          <div class="content-card">
+            <h3>Esquema Típico de Pagos en Construcción</h3>
+            <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 16px;">
+              <div style="display: flex; justify-content: space-between; padding: 12px 16px; background: #F8FAFC; border-radius: 8px; border-left: 4px solid var(--green);">
+                <div>
+                  <strong>Reserva / Separación</strong>
+                  <div style="font-size: 0.84rem; color: #64748B;">Depósito fiduciario para asegurar tu unidad</div>
+                </div>
+                <strong style="color: var(--green);">$<%= project.reserveAmount ? project.reserveAmount.toLocaleString('en-US') : '1,000' %> USD</strong>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; padding: 12px 16px; background: #F8FAFC; border-radius: 8px; border-left: 4px solid #2563EB;">
+                <div>
+                  <strong>Completar Inicial (Firma de Contrato)</strong>
+                  <div style="font-size: 0.84rem; color: #64748B;">A los 30 a 60 días de la reserva</div>
+                </div>
+                <strong style="color: #2563EB;">10% - 20%</strong>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; padding: 12px 16px; background: #F8FAFC; border-radius: 8px; border-left: 4px solid #D97706;">
+                <div>
+                  <strong>Durante la Construcción</strong>
+                  <div style="font-size: 0.84rem; color: #64748B;">Cuotas mensuales cómodas sin intereses de obra</div>
+                </div>
+                <strong style="color: #D97706;">30% - 40%</strong>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; padding: 12px 16px; background: #F8FAFC; border-radius: 8px; border-left: 4px solid var(--navy);">
+                <div>
+                  <strong>Contra Entrega / Financiamiento</strong>
+                  <div style="font-size: 0.84rem; color: #64748B;">Pago final o crédito hipotecario en USD</div>
+                </div>
+                <strong style="color: var(--navy);">50% - 60%</strong>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Columna Derecha: Sticky Lead Sidebar -->
+        <div>
+          <div class="sidebar-sticky">
+            <div class="lead-box">
+              <h3>Solicitar Disponibilidad & Dossier</h3>
+              <p style="font-size: 0.88rem; color: #64748B; margin-bottom: 20px; line-height: 1.5;">
+                Recibe el brochure completo, planos y lista de unidades disponibles para <strong><%= project.name %></strong>.
+              </p>
+
+              <form onsubmit="handleProjectLead(event)">
+                <input type="text" id="leadName" class="form-input-field" placeholder="Nombre completo" required>
+                <input type="email" id="leadEmail" class="form-input-field" placeholder="Correo electrónico" required>
+                <input type="tel" id="leadPhone" class="form-input-field" placeholder="Teléfono / WhatsApp (+1...)" required>
+                <textarea id="leadMsg" class="form-input-field" rows="3" placeholder="¿Deseas consultar unidades, financiamiento o fecha de entrega?"></textarea>
+
+                <button type="submit" class="btn-cta" style="background: var(--green); color: #ffffff; width: 100%; justify-content: center; padding: 14px; border: none; cursor: pointer; font-size: 0.96rem; margin-bottom: 12px;">
+                  <i class="fa-solid fa-paper-plane"></i> Solicitar Información del Proyecto
+                </button>
+              </form>
+
+              <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20estoy%20interesado%20en%20el%20proyecto%20<%= encodeURIComponent(project.name) %>%20(<%= project.code || '' %>)." target="_blank" style="background: #25D366; color: #ffffff; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px; border-radius: 8px; font-weight: 700; text-decoration: none !important; font-size: 0.94rem; transition: background 0.2s;">
+                <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Chatear por WhatsApp
+              </a>
+
+              <div style="margin-top: 18px; text-align: center; font-size: 0.78rem; color: #94A3B8;">
+                <i class="fa-solid fa-lock"></i> Asesoría confidencial y fiduciaria protegida
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Proyectos Similares -->
+      <% if (relatedProjects && relatedProjects.length > 0) { %>
+        <div style="margin-top: 40px; margin-bottom: 80px;">
+          <h2 style="font-size: 1.7rem; font-weight: 800; color: var(--navy); margin-bottom: 24px;">
+            Proyectos Similares en <%= project.region %>
+          </h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+            <% relatedProjects.forEach(rp => { %>
+              <% let rpCleanImg = (rp.image || '').replace('assets/images/projects/', '').replace(/^\//, ''); %>
+              <a href="/proyectos/<%= rp.slug || rp.id %>" style="background: #ffffff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: transform 0.2s; box-shadow: 0 4px 16px rgba(0,0,0,0.05);" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="height: 190px; background-image: url('/assets/images/projects/<%= rpCleanImg %>'); background-size: cover; background-position: center;"></div>
+                <div style="padding: 20px;">
+                  <span style="font-size: 0.76rem; font-weight: 800; color: #64748B; text-transform: uppercase;"><%= rp.code || '' %></span>
+                  <strong style="color: var(--navy); font-size: 1.18rem; display: block; margin: 4px 0 6px;"><%= rp.name %></strong>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                    <span style="color: var(--green); font-size: 1.15rem; font-weight: 900;">$<%= rp.priceFrom ? rp.priceFrom.toLocaleString('en-US') : '' %> USD</span>
+                    <% if (rp.roi) { %>
+                      <span style="background: #EFF6FF; color: #2563EB; font-size: 0.76rem; font-weight: 800; padding: 4px 8px; border-radius: 4px;">ROI <%= rp.roi %></span>
+                    <% } %>
+                  </div>
+                </div>
+              </a>
+            <% }) %>
+          </div>
+        </div>
+      <% } %>
+
+    </div>
+  </main>
+
+  <!-- Lightbox Modal para Galería de Fotos -->
+  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+    <button class="lightbox-nav-btn lightbox-prev" onclick="prevLightbox(event)">&larr;</button>
+    <button class="lightbox-nav-btn lightbox-next" onclick="nextLightbox(event)">&rarr;</button>
+    
+    <div class="lightbox-img-wrap" onclick="event.stopPropagation()">
+      <img class="lightbox-main-img" id="lightboxImg" src="" alt="<%= project.name %>">
+      <div class="lightbox-counter" id="lightboxCounter">1 / 2</div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script>
+    // 1. Inicializar Mapa de Ubicación del Proyecto
+    const coords = <%- JSON.stringify(project.coordinates || { lat: 18.56, lng: -68.38 }) %>;
+    const projLat = coords.lat || 18.56;
+    const projLng = coords.lng || -68.38;
+
+    const pMap = L.map('projectMap', {
+      center: [projLat, projLng],
+      zoom: 13,
+      zoomControl: true
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap &copy; CARTO',
+      maxZoom: 18
+    }).addTo(pMap);
+
+    const pinIcon = L.divIcon({
+      className: 'custom-map-pin-container',
+      html: `<div style="background: var(--green); border: 2px solid #ffffff; width: 34px; height: 34px; border-radius: 50%; color: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.35); font-size: 14px;"><i class="fa-solid fa-location-dot"></i></div>`,
+      iconSize: [34, 34],
+      iconAnchor: [17, 17]
+    });
+
+    L.marker([projLat, projLng], { icon: pinIcon })
+      .addTo(pMap)
+      .bindPopup(`<strong><%= project.name %></strong><br><span style="font-size:0.8rem;color:#64748B;"><%= project.subLocation || project.region %></span>`)
+      .openPopup();
+
+    // 2. Lightbox Gallery Logic
+    const galleryImages = <%- JSON.stringify(galleryImgs) %>;
+    let currentLightboxIdx = 0;
+
+    function openLightbox(idx) {
+      currentLightboxIdx = idx;
+      updateLightbox();
+      document.getElementById('lightboxModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(e) {
+      if (e) e.stopPropagation();
+      document.getElementById('lightboxModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function nextLightbox(e) {
+      if (e) e.stopPropagation();
+      currentLightboxIdx = (currentLightboxIdx + 1) % galleryImages.length;
+      updateLightbox();
+    }
+
+    function prevLightbox(e) {
+      if (e) e.stopPropagation();
+      currentLightboxIdx = (currentLightboxIdx - 1 + galleryImages.length) % galleryImages.length;
+      updateLightbox();
+    }
+
+    function updateLightbox() {
+      const img = document.getElementById('lightboxImg');
+      img.src = galleryImages[currentLightboxIdx];
+      document.getElementById('lightboxCounter').innerText = `${currentLightboxIdx + 1} de ${galleryImages.length}`;
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('lightboxModal').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextLightbox();
+      if (e.key === 'ArrowLeft') prevLightbox();
+    });
+
+    // 3. Lead Submission (Form -> CRM API -> WhatsApp)
+    async function handleProjectLead(e) {
+      e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Registrando en CRM...';
+      }
+
+      const name = document.getElementById('leadName').value;
+      const email = document.getElementById('leadEmail').value;
+      const phone = document.getElementById('leadPhone').value;
+      const msg = document.getElementById('leadMsg').value;
+
+      try {
+        await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nombre: name,
+            email: email,
+            telefono: phone,
+            proyectoInteres: '<%= project.name %>',
+            region: '<%= project.region %>',
+            mensaje: msg,
+            source: 'Ficha de Proyecto (<%= project.name %>)'
+          })
+        });
+      } catch (err) {
+        console.warn('Registro local en CRM:', err);
+      }
+
+      if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> ¡Solicitud Guardada en CRM!';
+        submitBtn.style.background = '#059669';
+      }
+
+      const text = `Hola CIASA, estoy solicitando información del proyecto *<%= project.name %>* (${name}):\n- Correo: ${email}\n- Teléfono: ${phone}\n- Consulta: ${msg || 'Disponibilidad y precios'}`;
+      setTimeout(() => {
+        window.open(`https://wa.me/18092995233?text=${encodeURIComponent(text)}`, '_blank');
+      }, 500);
+    }
+  </script>
+
+<%- include('../layouts/footer') %>

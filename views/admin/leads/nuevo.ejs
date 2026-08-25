@@ -1,0 +1,247 @@
+<%- include('../layout', { pageTitle: 'Registrar Nuevo Inversionista', activePage: 'leads-nuevo' }) %>
+
+<style>
+  .lead-form-container {
+    max-width: 980px;
+    margin: 0 auto 40px;
+  }
+
+  .form-section-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .form-section-header {
+    padding: 16px 24px;
+    background: #FAFAFC;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .form-section-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .form-section-title {
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-heading);
+    margin: 0;
+  }
+  .form-section-subtitle {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  .form-section-body {
+    padding: 24px;
+  }
+
+  .input-with-icon {
+    position: relative;
+  }
+  .input-with-icon i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    pointer-events: none;
+  }
+  .input-with-icon .form-input {
+    padding-left: 38px;
+  }
+
+  .currency-input-wrap {
+    position: relative;
+  }
+  .currency-prefix {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 0.95rem;
+    pointer-events: none;
+  }
+  .currency-input-wrap .form-input {
+    padding-left: 32px;
+    font-weight: 700;
+    color: var(--secondary);
+  }
+</style>
+
+<div class="lead-form-container">
+  
+  <!-- Encabezado de Página -->
+  <div class="section-header" style="margin-bottom: 20px;">
+    <div>
+      <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--text-heading); margin-bottom: 2px;">
+        <i class="fa-solid fa-user-plus" style="color: var(--primary); margin-right: 6px;"></i> Registrar Nuevo Prospecto
+      </h2>
+      <p style="font-size: 0.82rem; color: var(--text-muted);">Ingresa la información comercial y perfil del inversionista para iniciar seguimiento</p>
+    </div>
+    <a href="/admin/leads" class="btn btn-secondary btn-sm">
+      <i class="fa-solid fa-arrow-left"></i> Volver a Leads
+    </a>
+  </div>
+
+  <% if (error) { %>
+  <div class="alert alert-error" style="margin-bottom: 18px;"><i class="fa-solid fa-circle-exclamation"></i> <%= error %></div>
+  <% } %>
+
+  <form method="POST" action="/admin/leads/nuevo">
+    
+    <!-- 1. IDENTIDAD & DATOS DE CONTACTO -->
+    <div class="form-section-card">
+      <div class="form-section-header">
+        <div class="form-section-icon"><i class="fa-solid fa-address-card"></i></div>
+        <div>
+          <div class="form-section-title">1. Identidad & Datos de Contacto</div>
+          <div class="form-section-subtitle">Nombre, correo electrónico, teléfono móvil y país de residencia</div>
+        </div>
+      </div>
+      
+      <div class="form-section-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Nombre Completo *</label>
+            <div class="input-with-icon">
+              <i class="fa-regular fa-user"></i>
+              <input type="text" name="nombre" class="form-input" placeholder="Ej. Dr. Roberto Gómez" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Correo Electrónico *</label>
+            <div class="input-with-icon">
+              <i class="fa-regular fa-envelope"></i>
+              <input type="email" name="email" class="form-input" placeholder="roberto.gomez@gmail.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Teléfono / WhatsApp *</label>
+            <div class="input-with-icon">
+              <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
+              <input type="tel" name="telefono" class="form-input" placeholder="+1 (786) 554-1234" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">País de Residencia</label>
+            <select name="pais" class="form-input">
+              <option value="United States">Estados Unidos (Diáspora)</option>
+              <option value="Dominican Republic">República Dominicana</option>
+              <option value="Puerto Rico">Puerto Rico</option>
+              <option value="Spain">España / Europa</option>
+              <option value="Canada">Canadá</option>
+              <option value="Other">Otro País</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Ciudad / Estado</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-location-dot"></i>
+              <input type="text" name="ciudad" class="form-input" placeholder="Ej. Miami, Florida / Nueva York / Santo Domingo">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. PERFIL DE INVERSIÓN & ASIGNACIÓN COMERCIAL -->
+    <div class="form-section-card">
+      <div class="form-section-header">
+        <div class="form-section-icon" style="background: #EFF6FF; color: #2563EB;"><i class="fa-solid fa-chart-pie"></i></div>
+        <div>
+          <div class="form-section-title">2. Perfil Comercial & Inversión</div>
+          <div class="form-section-subtitle">Presupuesto en dólares, proyecto de preferencia y canal de adquisición</div>
+        </div>
+      </div>
+
+      <div class="form-section-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Presupuesto Estimado (USD)</label>
+            <div class="currency-input-wrap">
+              <span class="currency-prefix">$</span>
+              <input type="number" name="montoInversion" class="form-input" placeholder="240000" min="0" step="5000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Proyecto Inmobiliario de Interés</label>
+            <select name="proyectoInteres" class="form-input">
+              <option value="">-- Seleccionar Proyecto del Catálogo --</option>
+              <% projects.forEach(p => { %>
+              <option value="<%= p.code %> - <%= p.name %>"><%= p.code %> — <%= p.name %></option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Origen / Canal de Captación</label>
+            <select name="source" class="form-input">
+              <option value="admin-manual">Registro Manual en Oficina</option>
+              <option value="instagram-ad">Campaña Instagram Ads (Diáspora)</option>
+              <option value="facebook-ad">Facebook Ads Leads</option>
+              <option value="referido">Referido por Inversionista</option>
+              <option value="proyecto">Formulario Web Portal</option>
+              <option value="whatsapp">Chat Directo WhatsApp</option>
+              <option value="evento">Feria Inmobiliaria / Expo</option>
+              <option value="npi">Base Médicos / NPI</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Estado Inicial en Pipeline</label>
+            <select name="statusVentas" class="form-input">
+              <option value="nuevo">Nuevo (Sin contactar)</option>
+              <option value="contactado">Contactado (En seguimiento)</option>
+              <option value="calificado">Calificado (Presupuesto validado)</option>
+              <option value="negociacion">En Negociación / Separación</option>
+              <option value="cerrado">Cierre Ganado</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Notas Iniciales de la Conversación / Requerimientos</label>
+            <textarea name="notas" class="form-input" rows="3" placeholder="Ingresa detalles sobre objetivos del comprador (rentabilidad vacacional, exención CONFOTUR, fechas tentativas de visita a RD)..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTONES DE ACCIÓN FLUIDOS -->
+    <div style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
+      <a href="/admin/leads" class="btn btn-secondary" style="padding: 10px 22px;">Cancelar</a>
+      <button type="submit" class="btn btn-primary" style="padding: 11px 32px; font-size: 0.92rem; font-weight: 800;">
+        <i class="fa-solid fa-cloud-arrow-up"></i> Guardar y Abrir Ficha 360°
+      </button>
+    </div>
+
+  </form>
+
+</div>
+
+<%- include('../layout-end') %>

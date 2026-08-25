@@ -1,0 +1,105 @@
+<%- include('../layout', { pageTitle, activePage: 'propiedades' }) %>
+
+<% if (typeof req !== 'undefined' && req.query && req.query.success) { %>
+<div class="alert alert-success"><i class="fa-solid fa-check-circle"></i> Propiedad actualizada exitosamente.</div>
+<% } %>
+
+<div class="section-header">
+  <div>
+    <h2>Propiedades <span style="color: var(--muted); font-weight: 500; font-size: 1rem;">(<%= projects.length %> proyectos)</span></h2>
+    <p>Gestión de disponibilidad y edición del catálogo</p>
+  </div>
+  <a href="/admin/propiedades/nueva" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nueva Propiedad</a>
+</div>
+
+<div class="admin-table-wrap" style="max-height: calc(100vh - 170px); overflow-y: auto; position: relative;">
+  <table class="admin-table">
+    <thead style="position: sticky; top: 0; z-index: 10; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+      <tr>
+        <th>Portada</th>
+        <th>Proyecto</th>
+        <th>Región</th>
+        <th>Precio</th>
+        <th>ROI</th>
+        <th>CONFOTUR</th>
+        <th>Disponible</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% projects.forEach(p => { %>
+      <tr id="row-<%= p.id %>">
+        <td>
+          <div style="width:56px;height:42px;border-radius:6px;background-image:url('/<%= (p.image||'').replace(/^\/+/,'') %>');background-size:cover;background-position:center;background-color:var(--navy2);flex-shrink:0;"></div>
+        </td>
+        <td>
+          <strong style="color: var(--text); display: block; font-size: 0.9rem;"><%= p.name %></strong>
+          <span style="color: var(--muted); font-size: 0.74rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;"><%= p.code %></span>
+        </td>
+        <td style="font-size: 0.82rem; color: var(--muted);">
+          <div><%= p.region %></div>
+          <% if (p.subLocation) { %><div style="font-size: 0.76rem;"><%= p.subLocation %></div><% } %>
+        </td>
+        <td>
+          <div style="font-weight: 800; color: var(--green);">$<%= p.priceFrom ? parseInt(p.priceFrom).toLocaleString('en-US') : 'Consultar' %></div>
+          <% if (p.priceTo && p.priceTo !== p.priceFrom) { %>
+          <div style="font-size: 0.75rem; color: var(--muted);">hasta $<%= parseInt(p.priceTo).toLocaleString('en-US') %></div>
+          <% } %>
+        </td>
+        <td style="font-size: 0.82rem;">
+          <% if (p.roi) { %>
+          <span class="badge badge-blue"><%= p.roi %></span>
+          <% } else { %>
+          <span style="color: var(--muted);">—</span>
+          <% } %>
+        </td>
+        <td>
+          <% if (p.confotur) { %>
+          <span class="badge badge-green"><i class="fa-solid fa-shield-check"></i> Sí</span>
+          <% } else { %>
+          <span class="badge badge-gray">No</span>
+          <% } %>
+        </td>
+        <td>
+          <label class="toggle" title="Cambiar disponibilidad">
+            <input type="checkbox" <%= p.available !== false ? 'checked' : '' %> onchange="toggleAvailable('<%= p.id %>', this)">
+            <span class="toggle-slider"></span>
+          </label>
+          <div id="avail-label-<%= p.id %>" style="font-size: 0.72rem; color: var(--muted); margin-top: 3px; text-align: center;">
+            <%= p.available !== false ? 'Visible' : 'Oculto' %>
+          </div>
+        </td>
+        <td>
+          <div style="display: flex; gap: 6px;">
+            <a href="/admin/propiedades/<%= p.id %>/editar" class="btn btn-secondary btn-sm" title="Editar">
+              <i class="fa-solid fa-pen"></i>
+            </a>
+            <a href="/proyectos/<%= p.slug || p.id %>" target="_blank" class="btn btn-secondary btn-sm" title="Ver en Portal">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+async function toggleAvailable(id, checkbox) {
+  const label = document.getElementById('avail-label-' + id);
+  try {
+    const res = await fetch('/admin/propiedades/' + id + '/toggle', { method: 'POST' });
+    const data = await res.json();
+    if (data.ok) {
+      label.textContent = data.available ? 'Visible' : 'Oculto';
+      label.style.color = data.available ? '#34D399' : '#94A3B8';
+    }
+  } catch(e) {
+    checkbox.checked = !checkbox.checked;
+    alert('Error al actualizar. Intenta de nuevo.');
+  }
+}
+</script>
+
+<%- include('../layout-end') %>

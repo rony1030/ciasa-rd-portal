@@ -1,0 +1,19 @@
+# CIASA RD — Clean URLs y Seguridad
+RewriteEngine On
+RewriteBase /
+
+# Clean URLs para crm-npi
+RewriteRule ^crm-npi/?$ /crm-npi.html [L]
+
+# Clean URLs generales (.html automático si no tiene extensión)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+
+# Cabeceras de Seguridad y Cache
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

@@ -1,0 +1,77 @@
+<%- include('../layout', { pageTitle, activePage: 'blog' }) %>
+
+<% if (typeof req !== 'undefined' && req.query) { %>
+  <% if (req.query.success) { %><div class="alert alert-success"><i class="fa-solid fa-check-circle"></i> Artículo guardado exitosamente.</div><% } %>
+  <% if (req.query.deleted) { %><div class="alert alert-success"><i class="fa-solid fa-trash"></i> Artículo eliminado.</div><% } %>
+<% } %>
+
+<div class="section-header">
+  <div>
+    <h2>Blog & Artículos <span style="color: var(--muted); font-weight: 500; font-size: 1rem;">(<%= articles.length %> artículos)</span></h2>
+    <p>Gestión de contenido editorial del portal</p>
+  </div>
+  <a href="/admin/blog/nuevo" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Nuevo Artículo</a>
+</div>
+
+<div class="admin-table-wrap" style="max-height: calc(100vh - 170px); overflow-y: auto; position: relative;">
+  <table class="admin-table">
+    <thead style="position: sticky; top: 0; z-index: 10; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+      <tr>
+        <th>Título</th>
+        <th>Categoría</th>
+        <th>Estado</th>
+        <th>Autor</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (articles && articles.length > 0) { %>
+        <% articles.forEach(a => { %>
+        <tr>
+          <td>
+            <strong style="color: var(--text); font-size: 0.88rem; display: block; max-width: 380px; line-height: 1.4;"><%= a.titulo %></strong>
+            <span style="color: var(--muted); font-size: 0.76rem;">/<%= a.slug %></span>
+          </td>
+          <td>
+            <span class="badge" style="background: <%= a.categoriaColor || '#2563EB' %>22; color: <%= a.categoriaColor || '#60A5FA' %>;">
+              <%= a.categoriaNombre || a.categoria %>
+            </span>
+          </td>
+          <td>
+            <span class="badge <%= a.estado === 'publicado' ? 'badge-green' : 'badge-gray' %>">
+              <i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i>
+              <%= a.estado === 'publicado' ? 'Publicado' : 'Borrador' %>
+            </span>
+          </td>
+          <td style="font-size: 0.82rem; color: var(--muted);"><%= a.autor || 'Equipo CIASA' %></td>
+          <td style="color: var(--muted); font-size: 0.78rem; white-space: nowrap;">
+            <%= a.fechaPublicacion || (a.createdAt ? new Date(a.createdAt).toLocaleDateString('es-DO', {day:'2-digit', month:'short', year:'numeric'}) : '—') %>
+          </td>
+          <td>
+            <div style="display: flex; gap: 6px;">
+              <a href="/admin/blog/<%= a.id %>/editar" class="btn btn-secondary btn-sm" title="Editar">
+                <i class="fa-solid fa-pen"></i>
+              </a>
+              <form method="POST" action="/admin/blog/<%= a.id %>/eliminar" onsubmit="return confirm('¿Eliminar este artículo? Esta acción no se puede deshacer.');" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        <% }) %>
+      <% } else { %>
+        <tr>
+          <td colspan="6" style="text-align: center; padding: 48px; color: var(--muted);">
+            <i class="fa-solid fa-newspaper" style="font-size: 2rem; display: block; margin-bottom: 12px; opacity: 0.4;"></i>
+            No hay artículos en el blog aún.
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../layout-end') %>

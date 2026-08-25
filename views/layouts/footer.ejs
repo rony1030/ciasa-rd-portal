@@ -1,0 +1,261 @@
+  <!-- ==========================================================================
+       FOOTER CORPORATIVO LIMPIO Y ELEGANTE (IDÉNTICO A CIASARD.COM)
+       ========================================================================== -->
+  <style>
+    .site-footer {
+      background: #0B2238;
+      color: #94A3B8;
+      padding: 70px 0 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 80px;
+    }
+
+    .footer-main-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.2fr 1fr;
+      gap: 36px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .footer-brand-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .footer-brand-header img {
+      height: 52px;
+      width: auto;
+    }
+    .footer-brand-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.1;
+      letter-spacing: -0.3px;
+    }
+    .footer-brand-accent {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1.2;
+    }
+    .footer-brand-tagline {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: #94A3B8;
+      margin-top: 2px;
+    }
+    .footer-brand-desc {
+      font-size: 0.86rem;
+      color: #CBD5E1;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .footer-col-head {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 18px;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-links-list a {
+      color: #94A3B8;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-links-list a:hover {
+      color: #FFFFFF;
+    }
+
+    .footer-sub-bar {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: #94A3B8;
+    }
+    .footer-locations {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #94A3B8;
+    }
+    .crm-discreet-link {
+      color: #FFFFFF !important;
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .crm-discreet-link:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    /* Breakpoint 1: Laptop & Pantallas Medianas (992px - 1200px) */
+    @media (max-width: 1200px) {
+      .footer-main-grid {
+        grid-template-columns: 1.4fr 1fr 1fr 1.1fr 1fr;
+        gap: 24px;
+      }
+    }
+
+    /* Breakpoint 2: Tablets (768px - 991px) */
+    @media (max-width: 991px) {
+      .footer-main-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+      }
+      .footer-brand-wrap {
+        grid-column: span 3;
+        max-width: 580px;
+        margin-bottom: 8px;
+      }
+    }
+
+    /* Breakpoint 3: Móviles (< 768px) */
+    @media (max-width: 767px) {
+      .site-footer {
+        padding: 50px 0 25px;
+        margin-top: 50px;
+      }
+      .footer-main-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+        margin-bottom: 36px;
+      }
+      .footer-brand-wrap {
+        grid-column: span 2;
+      }
+      .footer-sub-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+
+    /* Breakpoint 4: Teléfonos Pequeños (< 480px) */
+    @media (max-width: 480px) {
+      .footer-main-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .footer-brand-wrap {
+        grid-column: span 1;
+      }
+    }
+  </style>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main-grid">
+        
+        <!-- Columna 1: Brand & Logo -->
+        <div class="footer-brand-wrap">
+          <div class="footer-brand-header">
+            <img src="/assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Logo">
+            <div>
+              <div class="footer-brand-title">CIASA</div>
+              <div class="footer-brand-accent">Bolsa Inmobiliaria</div>
+              <div class="footer-brand-tagline">Tu Ruta a la Prosperidad</div>
+            </div>
+          </div>
+          <p class="footer-brand-desc">
+            Conectamos a dominicanos en el exterior con las mejores oportunidades de inversión inmobiliaria en República Dominicana.
+          </p>
+        </div>
+
+        <!-- Columna 2: EXPLORAR -->
+        <div>
+          <div class="footer-col-head">Explorar</div>
+          <ul class="footer-links-list">
+            <li><a href="/proyectos">Proyectos</a></li>
+            <li><a href="/mapa">Mapa</a></li>
+            <li><a href="/servicios">Servicios</a></li>
+            <li><a href="/invertir">Guía de Inversión</a></li>
+            <li><a href="/nosotros">Nosotros</a></li>
+            <li><a href="/contacto">Contacto</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: RESPONSABILIDAD SOCIAL -->
+        <div>
+          <div class="footer-col-head">Responsabilidad Social</div>
+          <p style="font-size: 0.84rem; color: #94A3B8; line-height: 1.5; margin-bottom: 14px;">
+            Parte de nuestro impacto va de regreso a la comunidad.
+          </p>
+          <a href="https://www.evolutionfoundationusa.org.do" target="_blank" rel="noopener noreferrer" style="color: #38BDF8; font-weight: 700; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+            💙 Evolution Foundation
+          </a>
+        </div>
+
+        <!-- Columna 4: HERRAMIENTAS -->
+        <div>
+          <div class="footer-col-head">Herramientas</div>
+          <ul class="footer-links-list">
+            <li><a href="/wizard">Wizard de Inversión</a></li>
+            <li><a href="/herramientas">Calculadoras</a></li>
+            <li><a href="/articulos">Artículos</a></li>
+            <li><a href="/faq">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 5: CONTACTO -->
+        <div>
+          <div class="footer-col-head">Contacto</div>
+          <ul class="footer-links-list">
+            <li><a href="tel:+18092995233">+1 (809) 299-5233</a></li>
+            <li><a href="mailto:paola.caram@ciasard.org.do">paola.caram@ciasard.org.do</a></li>
+            <li><a href="https://wa.me/18092995233" target="_blank" style="color: #22C55E; font-weight: 600;"><i class="fa-brands fa-whatsapp"></i> WhatsApp Directo</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Barra Inferior del Footer -->
+      <div class="footer-sub-bar">
+        <div>
+          <span>&copy; 2026 CIASA Bolsa Inmobiliaria. Todos los derechos reservados.</span>
+        </div>
+        <div class="footer-locations">
+          <span>Santo Domingo, República Dominicana · Nueva York, EE.UU.</span>
+          <span style="color: #475569;">·</span>
+          <a href="/admin" class="crm-discreet-link" title="Panel Administrativo CIASA">CRM</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>

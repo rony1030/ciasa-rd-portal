@@ -1,0 +1,72 @@
+<%- include('layout', { pageTitle: 'Mis Tareas & Compromisos Comerciales', activePage: 'tareas' }) %>
+
+<div class="section-header">
+  <div>
+    <h2>Mis Tareas & Seguimiento Comercial</h2>
+    <p>Todos los compromisos, llamadas y envíos de cotizaciones programados</p>
+  </div>
+  <div style="display: flex; gap: 8px;">
+    <span class="badge badge-blue" style="font-size: 0.85rem; padding: 6px 14px;"><i class="fa-solid fa-list-check"></i> <%= tareas.filter(t => !t.completada).length %> tareas activas</span>
+  </div>
+</div>
+
+<div class="admin-table-wrap" style="margin-bottom: 30px;">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th style="width: 50px;">Estado</th>
+        <th>Tarea / Compromiso</th>
+        <th>Inversionista / Lead Asociado</th>
+        <th>Fecha Límite</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (tareas && tareas.length > 0) { %>
+        <% tareas.forEach(t => { %>
+        <tr>
+          <td>
+            <form method="POST" action="/admin/leads/<%= t.leadId %>/tareas/<%= t.id %>/toggle" style="display: inline;">
+              <input type="checkbox" <%= t.completada ? 'checked' : '' %> onchange="this.form.submit()" style="width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer;" title="Marcar como completada">
+            </form>
+          </td>
+          <td>
+            <strong style="font-size: 0.9rem; color: <%= t.completada ? 'var(--text-muted)' : 'var(--text-heading)' %>; text-decoration: <%= t.completada ? 'line-through' : 'none' %>;">
+              <%= t.titulo %>
+            </strong>
+          </td>
+          <td>
+            <a href="/admin/leads/<%= t.leadId %>" style="color: var(--primary); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+              <i class="fa-regular fa-user"></i> <%= t.leadNombre %>
+            </a>
+          </td>
+          <td>
+            <span class="badge <%= new Date(t.fechaLimite) < new Date() && !t.completada ? 'badge-red' : 'badge-gray' %>">
+              <i class="fa-regular fa-calendar"></i> <%= t.fechaLimite %>
+            </span>
+          </td>
+          <td>
+            <div style="display: flex; gap: 8px;">
+              <a href="/admin/leads/<%= t.leadId %>" class="btn btn-secondary btn-sm" title="Abrir Ficha 360°">
+                <i class="fa-solid fa-folder-open"></i> Ficha 360°
+              </a>
+              <form method="POST" action="/admin/leads/<%= t.leadId %>/tareas/<%= t.id %>/delete" style="display: inline;">
+                <button type="submit" class="btn btn-secondary btn-sm" style="color: #DC2626;" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        <% }) %>
+      <% } else { %>
+        <tr>
+          <td colspan="5" style="text-align: center; padding: 40px; color: var(--text-muted);">
+            <i class="fa-solid fa-circle-check" style="font-size: 2rem; color: var(--primary); display: block; margin-bottom: 10px;"></i>
+            ¡Excelente! No tienes tareas pendientes en este momento.
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('layout-end') %>

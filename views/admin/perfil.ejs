@@ -1,0 +1,114 @@
+<%- include('layout', { pageTitle: 'Mi Perfil — Paola Caram', activePage: 'perfil' }) %>
+
+<style>
+  .profile-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto 40px;
+  }
+  @media (max-width: 900px) {
+    .profile-layout { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="section-header" style="max-width: 1100px; margin: 0 auto 20px;">
+  <div>
+    <h2>Mi Perfil de Usuario</h2>
+    <p>Información de cuenta, datos de contacto comercial y credenciales de acceso</p>
+  </div>
+  <% if (typeof success !== 'undefined' && success) { %>
+    <span class="badge badge-green"><i class="fa-solid fa-circle-check"></i> Perfil actualizado correctamente</span>
+  <% } %>
+</div>
+
+<div class="profile-layout">
+  
+  <!-- Columna Izquierda: Tarjeta Avatar -->
+  <div class="form-card" style="text-align: center; height: fit-content;">
+    <div style="position: relative; width: 110px; height: 110px; margin: 0 auto 16px;">
+      <img src="<%= perfil.avatar || '/assets/images/team/paola-caram.jpg' %>" alt="Paola Caram" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--border-color); box-shadow: var(--shadow-sm);" onerror="this.src='/favicon.png';">
+      <span style="position: absolute; bottom: 4px; right: 4px; width: 22px; height: 22px; background: #22C55E; border: 3px solid #FFFFFF; border-radius: 50%;" title="Usuario Activo"></span>
+    </div>
+
+    <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-heading); margin-bottom: 2px;"><%= perfil.nombre %></h3>
+    <div style="font-size: 0.8rem; color: var(--primary); font-weight: 700; margin-bottom: 12px;"><%= perfil.cargo %></div>
+    
+    <div style="display: flex; justify-content: center; gap: 6px; margin-bottom: 20px;">
+      <span class="badge badge-blue"><i class="fa-solid fa-crown"></i> Super Admin</span>
+      <span class="badge badge-purple"><i class="fa-solid fa-shield"></i> CIASA Core</span>
+    </div>
+
+    <div style="border-top: 1px solid var(--border-subtle); padding-top: 16px; text-align: left; font-size: 0.82rem; display: flex; flex-direction: column; gap: 10px;">
+      <div>
+        <span style="color: var(--text-muted); display: block; font-size: 0.72rem;">Email Corporativo</span>
+        <strong style="color: var(--text-heading);"><%= perfil.email %></strong>
+      </div>
+      <div>
+        <span style="color: var(--text-muted); display: block; font-size: 0.72rem;">Teléfono Directo</span>
+        <strong style="color: var(--text-heading);"><%= perfil.telefono %></strong>
+      </div>
+      <div>
+        <span style="color: var(--text-muted); display: block; font-size: 0.72rem;">Ubicación Principal</span>
+        <strong style="color: var(--text-heading);"><%= perfil.ciudad %>, <%= perfil.pais %></strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Columna Derecha: Formulario de Actualización -->
+  <div class="form-card">
+    <h3 style="font-size: 1rem; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);">
+      <i class="fa-solid fa-user-pen" style="color: var(--primary);"></i> Editar Datos Personales & Comerciales
+    </h3>
+
+    <form method="POST" action="/admin/perfil">
+      <div class="form-grid" style="margin-bottom: 20px;">
+        <div class="form-group">
+          <label class="form-label">Nombre Completo *</label>
+          <input type="text" name="nombre" class="form-input" value="<%= perfil.nombre %>" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Cargo / Título Comercial *</label>
+          <input type="text" name="cargo" class="form-input" value="<%= perfil.cargo %>" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Principal *</label>
+          <input type="email" name="email" class="form-input" value="<%= perfil.email %>" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Teléfono / WhatsApp *</label>
+          <input type="text" name="telefono" class="form-input" value="<%= perfil.telefono %>" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">País</label>
+          <input type="text" name="pais" class="form-input" value="<%= perfil.pais %>">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Ciudad</label>
+          <input type="text" name="ciudad" class="form-input" value="<%= perfil.ciudad %>">
+        </div>
+
+        <div class="form-group full">
+          <label class="form-label">Biografía Profesional / Resumen de Experiencia</label>
+          <textarea name="bio" class="form-input" rows="3"><%= perfil.bio %></textarea>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid var(--border-color); padding-top: 16px;">
+        <a href="/admin" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary" style="padding: 10px 24px; font-weight: 800;">
+          <i class="fa-solid fa-floppy-disk"></i> Guardar Cambios
+        </button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<%- include('layout-end') %>

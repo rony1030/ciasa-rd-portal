@@ -1,0 +1,417 @@
+<%- include('../layouts/header', { pageTitle: 'Catálogo de Proyectos Inmobiliarios | CIASA Bolsa Inmobiliaria', pageDesc: 'Explora nuestros 27 proyectos turísticos y residenciales en República Dominicana con Ley CONFOTUR, alta plusvalía y retorno en USD.', activePage: 'proyectos' }) %>
+
+  <style>
+    .portfolio-hero {
+      background-image: linear-gradient(135deg, rgba(10, 30, 54, 0.85), rgba(8, 145, 178, 0.65)),
+                        url('/assets/images/flyers/pictures/Coastal_development_at_202604231822_2.jpeg');
+      background-size: cover;
+      background-position: center;
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 90px 0 80px;
+      text-align: center;
+      color: #ffffff;
+    }
+    .portfolio-hero h1 {
+      font-size: clamp(2.3rem, 4vw, 3.2rem);
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.15;
+    }
+    .portfolio-hero p {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 660px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Filter Bar */
+    .filter-bar-container {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      margin: -36px auto 45px;
+      position: relative;
+      z-index: 10;
+      max-width: 1180px;
+    }
+    .filter-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+      gap: 16px;
+      align-items: flex-end;
+    }
+    @media (max-width: 991px) {
+      .filter-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 580px) {
+      .filter-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .form-control-select, .form-control-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-family: inherit;
+      color: #334155;
+      background: #F8FAFC;
+    }
+
+    .confotur-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 42px;
+      cursor: pointer;
+    }
+    .confotur-toggle-wrap input {
+      accent-color: var(--green);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .confotur-toggle-label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #065F46;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+
+    .project-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.12);
+    }
+
+    .project-card-media {
+      height: 220px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-color: #0A1E36;
+    }
+    .card-badge-region {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(10, 30, 54, 0.85);
+      backdrop-filter: blur(4px);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .card-badge-confotur {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #ECFDF5;
+      color: #059669;
+      border: 1px solid #A7F3D0;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .project-card-body {
+      padding: 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card-code {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .project-card-title {
+      font-size: 1.28rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+      line-height: 1.25;
+      transition: color 0.2s;
+    }
+    .project-card:hover .project-card-title {
+      color: var(--green);
+    }
+    .project-card-sub {
+      font-size: 0.86rem;
+      color: #64748B;
+      margin-bottom: 16px;
+    }
+
+    .project-specs-row {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px solid #F1F5F9;
+      border-bottom: 1px solid #F1F5F9;
+      margin-bottom: 16px;
+      font-size: 0.84rem;
+      color: #475569;
+    }
+    .spec-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .project-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: auto;
+      padding-top: 6px;
+    }
+    .price-label {
+      font-size: 0.74rem;
+      color: #64748B;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .price-value {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1.1;
+    }
+    .roi-badge {
+      background: #EFF6FF;
+      color: #2563EB;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 6px;
+      text-align: right;
+    }
+  </style>
+
+  <!-- Hero Section -->
+  <section class="portfolio-hero">
+    <div class="container">
+      <h1>Nuestros Proyectos</h1>
+      <p>Explora 27 desarrollos inmobiliarios seleccionados bajo rigurosos estándares de seguridad jurídica, fiduciaria y rentabilidad en República Dominicana.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="container">
+      
+      <!-- Filter Bar -->
+      <div class="filter-bar-container">
+        <div class="filter-grid">
+          <div class="form-group">
+            <label>Buscar Proyecto</label>
+            <input type="text" id="filterSearch" class="form-control-input" placeholder="Nombre o código (ej. Marina, CIASA-001)..." oninput="applyFilters()">
+          </div>
+
+          <div class="form-group">
+            <label>Región</label>
+            <select id="filterRegion" class="form-control-select" onchange="applyFilters()">
+              <option value="all">Todas las Regiones</option>
+              <option value="Punta Cana">Punta Cana & Cap Cana</option>
+              <option value="Bayahíbe">Bayahíbe & Dominicus</option>
+              <option value="Juan Dolio">Juan Dolio & Guayacanes</option>
+              <option value="Santo Domingo">Santo Domingo & DN</option>
+              <option value="Baní">Baní / Peravia</option>
+              <option value="Miches">Miches & Costa Esmeralda</option>
+              <option value="Samaná">Las Terrenas / Samaná</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Tipo de Inmueble</label>
+            <select id="filterType" class="form-control-select" onchange="applyFilters()">
+              <option value="all">Todos los Tipos</option>
+              <option value="Apartamentos">Apartamento</option>
+              <option value="Villas">Villa / Casa</option>
+              <option value="Townhouses">Townhouse</option>
+              <option value="Terrenos">Terreno / Lote</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Presupuesto Máximo</label>
+            <select id="filterPrice" class="form-control-select" onchange="applyFilters()">
+              <option value="0">Sin Límite</option>
+              <option value="150000">Hasta $150,000 USD</option>
+              <option value="250000">Hasta $250,000 USD</option>
+              <option value="400000">Hasta $400,000 USD</option>
+              <option value="600000">Hasta $600,000 USD</option>
+            </select>
+          </div>
+
+          <div class="confotur-toggle-wrap">
+            <label class="confotur-toggle-label">
+              <input type="checkbox" id="filterConfotur" onchange="applyFilters()">
+              <span><i class="fa-solid fa-shield-check" style="color: var(--green);"></i> Solo CONFOTUR</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contador de Resultados -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <span style="font-size: 0.95rem; font-weight: 700; color: var(--navy);" id="resultsCount">
+          Mostrando <%= projects.length %> proyectos disponibles
+        </span>
+      </div>
+
+      <!-- Grid de Proyectos Dinámico -->
+      <div class="projects-grid" id="projectsGrid">
+        <% projects.forEach(p => { %>
+          <% 
+            // Construir URL de portada desde el campo image del JSON
+            // El campo viene como: "assets/images/projects/marina-garden-2.jpg"
+            let rawImg = (p.image || '').trim();
+            let cardImgUrl = rawImg.startsWith('http') 
+              ? rawImg 
+              : '/' + rawImg.replace(/^\/+/, '');
+          %>
+          <a href="/proyectos/<%= p.slug || p.id %>" class="project-card" 
+             data-region="<%= p.region %>" 
+             data-type="<%= p.type %>" 
+             data-price="<%= p.priceFrom || 0 %>" 
+             data-confotur="<%= p.confotur ? 'true' : 'false' %>"
+             data-name="<%= (p.name + ' ' + (p.code || '') + ' ' + p.region + ' ' + (p.subLocation || '')).toLowerCase() %>">
+            
+            <div class="project-card-media" style="background-image: url('<%= cardImgUrl %>');">
+              <span class="card-badge-region">
+                <i class="fa-solid fa-location-dot"></i> <%= p.region %>
+              </span>
+              <% if (p.confotur) { %>
+                <span class="card-badge-confotur">
+                  <i class="fa-solid fa-shield-check"></i> CONFOTUR
+                </span>
+              <% } %>
+            </div>
+
+            <div class="project-card-body">
+              <div class="project-card-code"><%= p.code || 'PROYECTO' %></div>
+              <h2 class="project-card-title"><%= p.name %></h2>
+              <div class="project-card-sub"><%= p.subLocation || p.region %> · <%= p.type %></div>
+
+              <div class="project-specs-row">
+                <% if (p.bedrooms) { %>
+                  <div class="spec-item"><i class="fa-solid fa-bed" style="color: #64748B;"></i> <%= p.bedrooms %> Hab</div>
+                <% } %>
+                <% if (p.bathrooms) { %>
+                  <div class="spec-item"><i class="fa-solid fa-bath" style="color: #64748B;"></i> <%= p.bathrooms %> Baños</div>
+                <% } %>
+                <% if (p.sizeFrom) { %>
+                  <div class="spec-item"><i class="fa-solid fa-ruler-combined" style="color: #64748B;"></i> <%= (p.sizeFrom === p.sizeTo || !p.sizeTo) ? p.sizeFrom + ' m²' : p.sizeFrom + ' - ' + p.sizeTo + ' m²' %></div>
+                <% } %>
+              </div>
+
+              <div class="project-card-footer">
+                <div>
+                  <div class="price-label">PRECIO DESDE</div>
+                  <div class="price-value">$<%= p.priceFrom ? p.priceFrom.toLocaleString('en-US') : 'Consultar' %> <span style="font-size: 0.72rem; font-weight: 700; color: #64748B;">USD</span></div>
+                </div>
+                <% if (p.roi) { %>
+                  <div class="roi-badge">
+                    <div style="font-size: 0.68rem; color: #64748B;">ROI ESTIMADO</div>
+                    <div><%= p.roi %></div>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function applyFilters() {
+      const search = document.getElementById('filterSearch').value.toLowerCase().trim();
+      const region = document.getElementById('filterRegion').value;
+      const type = document.getElementById('filterType').value;
+      const maxPrice = parseFloat(document.getElementById('filterPrice').value) || 0;
+      const onlyConfotur = document.getElementById('filterConfotur').checked;
+
+      let visibleCount = 0;
+      const cards = document.querySelectorAll('.project-card');
+
+      cards.forEach(card => {
+        const cardName = card.getAttribute('data-name');
+        const cardRegion = card.getAttribute('data-region');
+        const cardType = card.getAttribute('data-type');
+        const cardPrice = parseFloat(card.getAttribute('data-price')) || 0;
+        const cardConfotur = card.getAttribute('data-confotur') === 'true';
+
+        let matchSearch = !search || cardName.includes(search);
+        let matchRegion = region === 'all' || cardRegion.toLowerCase().includes(region.toLowerCase());
+        let matchType = type === 'all' || cardType.toLowerCase().includes(type.toLowerCase());
+        let matchPrice = maxPrice === 0 || cardPrice <= maxPrice;
+        let matchConfotur = !onlyConfotur || cardConfotur;
+
+        if (matchSearch && matchRegion && matchType && matchPrice && matchConfotur) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      document.getElementById('resultsCount').innerText = `Mostrando ${visibleCount} de ${cards.length} proyectos disponibles`;
+    }
+  </script>
+
+<%- include('../layouts/footer') %>

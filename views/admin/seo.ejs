@@ -1,0 +1,132 @@
+<%- include('layout', { pageTitle: 'Ajustes & SEO Manager', activePage: 'seo' }) %>
+
+<div class="section-header" style="max-width: 1000px; margin: 0 auto 20px;">
+  <div>
+    <h2>Ajustes Generales & SEO Manager</h2>
+    <p>Configuración del portal público, metaetiquetas de búsqueda, OpenGraph e integraciones</p>
+  </div>
+  <% if (typeof success !== 'undefined' && success) { %>
+    <span class="badge badge-green"><i class="fa-solid fa-circle-check"></i> Configuración guardada exitosamente</span>
+  <% } %>
+</div>
+
+<div style="max-width: 1000px; margin: 0 auto 40px;">
+  <form method="POST" action="/admin/seo">
+    
+    <!-- 1. SEO & Metadatos Globales -->
+    <div class="form-card" style="margin-bottom: 24px;">
+      <h3 style="font-size: 1rem; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);">
+        <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--primary);"></i> Metadatos Globales de Google & Redes Sociales
+      </h3>
+
+      <div class="form-grid">
+        <div class="form-group full">
+          <label class="form-label">Título Global del Sitio (Meta Title) *</label>
+          <input type="text" name="siteTitle" class="form-input" value="<%= ajustes.siteTitle %>" required>
+        </div>
+
+        <div class="form-group full">
+          <label class="form-label">Descripción Global (Meta Description) *</label>
+          <textarea name="siteDescription" class="form-input" rows="3" required><%= ajustes.siteDescription %></textarea>
+        </div>
+
+        <div class="form-group full">
+          <label class="form-label">Palabras Clave (Meta Keywords)</label>
+          <input type="text" name="metaKeywords" class="form-input" value="<%= ajustes.metaKeywords %>" placeholder="bienes raices rd, inversion inmobiliaria...">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Google Analytics / Tag Manager ID</label>
+          <input type="text" name="googleAnalyticsId" class="form-input" value="<%= ajustes.googleAnalyticsId %>" placeholder="G-XXXXXXXXXX">
+        </div>
+
+        <!-- Imagen Social OpenGraph Visual (Sin URL visible) -->
+        <div class="form-group">
+          <label class="form-label">Imagen Social OpenGraph (OG:Image)</label>
+          <div onclick="chooseOgImage()" style="position: relative; border: 1px solid #CBD5E1; border-radius: var(--radius-md); background: #F1F5F9; overflow: hidden; height: 95px; max-width: 220px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow-sm);" title="Cambiar imagen social">
+            <img src="<%= ajustes.ogImage || '/assets/images/branding/ciasa-social-preview.jpg' %>" id="ogImagePreview" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.src='/favicon.png';">
+            <div style="position: absolute; inset: 0; background: rgba(15,23,42,0.5); display: flex; align-items: center; justify-content: center; gap: 6px; color: #FFFFFF; font-size: 0.76rem; font-weight: 700; opacity: 0; transition: opacity 0.15s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+              <i class="fa-solid fa-camera"></i> Cambiar
+            </div>
+          </div>
+          <input type="hidden" name="ogImage" id="ogImageInput" value="<%= ajustes.ogImage || '/assets/images/branding/ciasa-social-preview.jpg' %>">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Canales de Contacto & Conversión -->
+    <div class="form-card" style="margin-bottom: 24px;">
+      <h3 style="font-size: 1rem; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color);">
+        <i class="fa-solid fa-headset" style="color: var(--primary);"></i> Canales Oficiales de Contacto
+      </h3>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Teléfono / WhatsApp Comercial Oficial</label>
+          <input type="text" name="whatsappPhone" class="form-input" value="<%= ajustes.whatsappPhone %>" placeholder="+18097105591">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email de Notificaciones de Nuevos Leads</label>
+          <input type="email" name="contactoEmail" class="form-input" value="<%= ajustes.contactoEmail %>" placeholder="info@ciasard.com">
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; gap: 12px;">
+      <a href="/admin" class="btn btn-secondary">Cancelar</a>
+      <button type="submit" class="btn btn-primary" style="padding: 10px 28px; font-weight: 800;">
+        <i class="fa-solid fa-cloud-arrow-up"></i> Guardar Ajustes SEO
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<!-- MODAL SELECTOR RÁPIDO DE IMAGEN SOCIAL -->
+<div id="ogGalleryModal" style="display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.7); z-index: 10000; overflow-y: auto; backdrop-filter: blur(4px); padding: 40px 16px;">
+  <div style="background: #FFFFFF; max-width: 650px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-lg);">
+    <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #FAFAFC;">
+      <strong style="font-size: 0.95rem; color: var(--text-heading);"><i class="fa-regular fa-images"></i> Seleccionar Imagen Social OpenGraph</strong>
+      <button type="button" onclick="closeOgGallery()" style="background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+    </div>
+    
+    <div style="padding: 20px;">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-height: 360px; overflow-y: auto; padding-right: 6px;">
+        <% 
+          const ogImages = [
+            '/assets/images/hero-dr.jpg',
+            '/assets/images/flyers/pictures/Coastal_development_at_202604231822_2.jpeg',
+            '/assets/images/flyers/pictures/Family_on_balcony_202604231822_3.jpeg',
+            '/assets/images/projects/marina-garden-2.jpg',
+            '/assets/images/projects/wave-garden.jpg',
+            '/assets/images/projects/cap-cana-hero.jpg'
+          ];
+          ogImages.forEach(img => { 
+        %>
+          <div onclick="selectOgImage('<%= img %>')" style="cursor: pointer; border: 2px solid #E2E8F0; border-radius: 8px; overflow: hidden; height: 90px; transition: border-color 0.15s; background: #0F172A;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='#E2E8F0'">
+            <img src="<%= img %>" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/favicon.png'">
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function chooseOgImage() {
+  document.getElementById('ogGalleryModal').style.display = 'block';
+}
+
+function closeOgGallery() {
+  document.getElementById('ogGalleryModal').style.display = 'none';
+}
+
+function selectOgImage(imgSrc) {
+  document.getElementById('ogImageInput').value = imgSrc;
+  document.getElementById('ogImagePreview').src = imgSrc;
+  closeOgGallery();
+}
+</script>
+
+<%- include('layout-end') %>

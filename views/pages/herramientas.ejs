@@ -1,0 +1,564 @@
+<%- include('../layouts/header', { pageTitle: 'Calculadoras Inmobiliarias & ROI | CIASA Bolsa Inmobiliaria', pageDesc: 'Simula el retorno de inversión (ROI), calcula cuotas hipotecarias y proyecta el ahorro fiscal por Ley CONFOTUR en República Dominicana.', activePage: 'herramientas' }) %>
+
+  <style>
+    .tools-hero {
+      background-image: linear-gradient(135deg, rgba(10, 30, 54, 0.82), rgba(8, 145, 178, 0.62)),
+                        url('/assets/images/flyers/pictures/Coastal_development_at_202604231822_2.jpeg');
+      background-size: cover;
+      background-position: center;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 90px 0 80px;
+      text-align: center;
+      color: #ffffff;
+    }
+    .tools-hero h1 {
+      font-size: clamp(2.3rem, 4vw, 3.2rem);
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.15;
+    }
+    .tools-hero p {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .tools-nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: -35px auto 40px;
+      position: relative;
+      z-index: 10;
+      flex-wrap: wrap;
+      padding: 0 16px;
+    }
+    .tab-btn {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tab-btn:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+    }
+    .tab-btn.active {
+      background: var(--navy);
+      color: #ffffff;
+      border-color: var(--navy);
+      box-shadow: 0 8px 24px rgba(10,30,54,0.18);
+    }
+
+    .calculator-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.06);
+      margin-bottom: 40px;
+      display: none;
+    }
+    .calculator-card.active {
+      display: block;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+    }
+    @media (max-width: 900px) {
+      .calc-grid { grid-template-columns: 1fr; }
+      .calculator-card { padding: 24px; }
+    }
+
+    .calc-input-group {
+      margin-bottom: 22px;
+    }
+    .calc-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+    .calc-val-display {
+      color: var(--green);
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .calc-range {
+      width: 100%;
+      accent-color: var(--green);
+      height: 6px;
+      cursor: pointer;
+    }
+    .calc-input-box {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: var(--text-main);
+      background: #F8FAFC;
+    }
+
+    .calc-results-box {
+      background: linear-gradient(135deg, #0A1E36 0%, #0F2A4A 100%);
+      border-radius: 16px;
+      padding: 32px 28px;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .result-metric {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .result-metric:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .metric-label {
+      font-size: 0.82rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .metric-value {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+    .metric-value.highlight {
+      color: #A3E635;
+    }
+
+    /* Disclaimer Box */
+    .disclaimer-card {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-left: 5px solid #D97706;
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 40px;
+    }
+    .disclaimer-card h4 {
+      color: #92400E;
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .disclaimer-card p {
+      font-size: 0.84rem;
+      color: #78350F;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .disclaimer-card {
+        padding: 14px 12px;
+        border-radius: 10px;
+        border-left-width: 4px;
+        margin-top: 24px;
+      }
+      .disclaimer-card h4 {
+        font-size: 0.80rem;
+        margin-bottom: 6px;
+      }
+      .disclaimer-card p {
+        font-size: 0.70rem;
+        line-height: 1.45;
+      }
+    }
+  </style>
+
+  <!-- Hero Section -->
+  <section class="tools-hero">
+    <div class="container">
+      <h1>Herramientas & Calculadoras Financieras</h1>
+      <p>Simula el retorno neto de inversión (ROI), cuotas hipotecarias con la banca dominicana y el ahorro fiscal por Ley CONFOTUR con parámetros realistas.</p>
+    </div>
+  </section>
+
+  <main style="padding-bottom: 90px;">
+    <div class="container">
+      
+      <!-- Navigation Tabs -->
+      <div class="tools-nav-tabs">
+        <button class="tab-btn active" onclick="switchCalc('roi', this)">
+          <i class="fa-solid fa-chart-pie"></i> Rentabilidad & Airbnb (ROI)
+        </button>
+        <button class="tab-btn" onclick="switchCalc('mortgage', this)">
+          <i class="fa-solid fa-building-columns"></i> Simulador Hipotecario USD
+        </button>
+        <button class="tab-btn" onclick="switchCalc('confotur', this)">
+          <i class="fa-solid fa-shield-halved"></i> Ahorro Fiscal CONFOTUR
+        </button>
+      </div>
+
+      <!-- ====================================================================
+           1. CALCULADORA ROI & AIRBNB
+           ==================================================================== -->
+      <div id="calc-roi" class="calculator-card active">
+        <div style="margin-bottom: 30px;">
+          <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 6px;">
+            Calculadora de Retorno de Inversión (ROI & Yield Airbnb)
+          </h2>
+          <p style="color: #64748B; font-size: 0.95rem;">
+            Proyecta los ingresos brutos, costos operativos y el retorno neto anual de tu propiedad en renta vacacional.
+          </p>
+        </div>
+
+        <div class="calc-grid">
+          <div>
+            <div class="calc-input-group">
+              <div class="calc-label">
+                <span>Precio de Compra del Inmueble (USD)</span>
+                <span class="calc-val-display" id="roiPriceVal">$175,000</span>
+              </div>
+              <input type="range" class="calc-range" id="roiPrice" min="60000" max="600000" step="5000" value="175000" oninput="updateRoi()">
+            </div>
+
+            <div class="calc-input-group">
+              <div class="calc-label">
+                <span>Tarifa Promedio por Noche (ADR - USD)</span>
+                <span class="calc-val-display" id="roiAdrVal">$140 / noche</span>
+              </div>
+              <input type="range" class="calc-range" id="roiAdr" min="50" max="500" step="5" value="140" oninput="updateRoi()">
+            </div>
+
+            <div class="calc-input-group">
+              <div class="calc-label">
+                <span>Tasa de Ocupación Anual Estimada</span>
+                <span class="calc-val-display" id="roiOccVal">65% (237 noches)</span>
+              </div>
+              <input type="range" class="calc-range" id="roiOcc" min="30" max="90" step="1" value="65" oninput="updateRoi()">
+            </div>
+
+            <div class="calc-input-group">
+              <div class="calc-label">
+                <span>Gastos Operativos & Property Management (%)</span>
+                <span class="calc-val-display" id="roiExpVal">25% del ingreso</span>
+              </div>
+              <input type="range" class="calc-range" id="roiExp" min="15" max="40" step="1" value="25" oninput="updateRoi()">
+            </div>
+          </div>
+
+          <div class="calc-results-box">
+            <div>
+              <div class="result-metric">
+                <div class="metric-label">Ingreso Bruto Anual Estimado</div>
+                <div class="metric-value" id="roiGross">$33,180 USD</div>
+              </div>
+              <div class="result-metric">
+                <div class="metric-label">Gastos Operativos Anuales (Comisión, HOA, Mantenimiento)</div>
+                <div class="metric-value" id="roiExpenses">$8,295 USD</div>
+              </div>
+              <div class="result-metric">
+                <div class="metric-label">Flujo Neto Anual en Dólares</div>
+                <div class="metric-value highlight" id="roiNet">$24,885 USD</div>
+              </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.08); padding: 18px; border-radius: 12px; text-align: center; margin-top: 14px;">
+              <div class="metric-label">Rentabilidad Neta Anual (Cap Rate / ROI)</div>
+              <div style="font-size: 2.3rem; font-weight: 900; color: #A3E635;" id="roiPercent">14.2%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           2. SIMULADOR HIPOTECARIO USD
+           ==================================================================== -->
+      <div id="calc-mortgage" class="calculator-card">
+        <div style="margin-bottom: 30px;">
+          <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 6px;">
+            Simulador de Préstamo Hipotecario Internacional en USD
+          </h2>
+          <p style="color: #64748B; font-size: 0.95rem;">
+            Calcula la cuota mensual aproximada según las tasas de referencia actuales de la banca múltiple de la República Dominicana.
+          </p>
+        </div>
+
+        <div class="calc-grid">
+          <div>
+            <div class="calc-input-group">
+              <div class="calc-label">
+                <span>Valor de la Propiedad (USD)</span>
+                <span class="calc-val-display" id="mortPropVal">$200,000</span>
+              </div>
+              <input type="range" class="calc-range" id="mortProp" min="60000" max="600000" step="5000" value="200000" oninput="updateMortgage()">
+            </div>
+
+            <div class="calc-input-group">
+              <div class="calc-label">
+                <span>Pago Inicial (%)</span>
+                <span class="calc-val-display" id="mortDownVal">30% ($60,000 USD)</span>
+              </div>
+              <input type="range" class="calc-range" id="mortDown" min="20" max="50" step="5" value="30" oninput="updateMortgage()">
+            </div>
+
+            <div class="calc-input-group">
+              <label class="calc-label">
+                <span>Tasa de Interés Anual (Referencia Bancaria RD)</span>
+              </label>
+              <select id="mortRateSelect" class="calc-input-box" onchange="updateMortgageRate()">
+                <option value="8.5" selected>8.50% — BanReservas (Programa Diáspora)</option>
+                <option value="9.25">9.25% — Banco BHD (Hipotecario No Residentes)</option>
+                <option value="9.50">9.50% — Banco Popular Dominicano</option>
+                <option value="10.00">10.00% — Scotiabank RD</option>
+              </select>
+            </div>
+
+            <div class="calc-input-group">
+              <div class="calc-label">
+                <span>Plazo de Amortización</span>
+                <span class="calc-val-display" id="mortYearsVal">20 Años (240 meses)</span>
+              </div>
+              <input type="range" class="calc-range" id="mortYears" min="5" max="25" step="5" value="20" oninput="updateMortgage()">
+            </div>
+          </div>
+
+          <div class="calc-results-box">
+            <div>
+              <div class="result-metric">
+                <div class="metric-label">Monto del Préstamo a Financiar</div>
+                <div class="metric-value" id="mortLoanAmount">$140,000 USD</div>
+              </div>
+              <div class="result-metric">
+                <div class="metric-label">Pago Inicial Requerido (Down Payment)</div>
+                <div class="metric-value" id="mortDownAmount">$60,000 USD</div>
+              </div>
+              <div class="result-metric">
+                <div class="metric-label">Total de Intereses Estimados en el Plazo</div>
+                <div class="metric-value" id="mortTotalInterest">$151,556 USD</div>
+              </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.08); padding: 18px; border-radius: 12px; text-align: center; margin-top: 14px;">
+              <div class="metric-label">Cuota Mensual Estimada (Capital + Interés)</div>
+              <div style="font-size: 2.2rem; font-weight: 900; color: #A3E635;" id="mortMonthly">$1,215 / mes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           3. CALCULADORA CONFOTUR
+           ==================================================================== -->
+      <div id="calc-confotur" class="calculator-card">
+        <div style="margin-bottom: 30px;">
+          <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 6px;">
+            Calculadora de Ahorro Fiscal por Ley CONFOTUR (158-01)
+          </h2>
+          <p style="color: #64748B; font-size: 0.95rem;">
+            Calcula el beneficio económico total de adquirir un proyecto avalado con exención del 3% de transferencia y 1% de IPI anual por 15 años.
+          </p>
+        </div>
+
+        <div class="calc-grid">
+          <div>
+            <div class="calc-input-group">
+              <div class="calc-label">
+                <span>Valor de Compra del Inmueble (USD)</span>
+                <span class="calc-val-display" id="confPriceVal">$220,000</span>
+              </div>
+              <input type="range" class="calc-range" id="confPrice" min="70000" max="700000" step="5000" value="220000" oninput="updateConfotur()">
+            </div>
+
+            <div class="calc-input-group">
+              <div class="calc-label">
+                <span>Años de Exoneración del IPI</span>
+                <span class="calc-val-display" id="confYearsVal">15 Años</span>
+              </div>
+              <input type="range" class="calc-range" id="confYears" min="5" max="15" step="1" value="15" oninput="updateConfotur()">
+            </div>
+
+            <div style="background: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 12px; padding: 18px; margin-top: 10px;">
+              <strong style="color: #065F46; font-size: 0.95rem; display: block; margin-bottom: 6px;">
+                Beneficios Aplicados por Ley 158-01:
+              </strong>
+              <ul style="color: #064E3B; font-size: 0.88rem; line-height: 1.5; padding-left: 18px; margin: 0;">
+                <li>0% Impuesto de Transferencia Inmobiliaria (vs 3% regular).</li>
+                <li>0% Impuesto al Patrimonio Inmobiliario (IPI 1% anual).</li>
+                <li>Exención de retención en dividendos y ganancias.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="calc-results-box">
+            <div>
+              <div class="result-metric">
+                <div class="metric-label">Ahorro Inmediato en Transferencia de Título (3%)</div>
+                <div class="metric-value" id="confTransfer">$6,600 USD</div>
+              </div>
+              <div class="result-metric">
+                <div class="metric-label">Ahorro Acumulado en Exención de IPI (1% Anual)</div>
+                <div class="metric-value" id="confIpi">$33,000 USD</div>
+              </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.08); padding: 18px; border-radius: 12px; text-align: center; margin-top: 14px;">
+              <div class="metric-label">Ahorro Fiscal Total Acumulado en USD</div>
+              <div style="font-size: 2.3rem; font-weight: 900; color: #A3E635;" id="confTotal">$39,600 USD</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           FUENTES OFICIALES & DESCARGO DE RESPONSABILIDAD (LEGAL DISCLAIMER)
+           ==================================================================== -->
+      <div style="margin-top: 50px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 18px; padding: 32px 28px;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <i class="fa-solid fa-scale-balanced" style="color: var(--green);"></i> Fuentes Oficiales de Información & Mercado
+        </h3>
+        <p style="font-size: 0.88rem; color: #64748B; line-height: 1.6; margin-bottom: 18px;">
+          Los parámetros de cálculo se basan en tarifas públicas, normativas fiscales y métricas de mercado de las siguientes entidades:
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
+          <a href="https://www.bancentral.gov.do/" target="_blank" rel="noopener noreferrer" style="background: #ffffff; border: 1px solid #E2E8F0; border-radius: 10px; padding: 12px 16px; text-decoration: none; color: #334155; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+            <span><strong>BCRD</strong> · Estadísticas Financieras</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="color: #94A3B8; font-size: 0.75rem;"></i>
+          </a>
+          <a href="https://dgii.gov.do/" target="_blank" rel="noopener noreferrer" style="background: #ffffff; border: 1px solid #E2E8F0; border-radius: 10px; padding: 12px 16px; text-decoration: none; color: #334155; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+            <span><strong>DGII</strong> · Marco Tributario e IPI</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="color: #94A3B8; font-size: 0.75rem;"></i>
+          </a>
+          <a href="https://www.banreservas.com/" target="_blank" rel="noopener noreferrer" style="background: #ffffff; border: 1px solid #E2E8F0; border-radius: 10px; padding: 12px 16px; text-decoration: none; color: #334155; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+            <span><strong>BanReservas</strong> · Préstamos Hipotecarios</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="color: #94A3B8; font-size: 0.75rem;"></i>
+          </a>
+          <a href="https://www.airdna.co/" target="_blank" rel="noopener noreferrer" style="background: #ffffff; border: 1px solid #E2E8F0; border-radius: 10px; padding: 12px 16px; text-decoration: none; color: #334155; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+            <span><strong>AirDNA</strong> · Datos de Renta Vacacional</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="color: #94A3B8; font-size: 0.75rem;"></i>
+          </a>
+        </div>
+
+        <!-- AVISO LEGAL Y DESCARGO DE RESPONSABILIDAD -->
+        <div class="disclaimer-card">
+          <h4><i class="fa-solid fa-triangle-exclamation"></i> Descargo de Responsabilidad y Aviso Legal (Disclaimer)</h4>
+          <p>
+            <strong>Nota Aclaratoria:</strong> Las cifras, cálculos de rentabilidad (ROI), tasas de interés hipotecarias y proyecciones de ahorro fiscal generadas por estas herramientas son de carácter <em>estrictamente informativo, educativo y referencial</em>. Las tasas hipotecarias efectivas y condiciones de aprobación dependen de la calificación crediticia individual y de las políticas vigentes de las entidades bancarias intermediarias. Las tarifas por noche y niveles de ocupación en alquileres vacacionales varían según estacionalidad, ubicación y gestión de la propiedad. <strong>CIASA, S.R.L. (Bolsa Inmobiliaria)</strong> no asume responsabilidad legal o contractual por modificaciones en las políticas bancarias, tributarias o fluctuaciones del mercado de terceros, y no garantiza rendimientos financieros vinculantes.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function switchCalc(calcId, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.calculator-card').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('calc-' + calcId).classList.add('active');
+    }
+
+    function formatUsd(num) {
+      return '$' + Math.round(num).toLocaleString('en-US') + ' USD';
+    }
+
+    function updateRoi() {
+      const price = parseFloat(document.getElementById('roiPrice').value);
+      const adr = parseFloat(document.getElementById('roiAdr').value);
+      const occ = parseFloat(document.getElementById('roiOcc').value) / 100;
+      const expPercent = parseFloat(document.getElementById('roiExp').value) / 100;
+
+      const nights = Math.round(365 * occ);
+      document.getElementById('roiPriceVal').innerText = formatUsd(price);
+      document.getElementById('roiAdrVal').innerText = '$' + adr + ' / noche';
+      document.getElementById('roiOccVal').innerText = Math.round(occ * 100) + '% (' + nights + ' noches)';
+      document.getElementById('roiExpVal').innerText = Math.round(expPercent * 100) + '% del ingreso';
+
+      const gross = nights * adr;
+      const expenses = gross * expPercent;
+      const net = gross - expenses;
+      const roi = (net / price) * 100;
+
+      document.getElementById('roiGross').innerText = formatUsd(gross);
+      document.getElementById('roiExpenses').innerText = formatUsd(expenses);
+      document.getElementById('roiNet').innerText = formatUsd(net);
+      document.getElementById('roiPercent').innerText = roi.toFixed(1) + '%';
+    }
+
+    function updateMortgageRate() {
+      updateMortgage();
+    }
+
+    function updateMortgage() {
+      const propVal = parseFloat(document.getElementById('mortProp').value);
+      const downPercent = parseFloat(document.getElementById('mortDown').value) / 100;
+      const years = parseInt(document.getElementById('mortYears').value);
+      const rateAnnual = parseFloat(document.getElementById('mortRateSelect').value) / 100;
+
+      const downAmount = propVal * downPercent;
+      const loanAmount = propVal - downAmount;
+      const months = years * 12;
+      const monthlyRate = rateAnnual / 12;
+
+      document.getElementById('mortPropVal').innerText = formatUsd(propVal);
+      document.getElementById('mortDownVal').innerText = Math.round(downPercent * 100) + '% (' + formatUsd(downAmount) + ')';
+      document.getElementById('mortYearsVal').innerText = years + ' Años (' + months + ' meses)';
+
+      // Monthly payment formula: M = P [ r(1 + r)^n ] / [ (1 + r)^n – 1]
+      const monthlyPayment = (loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, months))) / (Math.pow(1 + monthlyRate, months) - 1);
+      const totalPaid = monthlyPayment * months;
+      const totalInterest = totalPaid - loanAmount;
+
+      document.getElementById('mortLoanAmount').innerText = formatUsd(loanAmount);
+      document.getElementById('mortDownAmount').innerText = formatUsd(downAmount);
+      document.getElementById('mortTotalInterest').innerText = formatUsd(totalInterest);
+      document.getElementById('mortMonthly').innerText = '$' + Math.round(monthlyPayment).toLocaleString('en-US') + ' / mes';
+    }
+
+    function updateConfotur() {
+      const price = parseFloat(document.getElementById('confPrice').value);
+      const years = parseInt(document.getElementById('confYears').value);
+
+      document.getElementById('confPriceVal').innerText = formatUsd(price);
+      document.getElementById('confYearsVal').innerText = years + ' Años';
+
+      const transferSavings = price * 0.03;
+      const ipiSavings = price * 0.01 * years;
+      const totalSavings = transferSavings + ipiSavings;
+
+      document.getElementById('confTransfer').innerText = formatUsd(transferSavings);
+      document.getElementById('confIpi').innerText = formatUsd(ipiSavings);
+      document.getElementById('confTotal').innerText = formatUsd(totalSavings);
+    }
+
+    // Initialize all calculators
+    updateRoi();
+    updateMortgage();
+    updateConfotur();
+  </script>
+
+<%- include('../layouts/footer') %>

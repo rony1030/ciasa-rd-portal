@@ -1,0 +1,43 @@
+<%- include('../layout', { pageTitle, activePage: 'usuarios' }) %>
+
+<div class="section-header">
+  <div>
+    <h2>Gestión de Usuarios</h2>
+    <p>Control de acceso y roles del panel admin</p>
+  </div>
+  <span class="ph-tag">Fase 2</span>
+</div>
+
+<div class="placeholder-card">
+  <div class="ph-icon"><i class="fa-solid fa-user-shield"></i></div>
+  <h3>Usuarios & Roles — Próximamente</h3>
+  <p>Este módulo permitirá crear múltiples usuarios con roles definidos (Admin, Editor, Viewer) para controlar el acceso al panel de administración con autenticación segura por base de datos.</p>
+  <span class="ph-tag">Disponible en Fase 2</span>
+
+  <div style="margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
+    <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 18px; text-align: left; opacity: 0.5;">
+      <div style="font-size: 1.2rem; margin-bottom: 8px;">👑</div>
+      <div style="font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 4px;">Rol Admin</div>
+      <div style="font-size: 0.76rem; color: var(--muted);">Acceso total al panel</div>
+    </div>
+    <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 18px; text-align: left; opacity: 0.5;">
+      <div style="font-size: 1.2rem; margin-bottom: 8px;">✏️</div>
+      <div style="font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 4px;">Rol Editor</div>
+      <div style="font-size: 0.76rem; color: var(--muted);">Gestión de contenido y blog</div>
+    </div>
+    <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 18px; text-align: left; opacity: 0.5;">
+      <div style="font-size: 1.2rem; margin-bottom: 8px;">👁️</div>
+      <div style="font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 4px;">Rol Viewer</div>
+      <div style="font-size: 0.76rem; color: var(--muted);">Solo lectura de leads y stats</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; padding: 16px 20px; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 10px; display: inline-block;">
+    <div style="font-size: 0.82rem; color: #FCD34D; font-weight: 600;">
+      <i class="fa-solid fa-lock"></i> Actualmente: acceso con Basic Auth (admin / <span style="letter-spacing: 2px;">••••••••</span>)
+    </div>
+    <div style="font-size: 0.76rem; color: var(--muted); margin-top: 4px;">Cambia las credenciales en el archivo .env</div>
+  </div>
+</div>
+
+<%- include('../layout-end') %>

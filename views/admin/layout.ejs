@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'Admin — CIASA Bolsa Inmobiliaria' %></title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- ApexCharts para visualizaciones SaaS -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --primary:         #7DB33A;
+      --primary-hover:   #6CA02F;
+      --primary-active:  #5D8B28;
+      --primary-light:   #F3F9ED;
+      --primary-subtle:  #E2F0D3;
+      --secondary:       #0A1E36;
+      --secondary-light: #F0F4F8;
+      
+      --body-bg:         #F8FAFC;
+      --sidebar-bg:      #FFFFFF;
+      --header-bg:       rgba(255, 255, 255, 0.95);
+      --card-bg:         #FFFFFF;
+      
+      --text-heading:    #0F172A;
+      --text-body:       #334155;
+      --text-muted:      #64748B;
+      
+      --border-color:    #E2E8F0;
+      --border-subtle:   #F1F5F9;
+      --border-focus:    #7DB33A;
+      
+      --shadow-sm:       0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-card:     0 1px 3px rgba(15, 23, 42, 0.04), 0 6px 16px -4px rgba(15, 23, 42, 0.04);
+      --shadow-hover:    0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 10px 24px -3px rgba(15, 23, 42, 0.08);
+      --shadow-dropdown: 0 10px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.06);
+      
+      --radius-xs:       4px;
+      --radius-sm:       8px;
+      --radius-md:       12px;
+      --radius-lg:       16px;
+      --radius-pill:     9999px;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--body-bg);
+      color: var(--text-body);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      letter-spacing: -0.01em;
+    }
+
+    /* SIDEBAR */
+    .admin-sidebar {
+      width: 260px;
+      min-height: 100vh;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 100;
+      overflow-y: auto;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .sidebar-logo {
+      padding: 18px 22px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none !important;
+    }
+    .sidebar-brand img { height: 38px; width: auto; flex-shrink: 0; }
+    .sidebar-brand-title { font-size: 1.15rem; font-weight: 800; color: var(--text-heading); letter-spacing: -0.3px; line-height: 1; }
+    .sidebar-brand-tagline { font-size: 0.72rem; color: var(--primary); font-weight: 700; margin-top: 2px; }
+    .sidebar-nav { padding: 18px 12px; flex: 1; }
+    .sidebar-section-label { font-size: 0.68rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; padding: 16px 12px 6px; }
+    .sidebar-section-label:first-child { padding-top: 0; }
+    .sidebar-link { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: var(--radius-md); margin-bottom: 3px; text-decoration: none; color: var(--text-body); font-size: 0.88rem; font-weight: 600; transition: all 0.15s ease; }
+    .sidebar-link i { width: 20px; text-align: center; font-size: 0.95rem; color: var(--text-muted); transition: color 0.15s ease; }
+    .sidebar-link:hover { background: var(--border-subtle); color: var(--text-heading); }
+    .sidebar-link:hover i { color: var(--primary); }
+    .sidebar-link.active { background: var(--primary-light); color: var(--primary); font-weight: 700; }
+    .sidebar-link.active i { color: var(--primary); }
+    .sidebar-badge { margin-left: auto; background: var(--primary); color: #FFFFFF; font-size: 0.65rem; font-weight: 800; padding: 2px 7px; border-radius: var(--radius-pill); }
+    .sidebar-badge.soon { background: var(--secondary-light); color: var(--text-muted); border: 1px solid var(--border-color); }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border-subtle); font-size: 0.76rem; color: var(--text-muted); }
+
+    /* MAIN CONTAINER & TOPBAR */
+    .admin-main {
+      margin-left: 260px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: var(--body-bg);
+    }
+    .admin-topbar {
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 28px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+    .topbar-left { display: flex; align-items: center; gap: 16px; }
+    .topbar-search-box {
+      position: relative;
+      width: 260px;
+    }
+    .topbar-search-input {
+      width: 100%;
+      background: var(--body-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 8px 16px 8px 36px;
+      font-size: 0.84rem;
+      color: var(--text-heading);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .topbar-search-input:focus {
+      border-color: var(--primary);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(125, 179, 58, 0.15);
+      width: 320px;
+    }
+    .topbar-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      pointer-events: none;
+    }
+
+    /* TOPBAR RIGHT ICONS (HANDO STYLE) */
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-body);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      position: relative;
+      transition: all 0.15s ease;
+    }
+    .icon-btn:hover {
+      background: var(--border-subtle);
+      color: var(--text-heading);
+      border-color: #CBD5E1;
+    }
+    .icon-badge-dot {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #EF4444;
+      color: #FFFFFF;
+      font-size: 0.65rem;
+      font-weight: 800;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--header-bg);
+    }
+
+    /* USER AVATAR PILL */
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 12px 4px 4px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      background: var(--card-bg);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+    .user-pill:hover {
+      border-color: #CBD5E1;
+      background: var(--border-subtle);
+    }
+    .user-avatar-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--primary);
+    }
+    .user-name {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      line-height: 1.1;
+    }
+
+    /* DROPDOWNS */
+    .dropdown-menu-hando {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 300px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-dropdown);
+      padding: 12px;
+      display: none;
+      z-index: 1000;
+      animation: dropFade 0.2s ease;
+    }
+    .dropdown-menu-hando.show { display: block; }
+    @keyframes dropFade { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .dropdown-header-h {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 8px 12px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 8px;
+    }
+    .dropdown-header-h strong { font-size: 0.88rem; color: var(--text-heading); }
+    .dropdown-item-h {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      color: var(--text-body);
+      font-size: 0.84rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .dropdown-item-h:hover {
+      background: var(--border-subtle);
+      color: var(--primary);
+    }
+    .dropdown-item-h i { width: 18px; text-align: center; color: var(--text-muted); }
+    .dropdown-item-h:hover i { color: var(--primary); }
+
+    .admin-content {
+      padding: 16px 24px;
+      flex: 1;
+    }
+
+    /* WIDGETS & STATS */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+    .stat-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .stat-card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .stat-card-icon.blue   { background: #EFF6FF; color: #2563EB; }
+    .stat-card-icon.green  { background: var(--primary-light); color: var(--primary); }
+    .stat-card-icon.amber  { background: #FFFBEB; color: #D97706; }
+    .stat-card-icon.purple { background: #FAF5FF; color: #9333EA; }
+    .stat-card-label { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-card-value { font-size: 1.85rem; font-weight: 800; color: var(--text-heading); line-height: 1.1; margin-bottom: 4px; letter-spacing: -0.5px; }
+    .stat-card-sub { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
+
+    /* CHARTS CONTAINER */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .chart-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      box-shadow: var(--shadow-card);
+    }
+    .chart-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .chart-card-header h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-heading);
+    }
+
+    /* TABLAS & LISTAS */
+    .admin-table-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .admin-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.86rem; }
+    .admin-table thead th { 
+      background: #FAFAFC; 
+      padding: 12px 18px; 
+      text-align: left; 
+      font-size: 0.7rem; 
+      font-weight: 800; 
+      color: var(--text-muted); 
+      text-transform: uppercase; 
+      letter-spacing: 0.6px; 
+      border-bottom: 1px solid var(--border-color); 
+      white-space: nowrap; 
+    }
+    .admin-table tbody td { 
+      padding: 14px 18px; 
+      border-bottom: 1px solid var(--border-subtle); 
+      vertical-align: middle; 
+      color: var(--text-body); 
+      transition: background 0.15s ease;
+    }
+    .admin-table tbody tr:last-child td { border-bottom: none; }
+    .admin-table tbody tr:hover td { background: #F8FAFC; }
+
+    /* BADGES */
+    .badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: var(--radius-pill); font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
+    .badge-green  { background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; }
+    .badge-blue   { background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE; }
+    .badge-orange { background: #FFFBEB; color: #D97706; border: 1px solid #FDE68A; }
+    .badge-red    { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
+    .badge-gray   { background: #F1F5F9; color: #475569; border: 1px solid #E2E8F0; }
+    .badge-purple { background: #FAF5FF; color: #7E22CE; border: 1px solid #E9D5FF; }
+
+    /* BOTONES */
+    .btn { 
+      display: inline-flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: 8px; 
+      padding: 9px 18px; 
+      border-radius: var(--radius-sm); 
+      font-size: 0.85rem; 
+      font-weight: 700; 
+      cursor: pointer; 
+      border: none; 
+      text-decoration: none !important; 
+      transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); 
+      font-family: inherit; 
+      letter-spacing: -0.01em;
+    }
+    .btn-primary { 
+      background: var(--primary); 
+      color: #FFFFFF !important; 
+      box-shadow: 0 2px 6px rgba(125, 179, 58, 0.2); 
+    }
+    .btn-primary:hover { 
+      background: var(--primary-hover); 
+      transform: translateY(-1px); 
+      box-shadow: 0 4px 12px rgba(125, 179, 58, 0.3); 
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+      background: var(--primary-active);
+    }
+    .btn-secondary { 
+      background: #FFFFFF; 
+      border: 1px solid var(--border-color); 
+      color: var(--text-heading) !important; 
+      box-shadow: var(--shadow-sm); 
+    }
+    .btn-secondary:hover { 
+      background: var(--border-subtle); 
+      border-color: #CBD5E1; 
+      color: var(--secondary) !important;
+    }
+    .btn-danger { background: #FEF2F2; border: 1px solid #FECACA; color: #DC2626 !important; }
+    .btn-danger:hover { background: #DC2626; color: #FFFFFF !important; }
+    .btn-sm { padding: 6px 12px; font-size: 0.78rem; }
+
+    /* FORMS */
+    .form-card { 
+      background: var(--card-bg); 
+      border: 1px solid var(--border-color); 
+      border-radius: var(--radius-md); 
+      padding: 24px 28px; 
+      box-shadow: var(--shadow-card); 
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label { font-size: 0.76rem; font-weight: 700; color: var(--text-heading); letter-spacing: -0.01em; }
+    .form-input { 
+      background: #FFFFFF; 
+      border: 1px solid #CBD5E1; 
+      border-radius: var(--radius-sm); 
+      padding: 9px 14px; 
+      color: var(--text-heading); 
+      font-size: 0.86rem; 
+      font-family: inherit; 
+      font-weight: 500; 
+      transition: all 0.15s ease; 
+      width: 100%; 
+      box-shadow: var(--shadow-sm); 
+    }
+    .form-input:focus { 
+      outline: none; 
+      border-color: var(--primary); 
+      box-shadow: 0 0 0 3px rgba(125, 179, 58, 0.14); 
+    }
+    textarea.form-input { resize: vertical; min-height: 100px; line-height: 1.5; }
+
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 14px; }
+    .section-header h2 { font-size: 1.35rem; font-weight: 800; color: var(--text-heading); letter-spacing: -0.3px; }
+    .section-header p { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
+
+    .toggle { position: relative; display: inline-block; width: 40px; height: 22px; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; inset: 0; background: #CBD5E1; border-radius: 22px; cursor: pointer; transition: 0.25s ease; }
+    .toggle-slider::before { content: ''; position: absolute; height: 16px; width: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.25s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+    .toggle input:checked + .toggle-slider { background: var(--primary); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+    .filter-bar { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 18px 22px; margin-bottom: 22px; display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-end; box-shadow: var(--shadow-card); }
+    .filter-bar .form-group { min-width: 150px; flex: 1; }
+
+    /* RESPONSIVE & MOBILE DESIGN (100% FLUID) */
+    @media (max-width: 1024px) {
+      .admin-sidebar { transform: translateX(-100%); }
+      .admin-sidebar.open { transform: translateX(0); }
+      .admin-main { margin-left: 0; width: 100%; }
+      .chart-grid { grid-template-columns: 1fr; }
+      .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); z-index: 99; }
+      .sidebar-overlay.open { display: block; }
+      .admin-content { padding: 14px 12px; }
+      .form-grid, .form-grid.three { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .admin-topbar {
+        padding: 0 12px;
+        height: 60px;
+        gap: 8px;
+      }
+      .topbar-search-box {
+        display: none; /* Se oculta en móviles pequeños para evitar desbordamiento */
+      }
+      .topbar-left {
+        gap: 8px;
+      }
+      .topbar-right {
+        gap: 6px;
+      }
+      .user-name {
+        display: none; /* Solo avatar en móvil */
+      }
+      .user-pill {
+        padding: 2px;
+      }
+      .user-pill i {
+        display: none;
+      }
+      .icon-btn {
+        width: 34px;
+        height: 34px;
+        font-size: 0.85rem;
+      }
+      .admin-content {
+        padding: 12px 10px;
+      }
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+      .section-header h2 {
+        font-size: 1.15rem;
+      }
+      .filter-bar {
+        padding: 12px;
+        gap: 10px;
+      }
+      .filter-bar .form-group {
+        min-width: 100%;
+        flex: 1 1 100%;
+      }
+      .admin-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .admin-table th, .admin-table td {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+      }
+      .stat-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .form-card {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="admin-sidebar" id="adminSidebar">
+  <div class="sidebar-logo">
+    <a href="/admin" class="sidebar-brand">
+      <img src="/assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA" onerror="this.src='/favicon.png';">
+      <div class="sidebar-brand-info">
+        <span class="sidebar-brand-title">CIASA</span>
+        <span class="sidebar-brand-tagline">Bolsa Inmobiliaria</span>
+      </div>
+    </a>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="sidebar-section-label">General</div>
+    <a href="/admin" class="sidebar-link <%= activePage === 'dashboard' ? 'active' : '' %>">
+      <i class="fa-solid fa-house-chimney-window"></i> Dashboard
+    </a>
+
+    <div class="sidebar-section-label">CRM & Seguimiento</div>
+    <a href="/admin/leads" class="sidebar-link <%= activePage === 'leads' ? 'active' : '' %>">
+      <i class="fa-solid fa-users"></i> Leads & Pipeline
+      <span class="sidebar-badge">5</span>
+    </a>
+    <a href="/admin/leads/nuevo" class="sidebar-link <%= activePage === 'leads-nuevo' ? 'active' : '' %>">
+      <i class="fa-solid fa-user-plus"></i> Registrar Lead
+    </a>
+
+    <div class="sidebar-section-label">Catálogo & Contenido</div>
+    <a href="/admin/propiedades" class="sidebar-link <%= activePage === 'propiedades' ? 'active' : '' %>">
+      <i class="fa-solid fa-building-user"></i> Propiedades
+    </a>
+    <a href="/admin/blog" class="sidebar-link <%= activePage === 'blog' ? 'active' : '' %>">
+      <i class="fa-solid fa-newspaper"></i> Blog & Artículos
+    </a>
+
+    <div class="sidebar-section-label">Herramientas Especiales</div>
+    <a href="/admin/npi" class="sidebar-link <%= activePage === 'npi' ? 'active' : '' %>">
+      <i class="fa-solid fa-bullseye"></i> Marketing & NPI
+      <span class="sidebar-badge" style="background:#2563EB;">PRO</span>
+    </a>
+
+    <div class="sidebar-section-label">Avanzado</div>
+    <a href="/admin/seo" class="sidebar-link <%= activePage === 'seo' ? 'active' : '' %>">
+      <i class="fa-solid fa-chart-line"></i> SEO Manager
+      <span class="sidebar-badge soon">Fase 2</span>
+    </a>
+    <a href="/admin/usuarios" class="sidebar-link <%= activePage === 'usuarios' ? 'active' : '' %>">
+      <i class="fa-solid fa-user-gear"></i> Usuarios
+      <span class="sidebar-badge soon">Fase 2</span>
+    </a>
+
+    <div class="sidebar-section-label">Portal Público</div>
+    <a href="/" target="_blank" class="sidebar-link">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Portal Web
+    </a>
+  </nav>
+</aside>
+
+<!-- MAIN CONTAINER -->
+<div class="admin-main">
+  <!-- TOPBAR FUNCIONAL HANDO STYLE -->
+  <div class="admin-topbar">
+    <div class="topbar-left">
+      <button class="icon-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+      
+      <!-- Buscador en vivo -->
+      <div class="topbar-search-box">
+        <i class="fa-solid fa-magnifying-glass topbar-search-icon"></i>
+        <input type="text" id="globalSearchInput" class="topbar-search-input" placeholder="Buscar leads, proyectos, notas..." oninput="handleGlobalSearch(this.value)">
+      </div>
+    </div>
+    
+    <!-- Esquina Superior Derecha Funcional -->
+    <div class="topbar-right">
+      <!-- Fullscreen Toggle -->
+      <button class="icon-btn" onclick="toggleFullScreen()" title="Pantalla Completa">
+        <i class="fa-solid fa-expand" id="fsIcon"></i>
+      </button>
+
+      <!-- Notifications Dropdown -->
+      <div style="position: relative;">
+        <button class="icon-btn" onclick="toggleDropdown('notifDropdown')" title="Notificaciones">
+          <i class="fa-regular fa-bell"></i>
+          <span class="icon-badge-dot" id="notifBadge">3</span>
+        </button>
+        
+        <div class="dropdown-menu-hando" id="notifDropdown">
+          <div class="dropdown-header-h">
+            <strong>Notificaciones</strong>
+            <div style="display: flex; gap: 8px;">
+              <span style="font-size: 0.72rem; color: var(--primary); font-weight: 700; cursor: pointer;" onclick="clearNotifs()">Limpiar</span>
+            </div>
+          </div>
+          <div id="notifList">
+            <!-- Notificación 1: Nuevo Lead James -->
+            <a href="/admin/leads/8RkP2TNaynVLJsBwjBWH" class="dropdown-item-h notif-item" id="notif-1" onclick="handleNotifClick('notif-1')">
+              <div style="width: 32px; height: 32px; border-radius: 50%; background: #EFF6FF; color: #2563EB; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fa-solid fa-user-plus"></i></div>
+              <div style="flex: 1;">
+                <div style="font-size: 0.82rem; color: var(--text-heading); font-weight: 700;">Nuevo Lead: James (Bávaro)</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Interesado en CONFOTUR · Ver Ficha 360°</div>
+              </div>
+            </a>
+
+            <!-- Notificación 2: Campaña Reach -->
+            <a href="/admin/crm-npi" class="dropdown-item-h notif-item" id="notif-2" onclick="handleNotifClick('notif-2')">
+              <div style="width: 32px; height: 32px; border-radius: 50%; background: #ECFDF5; color: #059669; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fa-solid fa-envelope-circle-check"></i></div>
+              <div style="flex: 1;">
+                <div style="font-size: 0.82rem; color: var(--text-heading); font-weight: 700;">Campaña Reach Entregada</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">150 correos enviados · Ver Segmento NPI</div>
+              </div>
+            </a>
+
+            <!-- Notificación 3: Tarea Pendiente Cotización (Lleva directo al Lead y hace scroll a la tarea) -->
+            <a href="/admin/leads/8RkP2TNaynVLJsBwjBWH#tareasSection" class="dropdown-item-h notif-item" id="notif-3" onclick="handleNotifClick('notif-3')">
+              <div style="width: 32px; height: 32px; border-radius: 50%; background: #FFFBEB; color: #D97706; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fa-solid fa-clock"></i></div>
+              <div style="flex: 1;">
+                <div style="font-size: 0.82rem; color: var(--text-heading); font-weight: 700;">Tarea Pendiente: Cotización</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted);">Vence hoy · James (Marina Garden 2)</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Profile Dropdown -->
+      <div style="position: relative;">
+        <div class="user-pill" onclick="toggleDropdown('userDropdown')">
+          <img src="/assets/images/team/paola-caram.jpg" alt="Paola Caram" class="user-avatar-img" onerror="this.src='/favicon.png';">
+          <span class="user-name">Paola Caram</span>
+          <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem; color: var(--text-muted);"></i>
+        </div>
+
+        <div class="dropdown-menu-hando" id="userDropdown" style="width: 220px;">
+          <div style="padding: 6px 12px 10px; border-bottom: 1px solid var(--border-color); margin-bottom: 6px;">
+            <strong style="display: block; font-size: 0.88rem; color: var(--text-heading);">Paola Caram</strong>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Directora Comercial</span>
+          </div>
+          <a href="/admin/perfil" class="dropdown-item-h"><i class="fa-solid fa-user"></i> Mi Perfil</a>
+          <a href="/admin/seo" class="dropdown-item-h"><i class="fa-solid fa-sliders"></i> Ajustes</a>
+          <a href="/admin/tareas" class="dropdown-item-h"><i class="fa-solid fa-list-check"></i> Mis Tareas</a>
+          <a href="/" target="_blank" class="dropdown-item-h"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Portal Web</a>
+          <div style="border-top: 1px solid var(--border-color); margin: 6px 0;"></div>
+          <a href="/admin/logout" class="dropdown-item-h" style="color: #DC2626;"><i class="fa-solid fa-arrow-right-from-bracket" style="color: #DC2626;"></i> Cerrar Sesión</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="admin-content">

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos | Bolsa Inmobiliaria CIASA</title>
+    <meta name="description" content="El camino de regreso a casa — historias en video de Bolsa Inmobiliaria CIASA. Patrimonio, regreso, y la ruta para invertir en tu tierra desde donde estés.">
+
+    <!-- Open Graph (social previews) -->
+    <meta property="og:title" content="El camino de regreso a casa | Bolsa Inmobiliaria CIASA">
+    <meta property="og:description" content="Historias en video sobre patrimonio, regreso y la ruta para invertir en RD desde el exterior.">
+    <meta property="og:image" content="https://ciasard.com/assets/images/flyers/CIASARD-Variante-A-04-poster.jpg">
+    <meta property="og:url" content="https://ciasard.com/videos/">
+    <meta property="og:type" content="video.other">
+    <meta property="og:locale" content="es_DO">
+    <meta property="og:site_name" content="Bolsa Inmobiliaria CIASA">
+
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="El camino de regreso a casa | Bolsa Inmobiliaria CIASA">
+    <meta name="twitter:description" content="Historias en video sobre patrimonio, regreso y la ruta para invertir en RD desde el exterior.">
+    <meta name="twitter:image" content="https://ciasard.com/assets/images/flyers/CIASARD-Variante-A-04-poster.jpg">
+
+    <!-- Google Fonts -->
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/variables.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/layout.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/components.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/pages.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/chat-widget.css?v=20260820_v4">
+
+    <style>
+        .videos-hero {
+            padding-top: calc(64px + var(--space-10));
+            padding-bottom: var(--space-10);
+            background: linear-gradient(135deg, #1B3A5C 0%, #5B9BD5 100%);
+            color: var(--white);
+        }
+        .videos-hero h1 {
+            color: var(--white);
+            margin-bottom: var(--space-3);
+            font-size: clamp(1.875rem, 4vw, 2.75rem);
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+        .videos-hero .lede {
+            color: rgba(255, 255, 255, 0.82);
+            font-size: var(--font-size-lg);
+            max-width: 680px;
+        }
+        .videos-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.78);
+            margin-bottom: var(--space-4);
+        }
+        .videos-eyebrow::before {
+            content: '';
+            width: 28px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .video-stage {
+            margin-top: calc(-1 * var(--space-10));
+            position: relative;
+            z-index: 2;
+            padding-bottom: var(--space-12);
+        }
+        .video-frame {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: black;
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(15, 36, 64, 0.35);
+            aspect-ratio: 16 / 9;
+        }
+        .video-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .video-meta {
+            max-width: 1100px;
+            margin: var(--space-8) auto 0;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-8);
+        }
+        .video-meta h2 {
+            font-size: var(--font-size-2xl);
+            margin: 0 0 var(--space-3);
+            color: var(--navy);
+            line-height: 1.25;
+        }
+        .video-meta p {
+            color: var(--gray-700);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-relaxed);
+        }
+        .video-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            background: var(--white);
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+            height: fit-content;
+        }
+        .video-actions .label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            color: var(--gray-500);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: var(--space-2);
+        }
+        .video-actions .btn { width: 100%; }
+        .video-actions .share-row {
+            display: flex;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+        }
+        .video-actions .share-row .btn { flex: 1; min-width: 0; }
+
+        @media (max-width: 800px) {
+            .video-meta { grid-template-columns: 1fr; }
+            .video-stage { padding-bottom: var(--space-8); }
+        }
+
+        .more-videos {
+            background: var(--white);
+            padding: var(--space-16) 0;
+        }
+        .more-videos h2 {
+            text-align: center;
+            margin-bottom: var(--space-3);
+        }
+        .more-videos .subtitle {
+            text-align: center;
+            color: var(--gray-600);
+            max-width: 560px;
+            margin: 0 auto var(--space-10);
+        }
+        .placeholder-card {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: var(--space-8);
+            border: 1px dashed var(--gray-300);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            color: var(--gray-500);
+            font-size: var(--font-size-sm);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="navbar-logo">
+        <img class="navbar-logomark" src="../assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Bolsa Inmobiliaria" aria-hidden="true">
+        <span class="navbar-logo-words">CIASA <span>Bolsa Inmobiliaria</span> <small class="navbar-tagline">Tu Ruta a la Prosperidad</small></span>
+      </a>
+      <ul class="navbar-links" id="navLinks">
+        <li><a href="/proyectos/" data-i18n="nav.proyectos">Proyectos</a></li>
+        <li><a href="/mapa/" data-i18n="nav.mapa">Mapa</a></li>
+        <li class="navbar-dropdown">
+          <button type="button" class="navbar-dropdown-trigger" aria-expanded="false" aria-controls="advisoryMenu" data-i18n="nav.asesoria">Asesoría</button>
+          <ul class="navbar-dropdown-menu" id="advisoryMenu">
+            <li><a href="/invertir/" data-i18n="nav.guia">Guía de Inversión</a></li>
+            <li><a href="/wizard/" data-i18n="nav.wizard">Wizard de Inversión</a></li>
+            <li><a href="/herramientas/" data-i18n="nav.calculadoras">Calculadoras</a></li>
+            <li><a href="/articulos/" data-i18n="nav.articulos">Artículos</a></li>
+          </ul>
+        </li>
+        <li><a href="/servicios/" data-i18n="nav.servicios">Servicios</a></li>
+        <li><a href="/nosotros/" data-i18n="nav.nosotros">Nosotros</a></li>
+        <li><a href="/contacto/" data-i18n="nav.contacto">Contacto</a></li>
+        <li><a href="/contacto/" class="btn btn-primary btn-sm" style="background:#7DB33A!important;color:#FFFFFF!important;font-weight:700!important;text-shadow:0 1px 2px rgba(0,0,0,0.35)!important;" data-i18n="nav.invertir">Invertir Ahora</a></li>
+        <li><button class="search-trigger" onclick="openSearch()" aria-label="Buscar" data-i18n-title="nav.buscar" title="Buscar (Ctrl+K)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button></li>
+        <li class="lang-dropdown-wrap" id="langDropdownWrap">
+          <button class="lang-trigger" id="langTrigger" onclick="toggleLangDropdown(event)" aria-label="Idioma / Language" aria-expanded="false" aria-controls="langDropdownMenu">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span id="langCurrentLabel">ES</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="lang-dropdown-menu" id="langDropdownMenu">
+            <button class="lang-btn lang-option active" data-lang="es" onclick="if(typeof setLang==='function')setLang('es');closeLangDropdown()">Español</button>
+            <button class="lang-btn lang-option" data-lang="en" onclick="if(typeof setLang==='function')setLang('en');closeLangDropdown()">English</button>
+            <button class="lang-btn lang-option" data-lang="fr" onclick="if(typeof setLang==='function')setLang('fr');closeLangDropdown()">Français</button>
+          </div>
+        </li>
+      </ul>
+      <button class="navbar-toggle" id="navToggle" type="button" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+    <main data-pagefind-body>
+
+    <!-- Hero -->
+    <section class="videos-hero">
+        <div class="container">
+            <span class="videos-eyebrow">Videos · CIASA</span>
+            <h1>El camino de regreso a casa</h1>
+            <p class="lede">
+                Historias en video de la Bolsa Inmobiliaria CIASA — sobre patrimonio, regreso y la ruta
+                para invertir en RD desde donde estés.
+            </p>
+        </div>
+    </section>
+
+    <!-- Featured video -->
+    <section class="video-stage">
+        <div class="container">
+            <div class="video-frame">
+                <iframe
+                    src="https://www.youtube-nocookie.com/embed/Jlk1f-3TVNg?rel=0&modestbranding=1&playsinline=1"
+                    title="El camino de regreso a casa — Variante A"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+            </div>
+
+            <div class="video-meta">
+                <div>
+                    <h2>El camino de regreso a casa — Variante A</h2>
+                    <p>
+                        Una pieza visual sobre el camino de regreso. Lo que pesa cuando uno se fue y
+                        sigue pensando en su tierra, y lo que cambia cuando empezamos a construir,
+                        de forma seria, un patrimonio que se queda. 1 minuto, 18 segundos.
+                    </p>
+                </div>
+                <div class="video-actions">
+                    <span class="label">Compartir esta página</span>
+                    <div class="share-row">
+                        <button type="button" id="shareBtn" class="btn btn-primary">Compartir</button>
+                        <button type="button" id="copyBtn" class="btn btn-secondary">Copiar enlace</button>
+                    </div>
+                    <a class="btn btn-outline" href="https://wa.me/18092995233?text=Hola%2C%20vi%20su%20video%20y%20quisiera%20conversar"
+                       target="_blank" rel="noopener" style="margin-top: var(--space-2);">Conversar por WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Placeholder for more videos -->
+    <section class="more-videos">
+        <div class="container">
+            <h2>Más videos en camino</h2>
+            <p class="subtitle">
+                Estamos preparando la siguiente pieza. Cuando esté lista, aparecerá aquí mismo.
+            </p>
+            <div class="placeholder-card">
+                Próximamente — segunda entrega de la serie.
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="siteFooter">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logomark" src="../assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Logo" aria-hidden="true">
+            <span class="footer-brand-words">CIASA <span class="footer-brand-accent">Bolsa Inmobiliaria</span> <small class="navbar-tagline">Tu Ruta a la Prosperidad</small></span>
+          </div>
+          <p class="footer-description" data-i18n="footer.description">Conectamos a dominicanos en el exterior con las mejores oportunidades de inversión inmobiliaria en República Dominicana.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.explorar">Explorar</h4>
+          <ul class="footer-links">
+            <li><a href="/proyectos/" data-i18n="nav.proyectos">Proyectos</a></li>
+            <li><a href="/mapa/">Mapa Interactivo</a></li>
+            <li><a href="/invertir/" data-i18n="nav.guia">Guía de Inversión</a></li>
+            <li><a href="/nosotros/" data-i18n="nav.nosotros">Nosotros</a></li>
+            <li><a href="/contacto/" data-i18n="nav.contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Responsabilidad Social</h4>
+          <p style="font-size:var(--font-size-xs);color:var(--gray-400);line-height:1.6;margin:0 0 var(--space-3);">Parte de nuestro impacto va de regreso a la comunidad.</p>
+          <a href="https://www.evolutionfoundationusa.org.do" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;font-size:var(--font-size-sm);color:var(--teal);font-weight:600;text-decoration:none;">
+            ❤ Evolution Foundation
+          </a>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.herramientas">Herramientas</h4>
+          <ul class="footer-links">
+            <li><a href="/herramientas/" data-i18n="nav.calculadoras">Calculadoras</a></li>
+            <li><a href="/faq/">Preguntas Frecuentes</a></li>
+            <li><a href="/crm-npi" style="color:var(--teal);font-weight:600;"><i class="fa-solid fa-chart-line" style="margin-right:4px;"></i> NPI CRM</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.contacto">Contacto</h4>
+          <ul class="footer-links">
+            <li><a href="tel:+18092995233" data-sc="phone-href" data-sc-no-text>+1 (809) 299-5233</a></li>
+            <li><a href="mailto:paola.caram@ciasard.org.do" data-sc="email-href" data-sc-no-text>paola.caram@ciasard.org.do</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n-html="footer.rights">&copy; 2026 Bolsa Inmobiliaria. Todos los derechos reservados.</p>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <a href="/crm-npi" class="footer-crm-badge" title="Panel de CRM & Leads"><i class="fa-solid fa-lock" style="font-size:0.75rem;margin-right:4px;"></i> NPI CRM</a>
+          <p>Powered by CIASA</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <!-- App Scripts -->
+    <script src="../js/relpath.js?v=20260820_v4"></script>
+    <script src="../js/icons.js?v=20260820_v4"></script>
+    <script src="../js/i18n.js?v=20260820_v4"></script>
+    <script src="../js/components.js?v=20260820_v4"></script>
+    <script>
+
+        // Share / copy
+        const shareBtn = document.getElementById('shareBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const pageUrl = window.location.origin + '/videos/';
+        const shareTitle = 'El camino de regreso a casa | Bolsa Inmobiliaria CIASA';
+        const shareText = 'Una pieza visual sobre el camino de regreso a casa.';
+
+        shareBtn.addEventListener('click', async () => {
+            if (navigator.share) {
+                try { await navigator.share({ title: shareTitle, text: shareText, url: pageUrl }); }
+                catch (e) { /* user cancelled */ }
+                return;
+            }
+            // Fall back to copy
+            copyBtn.click();
+        });
+
+        copyBtn.addEventListener('click', async () => {
+            const orig = copyBtn.textContent;
+            try {
+                await navigator.clipboard.writeText(pageUrl);
+                copyBtn.textContent = '¡Enlace copiado!';
+            } catch {
+                window.prompt('Copia este enlace:', pageUrl);
+                return;
+            }
+            setTimeout(() => { copyBtn.textContent = orig; }, 1800);
+        });
+    </script>
+
+</body>
+</html>

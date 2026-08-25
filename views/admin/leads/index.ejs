@@ -1,0 +1,152 @@
+<%- include('../layout', { pageTitle: 'Leads & Prospectos', activePage: 'leads' }) %>
+
+<div class="section-header">
+  <div>
+    <h2>Gestión de Prospectos & Leads <span style="color: var(--text-muted); font-weight: 500; font-size: 1rem;">(<%= totalLeads %> registros)</span></h2>
+    <p>Seguimiento comercial, asignación de asesores y trazabilidad de notas</p>
+  </div>
+  <a href="/admin/leads/nuevo" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Registrar Nuevo Lead</a>
+</div>
+
+<!-- BARRA DE FILTROS HANDO -->
+<div class="filter-bar">
+  <form method="GET" action="/admin/leads" style="display: contents;">
+    <div class="form-group" style="flex: 2;">
+      <label class="form-label">Buscar Prospecto</label>
+      <input type="text" name="q" class="form-input" placeholder="Nombre, email, teléfono o país..." value="<%= filtros.q %>">
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Estado</label>
+      <select name="estado" class="form-input">
+        <option value="all" <%= filtros.estado === 'all' ? 'selected' : '' %>>Todos los estados</option>
+        <option value="nuevo" <%= filtros.estado === 'nuevo' ? 'selected' : '' %>>Nuevo</option>
+        <option value="contactado" <%= filtros.estado === 'contactado' ? 'selected' : '' %>>Contactado</option>
+        <option value="calificado" <%= filtros.estado === 'calificado' ? 'selected' : '' %>>Calificado</option>
+        <option value="negociacion" <%= filtros.estado === 'negociacion' ? 'selected' : '' %>>En Negociación</option>
+        <option value="cerrado" <%= filtros.estado === 'cerrado' ? 'selected' : '' %>>Cierre Ganado</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Proyecto</label>
+      <select name="proyecto" class="form-input">
+        <option value="all">Todos los proyectos</option>
+        <% projects.forEach(p => { %>
+        <option value="<%= p %>" <%= filtros.proyecto === p ? 'selected' : '' %>><%= p %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="form-group" style="min-width: 130px;">
+      <label class="form-label">Mostrar Registros</label>
+      <select name="limit" class="form-input" onchange="this.form.submit()">
+        <option value="50" <%= limit === 50 ? 'selected' : '' %>>50 leads</option>
+        <option value="100" <%= limit === 100 ? 'selected' : '' %>>100 leads (Por defecto)</option>
+        <option value="200" <%= limit === 200 ? 'selected' : '' %>>200 leads</option>
+        <option value="500" <%= limit === 500 ? 'selected' : '' %>>500 leads</option>
+        <option value="-1" <%= limit === -1 ? 'selected' : '' %>>Todos los leads</option>
+      </select>
+    </div>
+
+    <div class="form-group" style="min-width: auto; flex: 0;">
+      <label class="form-label">&nbsp;</label>
+      <button type="submit" class="btn btn-primary" style="white-space: nowrap;"><i class="fa-solid fa-filter"></i> Filtrar</button>
+    </div>
+    <% if (filtros.q || filtros.estado !== 'all' || filtros.proyecto !== 'all' || limit !== 100) { %>
+    <div class="form-group" style="min-width: auto; flex: 0;">
+      <label class="form-label">&nbsp;</label>
+      <a href="/admin/leads" class="btn btn-secondary" style="white-space: nowrap;"><i class="fa-solid fa-xmark"></i> Limpiar</a>
+    </div>
+    <% } %>
+  </form>
+</div>
+
+<!-- TABLA COMPLETA DE LEADS CON GESTOR 360° -->
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Nombre del Prospecto</th>
+        <th>Contacto / WhatsApp</th>
+        <th>Proyecto de Interés</th>
+        <th>Canal</th>
+        <th>Ubicación</th>
+        <th>Estado Pipeline</th>
+        <th>Bitácora</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (leads && leads.length > 0) { %>
+        <% leads.forEach(lead => { %>
+        <tr>
+          <td>
+            <strong style="color: var(--text-heading); font-size: 0.94rem; display: block;"><%= lead.nombre || '—' %></strong>
+            <% if (lead.montoInversion) { %>
+              <span style="font-size: 0.76rem; color: var(--primary); font-weight: 700;">$<%= parseInt(lead.montoInversion).toLocaleString('en-US') %> USD</span>
+            <% } %>
+          </td>
+          <td>
+            <div style="font-size: 0.84rem; font-weight: 600;"><%= lead.email || '—' %></div>
+            <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
+              <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> <%= lead.telefono || 'Sin teléfono' %>
+            </div>
+          </td>
+          <td>
+            <span style="font-weight: 700; color: var(--secondary); font-size: 0.86rem;"><%= lead.proyectoInteres || '—' %></span>
+          </td>
+          <td>
+            <% const src = (lead.source || lead.comoNosEncontro || 'directo').toLowerCase(); %>
+            <span class="badge <%= src.includes('instagram') ? 'badge-purple' : src.includes('proyecto') ? 'badge-blue' : src.includes('referido') ? 'badge-green' : 'badge-gray' %>">
+              <%= lead.source || 'admin-manual' %>
+            </span>
+          </td>
+          <td style="font-size: 0.82rem; color: var(--text-muted);">
+            <%= [lead.ciudad, lead.pais].filter(Boolean).join(', ') || '—' %>
+          </td>
+          <td>
+            <% const sv = (lead.statusVentas || 'nuevo').toLowerCase(); %>
+            <span class="badge <%= sv === 'nuevo' ? 'badge-blue' : sv === 'contactado' ? 'badge-orange' : sv === 'calificado' ? 'badge-purple' : sv === 'cerrado' ? 'badge-green' : 'badge-gray' %>">
+              <i class="fa-solid fa-circle" style="font-size: 0.45rem;"></i> <%= sv %>
+            </span>
+          </td>
+          <td>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">
+              <span><i class="fa-solid fa-comment-dots" style="color: var(--primary);"></i> <%= (lead.notas || []).length %></span> · 
+              <span><i class="fa-solid fa-list-check" style="color: #2563EB;"></i> <%= (lead.tareas || []).length %></span> · 
+              <span><i class="fa-solid fa-paperclip" style="color: #D97706;"></i> <%= (lead.documentos || []).length %></span>
+            </div>
+          </td>
+          <td>
+            <div style="display: flex; gap: 6px;">
+              <a href="/admin/leads/<%= lead._id || lead.id %>" class="btn btn-secondary btn-sm" title="Abrir Ficha de Seguimiento">
+                <i class="fa-solid fa-folder-open"></i> Ficha 360°
+              </a>
+              <% if (lead.telefono) { %>
+                <a href="https://wa.me/<%= lead.telefono.replace(/[^0-9]/g, '') %>?text=Hola%20<%= encodeURIComponent(lead.nombre || '') %>,%20le%20escribimos%20de%20CIASA%20Bolsa%20Inmobiliaria." target="_blank" class="btn btn-sm" style="background:#ECFDF5; color:#059669; border:1px solid #A7F3D0;" title="Abrir WhatsApp">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </a>
+              <% } %>
+            </div>
+          </td>
+        </tr>
+        <% }) %>
+      <% } else { %>
+        <tr>
+          <td colspan="8" style="text-align: center; padding: 48px; color: var(--text-muted);">
+            <i class="fa-solid fa-users-slash" style="font-size: 2rem; display: block; margin-bottom: 12px; opacity: 0.4;"></i>
+            No se encontraron prospectos con los filtros seleccionados.
+          </td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 14px;">
+  <div>Mostrando <%= leads.length %> de <%= totalLeads %> prospectos registrados</div>
+  <div>Exportación a Excel / CSV habilitada en CRM NPI</div>
+</div>
+
+<%- include('../layout-end') %>

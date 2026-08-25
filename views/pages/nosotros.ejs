@@ -1,0 +1,698 @@
+<%- include('../layouts/header', { pageTitle: 'Nosotros | Bolsa Inmobiliaria — CIASA', pageDesc: 'Detrás de Bolsa Inmobiliaria hay un equipo dominicano que conoce el camino de regreso. Conoce a Paola, Angeline y Giordana, y la historia de CIASA.', activePage: 'nosotros' }) %>
+
+  <style>
+    /* Warm hero — softer than the standard navy gradient */
+    .nosotros-hero {
+      padding-top: 50px;
+      padding-bottom: 70px;
+      background:
+        radial-gradient(circle at 85% 30%, rgba(125, 179, 58, 0.08), transparent 50%),
+        radial-gradient(circle at 10% 90%, rgba(91, 155, 213, 0.10), transparent 55%),
+        #F9F8F5;
+      position: relative;
+      overflow: hidden;
+    }
+    .nosotros-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(transparent 95%, rgba(27, 58, 92, 0.03) 95%),
+        linear-gradient(90deg, transparent 95%, rgba(27, 58, 92, 0.03) 95%);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .hero-eyebrow-warm {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #7DB33A;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .hero-eyebrow-warm::before {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background: #7DB33A;
+      border-radius: 2px;
+    }
+    .nosotros-hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .nosotros-hero h1 {
+      font-size: clamp(2rem, 3.8vw, 3.25rem);
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      margin-bottom: 24px;
+      color: #0A1E36;
+      font-weight: 800;
+    }
+    .nosotros-hero h1 em {
+      font-style: normal;
+      color: #2563EB;
+      position: relative;
+      white-space: nowrap;
+    }
+    .nosotros-hero p.lead {
+      font-size: 1.12rem;
+      line-height: 1.7;
+      color: #475569;
+      max-width: 540px;
+    }
+    .hero-image-wrap {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      aspect-ratio: 4 / 4.8;
+      background: #E2E8F0;
+    }
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-image-caption {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      padding: 16px 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .hero-image-caption strong {
+      display: block;
+      color: #0A1E36;
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    .hero-image-caption span {
+      font-size: 0.85rem;
+      color: #64748B;
+      font-weight: 500;
+    }
+
+    /* Story */
+    .story {
+      background: #ffffff;
+      padding: 80px 0;
+    }
+    .story-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .story-eyebrow {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #2563EB;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .story h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      line-height: 1.2;
+      margin-bottom: 24px;
+      color: #0A1E36;
+      font-weight: 800;
+    }
+    .story p {
+      font-size: 1.08rem;
+      line-height: 1.8;
+      color: #475569;
+      margin-bottom: 20px;
+    }
+    .story p strong {
+      color: #0A1E36;
+      font-weight: 700;
+    }
+    .story-pull {
+      border-left: 3px solid #7DB33A;
+      padding-left: 24px;
+      margin: 32px 0;
+      font-style: italic;
+      color: #0A1E36;
+      font-size: 1.25rem;
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    /* Values — warm pillars */
+    .values {
+      background: #F9F8F5;
+      padding: 80px 0;
+      border-top: 1px solid #E2E8F0;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .value-card {
+      background: #ffffff;
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid #E2E8F0;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: #7DB33A;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.25s ease;
+    }
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+      border-color: #CBD5E1;
+    }
+    .value-card:hover::before {
+      transform: scaleY(1);
+    }
+    .value-card .value-icon {
+      width: 46px;
+      height: 46px;
+      background: #ECFDF5;
+      color: #16A34A;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+    .value-card h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0A1E36;
+      margin: 0;
+    }
+    .value-card p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #64748B;
+      margin: 0;
+    }
+
+    /* Team */
+    .team {
+      background: #ffffff;
+      padding: 80px 0;
+      border-top: 1px solid #E2E8F0;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin-top: 48px;
+    }
+    .team-card {
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid #E2E8F0;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .team-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+      border-color: #CBD5E1;
+    }
+    .team-photo {
+      aspect-ratio: 4 / 4.8;
+      background: #E2E8F0;
+      position: relative;
+      overflow: hidden;
+    }
+    .team-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .team-card:hover .team-photo img {
+      transform: scale(1.04);
+    }
+    .team-role-tag {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(255, 255, 255, 0.95);
+      color: #0A1E36;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 50px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .team-body {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+    .team-body h3 {
+      margin: 0;
+      color: #0A1E36;
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .team-credentials {
+      font-size: 0.88rem;
+      color: #2563EB;
+      font-weight: 600;
+    }
+    .team-bio {
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: #475569;
+    }
+    .team-meta {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid #F1F5F9;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .team-tag {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: #475569;
+      background: #F1F5F9;
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    /* How we work */
+    .howework {
+      background: #0A1E36;
+      color: #ffffff;
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .howework::after {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(125, 179, 58, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .howework-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .howework-step {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(6px);
+    }
+    .howework-step .step-num {
+      display: inline-block;
+      color: #A3E635;
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+    .howework-step h4 {
+      color: #ffffff;
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .howework-step p {
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.6;
+      font-size: 0.88rem;
+    }
+
+    /* CTA Warm */
+    .cta-warm {
+      padding: 80px 0;
+      background: linear-gradient(135deg, rgba(125, 179, 58, 0.08), rgba(91, 155, 213, 0.08)), #ffffff;
+    }
+    .cta-card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      padding: 48px 36px;
+      text-align: center;
+      border: 1px solid #E2E8F0;
+    }
+
+    @media (max-width: 900px) {
+      .nosotros-hero-grid { grid-template-columns: 1fr; }
+      .hero-image-wrap { max-width: 440px; margin: 0 auto; }
+    }
+  </style>
+
+  <!-- ==========================================================================
+       HERO (1:1 CON CIASARD.COM/NOSOTROS/)
+       ========================================================================== -->
+  <section class="nosotros-hero">
+    <div class="container">
+      <div class="nosotros-hero-grid">
+        <div>
+          <span class="hero-eyebrow-warm">Sobre nosotros</span>
+          <h1>Detrás de cada inversión hay <em>una conversación</em>, no un formulario.</h1>
+          <p class="lead">
+            Somos una firma dominicana que se enorgullece de ofrecer atención personal y directa, respaldada por años de experiencia institucional. Acompañamos a dominicanos y dominicanas que viven en el exterior y quieren construir patrimonio de regreso a casa — con datos claros, contratos firmes, y alguien al otro lado del teléfono que conoce el terreno y los nombres.
+          </p>
+        </div>
+        <div class="hero-image-wrap">
+          <img src="/assets/images/team/paola-caram-wide.jpg" alt="Paola Caram Ibarra, Directora Ejecutiva de CIASA, en su oficina en Santo Domingo" loading="eager">
+          <div class="hero-image-caption">
+            <strong>Paola Caram Ibarra</strong>
+            <span>Directora Ejecutiva — CIASA, S.R.L.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- ==========================================================================
+         STORY: POR QUÉ HACEMOS ESTO
+         ========================================================================== -->
+    <section class="story">
+      <div class="container">
+        <div class="story-inner">
+          <span class="story-eyebrow">Por qué hacemos esto</span>
+          <h2>El camino de regreso a casa no debería ser opaco.</h2>
+          <p>
+            Bolsa Inmobiliaria es la cara digital de <strong>CIASA, S.R.L.</strong>, una firma fundada con un encargo concreto: que invertir en República Dominicana deje de ser un acto de fe para los dominicanos que viven afuera, y se convierta en una decisión informada, transparente y bien acompañada.
+          </p>
+          <p>
+            La firma nació de un proceso largo — más de veinte años en los que <strong>Paola Caram Ibarra</strong> organizó y regularizó la sucesión de <strong>Don Juan Alejandro Ibarra</strong>, en torno a la urbanización, la construcción de obras civiles y un sentido de responsabilidad que dejó como herencia. En el camino, lo que sus años en el PNUD, el Banco Mundial, el BID y la Harvard Kennedy School ya le habían enseñado se confirmó con claridad: cuando un dominicano en Nueva York, Boston o Miami quiere comprar terreno o vivienda en RD, lo que más le falta no son anuncios — le falta alguien que conozca el terreno, las reglas y los nombres.
+          </p>
+          <div class="story-pull">
+            "Unidos nos constituimos en la voz de los que nadie escucha." — esa frase sigue guiando lo que hacemos.
+          </div>
+          <p>
+            Hoy somos un equipo con experiencia institucional y comercial complementaria, comprometido con un estándar claro: atención personal y directa, caso por caso. Negociamos con constructoras sin perder de vista a quien nos confió su decisión. Te decimos lo que sabemos y lo que no sabemos. Y nos sentamos del mismo lado de la mesa que tú — porque, al final del día, lo que se construye serio es lo que dura generaciones.
+          </p>
+
+          <!-- Video Oficial de CIASA en Auto Loop Continuo -->
+          <div style="position: relative; width: 100%; margin-top: 40px; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 36px rgba(0,0,0,0.18); aspect-ratio: 16 / 9; background: #071526;">
+            <video autoplay loop muted playsinline controls preload="auto" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+              <source src="/videos/ciasa-hero-bg.mp4" type="video/mp4">
+              Tu navegador no soporta la reproducción de video HTML5.
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VALORES / PRINCIPIOS
+         ========================================================================== -->
+    <section class="values">
+      <div class="container">
+        <div style="max-width: 720px; margin: 0 auto; text-align: center;">
+          <span class="story-eyebrow" style="display: block;">Lo que nos guía</span>
+          <h2 style="font-size: 2.2rem; font-weight: 800; color: #0A1E36; margin-top: 8px;">Seis principios que escribimos en los contratos antes que en la pared.</h2>
+        </div>
+
+        <div class="values-grid">
+          <div class="value-card">
+            <div class="value-icon"><i class="fa-solid fa-calculator"></i></div>
+            <h3>Hablamos con números</h3>
+            <p>Precios, ROI estimado, plazos de entrega, gastos de cierre. Si no podemos respaldar una cifra, no la usamos.</p>
+          </div>
+
+          <div class="value-card">
+            <div class="value-icon"><i class="fa-solid fa-clock"></i></div>
+            <h3>Tiempos razonables</h3>
+            <p>Respondemos en menos de 24 horas. Nunca te dejamos esperando una semana por una respuesta de tres líneas.</p>
+          </div>
+
+          <div class="value-card">
+            <div class="value-icon"><i class="fa-solid fa-eye"></i></div>
+            <h3>Transparencia total</h3>
+            <p>Te decimos lo que sabemos y lo que no. Si una constructora no nos convence, te lo contamos antes que después.</p>
+          </div>
+
+          <div class="value-card">
+            <div class="value-icon"><i class="fa-solid fa-award"></i></div>
+            <h3>Calidad sobre volumen</h3>
+            <p>Trabajamos con un grupo limitado de constructoras verificadas. Preferimos quedarnos con menos proyectos y conocerlos bien.</p>
+          </div>
+
+          <div class="value-card">
+            <div class="value-icon"><i class="fa-solid fa-handshake"></i></div>
+            <h3>Acompañamiento real</h3>
+            <p>Antes, durante y después de la firma. Cuando entreguen las llaves vamos a seguir contestando el WhatsApp.</p>
+          </div>
+
+          <div class="value-card">
+            <div class="value-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+            <h3>Independencia de criterio</h3>
+            <p>Nuestra opinión sobre un proyecto no depende de la comisión. Si no es la decisión correcta para ti, lo decimos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         EQUIPO DIRECTIVO (DETALLE BIOGRÁFICO EXACTO)
+         ========================================================================== -->
+    <section class="team">
+      <div class="container">
+        <div style="max-width: 720px; margin: 0 auto; text-align: center;">
+          <span class="story-eyebrow" style="display: block;">El equipo</span>
+          <h2 style="font-size: 2.2rem; font-weight: 800; color: #0A1E36; margin-top: 8px;">Tres mujeres dominicanas, formaciones distintas, una misma forma de trabajar.</h2>
+          <p style="font-size: 1.1rem; color: #64748B; margin-top: 12px;">
+            Si nos llamas hoy, alguna de las tres te va a contestar. No hay call center.
+          </p>
+        </div>
+
+        <div class="team-grid">
+          <!-- Paola Caram Ibarra -->
+          <article class="team-card">
+            <div class="team-photo">
+              <img src="/assets/images/team/paola-caram.jpg" alt="Paola Caram Ibarra">
+              <span class="team-role-tag">Directora Ejecutiva</span>
+            </div>
+            <div class="team-body">
+              <h3>Paola Caram Ibarra</h3>
+              <div class="team-credentials">Economista — M.Sc. Hult International Business School</div>
+              <p class="team-bio">
+                Paola es economista por la PUCMM y posgraduada de Hult International Business School. Pero los renglones importantes de su carrera ocurrieron fuera del aula: más de dos décadas en el sistema de Naciones Unidas, trabajando con el PNUD, el Banco Mundial, el BID, USAID y la Harvard Kennedy School.
+              </p>
+              <p class="team-bio">
+                Lideró negociaciones que movilizaron cerca de mil millones de dólares hacia reformas que hoy nos afectan a todos: la modernización del sistema aduanal, la implementación electrónica del Banco Central, y el Sistema de Protección Social. Hoy dirige CIASA con esa misma vara: la del que sabe que el patrimonio serio dura generaciones.
+              </p>
+              <div class="team-meta">
+                <span class="team-tag">PNUD · BID · Banco Mundial</span>
+                <span class="team-tag">Harvard Kennedy School</span>
+                <span class="team-tag">Sucesión Ibarra</span>
+              </div>
+              <a href="https://wa.me/18092995233?text=Hola%20Paola,%20quisiera%20conversar%20sobre%20una%20inversi%C3%B3n%20en%20RD." target="_blank" class="btn-cta" style="margin-top: 14px; justify-content: center;">
+                <i class="fa-brands fa-whatsapp"></i> Hablar con Paola
+              </a>
+            </div>
+          </article>
+
+          <!-- Angeline Pimentel Polanco -->
+          <article class="team-card">
+            <div class="team-photo">
+              <img src="/assets/images/team/angeline-pimentel.jpg" alt="Angeline Pimentel Polanco">
+              <span class="team-role-tag">Asesora Inmobiliaria</span>
+            </div>
+            <div class="team-body">
+              <h3>Angeline Pimentel Polanco</h3>
+              <div class="team-credentials">CPA Cum Laude — Maestría en Contabilidad Tributaria (UASD)</div>
+              <p class="team-bio">
+                Angeline es contadora pública certificada (Cum Laude) y Agente Inmobiliaria Profesional AEI. Antes de dedicarse a bienes raíces pasó más de una década coordinando compras y licitaciones en ONAPI y ONDA, así que conoce los contratos, las normativas y el papeleo desde adentro.
+              </p>
+              <p class="team-bio">
+                En CIASA traduce los números complejos a decisiones simples: cuánto pagas en cada etapa, qué exenciones te corresponden por Ley CONFOTUR, qué rentabilidad neta te deja un apartamento en Punta Cana después de costos de mantenimiento y administración.
+              </p>
+              <div class="team-meta">
+                <span class="team-tag">CPA Cum Laude</span>
+                <span class="team-tag">Asociación Empresas Inmobiliarias</span>
+                <span class="team-tag">Tributación & CONFOTUR</span>
+              </div>
+              <a href="https://wa.me/18092995233?text=Hola%20Angeline,%20deseo%20asesor%C3%ADa%20para%20invertir%20en%20Punta%20Cana." target="_blank" class="btn-cta" style="margin-top: 14px; justify-content: center;">
+                <i class="fa-brands fa-whatsapp"></i> Hablar con Angeline
+              </a>
+            </div>
+          </article>
+
+          <!-- Giordana Moscoso Rodríguez -->
+          <article class="team-card">
+            <div class="team-photo">
+              <img src="/assets/images/team/giordana-moscoso.jpg" alt="Giordana Moscoso Rodríguez">
+              <span class="team-role-tag">Asesora Inmobiliaria</span>
+            </div>
+            <div class="team-body">
+              <h3>Giordana Moscoso Rodríguez</h3>
+              <div class="team-credentials">Licenciada en Mercadotecnia — Universidad del Caribe</div>
+              <p class="team-bio">
+                Giordana viene del retail. Dirigió tiendas de Bershka, Oysho y Benetton dentro de Grupo Celso Pérez y Bennu Corp, formando equipos de quince y veinte personas durante casi dos décadas. Eso le enseñó a leer rápido lo que realmente necesita cada inversionista y resolver con calidez.
+              </p>
+              <p class="team-bio">
+                En CIASA acompaña a inversionistas en todo el recorrido a distancia: coordinar visitas virtuales, explicar opciones sin tecnicismos y seguir cada caso de cerca. Es la persona que recibe tu primer mensaje y la que sigue ahí cuando te entregan las llaves.
+              </p>
+              <div class="team-meta">
+                <span class="team-tag">Asesora Inmobiliaria</span>
+                <span class="team-tag">Mercadotecnia</span>
+                <span class="team-tag">Coordinación de Visitas</span>
+              </div>
+              <a href="https://wa.me/18092995233?text=Hola%20Giordana,%20deseo%20informaci%C3%B3n%20sobre%20proyectos%20inmobiliarios." target="_blank" class="btn-cta" style="margin-top: 14px; justify-content: center;">
+                <i class="fa-brands fa-whatsapp"></i> Hablar con Giordana
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         HOW WE WORK: 4 PASOS
+         ========================================================================== -->
+    <section class="howework">
+      <div class="container">
+        <h2 style="font-size: 2.2rem; font-weight: 800; text-align: center; margin-bottom: 10px;">Cómo trabajamos contigo desde el primer mensaje</h2>
+        <p style="text-align: center; color: rgba(255,255,255,0.7); max-width: 620px; margin: 0 auto 40px; font-size: 1.1rem;">
+          No hay venta agresiva, no hay urgencia inventada. Solo un proceso ordenado pensado para alguien que está a 2,000 km de distancia.
+        </p>
+
+        <div class="howework-grid">
+          <div class="howework-step">
+            <span class="step-num">PASO 01</span>
+            <h4>Una conversación, sin compromiso</h4>
+            <p>Por WhatsApp, video llamada o lo que prefieras. Te escuchamos primero — qué buscas, qué presupuesto manejas, qué dudas tienes.</p>
+          </div>
+          <div class="howework-step">
+            <span class="step-num">PASO 02</span>
+            <h4>Opciones honestas</h4>
+            <p>Te mandamos tres o cuatro proyectos que de verdad encajan con tu caso, con números reales y los lados débiles también.</p>
+          </div>
+          <div class="howework-step">
+            <span class="step-num">PASO 03</span>
+            <h4>Visita virtual o presencial</h4>
+            <p>Te conectamos con la constructora, recorremos el proyecto contigo en video, o coordinamos tu visita cuando bajes a la isla.</p>
+          </div>
+          <div class="howework-step">
+            <span class="step-num">PASO 04</span>
+            <h4>Acompañamiento legal y financiero</h4>
+            <p>Fideicomiso, contrato, BanReservas, CONFOTUR. Revisamos cada documento contigo antes de que firmes nada.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         RESPONSABILIDAD SOCIAL: EVOLUTION FOUNDATION
+         ========================================================================== -->
+    <section class="section-pad" style="background: #F9F8F5; border-top: 1px solid #E2E8F0;">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 48px; align-items: center; max-width: 960px; margin: 0 auto;">
+          <div>
+            <span style="font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #2563EB; margin-bottom: 10px; display: block;">Responsabilidad Social</span>
+            <h2 style="font-size: 1.85rem; font-weight: 800; color: #0A1E36; margin-bottom: 16px;">Evolution Foundation</h2>
+            <p style="color: #475569; line-height: 1.8; margin-bottom: 20px; font-size: 0.95rem;">
+              Parte de lo que generamos en el negocio inmobiliario va de regreso a la comunidad. La <strong>Evolution Foundation</strong> es nuestra apuesta por el impacto social en República Dominicana — apoyando educación, salud y desarrollo comunitario para las familias que construyen este país desde adentro.
+            </p>
+            <a href="https://www.evolutionfoundationusa.org.do" target="_blank" rel="noopener noreferrer" class="btn-cta btn-blue" style="margin-top: 8px;">
+              Conoce la Fundación <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+          <div style="text-align: center;">
+            <a href="https://www.evolutionfoundationusa.org.do" target="_blank" rel="noopener">
+              <img src="/assets/images/branding/evolution-foundation-logo.png" alt="Evolution Foundation" style="max-width: 260px; width: 100%; height: auto; filter: drop-shadow(0 8px 24px rgba(27,58,92,.15));">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CTA WARM: ¿CONVERSAMOS? (PREMIUM RESPONSIVE)
+         ========================================================================== -->
+    <section class="cta-warm" style="padding: 70px 0 85px; background: #F8FAFC; border-top: 1px solid #E2E8F0;">
+      <div class="container">
+        <div class="cta-card" style="max-width: 720px; margin: 0 auto; background: #ffffff; border-radius: 20px; box-shadow: 0 12px 36px rgba(10,30,54,0.06); padding: 44px 32px; text-align: center; border: 1px solid #E2E8F0;">
+          <span style="font-size: 0.78rem; font-weight: 800; color: var(--green); text-transform: uppercase; letter-spacing: 1px; background: rgba(125,179,58,0.12); padding: 4px 14px; border-radius: 50px; display: inline-block; margin-bottom: 14px;">
+            Atención Personalizada
+          </span>
+          <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); font-weight: 800; color: #0A1E36; margin-bottom: 12px; line-height: 1.2;">
+            ¿Conversamos?
+          </h2>
+          <p style="color: #64748B; font-size: 1.05rem; line-height: 1.6; margin-bottom: 28px; max-width: 540px; margin-left: auto; margin-right: auto;">
+            Sin compromiso, sin formulario obligatorio. Si tienes una pregunta — aunque sea pequeña — escríbenos directamente.
+          </p>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; align-items: center;">
+            <a href="https://wa.me/18092995233?text=Hola%2C%20quisiera%20saber%20m%C3%A1s%20sobre%20invertir%20en%20RD%20con%20CIASA" target="_blank" style="background: #25D366; color: #ffffff !important; font-weight: 700; padding: 13px 26px; border-radius: 10px; text-decoration: none !important; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95rem; box-shadow: 0 4px 14px rgba(37,211,102,0.3); transition: all 0.2s;">
+              <i class="fa-brands fa-whatsapp" style="font-size: 1.15rem;"></i> Escribir por WhatsApp
+            </a>
+            <a href="/contacto" style="background: #ffffff; color: #0A1E36 !important; border: 1.5px solid #CBD5E1; font-weight: 700; padding: 12px 24px; border-radius: 10px; text-decoration: none !important; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95rem; transition: all 0.2s;">
+              <i class="fa-regular fa-calendar-check" style="color: var(--green);"></i> Agendar una llamada
+            </a>
+          </div>
+
+          <div style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 28px; padding-top: 20px; border-top: 1px solid #F1F5F9; font-size: 0.88rem; color: #64748B;">
+            <a href="tel:+18092995233" style="color: #0A1E36; font-weight: 700; text-decoration: none !important; display: inline-flex; align-items: center; gap: 6px;">
+              <i class="fa-solid fa-phone" style="color: var(--green);"></i> +1 (809) 299-5233
+            </a>
+            <span style="color: #CBD5E1;">·</span>
+            <a href="mailto:paola.caram@ciasard.org.do" style="color: #0A1E36; font-weight: 700; text-decoration: none !important; display: inline-flex; align-items: center; gap: 6px;">
+              <i class="fa-solid fa-envelope" style="color: #2563EB;"></i> paola.caram@ciasard.org.do
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<%- include('../layouts/footer') %>

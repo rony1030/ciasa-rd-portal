@@ -1,0 +1,467 @@
+<%- include('../layouts/header', { pageTitle: 'Contacto | CIASA Bolsa Inmobiliaria', pageDesc: 'Contáctanos para recibir asesoría personalizada sobre inversión inmobiliaria en República Dominicana desde el exterior.', activePage: 'contacto' }) %>
+
+  <style>
+    /* Contact Hero matching ciasard.com 1:1 */
+    .contact-hero-banner {
+      padding-top: 100px;
+      padding-bottom: 120px;
+      background-image: linear-gradient(135deg, rgba(10, 30, 54, 0.78), rgba(8, 145, 178, 0.62)),
+                        url('/assets/images/flyers/pictures/Dominican_couple_on_202604231822_4.jpeg');
+      background-size: cover;
+      background-position: center 36%;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #ffffff;
+      text-align: center;
+      position: relative;
+    }
+    .contact-hero-banner h1 {
+      font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.15;
+    }
+    .contact-hero-banner p {
+      font-size: 1.18rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Layout overlapping hero */
+    .contact-main-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 36px;
+      margin-top: -65px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .form-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 36px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    }
+    .form-card h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .form-card p.sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      font-size: 0.94rem;
+      font-family: inherit;
+      color: var(--text-main);
+      background: #ffffff;
+      transition: all 0.2s ease;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(125, 179, 58, 0.18);
+    }
+
+    .info-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 10px;
+    }
+    .info-card-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    }
+    .info-card-box h3 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 24px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .contact-item:last-child { margin-bottom: 0; }
+    .contact-icon-wrap {
+      width: 44px;
+      height: 44px;
+      background: #ECFDF5;
+      color: var(--green);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .contact-item-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .contact-item-value {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .contact-item-value a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .contact-item-value a:hover {
+      color: var(--green);
+    }
+
+    /* Checkbox Group */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: #334155;
+      cursor: pointer;
+    }
+    .checkbox-label input {
+      accent-color: var(--green);
+      width: 16px;
+      height: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .contact-main-grid {
+        grid-template-columns: 1fr;
+        margin-top: -30px;
+      }
+      .form-card, .info-card-box {
+        padding: 24px;
+      }
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <!-- ==========================================================================
+       HERO CONTACTO (1:1 CON FOTO ORIGINAL DOMINICAN COUPLE ON BALCONY)
+       ========================================================================== -->
+  <section class="contact-hero-banner">
+    <div class="container">
+      <h1>Contáctanos</h1>
+      <p>Estamos aquí para ayudarte con tu inversión en República Dominicana</p>
+    </div>
+  </section>
+
+  <main style="padding-bottom: 90px;">
+    <div class="container">
+      <div class="contact-main-grid">
+        
+        <!-- ====================================================================
+             COLUMNA 1: FORMULARIO SOLICITA INFORMACIÓN
+             ==================================================================== -->
+        <div class="form-card">
+          <h2>Solicita Información</h2>
+          <p class="sub">Completa tus datos y una consultora se comunicará contigo en menos de 2 horas hábiles.</p>
+
+          <form id="contactFormFull" onsubmit="handleLeadSubmit(event)">
+            <div class="form-group">
+              <label class="form-label">Nombre Completo *</label>
+              <input type="text" id="fNombre" class="form-input" required placeholder="Ej: Dr. Carlos Rodríguez">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Teléfono / WhatsApp *</label>
+              <input type="tel" id="fTelefono" class="form-input" required placeholder="+1 (809) 299-5233">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email *</label>
+              <input type="email" id="fEmail" class="form-input" required placeholder="tu@email.com">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label">Ciudad</label>
+                <input type="text" id="fCiudad" class="form-input" placeholder="Ej: New York">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Estado</label>
+                <input type="text" id="fEstado" class="form-input" placeholder="Ej: NY">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label">País</label>
+                <input type="text" id="fPais" class="form-input" placeholder="Ej: Estados Unidos">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Código Postal</label>
+                <input type="text" id="fZipCode" class="form-input" placeholder="10001">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label">Presupuesto de Inversión</label>
+                <select id="fPresupuesto" class="form-select">
+                  <option value="" disabled selected>Selecciona presupuesto</option>
+                  <option value="100-200K">$100K - $200K USD</option>
+                  <option value="200-300K" selected>$200K - $300K USD</option>
+                  <option value="300-500K">$300K - $500K USD</option>
+                  <option value="500K-1M">$500K - $1M USD</option>
+                  <option value="1M+">$1M+ USD</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Región de Interés</label>
+                <select id="fRegion" class="form-select">
+                  <option value="Todas las regiones">Todas las regiones</option>
+                  <option value="Punta Cana & Cap Cana" selected>Punta Cana & Cap Cana</option>
+                  <option value="Santo Domingo">Santo Domingo & DN</option>
+                  <option value="Juan Dolio">Juan Dolio & Guayacanes</option>
+                  <option value="Bayahibe">Bayahíbe & Dominicus</option>
+                  <option value="Las Terrenas / Samana">Las Terrenas / Samaná</option>
+                  <option value="Miches">Miches & Costa Esmeralda</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Razón de Inversión</label>
+              <div class="checkbox-grid">
+                <label class="checkbox-label"><input type="checkbox" name="fReason" value="Renta Vacacional (Airbnb)" checked> Renta Vacacional (Airbnb)</label>
+                <label class="checkbox-label"><input type="checkbox" name="fReason" value="Inversión / Plusvalía"> Inversión / Plusvalía</label>
+                <label class="checkbox-label"><input type="checkbox" name="fReason" value="Retiro"> Retiro</label>
+                <label class="checkbox-label"><input type="checkbox" name="fReason" value="Uso Familiar"> Uso Familiar</label>
+                <label class="checkbox-label"><input type="checkbox" name="fReason" value="Timesharing"> Timesharing</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">¿Cómo nos encontraste?</label>
+              <select id="fReferido" class="form-select">
+                <option value="" disabled>Selecciona una opción</option>
+                <optgroup label="Referido por">
+                  <option value="Referido Anyelina">Anyelina</option>
+                  <option value="Referido Giordana">Giordana</option>
+                  <option value="Referido Paola" selected>Paola</option>
+                  <option value="Referido Carmen">Carmen</option>
+                  <option value="Referido CEMI">CEMI</option>
+                  <option value="Amistad / Conocido">Amistad / Conocido</option>
+                  <option value="Otro referidor">Otro referidor / agente</option>
+                </optgroup>
+                <optgroup label="Búsqueda en Internet">
+                  <option value="Google">Google</option>
+                  <option value="Bing">Bing</option>
+                </optgroup>
+                <optgroup label="Redes Sociales">
+                  <option value="Instagram">Instagram</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Facebook">Facebook</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Mensaje o Pregunta Adicional</label>
+              <textarea id="fMensaje" class="form-textarea" rows="3" placeholder="Cuéntanos tus requerimientos o dudas específicas..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-cta" style="width: 100%; justify-content: center; padding: 14px; font-size: 1rem; border: none; cursor: pointer;">
+              <i class="fa-brands fa-whatsapp"></i> Enviar Consulta por WhatsApp
+            </button>
+          </form>
+        </div>
+
+        <!-- ====================================================================
+             COLUMNA 2: INFORMACIÓN DE CONTACTO & CANALES DIRECTOS
+             ==================================================================== -->
+        <div class="info-panel">
+          <div class="info-card-box">
+            <h3>Información de Contacto</h3>
+
+            <div class="contact-item">
+              <div class="contact-icon-wrap" style="background: #ECFDF5; color: #047857;">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div>
+                <div class="contact-item-title">Teléfono</div>
+                <div class="contact-item-value">
+                  <a href="tel:+18092995233">+1 (809) 299-5233</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon-wrap" style="background: #EFF6FF; color: #2563EB;">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div>
+                <div class="contact-item-title">Email</div>
+                <div class="contact-item-value">
+                  <a href="mailto:paola.caram@ciasard.org.do">paola.caram@ciasard.org.do</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon-wrap" style="background: #FFFBEB; color: #D97706;">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <div class="contact-item-title">Oficina</div>
+                <div class="contact-item-value">Santo Domingo, República Dominicana</div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon-wrap" style="background: #FAF5FF; color: #9333EA;">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <div>
+                <div class="contact-item-title">Horario de Atención</div>
+                <div class="contact-item-value">
+                  Lunes - Viernes: 9:00 AM - 6:00 PM (EST)<br>
+                  Sábados: 9:00 AM - 1:00 PM
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Canales de Atención Directa para la Diáspora -->
+          <div style="background: linear-gradient(135deg, #0A1E36 0%, #0F294A 100%); border-radius: 20px; padding: 32px 28px; color: #ffffff; box-shadow: 0 12px 36px rgba(10,30,54,0.12); border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -40px; right: -40px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(125,179,58,0.25), transparent 70%); pointer-events: none;"></div>
+            
+            <span style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #A3E635; background: rgba(163, 230, 53, 0.15); padding: 5px 14px; border-radius: 50px; display: inline-block; margin-bottom: 14px; border: 1px solid rgba(163,230,53,0.3);">
+              Atención en tu Huso Horario
+            </span>
+            <h4 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; color: #ffffff;">Dominicanos en EE.UU. & Exterior</h4>
+            <p style="font-size: 0.90rem; color: #CBD5E1; line-height: 1.6; margin-bottom: 22px;">
+              Contamos con líneas directas y asesoría legal para compradores residentes en Nueva York, Florida, Massachusetts, California y Europa.
+            </p>
+            <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20quisiera%20asesor%C3%ADa%20personalizada%20desde%20el%20exterior." target="_blank" style="background: #25D366; color: #ffffff !important; font-weight: 700; padding: 13px 20px; border-radius: 10px; text-decoration: none !important; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.96rem; width: 100%; box-shadow: 0 4px 14px rgba(37,211,102,0.35); transition: all 0.2s;">
+              <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Iniciar Chat de WhatsApp
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    async function handleLeadSubmit(e) {
+      e.preventDefault();
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const origText = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando en CRM...';
+      }
+
+      const nombre = document.getElementById('fNombre').value;
+      const tel = document.getElementById('fTelefono').value;
+      const email = document.getElementById('fEmail').value;
+      const ciudad = document.getElementById('fCiudad').value || 'N/A';
+      const estado = document.getElementById('fEstado').value || 'N/A';
+      const pais = document.getElementById('fPais').value || 'EE.UU.';
+      const presupuesto = document.getElementById('fPresupuesto').value;
+      const region = document.getElementById('fRegion').value;
+      const referido = document.getElementById('fReferido').value;
+      const mensaje = document.getElementById('fMensaje').value;
+      const checkedReasons = Array.from(document.querySelectorAll('input[name="fReason"]:checked')).map(cb => cb.value).join(', ');
+
+      try {
+        await fetch('/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nombre,
+            telefono: tel,
+            email,
+            pais,
+            ciudad,
+            estado,
+            montoInversion: presupuesto,
+            region,
+            comoNosEncontro: referido,
+            razones: checkedReasons,
+            mensaje,
+            source: 'Formulario de Contacto Web'
+          })
+        });
+      } catch (err) {
+        console.warn('Registro local de lead en CRM:', err);
+      }
+
+      if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> ¡Mensaje Enviado al CRM!';
+        submitBtn.style.background = '#059669';
+      }
+
+      const text = `Hola CIASA, mi nombre es ${nombre} (${ciudad}, ${estado}, ${pais}).
+Teléfono: ${tel}
+Email: ${email}
+Presupuesto: ${presupuesto}
+Región: ${region}
+Interés: ${checkedReasons || 'Inversión'}
+Referido por: ${referido}
+${mensaje ? 'Mensaje: ' + mensaje : ''}`;
+
+      setTimeout(() => {
+        window.open(`https://wa.me/18092995233?text=${encodeURIComponent(text)}`, '_blank');
+      }, 500);
+    }
+  </script>
+
+<%- include('../layouts/footer') %>

@@ -1,0 +1,425 @@
+<%- include('../layout', { pageTitle: (isNew ? 'Nuevo Artículo' : 'Editar: ' + (article ? article.titulo : 'Artículo')), activePage: 'blog' }) %>
+
+<!-- Quill.js WYSIWYG Rich Text Editor -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+<style>
+  /* Header Fijo Arriba */
+  .blog-sticky-header {
+    position: sticky;
+    top: 72px;
+    z-index: 40;
+    background: var(--body-bg);
+    padding: 12px 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .blog-scrollable-form {
+    max-height: calc(100vh - 170px);
+    overflow-y: auto;
+    padding-right: 6px;
+  }
+
+  .ql-toolbar.ql-snow {
+    border-color: var(--border-color);
+    background: #FAFAFC;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    font-family: inherit;
+  }
+  .ql-container.ql-snow {
+    border-color: var(--border-color);
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    font-family: inherit;
+    font-size: 1rem;
+    background: #FFFFFF;
+  }
+  .ql-editor {
+    min-height: 320px;
+    line-height: 1.75;
+    color: var(--text-heading);
+    font-size: 0.95rem;
+    padding: 18px 22px;
+  }
+  .ql-editor p {
+    margin-bottom: 14px;
+    line-height: 1.7;
+    color: #334155;
+  }
+  .ql-editor h2 { 
+    color: #0F172A; 
+    font-weight: 800; 
+    font-size: 1.35rem; 
+    margin: 20px 0 10px; 
+    line-height: 1.3;
+  }
+  .ql-editor h3 { 
+    color: #0F172A; 
+    font-weight: 700; 
+    font-size: 1.15rem; 
+    margin: 16px 0 8px; 
+    line-height: 1.35;
+  }
+  .ql-editor blockquote { 
+    border-left: 4px solid var(--primary); 
+    background: #F8FAFC; 
+    padding: 10px 16px; 
+    font-style: italic; 
+    color: var(--secondary); 
+    margin: 14px 0;
+  }
+  .ql-editor img { border-radius: 8px; max-width: 100%; margin: 12px 0; }
+  .ql-editor .article-cta {
+    background: linear-gradient(135deg, #0A1E36 0%, #142D47 100%);
+    border-radius: 12px;
+    padding: 24px 20px;
+    margin: 24px 0 16px;
+    color: #FFFFFF;
+    text-align: center;
+  }
+  .ql-editor .article-cta h2, .ql-editor .article-cta h3 { color: #FFFFFF !important; margin: 0 0 8px !important; }
+  .ql-editor .article-cta p { color: #CBD5E1 !important; margin-bottom: 16px !important; }
+  .ql-editor .cta-buttons a, .ql-editor a.cta-btn-primary, .ql-editor a.btn-gold {
+    background: #7DB33A !important;
+    color: #FFFFFF !important;
+    font-weight: 800 !important;
+    padding: 8px 18px !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    margin: 4px;
+  }
+  .ql-editor .cta-buttons a.cta-btn-secondary, .ql-editor a.btn-outline-white {
+    background: transparent !important;
+    color: #FFFFFF !important;
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  }
+
+  /* Cuadro Pequeño con Imagen de Portada Completa */
+  .image-preview-uploader {
+    position: relative;
+    border: 1px solid #CBD5E1;
+    border-radius: var(--radius-md);
+    background: #F1F5F9;
+    overflow: hidden;
+    height: 105px;
+    max-width: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+  }
+  .image-preview-uploader:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(125, 179, 58, 0.15);
+  }
+  .image-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .image-preview-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #FFFFFF;
+    font-size: 0.76rem;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  .image-preview-uploader:hover .image-preview-overlay {
+    opacity: 1;
+  }
+</style>
+
+<div class="blog-sticky-header">
+  <div>
+    <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-heading); margin-bottom: 2px;"><%= isNew ? 'Nuevo Artículo Editorial' : 'Editar Artículo' %></h2>
+    <p style="font-size: 0.8rem; color: var(--text-muted);"><%= isNew ? 'Redacta un nuevo análisis de mercado o guía de inversión' : 'Modifica el contenido, imágenes, enlaces y metadatos SEO' %></p>
+  </div>
+  
+  <div style="display: flex; gap: 8px;">
+    <!-- Botón Vista Previa Rápida -->
+    <button type="button" class="btn btn-secondary btn-sm" onclick="openLivePreview()">
+      <i class="fa-solid fa-desktop"></i> Vista Previa
+    </button>
+    <% if (!isNew && article) { %>
+      <a href="/articulos/<%= article.slug || article.id %>" target="_blank" class="btn btn-secondary btn-sm">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Publicado
+      </a>
+    <% } %>
+    <a href="/admin/blog" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+  </div>
+</div>
+
+<% if (error) { %>
+<div class="alert alert-error"><i class="fa-solid fa-circle-exclamation"></i> <%= error %></div>
+<% } %>
+
+<div class="blog-scrollable-form">
+<form id="blogForm" method="POST" action="/admin/blog/<%= isNew ? 'nuevo' : (article.id + '/editar') %>">
+  
+  <!-- Campo oculto para el Estado -->
+  <input type="hidden" name="estado" id="estadoInput" value="<%= article ? article.estado || 'publicado' : 'publicado' %>">
+
+  <!-- INFORMACIÓN GENERAL & PORTADA -->
+  <div class="form-card" style="margin-bottom: 20px;">
+    <h3 style="font-size: 0.95rem;"><i class="fa-solid fa-heading" style="color: var(--primary);"></i> Información General & Portada</h3>
+    
+    <div class="form-grid">
+      <div class="form-group full">
+        <label class="form-label">Título del Artículo *</label>
+        <input type="text" name="titulo" id="tituloInput" class="form-input" value="<%= article ? article.titulo : '' %>" placeholder="Ej. Inversión Inmobiliaria en República Dominicana: Pros, Contras y la Realidad" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Categoría</label>
+        <select name="categoria" id="categoriaSelect" class="form-input" onchange="updateCategoryParams(this)">
+          <% [
+            {val:'analisis', label:'Análisis de Mercado', color:'#2563EB'},
+            {val:'guia', label:'Guía Práctica', color:'#7DB33A'},
+            {val:'legal', label:'Legal & CONFOTUR', color:'#059669'},
+            {val:'perspectiva', label:'Perspectivas RD', color:'#D97706'},
+            {val:'financiamiento', label:'Financiamiento', color:'#7C3AED'}
+          ].forEach(c => { %>
+          <option value="<%= c.val %>" data-label="<%= c.label %>" data-color="<%= c.color %>"
+            <%= article && article.categoria === c.val ? 'selected' : '' %>><%= c.label %></option>
+          <% }) %>
+        </select>
+        <input type="hidden" name="categoriaNombre" id="categoriaNombre" value="<%= article ? article.categoriaNombre || 'Análisis de Mercado' : 'Análisis de Mercado' %>">
+        <input type="hidden" name="categoriaColor" id="categoriaColor" value="<%= article ? article.categoriaColor || '#2563EB' : '#2563EB' %>">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Tiempo Estimado de Lectura</label>
+        <input type="text" name="tiempoLectura" id="tiempoLecturaInput" class="form-input" value="<%= article ? article.tiempoLectura || '8 min de lectura' : '8 min de lectura' %>" placeholder="8 min de lectura">
+      </div>
+
+      <!-- RECUADRO DE VISTA PREVIA DE IMAGEN DE PORTADA PEQUEÑO & COMPLETO -->
+      <div class="form-group">
+        <label class="form-label">Imagen de Portada (Clic para cambiar)</label>
+        
+        <div class="image-preview-uploader" onclick="chooseQuickImage()" title="Cambiar portada">
+          <img src="<%= article ? article.imagen || '/assets/images/hero-dr.jpg' : '/assets/images/hero-dr.jpg' %>" id="previewImgElement" class="image-preview-img" alt="Portada">
+          <div class="image-preview-overlay">
+            <i class="fa-solid fa-camera"></i> Cambiar
+          </div>
+        </div>
+
+        <!-- Input hidden que almacena la ruta sin mostrar texto al usuario -->
+        <input type="hidden" name="imagen" id="imagenInput" value="<%= article ? article.imagen || '/assets/images/hero-dr.jpg' : '/assets/images/hero-dr.jpg' %>">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Autor / Firma</label>
+        <input type="text" name="autor" id="autorInput" class="form-input" value="<%= article ? article.autor || 'Paola Caram · Equipo CIASA' : 'Paola Caram · Equipo CIASA' %>" placeholder="Paola Caram · Equipo CIASA">
+      </div>
+
+      <div class="form-group full">
+        <label class="form-label">Extracto / Bajada Destacada</label>
+        <textarea name="extracto" id="extractoInput" class="form-input" rows="2" placeholder="Resumen atractivo que aparecerá en la cabecera y en el listado..."><%= article ? article.extracto || '' : '' %></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDITOR DE TEXTO ENRIQUECIDO (QUILL.JS WYSIWYG) -->
+  <div class="form-card" style="margin-bottom: 20px;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color);">
+      <h3 style="margin: 0; padding: 0; border: none; font-size: 0.95rem;"><i class="fa-solid fa-file-pen" style="color: var(--primary);"></i> Contenido del Artículo</h3>
+      <span class="badge badge-green" style="font-size: 0.7rem;"><i class="fa-solid fa-check-double"></i> Editor WYSIWYG Activo</span>
+    </div>
+
+    <!-- Quill Editor Toolbar + Body -->
+    <div id="editor-container"></div>
+    
+    <!-- Hidden Textarea para Enviar el HTML vía POST -->
+    <textarea name="contenido" id="hiddenContenido" style="display: none;"><%= article ? article.contenido || '' : '' %></textarea>
+  </div>
+
+  <!-- METADATOS SEO -->
+  <div class="form-card" style="margin-bottom: 24px;">
+    <h3 style="font-size: 0.95rem;"><i class="fa-solid fa-magnifying-glass-chart" style="color: var(--primary);"></i> Optimización SEO & Redes Sociales</h3>
+    
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">Meta Título (SEO Title)</label>
+        <input type="text" name="seoTitle" class="form-input" value="<%= article ? article.seoTitle || '' : '' %>" placeholder="Título optimizado para Google (máx 60 caracteres)">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Meta Descripción (SEO Desc)</label>
+        <input type="text" name="seoDesc" class="form-input" value="<%= article ? article.seoDesc || '' : '' %>" placeholder="Descripción para snippets de búsqueda y OpenGraph...">
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTONES DE ACCIÓN: GUARDAR BORRADOR, VISTA PREVIA Y PUBLICAR -->
+  <div style="display: flex; gap: 12px; justify-content: flex-end; padding-bottom: 30px; flex-wrap: wrap;">
+    <a href="/admin/blog" class="btn btn-secondary">Cancelar</a>
+    
+    <!-- Guardar como Borrador -->
+    <button type="button" class="btn btn-secondary" onclick="submitAsDraft()" style="font-weight: 700;">
+      <i class="fa-regular fa-file-lines"></i> Guardar Borrador
+    </button>
+
+    <!-- Ver Vista Previa -->
+    <button type="button" class="btn btn-secondary" onclick="openLivePreview()" style="font-weight: 700;">
+      <i class="fa-solid fa-eye"></i> Vista Previa
+    </button>
+
+    <!-- Publicar Oficialmente -->
+    <button type="button" class="btn btn-primary" onclick="submitAsPublished()" style="padding: 10px 26px; font-size: 0.88rem; font-weight: 800;">
+      <i class="fa-solid fa-cloud-arrow-up"></i> Publicar Artículo
+    </button>
+  </div>
+
+</form>
+</div>
+
+<!-- MODAL VISTA PREVIA TEMPORAL EN VIVO -->
+<div id="livePreviewModal" style="display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.7); z-index: 10000; overflow-y: auto; backdrop-filter: blur(6px); padding: 40px 16px;">
+  <div style="max-width: 860px; margin: 0 auto; background: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-dropdown);">
+    
+    <!-- Barra superior de vista previa -->
+    <div style="background: var(--secondary); color: #FFFFFF; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 0.85rem; font-weight: 700;"><i class="fa-solid fa-desktop" style="color: var(--primary);"></i> VISTA PREVIA TEMPORAL (MODO BORRADOR)</span>
+      <button type="button" style="background: none; border: none; color: #FFFFFF; font-size: 1.2rem; cursor: pointer;" onclick="document.getElementById('livePreviewModal').style.display='none'">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Header / Hero Preview -->
+    <div id="previewHero" style="background-size: cover; background-position: center; padding: 60px 24px; text-align: center; color: #FFFFFF;">
+      <span id="previewCatBadge" style="display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 0.76rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF; margin-bottom: 14px;"></span>
+      <h1 id="previewTitle" style="font-size: 2rem; font-weight: 900; max-width: 700px; margin: 0 auto 14px; line-height: 1.25;"></h1>
+      <div id="previewMeta" style="font-size: 0.84rem; opacity: 0.9;"></div>
+    </div>
+
+    <!-- Body Preview -->
+    <div style="padding: 36px 40px;">
+      <div id="previewExcerpt" style="font-size: 1.15rem; line-height: 1.7; color: #334155; font-weight: 500; padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid #E2E8F0;"></div>
+      <div id="previewContent" style="font-size: 1.05rem; line-height: 1.8; color: #1E293B;"></div>
+    </div>
+
+    <!-- Footer Modal -->
+    <div style="background: #FAFAFC; border-top: 1px solid #E2E8F0; padding: 16px 24px; text-align: right;">
+      <button type="button" class="btn btn-secondary" onclick="document.getElementById('livePreviewModal').style.display='none'">Cerrar Vista Previa</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL VISUAL PARA ELEGIR FOTO DE PORTADA -->
+<div id="quickImageModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+  <div style="background: var(--card-bg); border-radius: var(--radius-lg); padding: 24px; max-width: 600px; width: 90%; margin: 80px auto; box-shadow: var(--shadow-dropdown); max-height: 80vh; overflow-y: auto;">
+    <h3 style="margin-top: 0; font-size: 1.1rem; color: var(--text-heading);"><i class="fa-solid fa-images" style="color: var(--primary);"></i> Seleccionar Foto de Portada</h3>
+    
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;">
+      <% [
+        '/assets/images/flyers/pictures/Coastal_development_at_202604231822_2.jpeg',
+        '/assets/images/flyers/pictures/Family_on_balcony_202604231822_3.jpeg',
+        '/assets/images/flyers/pictures/Dominican_couple_on_202604231822_4.jpeg',
+        '/assets/images/hero-dr.jpg',
+        '/assets/images/projects/ciasa-001-pc.jpg',
+        '/assets/images/projects/ciasa-002-bay.jpg'
+      ].forEach(imgUrl => { %>
+        <div onclick="selectImage('<%= imgUrl %>')" style="cursor: pointer; border-radius: 8px; overflow: hidden; border: 2px solid transparent; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='transparent'">
+          <img src="<%= imgUrl %>" style="width: 100%; height: 90px; object-fit: cover; display: block;" onerror="this.src='/assets/images/hero-dr.jpg'">
+        </div>
+      <% }) %>
+    </div>
+    
+    <div style="text-align: right;">
+      <button type="button" class="btn btn-secondary" onclick="document.getElementById('quickImageModal').style.display='none'">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 1. Inicializar Quill WYSIWYG
+  const toolbarOptions = [
+    [{ 'header': [2, 3, 4, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ 'color': [] }, { 'background': [] }],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    ['blockquote', 'code-block'],
+    ['link', 'image', 'video'],
+    ['clean']
+  ];
+
+  const quill = new Quill('#editor-container', {
+    modules: { toolbar: toolbarOptions },
+    theme: 'snow',
+    placeholder: 'Redacta aquí el contenido completo del artículo con subtítulos, citas, imágenes y enlaces...'
+  });
+
+  const initialContent = document.getElementById('hiddenContenido').value;
+  if (initialContent) {
+    quill.root.innerHTML = initialContent;
+  }
+
+  // 2. Acciones de Formulario (Borrador vs Publicar)
+  function submitAsDraft() {
+    document.getElementById('estadoInput').value = 'borrador';
+    document.getElementById('hiddenContenido').value = quill.root.innerHTML;
+    document.getElementById('blogForm').submit();
+  }
+
+  function submitAsPublished() {
+    document.getElementById('estadoInput').value = 'publicado';
+    document.getElementById('hiddenContenido').value = quill.root.innerHTML;
+    document.getElementById('blogForm').submit();
+  }
+
+  // 3. Vista Previa en Vivo Temporal
+  function openLivePreview() {
+    const title = document.getElementById('tituloInput').value || 'Título del Artículo';
+    const excerpt = document.getElementById('extractoInput').value || '';
+    const imgUrl = document.getElementById('imagenInput').value || '/assets/images/hero-dr.jpg';
+    const catSelect = document.getElementById('categoriaSelect');
+    const catName = catSelect.options[catSelect.selectedIndex]?.getAttribute('data-label') || 'Artículo';
+    const catColor = catSelect.options[catSelect.selectedIndex]?.getAttribute('data-color') || '#2563EB';
+    const author = document.getElementById('autorInput').value || 'Equipo CIASA';
+    const time = document.getElementById('tiempoLecturaInput').value || '5 min';
+    const content = quill.root.innerHTML;
+
+    document.getElementById('previewHero').style.backgroundImage = `linear-gradient(135deg, rgba(10,30,54,0.85), rgba(8,145,178,0.65)), url('${imgUrl}')`;
+    document.getElementById('previewCatBadge').textContent = catName;
+    document.getElementById('previewCatBadge').style.background = catColor;
+    document.getElementById('previewTitle').textContent = title;
+    document.getElementById('previewMeta').textContent = `${author} · ${time}`;
+    document.getElementById('previewExcerpt').textContent = excerpt;
+    document.getElementById('previewContent').innerHTML = content;
+
+    document.getElementById('livePreviewModal').style.display = 'block';
+  }
+
+  // 4. Modal Imágenes Visual
+  function chooseQuickImage() {
+    document.getElementById('quickImageModal').style.display = 'flex';
+  }
+  function selectImage(url) {
+    document.getElementById('imagenInput').value = url;
+    document.getElementById('previewImgElement').src = url;
+    document.getElementById('quickImageModal').style.display = 'none';
+  }
+
+  function updateCategoryParams(select) {
+    const opt = select.options[select.selectedIndex];
+    document.getElementById('categoriaNombre').value = opt.getAttribute('data-label');
+    document.getElementById('categoriaColor').value  = opt.getAttribute('data-color');
+  }
+</script>
+
+<%- include('../layout-end') %>

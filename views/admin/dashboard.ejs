@@ -1,0 +1,267 @@
+<%- include('layout', { pageTitle, activePage: 'dashboard' }) %>
+
+<!-- WIDGETS DE RENDIMIENTO Y VENTAS (ESTILO HANDO EXACTO) -->
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-card-header">
+      <span class="stat-card-label">Ventas Proyectadas</span>
+      <div class="stat-card-icon green"><i class="fa-solid fa-sack-dollar"></i></div>
+    </div>
+    <div class="stat-card-value">$1,840,000 <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted);">USD</span></div>
+    <div class="stat-card-sub" style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
+      <span style="color: #059669; font-weight: 700;"><i class="fa-solid fa-arrow-trend-up"></i> +18.4% este mes</span>
+      <span>4 cierres en proceso</span>
+    </div>
+    <div style="background: var(--border-subtle); height: 6px; border-radius: 6px; margin-top: 10px; overflow: hidden;">
+      <div style="background: var(--primary); width: 68%; height: 100%; border-radius: 6px;"></div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card-header">
+      <span class="stat-card-label">Prospectos & Leads</span>
+      <div class="stat-card-icon blue"><i class="fa-solid fa-users"></i></div>
+    </div>
+    <div class="stat-card-value"><%= stats ? stats.totalLeads : 5 %> <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted);">Activos</span></div>
+    <div class="stat-card-sub" style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
+      <span style="color: #2563EB; font-weight: 700;"><i class="fa-solid fa-globe"></i> 82% Diáspora EE.UU.</span>
+      <span><%= stats ? stats.leadsHoy : 2 %> nuevos hoy</span>
+    </div>
+    <div style="background: var(--border-subtle); height: 6px; border-radius: 6px; margin-top: 10px; overflow: hidden;">
+      <div style="background: #2563EB; width: 82%; height: 100%; border-radius: 6px;"></div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card-header">
+      <span class="stat-card-label">Email Marketing (Reach)</span>
+      <div class="stat-card-icon purple"><i class="fa-solid fa-envelope-open-text"></i></div>
+    </div>
+    <div class="stat-card-value">44.8% <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted);">Open Rate</span></div>
+    <div class="stat-card-sub" style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
+      <span style="color: #7E22CE; font-weight: 700;"><i class="fa-solid fa-chart-pie"></i> 14.2% Clics</span>
+      <span>3 secuencias activas</span>
+    </div>
+    <div style="background: var(--border-subtle); height: 6px; border-radius: 6px; margin-top: 10px; overflow: hidden;">
+      <div style="background: #9333EA; width: 44.8%; height: 100%; border-radius: 6px;"></div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <div class="stat-card-header">
+      <span class="stat-card-label">Catálogo de Proyectos</span>
+      <div class="stat-card-icon amber"><i class="fa-solid fa-building-circle-check"></i></div>
+    </div>
+    <div class="stat-card-value"><%= stats ? stats.proyectosDisponibles : 27 %> <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted);">/ <%= stats ? stats.totalProyectos : 27 %></span></div>
+    <div class="stat-card-sub" style="display: flex; align-items: center; justify-content: space-between; margin-top: 6px;">
+      <span style="color: #D97706; font-weight: 700;"><i class="fa-solid fa-shield-check"></i> Ley CONFOTUR</span>
+      <span>100% Verificados</span>
+    </div>
+    <div style="background: var(--border-subtle); height: 6px; border-radius: 6px; margin-top: 10px; overflow: hidden;">
+      <div style="background: #D97706; width: 100%; height: 100%; border-radius: 6px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHARTS SECTION (APEXCHARTS HANDO STYLE) -->
+<div class="chart-grid">
+  <!-- Gráfico de Performance Overview -->
+  <div class="chart-card">
+    <div class="chart-card-header">
+      <div>
+        <h3>Rendimiento de Ventas & Leads (2026)</h3>
+        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">Evolución mensual de volumen cotizado vs prospectos calificados</p>
+      </div>
+      <div style="display: flex; gap: 6px;">
+        <span class="badge badge-green"><i class="fa-solid fa-circle" style="font-size:0.45rem;"></i> Cotizaciones</span>
+        <span class="badge badge-blue"><i class="fa-solid fa-circle" style="font-size:0.45rem;"></i> Leads Calificados</span>
+      </div>
+    </div>
+    <div id="performanceOverviewChart" style="min-height: 290px;"></div>
+  </div>
+
+  <!-- Origen Geográfico & Email Marketing Breakdown -->
+  <div class="chart-card">
+    <div class="chart-card-header">
+      <h3>Inversionistas por País</h3>
+      <span class="badge badge-purple">Diáspora RD</span>
+    </div>
+    <div id="salesByCountryChart" style="min-height: 220px;"></div>
+    <div style="border-top: 1px solid var(--border-subtle); padding-top: 12px; margin-top: 8px;">
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 6px;">
+        <span style="color: var(--text-heading); font-weight: 600;"><i class="fa-solid fa-flag-usa" style="color:#2563EB;"></i> Estados Unidos (NY, FL, MA)</span>
+        <strong style="color: var(--text-heading);">58%</strong>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 6px;">
+        <span style="color: var(--text-heading); font-weight: 600;">🇩🇴 República Dominicana</span>
+        <strong style="color: var(--text-heading);">24%</strong>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+        <span style="color: var(--text-heading); font-weight: 600;">🇪🇸 España & Europa</span>
+        <strong style="color: var(--text-heading);">18%</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEADS TRACKER & RECENT TABLE -->
+<div class="section-header">
+  <div>
+    <h2>Pipeline de Prospectos & Tareas</h2>
+    <p>Seguimiento 360° a clientes potenciales de inversión inmobiliaria</p>
+  </div>
+  <div style="display: flex; gap: 10px;">
+    <a href="/admin/leads" class="btn btn-secondary"><i class="fa-solid fa-list-check"></i> Ver Pipeline Completo</a>
+    <a href="/admin/leads/nuevo" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Nuevo Prospecto</a>
+  </div>
+</div>
+
+<div class="admin-table-wrap" style="margin-bottom: 32px;">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Prospecto</th>
+        <th>Contacto / WhatsApp</th>
+        <th>Proyecto de Interés</th>
+        <th>Ubicación</th>
+        <th>Estado</th>
+        <th>Seguimiento</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (recentLeads && recentLeads.length > 0) { %>
+        <% recentLeads.forEach(lead => { %>
+        <tr>
+          <td>
+            <strong style="color: var(--text-heading); font-size: 0.92rem; display: block;"><%= lead.nombre || '—' %></strong>
+            <% if (lead.montoInversion) { %>
+              <span style="font-size: 0.76rem; color: var(--primary); font-weight: 700;">$<%= parseInt(lead.montoInversion).toLocaleString('en-US') %> USD</span>
+            <% } %>
+          </td>
+          <td>
+            <div style="font-size: 0.84rem; font-weight: 600;"><%= lead.email || '—' %></div>
+            <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
+              <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> <%= lead.telefono || 'Sin teléfono' %>
+            </div>
+          </td>
+          <td>
+            <span style="font-weight: 700; color: var(--secondary); font-size: 0.86rem;"><%= lead.proyectoInteres || '—' %></span>
+          </td>
+          <td style="font-size: 0.82rem; color: var(--text-muted);">
+            <%= [lead.pais, lead.ciudad].filter(Boolean).join(' · ') || '—' %>
+          </td>
+          <td>
+            <% const s = (lead.statusVentas || lead.estado || 'nuevo').toLowerCase(); %>
+            <span class="badge <%= s === 'nuevo' ? 'badge-blue' : s === 'contactado' ? 'badge-orange' : s === 'calificado' ? 'badge-purple' : s === 'cerrado' ? 'badge-green' : 'badge-gray' %>">
+              <i class="fa-solid fa-circle" style="font-size: 0.45rem;"></i> <%= s %>
+            </span>
+          </td>
+          <td>
+            <div style="font-size: 0.78rem; color: var(--text-muted);">
+              <span><i class="fa-solid fa-comment-dots" style="color: var(--primary);"></i> <%= (lead.notas || []).length %> notas</span> · 
+              <span><i class="fa-solid fa-list-check" style="color: #2563EB;"></i> <%= (lead.tareas || []).length %> tareas</span>
+            </div>
+          </td>
+          <td>
+            <div style="display: flex; gap: 6px;">
+              <a href="/admin/leads/<%= lead._id || lead.id %>" class="btn btn-secondary btn-sm" title="Abrir Ficha 360°">
+                <i class="fa-solid fa-folder-open"></i> Ficha
+              </a>
+              <% if (lead.telefono) { %>
+                <a href="https://wa.me/<%= lead.telefono.replace(/[^0-9]/g, '') %>?text=Hola%20<%= encodeURIComponent(lead.nombre || '') %>,%20le%20escribimos%20de%20CIASA%20Bolsa%20Inmobiliaria." target="_blank" class="btn btn-sm" style="background:#ECFDF5; color:#059669; border:1px solid #A7F3D0;" title="Abrir WhatsApp">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </a>
+              <% } %>
+            </div>
+          </td>
+        </tr>
+        <% }) %>
+      <% } else { %>
+        <tr><td colspan="7" style="text-align:center; padding: 40px; color: var(--text-muted);">No hay prospectos registrados aún.</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+<!-- SCRIPTS DE APEXCHARTS HANDO STYLE -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // 1. Performance Overview Chart
+    const perfOptions = {
+      series: [{
+        name: 'Cotizaciones ($ USD)',
+        type: 'column',
+        data: [120, 190, 160, 240, 290, 340, 310, 420, 380, 490, 520, 580]
+      }, {
+        name: 'Leads Calificados',
+        type: 'line',
+        data: [18, 26, 22, 34, 42, 48, 45, 62, 54, 71, 78, 85]
+      }],
+      chart: {
+        height: 290,
+        type: 'line',
+        toolbar: { show: false },
+        fontFamily: 'Plus Jakarta Sans, sans-serif'
+      },
+      stroke: { width: [0, 3], curve: 'smooth' },
+      colors: ['#7DB33A', '#2563EB'],
+      fill: {
+        opacity: [0.85, 1],
+        gradient: {
+          inverseColors: false,
+          shade: 'light',
+          type: "vertical",
+          opacityFrom: 0.85,
+          opacityTo: 0.55
+        }
+      },
+      labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+      markers: { size: 4 },
+      yaxis: [
+        { title: { text: 'Miles USD ($K)', style: { fontSize: '11px', color: '#64748B' } } },
+        { opposite: true, title: { text: 'Cant. Leads', style: { fontSize: '11px', color: '#64748B' } } }
+      ],
+      legend: { show: false },
+      grid: { borderColor: '#F1F5F9', strokeDashArray: 4 }
+    };
+    const perfChart = new ApexCharts(document.querySelector("#performanceOverviewChart"), perfOptions);
+    perfChart.render();
+
+    // 2. Sales by Country Donut
+    const countryOptions = {
+      series: [58, 24, 18],
+      chart: {
+        type: 'donut',
+        height: 220,
+        fontFamily: 'Plus Jakarta Sans, sans-serif'
+      },
+      colors: ['#2563EB', '#7DB33A', '#D97706'],
+      labels: ['Estados Unidos', 'Rep. Dominicana', 'Europa / España'],
+      legend: { show: false },
+      dataLabels: { enabled: false },
+      plotOptions: {
+        pie: {
+          donut: {
+            size: '72%',
+            labels: {
+              show: true,
+              total: {
+                show: true,
+                label: 'Diáspora',
+                fontSize: '12px',
+                fontWeight: 600,
+                color: '#64748B',
+                formatter: () => '82%'
+              }
+            }
+          }
+        }
+      }
+    };
+    const countryChart = new ApexCharts(document.querySelector("#salesByCountryChart"), countryOptions);
+    countryChart.render();
+  });
+</script>
+
+<%- include('layout-end') %>

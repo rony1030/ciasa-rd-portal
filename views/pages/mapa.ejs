@@ -1,0 +1,401 @@
+<%- include('../layouts/header', { pageTitle: 'Mapa Interactivo de Polos Inmobiliarios | CIASA Bolsa Inmobiliaria', pageDesc: 'Explora los principales polos turísticos y proyectos de inversión inmobiliaria en República Dominicana con nuestro mapa interactivo.', activePage: 'mapa' }) %>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <style>
+    .map-page-hero {
+      background-image: linear-gradient(135deg, rgba(10, 30, 54, 0.85), rgba(8, 145, 178, 0.65)),
+                        url('/assets/images/flyers/pictures/Coastal_development_at_202604231822_2.jpeg');
+      background-size: cover;
+      background-position: center;
+      padding: 70px 0 60px;
+      text-align: center;
+      color: #ffffff;
+    }
+    .map-page-hero h1 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .map-page-hero p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .map-wrapper-section {
+      padding: 40px 0 80px;
+      background: #F8FAFC;
+    }
+
+    .map-layout-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 0;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+      min-height: 650px;
+    }
+
+    #interactiveMap {
+      width: 100%;
+      height: 100%;
+      min-height: 550px;
+      z-index: 1;
+    }
+
+    .map-sidebar {
+      background: #ffffff;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      max-height: 700px;
+    }
+
+    @media (max-width: 991px) {
+      .map-wrapper-section {
+        padding: 24px 0 60px;
+      }
+      .map-layout-grid {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        border-radius: 14px;
+        overflow: visible;
+      }
+      #interactiveMap {
+        height: 380px;
+        min-height: 380px;
+        border-bottom: 1px solid var(--border);
+      }
+      .map-sidebar {
+        border-left: none;
+        border-top: none;
+        max-height: none;
+        height: auto;
+        overflow: visible;
+      }
+      .map-sidebar-list {
+        max-height: 480px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
+    .map-sidebar-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #F1F5F9;
+      background: #FAFAFA;
+    }
+    .map-sidebar-header h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .map-sidebar-header p {
+      font-size: 0.84rem;
+      color: #64748B;
+      margin: 0;
+    }
+
+    .map-sidebar-list {
+      overflow-y: auto;
+      flex: 1;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .region-item-card {
+      background: #ffffff;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .region-item-card:hover {
+      border-color: var(--green);
+      background: #F8FAFC;
+      transform: translateY(-2px);
+    }
+    .region-item-card.active {
+      border-color: var(--green);
+      background: #ECFDF5;
+      box-shadow: 0 4px 12px rgba(125, 179, 58, 0.15);
+    }
+
+    .region-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .region-card-top strong {
+      font-size: 1rem;
+      color: var(--navy);
+      font-weight: 800;
+    }
+    .region-badge-count {
+      background: #EFF6FF;
+      color: #2563EB;
+      font-size: 0.76rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .region-item-card p {
+      font-size: 0.82rem;
+      color: #64748B;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .region-card-metrics {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      margin-top: 4px;
+      padding-top: 6px;
+      border-top: 1px dashed #E2E8F0;
+    }
+
+    /* Custom Leaflet Marker Styling */
+    .custom-map-pin {
+      background: var(--navy);
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .custom-map-pin.active-pin {
+      background: var(--green);
+      transform: scale(1.25);
+    }
+
+    /* Popup Styling */
+    .leaflet-popup-content-wrapper {
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      padding: 6px;
+    }
+    .popup-box {
+      min-width: 240px;
+    }
+    .popup-box h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0A1E36;
+      margin: 0 0 6px;
+    }
+    .popup-box p {
+      font-size: 0.82rem;
+      color: #64748B;
+      line-height: 1.4;
+      margin: 0 0 10px;
+    }
+    .popup-projects-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .popup-projects-list li a {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: #334155;
+      text-decoration: none;
+      padding: 4px 6px;
+      border-radius: 4px;
+      background: #F8FAFC;
+      transition: background 0.15s;
+    }
+    .popup-projects-list li a:hover {
+      background: #EFF6FF;
+      color: #2563EB;
+    }
+  </style>
+
+  <!-- Hero Section -->
+  <section class="map-page-hero">
+    <div class="container">
+      <h1>Mapa Interactivo de Inversiones</h1>
+      <p>Haz clic en cualquier región para explorar su vocación turística, proyectos activos y rango de rentabilidad en dólares.</p>
+    </div>
+  </section>
+
+  <!-- Map Layout Section -->
+  <section class="map-wrapper-section">
+    <div class="container">
+      <div class="map-layout-grid">
+        
+        <!-- Mapa Leaflet -->
+        <div id="interactiveMap"></div>
+
+        <!-- Sidebar de Regiones -->
+        <div class="map-sidebar">
+          <div class="map-sidebar-header">
+            <h3>Polos de Desarrollo</h3>
+            <p>Selecciona una región para centrar el mapa y ver proyectos</p>
+          </div>
+
+          <div class="map-sidebar-list" id="regionsSidebar">
+            <!-- Renderizado dinámico vía JS -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <script>
+    const DYNAMIC_REGIONS = <%- JSON.stringify(typeof dynamicRegions !== 'undefined' ? dynamicRegions : []) %>;
+    const ALL_PROJECTS = <%- JSON.stringify(typeof projects !== 'undefined' ? projects : []) %>;
+
+    // 1. Inicializar Mapa Centrado en República Dominicana
+    const map = L.map('interactiveMap', {
+      center: [18.7357, -69.5],
+      zoom: 8,
+      zoomControl: true
+    });
+
+    // 2. Capa de Azulejos Elegante (CartoDB Positron / OpenStreetMap)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      maxZoom: 18
+    }).addTo(map);
+
+    const markersMap = {};
+
+    // 3. Renderizar Regiones 100% Dinámicas desde la Base de Datos
+    const sidebarEl = document.getElementById('regionsSidebar');
+
+    DYNAMIC_REGIONS.forEach(region => {
+      const regProjects = region.projects || [];
+      const count = region.projectCount || regProjects.length;
+
+      // Crear tarjeta en Sidebar con datos dinámicos de la BD
+      const card = document.createElement('div');
+      card.className = 'region-item-card';
+      card.id = `sidebar-card-${region.id}`;
+      card.innerHTML = `
+        <div class="region-card-top">
+          <strong>${region.name}</strong>
+          <span class="region-badge-count">${count} ${count === 1 ? 'Proyecto' : 'Proyectos'}</span>
+        </div>
+        <p>${region.desc || region.description}</p>
+        <div class="region-card-metrics">
+          <span style="color: var(--green); font-weight: 700;">${region.priceRange}</span>
+          <span style="color: #2563EB; font-weight: 700;">ROI ${region.avgRoi}</span>
+        </div>
+      `;
+
+      card.onclick = () => focusRegion(region.id);
+      sidebarEl.appendChild(card);
+
+      // Crear Icono Personalizado Leaflet con Contador Real de BD
+      const pinIcon = L.divIcon({
+        className: 'custom-map-pin-container',
+        html: `<div class="custom-map-pin" id="pin-${region.id}" style="width: 34px; height: 34px;">${count}</div>`,
+        iconSize: [34, 34],
+        iconAnchor: [17, 17]
+      });
+
+      // Crear Marcador
+      const marker = L.marker(region.coords, { icon: pinIcon }).addTo(map);
+
+      // Crear Contenido Popup con Proyectos Reales de la BD
+      let popupHtml = `
+        <div class="popup-box">
+          <h4>${region.name}</h4>
+          <p>${region.desc || region.description}</p>
+          <div style="font-size: 0.78rem; font-weight: 700; color: #64748B; margin-bottom: 6px;">PROYECTOS DISPONIBLES (${count}):</div>
+          <ul class="popup-projects-list">
+      `;
+
+      if (regProjects.length > 0) {
+        regProjects.slice(0, 5).forEach(p => {
+          popupHtml += `
+            <li>
+              <a href="/proyectos/${p.slug || p.id}">
+                <span><strong>${p.name}</strong> <small style="color: #94A3B8;">(${p.code || ''})</small></span>
+                <span style="color: var(--green); font-weight: 700;">$${p.priceFrom ? p.priceFrom.toLocaleString('en-US') : 'Consultar'}</span>
+              </a>
+            </li>
+          `;
+        });
+      } else {
+        popupHtml += `<li><a href="/proyectos"><span>Ver proyectos en catálogo</span></a></li>`;
+      }
+
+      popupHtml += `
+          </ul>
+          <a href="/proyectos" style="display: block; text-align: center; background: var(--navy); color: #ffffff; padding: 7px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none;">
+            Ver Todos los Proyectos en Catálogo &rarr;
+          </a>
+        </div>
+      `;
+
+      marker.bindPopup(popupHtml, { maxWidth: 320 });
+
+      marker.on('click', () => {
+        highlightSidebarCard(region.id);
+      });
+
+      markersMap[region.id] = { marker, region };
+    });
+
+    function focusRegion(regionId) {
+      const item = markersMap[regionId];
+      if (!item) return;
+
+      map.flyTo(item.region.coords, item.region.zoom, { duration: 1.2 });
+      setTimeout(() => {
+        item.marker.openPopup();
+      }, 1200);
+
+      highlightSidebarCard(regionId);
+    }
+
+    function highlightSidebarCard(regionId) {
+      document.querySelectorAll('.region-item-card').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.custom-map-pin').forEach(p => p.classList.remove('active-pin'));
+
+      const activeCard = document.getElementById(`sidebar-card-${regionId}`);
+      if (activeCard) {
+        activeCard.classList.add('active');
+        activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      const activePin = document.getElementById(`pin-${regionId}`);
+      if (activePin) {
+        activePin.classList.add('active-pin');
+      }
+    }
+  </script>
+
+<%- include('../layouts/footer') %>

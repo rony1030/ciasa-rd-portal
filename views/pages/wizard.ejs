@@ -1,0 +1,523 @@
+<%- include('../layouts/header', { pageTitle: 'Wizard de Inversión Inmobiliaria | CIASA Bolsa Inmobiliaria', pageDesc: 'Descubre qué región, tipo de propiedad y proyectos en República Dominicana se ajustan a tu presupuesto y objetivos de inversión.', activePage: 'wizard' }) %>
+
+  <style>
+    .wizard-hero {
+      background-image: linear-gradient(135deg, rgba(10, 30, 54, 0.82), rgba(8, 145, 178, 0.6)),
+                        url('/assets/images/flyers/pictures/Family_on_balcony_202604231822_3.jpeg');
+      background-size: cover;
+      background-position: center 35%;
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 90px 0 80px;
+      text-align: center;
+      color: #ffffff;
+    }
+    .wizard-hero h1 {
+      font-size: clamp(2.3rem, 4vw, 3.2rem);
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.15;
+    }
+    .wizard-hero p {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 660px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .wizard-box {
+      max-width: 820px;
+      margin: -40px auto 90px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Progress Bar */
+    .wizard-progress-wrap {
+      margin-bottom: 35px;
+    }
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #64748B;
+      margin-bottom: 8px;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      background: #E2E8F0;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 25%;
+      background: linear-gradient(90deg, #2563EB, var(--green));
+      border-radius: 50px;
+      transition: width 0.3s ease;
+    }
+
+    /* Step Contents */
+    .wizard-step { display: none; }
+    .wizard-step.active { display: block; animation: fadeIn 0.3s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .step-sub {
+      font-size: 0.95rem;
+      color: #64748B;
+      margin-bottom: 28px;
+    }
+
+    /* Option Grid */
+    .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 35px;
+    }
+    .option-card {
+      border: 2px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #FAFAFA;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .option-card:hover {
+      border-color: #CBD5E1;
+      background: #F8FAFC;
+      transform: translateY(-2px);
+    }
+    .option-card.selected {
+      border-color: var(--green);
+      background: #ECFDF5;
+      box-shadow: 0 4px 14px rgba(125, 179, 58, 0.15);
+    }
+    .option-icon {
+      font-size: 1.6rem;
+      color: #2563EB;
+      margin-bottom: 4px;
+    }
+    .option-card.selected .option-icon {
+      color: var(--green);
+    }
+    .option-card strong {
+      font-size: 1.05rem;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .option-card span {
+      font-size: 0.85rem;
+      color: #64748B;
+      line-height: 1.4;
+    }
+
+    /* Wizard Action Bar */
+    .wizard-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid #F1F5F9;
+    }
+    .btn-wizard-prev {
+      background: #F1F5F9;
+      color: #475569;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: all 0.2s;
+    }
+    .btn-wizard-prev:hover {
+      background: #E2E8F0;
+    }
+    .btn-wizard-next {
+      background: var(--green);
+      color: #ffffff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(125, 179, 58, 0.25);
+    }
+    .btn-wizard-next:hover {
+      background: #6CA02E;
+      transform: translateY(-1px);
+    }
+
+    /* Results Screen */
+    .results-hero-box {
+      background: linear-gradient(135deg, #0A1E36 0%, #0F2E52 100%);
+      border-radius: 16px;
+      padding: 30px;
+      color: #ffffff;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .results-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .summary-metric-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .wizard-box { padding: 24px 18px; margin-top: -25px; }
+      .option-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <!-- Hero Section -->
+  <section class="wizard-hero">
+    <div class="container">
+      <h1>Descubre tu Inversión Ideal</h1>
+      <p>Responde 4 preguntas breves y nuestro recomendador te indicará las mejores regiones, proyectos y estimación de retorno adaptados a tu perfil.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="container">
+      <div class="wizard-box">
+        
+        <!-- Barra de Progreso -->
+        <div class="wizard-progress-wrap">
+          <div class="progress-info">
+            <span id="stepCounterText">Paso 1 de 4</span>
+            <span id="stepPercentText">25% Completado</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+          </div>
+        </div>
+
+        <!-- ====================================================================
+             PASO 1: PRESUPUESTO
+             ==================================================================== -->
+        <div class="wizard-step active" id="wizardStep1">
+          <h2 class="step-title">¿Cuál es tu rango de presupuesto aproximado?</h2>
+          <p class="step-sub">Selecciona el monto en dólares que tienes planificado invertir.</p>
+
+          <div class="option-grid">
+            <div class="option-card" onclick="selectOption('budget', '60K-150K', this)">
+              <div class="option-icon"><i class="fa-solid fa-wallet"></i></div>
+              <strong>$60,000 - $150,000 USD</strong>
+              <span>Terrenos urbanizados, solares y estudios turísticos en preventa.</span>
+            </div>
+
+            <div class="option-card selected" onclick="selectOption('budget', '150K-250K', this)">
+              <div class="option-icon"><i class="fa-solid fa-building"></i></div>
+              <strong>$150,000 - $250,000 USD</strong>
+              <span>Apartamentos turísticos de 1 a 2 habitaciones con Ley CONFOTUR.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('budget', '250K-400K', this)">
+              <div class="option-icon"><i class="fa-solid fa-house-laptop"></i></div>
+              <strong>$250,000 - $400,000 USD</strong>
+              <span>Townhouses, condominios premium frente al mar y villas familiares.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('budget', '400K+', this)">
+              <div class="option-icon"><i class="fa-solid fa-gem"></i></div>
+              <strong>$400,000+ USD</strong>
+              <span>Villas de lujo de playa, penthouses y propiedades de alta gama.</span>
+            </div>
+          </div>
+
+          <div class="wizard-actions" style="justify-content: flex-end;">
+            <button class="btn-wizard-next" onclick="goToStep(2)">
+              Continuar <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ====================================================================
+             PASO 2: OBJETIVO
+             ==================================================================== -->
+        <div class="wizard-step" id="wizardStep2">
+          <h2 class="step-title">¿Cuál es el objetivo principal de tu inversión?</h2>
+          <p class="step-sub">Esto nos permite calcular el enfoque de rentabilidad o disfrute.</p>
+
+          <div class="option-grid">
+            <div class="option-card selected" onclick="selectOption('purpose', 'Airbnb / Rentas Cortas', this)">
+              <div class="option-icon"><i class="fa-solid fa-chart-line"></i></div>
+              <strong>Renta Vacacional (Airbnb)</strong>
+              <span>Maximizar el flujo de caja mensual y rentabilidad neta en dólares.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('purpose', 'Plusvalía en Preventa', this)">
+              <div class="option-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+              <strong>Plusvalía / Preventa</strong>
+              <span>Comprar en planos a precio preferencial y capitalizar la valorización.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('purpose', 'Retiro & Playa', this)">
+              <div class="option-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+              <strong>Retiro o Casa de Playa</strong>
+              <span>Un patrimonio propio en el Caribe para vacacionar y disfrutar con la familia.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('purpose', 'Uso Mixto & Familiar', this)">
+              <div class="option-icon"><i class="fa-solid fa-people-roof"></i></div>
+              <strong>Uso Familiar Mixto</strong>
+              <span>Combinar vacaciones privadas con alquiler en temporadas altas.</span>
+            </div>
+          </div>
+
+          <div class="wizard-actions">
+            <button class="btn-wizard-prev" onclick="goToStep(1)">
+              <i class="fa-solid fa-arrow-left"></i> Atrás
+            </button>
+            <button class="btn-wizard-next" onclick="goToStep(3)">
+              Continuar <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ====================================================================
+             PASO 3: REGIÓN PREFERIDA
+             ==================================================================== -->
+        <div class="wizard-step" id="wizardStep3">
+          <h2 class="step-title">¿Qué región de República Dominicana te interesa más?</h2>
+          <p class="step-sub">Puedes elegir una región específica o solicitar nuestra recomendación.</p>
+
+          <div class="option-grid">
+            <div class="option-card selected" onclick="selectOption('region', 'Punta Cana & Cap Cana', this)">
+              <div class="option-icon"><i class="fa-solid fa-plane-arrival"></i></div>
+              <strong>Punta Cana & Cap Cana</strong>
+              <span>El destino #1 del Caribe con mayor flujo de turistas y ocupación.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('region', 'Las Terrenas / Samaná', this)">
+              <div class="option-icon"><i class="fa-solid fa-water"></i></div>
+              <strong>Las Terrenas / Samaná</strong>
+              <span>Paraíso bohemio chic, naturaleza exuberante y turismo europeo.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('region', 'Santo Domingo & DN', this)">
+              <div class="option-icon"><i class="fa-solid fa-city"></i></div>
+              <strong>Santo Domingo & DN</strong>
+              <span>Demanda corporativa constante, renta residencial y vida metropolitana.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('region', 'Bayahíbe / Juan Dolio', this)">
+              <div class="option-icon"><i class="fa-solid fa-sun"></i></div>
+              <strong>Bayahíbe / Juan Dolio</strong>
+              <span>Playas de arena blanca, cercanía a la capital e Isla Saona.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('region', 'Miches & Costa Esmeralda', this)">
+              <div class="option-icon"><i class="fa-solid fa-compass"></i></div>
+              <strong>Miches & Costa Esmeralda</strong>
+              <span>El nuevo polo de ultra lujo con la mayor proyección de plusvalía.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('region', 'Recomiéndenme la mejor región', this)">
+              <div class="option-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+              <strong>Recomiéndenme la mejor</strong>
+              <span>Permitir que el equipo sugiera el polo con mejor rendimiento actual.</span>
+            </div>
+          </div>
+
+          <div class="wizard-actions">
+            <button class="btn-wizard-prev" onclick="goToStep(2)">
+              <i class="fa-solid fa-arrow-left"></i> Atrás
+            </button>
+            <button class="btn-wizard-next" onclick="goToStep(4)">
+              Continuar <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ====================================================================
+             PASO 4: HORIZONTE DE COMPRA
+             ==================================================================== -->
+        <div class="wizard-step" id="wizardStep4">
+          <h2 class="step-title">¿En qué plazo tienes planeado tomar una decisión?</h2>
+          <p class="step-sub">Para presentarte unidades disponibles con fechas de entrega acordes.</p>
+
+          <div class="option-grid">
+            <div class="option-card selected" onclick="selectOption('timeline', 'Inmediato (0 - 3 meses)', this)">
+              <div class="option-icon"><i class="fa-solid fa-bolt"></i></div>
+              <strong>Inmediato (0 - 3 meses)</strong>
+              <span>Listo para evaluar proyectos y reservar la unidad adecuada.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('timeline', 'Mediano Plazo (3 - 6 meses)', this)">
+              <div class="option-icon"><i class="fa-solid fa-calendar-check"></i></div>
+              <strong>Mediano Plazo (3 - 6 meses)</strong>
+              <span>Planificando financiamiento y evaluando opciones en preventa.</span>
+            </div>
+
+            <div class="option-card" onclick="selectOption('timeline', 'Explorando para el próximo año', this)">
+              <div class="option-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+              <strong>Explorando para el futuro</strong>
+              <span>Informándome sobre el mercado dominicano y Ley CONFOTUR.</span>
+            </div>
+          </div>
+
+          <div class="wizard-actions">
+            <button class="btn-wizard-prev" onclick="goToStep(3)">
+              <i class="fa-solid fa-arrow-left"></i> Atrás
+            </button>
+            <button class="btn-wizard-next" onclick="showResults()" style="background: var(--green);">
+              Ver Mi Diagnóstico Personalizado <i class="fa-solid fa-check"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ====================================================================
+             RESULTADOS DEL WIZARD
+             ==================================================================== -->
+        <div class="wizard-step" id="wizardStepResults">
+          <div class="results-hero-box">
+            <span style="background: rgba(163,230,53,0.2); color: #A3E635; font-size: 0.76rem; font-weight: 800; text-transform: uppercase; padding: 4px 12px; border-radius: 50px; display: inline-block; margin-bottom: 10px;">
+              Diagnóstico de Inversión Completado
+            </span>
+            <h2 style="font-size: 1.85rem; font-weight: 800; margin-bottom: 8px;">
+              Tu Perfil de Inversión Recomendado
+            </h2>
+            <p style="color: #CBD5E1; font-size: 0.95rem; max-width: 540px; margin: 0 auto;">
+              Hemos analizado tus preferencias para estructurar la mejor ruta patrimonial en República Dominicana.
+            </p>
+          </div>
+
+          <div class="results-summary-grid">
+            <div class="summary-metric-card">
+              <div style="font-size: 0.78rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Presupuesto</div>
+              <strong style="color: var(--navy); font-size: 1.15rem; display: block; margin-top: 4px;" id="resBudget">$150K - $250K USD</strong>
+            </div>
+
+            <div class="summary-metric-card">
+              <div style="font-size: 0.78rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Objetivo</div>
+              <strong style="color: var(--navy); font-size: 1.15rem; display: block; margin-top: 4px;" id="resPurpose">Rentas Cortas Airbnb</strong>
+            </div>
+
+            <div class="summary-metric-card">
+              <div style="font-size: 0.78rem; color: #64748B; font-weight: 700; text-transform: uppercase;">Región Óptima</div>
+              <strong style="color: #2563EB; font-size: 1.15rem; display: block; margin-top: 4px;" id="resRegion">Punta Cana & Cap Cana</strong>
+            </div>
+
+            <div class="summary-metric-card">
+              <div style="font-size: 0.78rem; color: #64748B; font-weight: 700; text-transform: uppercase;">ROI Proyectado</div>
+              <strong style="color: var(--green); font-size: 1.15rem; display: block; margin-top: 4px;">9.5% - 13.5% USD</strong>
+            </div>
+          </div>
+
+          <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 24px; margin-bottom: 28px;">
+            <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--navy); margin-bottom: 8px;">
+              Beneficios Clave Identificados para tu Caso:
+            </h4>
+            <ul style="color: #475569; font-size: 0.9rem; line-height: 1.6; padding-left: 20px; margin: 0;">
+              <li>Aprobación recomendada para proyectos con <strong>Ley CONFOTUR 158-01</strong> (0% IPI por 15 años y 0% transferencia).</li>
+              <li>Elegibilidad para financiamiento fiduciario internacional con BanReservas / Banco BHD.</li>
+              <li>Planes de pago flexibles en preventa con cuotas mensuales durante la obra.</li>
+            </ul>
+          </div>
+
+          <div style="text-align: center;">
+            <button onclick="sendWizardWhatsApp()" class="btn-cta" style="background: var(--green); color: #ffffff; padding: 15px 32px; font-size: 1.02rem; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; justify-content: center; width: 100%; max-width: 480px;">
+              <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Recibir Opciones de Proyectos por WhatsApp
+            </button>
+            <div style="margin-top: 14px;">
+              <button onclick="goToStep(1)" style="background: none; border: none; color: #64748B; font-size: 0.86rem; cursor: pointer; text-decoration: underline;">
+                Reiniciar Wizard o cambiar respuestas
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const wizardState = {
+      budget: '$150,000 - $250,000 USD',
+      purpose: 'Airbnb / Rentas Cortas',
+      region: 'Punta Cana & Cap Cana',
+      timeline: 'Inmediato (0 - 3 meses)'
+    };
+
+    function selectOption(key, val, el) {
+      wizardState[key] = val;
+      const parent = el.closest('.option-grid');
+      parent.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function goToStep(stepNum) {
+      document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('wizardStep' + stepNum).classList.add('active');
+
+      const percent = stepNum * 25;
+      document.getElementById('progressBarFill').style.width = percent + '%';
+      document.getElementById('stepCounterText').innerText = `Paso ${stepNum} de 4`;
+      document.getElementById('stepPercentText').innerText = `${percent}% Completado`;
+    }
+
+    function showResults() {
+      document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('wizardStepResults').classList.add('active');
+
+      document.getElementById('progressBarFill').style.width = '100%';
+      document.getElementById('stepCounterText').innerText = 'Diagnóstico Listo';
+      document.getElementById('stepPercentText').innerText = '100% Completado';
+
+      document.getElementById('resBudget').innerText = wizardState.budget;
+      document.getElementById('resPurpose').innerText = wizardState.purpose;
+      document.getElementById('resRegion').innerText = wizardState.region;
+    }
+
+    function sendWizardWhatsApp() {
+      const text = `Hola CIASA, completé el Wizard de Inversión y quisiera asesoría sobre las mejores opciones:
+- Presupuesto: ${wizardState.budget}
+- Objetivo: ${wizardState.purpose}
+- Región de interés: ${wizardState.region}
+- Plazo estimado: ${wizardState.timeline}`;
+
+      window.open(`https://wa.me/18092995233?text=${encodeURIComponent(text)}`, '_blank');
+    }
+  </script>
+
+<%- include('../layouts/footer') %>

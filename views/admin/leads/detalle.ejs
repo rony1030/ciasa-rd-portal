@@ -1,0 +1,694 @@
+<%- include('../layout', { pageTitle: 'Ficha de Contacto: ' + (lead.nombre || 'Inversionista'), activePage: 'leads' }) %>
+
+<style>
+  /* Print Optimization: Ultra-Clean Executive Dossier (Exactly 1 Page) */
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 6mm 8mm;
+    }
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      box-sizing: border-box !important;
+    }
+    html, body {
+      background: #FFFFFF !important;
+      color: #0F172A !important;
+      font-size: 9.5pt !important;
+      line-height: 1.25 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+    }
+    .admin-sidebar, .admin-topbar, .btn-back-circle, .btn, .activity-tabs-nav, 
+    #panelAgendar, #panelBitacora, #docUploadModal, .sidebar-overlay,
+    form button, button, input[type="checkbox"], input[type="file"],
+    .pipeline-badge-step:not(.active), .badge-blue, .badge-gray {
+      display: none !important;
+    }
+    .admin-main, .admin-content {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      display: block !important;
+    }
+    .contact-top-bar {
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 0 6px !important;
+      margin-bottom: 8px !important;
+      border-bottom: 2px solid #0A1E36 !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+    }
+    .crm-contact-layout {
+      display: flex !important;
+      flex-direction: row !important;
+      gap: 10px !important;
+      width: 100% !important;
+      margin-bottom: 0 !important;
+    }
+    .crm-contact-layout > div:nth-child(1) {
+      width: 28% !important;
+      flex-shrink: 0 !important;
+    }
+    .crm-contact-layout > div:nth-child(2) {
+      width: 42% !important;
+      flex-shrink: 0 !important;
+    }
+    .crm-contact-layout > div:nth-child(3) {
+      width: 30% !important;
+      flex-shrink: 0 !important;
+    }
+    .card-panel {
+      box-shadow: none !important;
+      border: 1px solid #CBD5E1 !important;
+      border-radius: 6px !important;
+      background: #FFFFFF !important;
+      overflow: visible !important;
+      margin-bottom: 8px !important;
+      page-break-inside: avoid !important;
+    }
+    .card-panel-header {
+      padding: 5px 8px !important;
+      background: #F8FAFC !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+    }
+    .card-panel-header h3 {
+      font-size: 8pt !important;
+      font-weight: 800 !important;
+      margin: 0 !important;
+      text-transform: uppercase !important;
+    }
+    .card-panel-body {
+      padding: 6px 8px !important;
+    }
+    .contact-avatar-lg {
+      width: 32px !important;
+      height: 32px !important;
+      font-size: 0.9rem !important;
+      margin-bottom: 2px !important;
+    }
+    .form-input.compact-form-input {
+      padding: 2px 4px !important;
+      font-size: 8.5pt !important;
+      height: auto !important;
+      border: 1px solid #E2E8F0 !important;
+      background: #FFFFFF !important;
+    }
+    /* Limpieza total de Tareas en Impresión */
+    #tareasSection .card-panel-body > div {
+      display: block !important;
+      padding: 4px 6px !important;
+      margin-bottom: 4px !important;
+      background: #FAFAFC !important;
+      border: 1px solid #E2E8F0 !important;
+      border-radius: 4px !important;
+    }
+    #tareasSection form {
+      display: block !important;
+      margin-bottom: 2px !important;
+    }
+    #tareasSection form span {
+      display: block !important;
+      font-size: 8.5pt !important;
+      font-weight: 700 !important;
+      line-height: 1.2 !important;
+    }
+    #tareasSection .card-panel-body > div > div {
+      font-size: 7.5pt !important;
+      color: #64748B !important;
+      display: block !important;
+    }
+    /* Historial de Notas sin Scrollbars */
+    div[style*="max-height: 180px"] {
+      max-height: none !important;
+      overflow: visible !important;
+      padding: 4px !important;
+      gap: 5px !important;
+    }
+    div[style*="max-height: 180px"] > div {
+      padding: 5px 8px !important;
+      margin-bottom: 4px !important;
+    }
+    .pipeline-badge-step.active {
+      background: #0A1E36 !important;
+      color: #FFFFFF !important;
+      display: inline-block !important;
+      padding: 2px 8px !important;
+      border-radius: 4px !important;
+      font-size: 7.5pt !important;
+    }
+  }
+
+  /* Enterprise Compact Contact Layout - Fits Perfectly on Screen */
+  .crm-contact-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr 290px;
+    gap: 16px;
+    align-items: start;
+    margin-bottom: 20px;
+  }
+
+  .card-panel {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .card-panel-header {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FAFAFC;
+  }
+  .card-panel-header h3 {
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-heading);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-panel-body {
+    padding: 14px 16px;
+  }
+
+  /* Compact Top Bar */
+  .contact-top-bar {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px 18px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-card);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .contact-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .btn-back-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--border-subtle);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-heading);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+  }
+  .btn-back-circle:hover { background: #E2E8F0; color: var(--secondary); }
+
+  /* Compact Avatar */
+  .contact-avatar-lg {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #F1F5F9;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 0 auto 8px;
+    border: 2px solid var(--border-color);
+  }
+
+  .contact-tag-pill {
+    background: var(--border-subtle);
+    color: var(--text-body);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--border-color);
+  }
+  .contact-tag-pill.accent {
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary-subtle);
+  }
+
+  /* Activity Navigation Tabs */
+  .activity-tabs-nav {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    background: #FAFAFC;
+    padding: 0 12px;
+    gap: 6px;
+  }
+  .activity-tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    transition: all 0.15s;
+  }
+  .activity-tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    background: #FFFFFF;
+  }
+
+  .pipeline-badge-step {
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.72rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    background: #FFFFFF;
+    color: var(--text-body);
+    transition: all 0.15s;
+  }
+  .pipeline-badge-step.active {
+    background: var(--primary);
+    color: #FFFFFF;
+    border-color: var(--primary);
+  }
+
+  .compact-form-input {
+    padding: 7px 10px;
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 1024px) {
+    .crm-contact-layout {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .contact-top-bar {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 12px;
+      gap: 12px;
+    }
+    .contact-top-bar > div:last-child {
+      display: flex;
+      justify-content: stretch;
+      gap: 8px;
+    }
+    .contact-top-bar > div:last-child .btn {
+      flex: 1;
+      text-align: center;
+    }
+    .activity-tabs-nav {
+      flex-direction: column;
+      padding: 4px;
+    }
+    .activity-tab-btn {
+      width: 100%;
+      padding: 8px 12px;
+    }
+  }
+</style>
+
+<!-- TOP BAR COMPACTA -->
+<div class="contact-top-bar">
+  <div class="contact-header-left">
+    <a href="/admin/leads" class="btn-back-circle" title="Volver al Listado">
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <h2 style="font-size: 1.15rem; font-weight: 800; color: var(--text-heading); margin: 0;"><%= lead.nombre || 'Inversionista' %></h2>
+        <span class="badge badge-green" style="font-size: 0.68rem; padding: 2px 8px;"><i class="fa-solid fa-shield-halved"></i> INVERSIONISTA</span>
+      </div>
+      <div style="font-size: 0.72rem; color: var(--text-muted);">
+        ID: #<%= lead._id || lead.id %> · <%= new Date(lead.createdAt || Date.now()).toLocaleDateString('es-DO', {day:'2-digit', month:'short', year:'numeric'}) %>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 8px;">
+    <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()" style="padding: 5px 10px; font-size: 0.76rem;">
+      <i class="fa-solid fa-print"></i> Imprimir Ficha
+    </button>
+    <a href="/admin/leads" class="btn btn-primary btn-sm" style="padding: 5px 12px; font-size: 0.76rem;">
+      <i class="fa-solid fa-check"></i> Finalizar Revisión
+    </a>
+  </div>
+</div>
+
+<!-- CONTENEDOR 3 COLUMNAS COMPACTO Y SIN DESPLAZAMIENTOS INNECESARIOS -->
+<div class="crm-contact-layout">
+
+  <!-- =========================================================================
+       COLUMNA 1: PERFIL DEL CONTACTO
+       ========================================================================= -->
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    
+    <div class="card-panel">
+      <div class="card-panel-body" style="text-align: center; padding: 12px 14px 10px;">
+        <div class="contact-avatar-lg">
+          <%= (lead.nombre || 'U').charAt(0).toUpperCase() %>
+        </div>
+        <h3 style="font-size: 1rem; font-weight: 800; color: var(--text-heading); margin-bottom: 2px;"><%= lead.nombre || 'Inversionista' %></h3>
+        <div style="font-size: 0.76rem; color: var(--text-muted); word-break: break-all; margin-bottom: 10px;"><%= lead.email || '—' %></div>
+        
+        <div style="display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin-bottom: 8px;">
+          <span class="contact-tag-pill accent"><i class="fa-solid fa-gem"></i> ALTA RENTABILIDAD</span>
+          <span class="contact-tag-pill"><i class="fa-solid fa-globe"></i> <%= lead.pais || 'ESTADOS UNIDOS' %></span>
+        </div>
+      </div>
+
+      <!-- Pipeline Status -->
+      <div style="padding: 10px 14px; background: #FAFAFC; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">Estado Pipeline:</div>
+        <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+          <% ['nuevo', 'contactado', 'calificado', 'negociacion', 'cerrado'].forEach(st => { %>
+            <form method="POST" action="/admin/leads/<%= lead._id || lead.id %>/status" style="display: inline;">
+              <input type="hidden" name="statusVentas" value="<%= st %>">
+              <button type="submit" class="pipeline-badge-step <%= (lead.statusVentas || 'nuevo') === st ? 'active' : '' %>" style="text-transform: capitalize;">
+                <%= st === 'negociacion' ? 'Negoc.' : st === 'cerrado' ? 'Ganado' : st %>
+              </button>
+            </form>
+          <% }) %>
+        </div>
+      </div>
+
+      <!-- Datos de Contacto Directos -->
+      <div class="card-panel-body" style="display: flex; flex-direction: column; gap: 10px; font-size: 0.82rem; padding: 12px 14px;">
+        <div>
+          <span class="form-label" style="display: block; margin-bottom: 2px; font-size: 0.7rem;">Email Principal</span>
+          <input type="text" class="form-input compact-form-input" value="<%= lead.email || '' %>" readonly style="background: #FAFAFC;">
+        </div>
+
+        <div>
+          <span class="form-label" style="display: block; margin-bottom: 2px; font-size: 0.7rem;">Teléfono / WhatsApp</span>
+          <input type="text" class="form-input compact-form-input" value="<%= lead.telefono || '' %>" readonly style="background: #FAFAFC;">
+        </div>
+
+        <div>
+          <span class="form-label" style="display: block; margin-bottom: 2px; font-size: 0.7rem;">Idioma Preferido</span>
+          <input type="text" class="form-input compact-form-input" value="Español (América Latina)" readonly style="background: #FAFAFC;">
+        </div>
+
+        <div>
+          <span class="form-label" style="display: block; margin-bottom: 2px; font-size: 0.7rem;">Origen de Captación</span>
+          <span class="badge badge-purple" style="font-size: 0.7rem;"><%= lead.source || 'Formulario Web' %></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- =========================================================================
+       COLUMNA 2: ACTIVIDAD & HISTORIAL
+       ========================================================================= -->
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    
+    <div class="card-panel">
+      <!-- Tabs Actividad -->
+      <div class="activity-tabs-nav">
+        <button type="button" class="activity-tab-btn active" id="tabBtnActividad" onclick="switchContactTab('agendar')">
+          <i class="fa-solid fa-calendar-plus"></i> Agendar Actividad / Tarea
+        </button>
+        <button type="button" class="activity-tab-btn" id="tabBtnBitacora" onclick="switchContactTab('bitacora')">
+          <i class="fa-solid fa-note-sticky"></i> Bitácora & Notas
+        </button>
+      </div>
+
+      <!-- Panel 1: Agendar -->
+      <div id="panelAgendar" class="card-panel-body" style="padding: 12px 16px;">
+        <form method="POST" action="/admin/leads/<%= lead._id || lead.id %>/tareas">
+          <div class="form-grid" style="margin-bottom: 10px; gap: 10px;">
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.72rem;">Tipo de Actividad</label>
+              <select class="form-input compact-form-input">
+                <option>📞 Llamada Telefónica</option>
+                <option>💻 Reunión Virtual (Meet / Zoom)</option>
+                <option>📄 Envío de Dossier & Cotización</option>
+                <option>🤝 Cita Presencial en Oficina</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.72rem;">Título / Asunto *</label>
+              <input type="text" name="titulo" class="form-input compact-form-input" placeholder="Ej. Reunión de seguimiento o cierre..." required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.72rem;">Fecha de Ejecución *</label>
+              <input type="date" name="fechaLimite" class="form-input compact-form-input" value="<%= new Date().toISOString().slice(0,10) %>" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.72rem;">Lugar / Enlace</label>
+              <input type="text" class="form-input compact-form-input" placeholder="Google Meet URI, Zoom...">
+            </div>
+
+            <div class="form-group full">
+              <label class="form-label" style="font-size: 0.72rem;">Detalles / Notas</label>
+              <textarea class="form-input compact-form-input" rows="2" style="min-height: 60px;" placeholder="Describe los temas a tratar o acuerdos..."></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 8px; font-weight: 800; font-size: 0.8rem;">
+            <i class="fa-solid fa-calendar-check"></i> AGENDAR ACTIVIDAD & REGISTRAR TAREA
+          </button>
+        </form>
+      </div>
+
+      <!-- Panel 2: Bitácora -->
+      <div id="panelBitacora" class="card-panel-body" style="display: none; padding: 12px 16px;">
+        <form method="POST" action="/admin/leads/<%= lead._id || lead.id %>/notas" style="margin-bottom: 12px;">
+          <div class="form-group" style="margin-bottom: 8px;">
+            <label class="form-label" style="font-size: 0.72rem;">Escribir nota privada para el equipo comercial *</label>
+            <textarea name="texto" class="form-input compact-form-input" rows="2" style="min-height: 60px;" placeholder="Detalles clave de la conversación..." required></textarea>
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <button type="submit" class="btn btn-primary btn-sm">
+              <i class="fa-solid fa-bookmark"></i> Guardar Nota en Bitácora
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tareas Registradas -->
+    <div class="card-panel" id="tareasSection">
+      <div class="card-panel-header">
+        <h3><i class="fa-solid fa-list-check" style="color: var(--primary);"></i> Compromisos & Tareas Pendientes</h3>
+        <span class="badge badge-blue" style="font-size: 0.68rem; padding: 2px 7px;"><%= (lead.tareas || []).filter(t => !t.completada).length %> activas</span>
+      </div>
+      <div class="card-panel-body" style="display: flex; flex-direction: column; gap: 8px; padding: 10px 14px;">
+        <% if (lead.tareas && lead.tareas.length > 0) { %>
+          <% lead.tareas.forEach(t => { %>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.82rem;">
+              <form method="POST" action="/admin/leads/<%= lead._id || lead.id %>/tareas/<%= t.id %>/toggle" style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                <input type="checkbox" <%= t.completada ? 'checked' : '' %> onchange="this.form.submit()" style="width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer;">
+                <span style="font-weight: 600; color: <%= t.completada ? 'var(--text-muted)' : 'var(--text-heading)' %>; text-decoration: <%= t.completada ? 'line-through' : 'none' %>;">
+                  <%= t.titulo %>
+                </span>
+              </form>
+              <div style="display: flex; align-items: center; gap: 10px; font-size: 0.74rem; color: var(--text-muted);">
+                <span><i class="fa-regular fa-calendar"></i> <%= t.fechaLimite %></span>
+                <form method="POST" action="/admin/leads/<%= lead._id || lead.id %>/tareas/<%= t.id %>/delete" style="display: inline;">
+                  <button type="submit" style="background: none; border: none; color: #DC2626; cursor: pointer;" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                </form>
+              </div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <div style="text-align: center; padding: 12px; color: var(--text-muted); font-size: 0.78rem;">
+            No hay tareas pendientes.
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Historial de Bitácora -->
+    <div class="card-panel">
+      <div class="card-panel-header">
+        <h3><i class="fa-solid fa-clock-rotate-left" style="color: var(--primary);"></i> Historial de Seguimiento</h3>
+        <span class="badge badge-gray" style="font-size: 0.68rem; padding: 2px 7px;"><%= (lead.notas || []).length %> registros</span>
+      </div>
+      <div class="card-panel-body" style="display: flex; flex-direction: column; gap: 8px; padding: 10px 14px; max-height: 180px; overflow-y: auto;">
+        <% if (lead.notas && lead.notas.length > 0) { %>
+          <% lead.notas.forEach(n => { %>
+            <div style="background: #FAFAFC; border: 1px solid var(--border-color); border-left: 3px solid var(--primary); padding: 8px 12px; border-radius: var(--radius-sm);">
+              <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 4px;">
+                <strong style="color: var(--text-heading);"><i class="fa-solid fa-user-tie"></i> <%= n.autor || 'Gisselle de los Santos' %></strong>
+                <span><%= new Date(n.fecha || Date.now()).toLocaleDateString('es-DO', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'}) %></span>
+              </div>
+              <p style="font-size: 0.82rem; color: var(--text-body); margin: 0; line-height: 1.4;"><%= n.texto %></p>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <div style="text-align: center; padding: 12px; color: var(--text-muted); font-size: 0.78rem;">
+            No hay anotaciones previas en la bitácora.
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- =========================================================================
+       COLUMNA 3: PANEL FINANCIERO & CARPETA DIGITAL
+       ========================================================================= -->
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    
+    <!-- Financiero -->
+    <div class="card-panel">
+      <div class="card-panel-header">
+        <h3><i class="fa-solid fa-chart-simple" style="color: var(--primary);"></i> Panel Financiero</h3>
+      </div>
+      <div class="card-panel-body" style="display: flex; flex-direction: column; gap: 12px; padding: 12px 14px;">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="background: var(--secondary); color: #FFFFFF; padding: 10px; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #94A3B8;">Recaudado</div>
+            <div style="font-size: 1.15rem; font-weight: 900; margin-top: 2px; color: #FFFFFF;">US$ 0.00</div>
+          </div>
+
+          <div style="background: #FEF2F2; border: 1px solid #FECACA; color: #B91C1C; padding: 10px; border-radius: var(--radius-md); text-align: center;">
+            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #DC2626;">Deuda</div>
+            <div style="font-size: 1.15rem; font-weight: 900; margin-top: 2px; color: #B91C1C;">US$ 0.00</div>
+          </div>
+        </div>
+
+        <div style="background: var(--primary-light); border: 1px solid var(--primary-subtle); border-radius: var(--radius-md); padding: 10px 12px;">
+          <div style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: var(--primary);">Presupuesto Declarado:</div>
+          <div style="font-size: 1.15rem; font-weight: 900; color: var(--secondary); margin-top: 1px;">
+            $<%= lead.montoInversion ? parseInt(lead.montoInversion).toLocaleString('en-US') : '240,000' %> USD
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border-color); padding-top: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <span style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-heading);">Estados de Cuenta</span>
+            <span class="badge badge-gray" style="font-size: 0.65rem;">ASSET</span>
+          </div>
+          <div style="font-size: 0.76rem; color: var(--text-muted);">Sin planes de pagos activos</div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border-color); padding-top: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <span style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-heading);">Negociaciones</span>
+            <span style="font-size: 0.7rem; color: var(--primary); font-weight: 700; cursor: pointer;">+ INICIAR</span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-heading); font-weight: 600;">
+            <%= lead.proyectoInteres || 'Proyecto en evaluación' %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Carpeta Digital (KYC) -->
+    <div class="card-panel">
+      <div class="card-panel-header">
+        <h3><i class="fa-solid fa-folder-closed" style="color: var(--primary);"></i> Carpeta Digital (KYC)</h3>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('docUploadModal').style.display='flex'" style="padding: 3px 8px; font-size: 0.72rem;">
+          <i class="fa-solid fa-upload"></i> Subir
+        </button>
+      </div>
+      <div class="card-panel-body" style="display: flex; flex-direction: column; gap: 6px; padding: 10px 14px;">
+        <% if (lead.documentos && lead.documentos.length > 0) { %>
+          <% lead.documentos.forEach(doc => { %>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: #FAFAFC; border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 0.78rem;">
+              <div style="display: flex; align-items: center; gap: 6px; overflow: hidden;">
+                <i class="fa-solid fa-file-pdf" style="color: #DC2626; font-size: 1rem;"></i>
+                <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px;">
+                  <strong style="color: var(--text-heading);"><%= doc.nombre %></strong>
+                  <div style="font-size: 0.68rem; color: var(--text-muted);"><%= doc.tamano || 'PDF' %> · <%= doc.fecha %></div>
+                </div>
+              </div>
+              <a href="#" class="btn btn-secondary btn-sm" style="padding: 3px 7px;"><i class="fa-solid fa-download"></i></a>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <div style="text-align: center; padding: 12px; color: var(--text-muted); font-size: 0.76rem;">
+            Sin documentos subidos
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MODAL SUBIDA DE DOCUMENTOS -->
+<div id="docUploadModal" style="display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.5); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+  <div style="background: var(--card-bg); border-radius: var(--radius-md); padding: 22px; max-width: 420px; width: 90%; margin: auto; box-shadow: var(--shadow-dropdown); border: 1px solid var(--border-color);">
+    <h3 style="margin-top: 0; font-size: 1.05rem; color: var(--text-heading); margin-bottom: 12px;"><i class="fa-solid fa-file-arrow-up" style="color: var(--primary);"></i> Subir a Carpeta Digital</h3>
+    <form method="POST" action="/admin/leads/<%= lead._id || lead.id %>/documentos">
+      <div class="form-group" style="margin-bottom: 12px;">
+        <label class="form-label" style="font-size: 0.72rem;">Nombre del Documento / KYC</label>
+        <input type="text" name="nombre" class="form-input compact-form-input" placeholder="Ej. Cedula_Pasaporte_Inversionista.pdf" required>
+      </div>
+      <div class="form-group" style="margin-bottom: 16px;">
+        <label class="form-label" style="font-size: 0.72rem;">Seleccionar Archivo</label>
+        <input type="file" class="form-input compact-form-input" style="padding: 6px;">
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('docUploadModal').style.display='none'">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm">Subir Documento</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  function switchContactTab(tab) {
+    const btnAgendar = document.getElementById('tabBtnActividad');
+    const btnBitacora = document.getElementById('tabBtnBitacora');
+    const panelAgendar = document.getElementById('panelAgendar');
+    const panelBitacora = document.getElementById('panelBitacora');
+
+    if (tab === 'agendar') {
+      btnAgendar.classList.add('active');
+      btnBitacora.classList.remove('active');
+      panelAgendar.style.display = 'block';
+      panelBitacora.style.display = 'none';
+    } else {
+      btnBitacora.classList.add('active');
+      btnAgendar.classList.remove('active');
+      panelBitacora.style.display = 'block';
+      panelAgendar.style.display = 'none';
+    }
+  }
+</script>
+
+<%- include('../layout-end') %>

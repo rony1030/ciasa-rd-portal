@@ -1,0 +1,178 @@
+[
+  {
+    "id": 1,
+    "companyName": "DR Cargo Express y sus 182 agencias",
+    "industry": "Cargo & Freight",
+    "address": "8213 NW 74th Ave, Medley, FL 33166",
+    "contactEmail": "info@drcargoexpress.com",
+    "contactNumber": "+1 305-614-8725",
+    "socialMedia": "https://www.instagram.com/drcargoexpress/?hl=es",
+    "website": "https://drcargoexpress.com",
+    "other": ""
+  },
+  {
+    "id": 2,
+    "companyName": "Frente de Contadores Dominicanos del PRM-NY",
+    "industry": "Not-For-Profit Corporation",
+    "address": "754 E 161 St, Apt 1A Brong, NY 10456-7527",
+    "contactEmail": "not found",
+    "contactNumber": "not available",
+    "socialMedia": "not available",
+    "website": "not available",
+    "other": "No contact information found. Contact person is Rafaela de la Cruz"
+  },
+  {
+    "id": 3,
+    "companyName": "The New York State Latino Restaurant, Bar, and Lounge Association (NYSLRBLA)",
+    "industry": "Not-For-Profit Corporation",
+    "address": "New York, NY, United States, New York",
+    "contactEmail": "admin@nyslatinogroup.com",
+    "contactNumber": "not available",
+    "socialMedia": "https://www.instagram.com/nys.lra/",
+    "website": "https://www.nyslatino.com",
+    "other": ""
+  },
+  {
+    "id": 4,
+    "companyName": "Bodegas and Small Business Group",
+    "industry": "Retail",
+    "address": "3181 Webster Ave, Bronx, NY 10467",
+    "contactEmail": "bodegasmallbusiness@gmail.com",
+    "contactNumber": "+1 973-458-3642",
+    "socialMedia": "https://www.instagram.com/bodegasmallbusiness/",
+    "website": "https://www.bodegasmallbusiness.com",
+    "other": ""
+  },
+  {
+    "id": 5,
+    "companyName": "Dominican Chaplains Association",
+    "industry": "Not-For-Profit Corporation",
+    "address": "71-16 Flesh Pond Rd.Flushing NY 11385",
+    "contactEmail": "alianzadecapellanesusa@gmail.com",
+    "contactNumber": "+1 347-988-3333",
+    "socialMedia": "https://www.facebook.com/agenciadecapellanes/",
+    "website": "alianzadecapellanesusa@gmail.com",
+    "other": ""
+  },
+  {
+    "id": 6,
+    "companyName": "Dominican Amerian Chamber of Commerce",
+    "industry": "Not-For-Profit Corporation",
+    "address": "3835 9th Ave, New York, NY 10034",
+    "contactEmail": "Jpdedios@dachamber.org",
+    "contactNumber": "+1 212-942-8258",
+    "socialMedia": "https://www.facebook.com/Dachamberorg/",
+    "website": "https://dachamber.org",
+    "other": ""
+  },
+  {
+    "id": 7,
+    "companyName": "Asociación Dominicana de Agentes de Carga Aérea y Marítima (ADACAM)",
+    "industry": "Cargo & Freight",
+    "address": "Centro Comercial Plaza Naco, Av. Tiradentes esq. Fantino Falco, Local 56, segundo Nivel, Santo Domingo Republica Dominicana",
+    "contactEmail": "info@adacam.org.do",
+    "contactNumber": "809-686-9388",
+    "socialMedia": "https://www.instagram.com/adacamrd/?hl=es",
+    "website": "https://adacam.org.do",
+    "other": ""
+  },
+  {
+    "id": 8,
+    "companyName": "United Bodegas of America (UBA)",
+    "industry": "Retail",
+    "address": "3840 9th Ave, New York, NY 10034",
+    "contactEmail": "info@unitedbodegasofamerica.net",
+    "contactNumber": "+1 929-300-3180",
+    "socialMedia": "https://www.instagram.com/unitedbodegasofficial/?hl=es",
+    "website": "https://unitedbodegasofamerica.net",
+    "other": ""
+  },
+  {
+    "id": 9,
+    "companyName": "National Supermarket Association (NSA)",
+    "industry": "Supermarket",
+    "address": "50 Whitestone Expy suite 301, College Point, NY 11354",
+    "contactEmail": "denise.diaz@nsaglobal.org",
+    "contactNumber": "+1 718-747-2860",
+    "socialMedia": "https://www.instagram.com/nsaglobal/",
+    "website": "https://www.nsaglobal.org",
+    "other": ""
+  },
+  {
+    "id": 10,
+    "companyName": "Mecho’s Dominican Kitchen",
+    "industry": "Restaurant",
+    "address": "2450 Market St NE, Washington, DC 20018",
+    "contactEmail": "admin@mechoskitchen.com",
+    "contactNumber": "+1 202- 629-4847",
+    "socialMedia": "https://www.instagram.com/mechoskitchen/?hl=es",
+    "website": "https://mechos-dominican-kitchen.menu-world.com",
+    "other": ""
+  },
+  {
+    "id": 11,
+    "companyName": "Restaurante Los Hermanos",
+    "industry": "Restaurant",
+    "address": "1428 Park Rd NW, Washington, DC 20010",
+    "contactEmail": "info@hermanos.mechoskitchen.com",
+    "contactNumber": "+ 202-483-8235",
+    "socialMedia": "https://www.instagram.com/loshermanosdc/?hl=es",
+    "website": "hermanosrestaurant.com",
+    "other": ""
+  },
+  {
+    "id": 12,
+    "companyName": "Arenoso Clothes",
+    "industry": "Fashion",
+    "address": "New York",
+    "contactEmail": "",
+    "contactNumber": "",
+    "socialMedia": "https://www.instagram.com/arenosoclothes/?hl=es",
+    "website": "arenosostore.com",
+    "other": ""
+  },
+  {
+    "id": 13,
+    "companyName": "Maggy’s Salón",
+    "industry": "Beauty",
+    "address": "2407 18th St NW BSMT, Washington, DC 20009",
+    "contactEmail": "info@maggysbeauty.com",
+    "contactNumber": "+1 202-232-6190",
+    "socialMedia": "https://www.instagram.com/maggysbeautydc/",
+    "website": "https://www.maggysbeauty.com/home#about-us",
+    "other": ""
+  },
+  {
+    "id": 14,
+    "companyName": "Salón 809",
+    "industry": "Beauty",
+    "address": "7816 Central Avenue Hyattsville, MD 20785/ 3536 Crain Highway Bowie, MD 20716",
+    "contactEmail": "info@salon809.com",
+    "contactNumber": "+1 301-316-9488",
+    "socialMedia": "https://www.instagram.com/salon809/?hl=en",
+    "website": "https://salon809.com",
+    "other": ""
+  },
+  {
+    "id": 15,
+    "companyName": "International Cigar, María Alexandra Caram",
+    "industry": "Tobacco",
+    "address": "Minneapolis, MN, United States, Minnesota",
+    "contactEmail": "info@itscigarrolling.com",
+    "contactNumber": "+1-612-309-2238",
+    "socialMedia": "https://www.facebook.com/InternationalCigars/?locale=es_LA",
+    "website": "http://www.itscigarrolling.com/?fbclid=IwY2xjawQKy0ZleHRuA2FlbQIxMABicmlkETFva1dBVnEyUmpjY2VxeDNOc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHipe3SUxUornsifVOHdwhV4d6NtVcobqZc91UasNvbOJY4KLCZuDvc7vnhg4_aem_G5n9_WU_SMBRQblEyl2KDQ",
+    "other": ""
+  },
+  {
+    "id": 16,
+    "companyName": "",
+    "industry": "",
+    "address": "Contacto",
+    "contactEmail": "",
+    "contactNumber": "",
+    "socialMedia": "",
+    "website": "",
+    "other": ""
+  }
+]

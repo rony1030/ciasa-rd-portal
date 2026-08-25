@@ -1,0 +1,683 @@
+<%- include('../layout', { pageTitle: (isNew ? 'Registrar Nueva Propiedad' : 'Editar Proyecto: ' + (project ? project.name : '')), activePage: 'propiedades' }) %>
+
+<style>
+  .prop-sticky-header {
+    position: sticky;
+    top: 72px;
+    z-index: 40;
+    background: var(--body-bg);
+    padding: 12px 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .prop-scrollable-form {
+    max-height: calc(100vh - 170px);
+    overflow-y: auto;
+    padding-right: 6px;
+  }
+
+  .form-section-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .form-section-header {
+    padding: 14px 20px;
+    background: #FAFAFC;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .form-section-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .form-section-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-heading);
+    margin: 0;
+  }
+  .form-section-subtitle {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+  .form-section-body {
+    padding: 20px;
+  }
+
+  /* Compact Image Uploader Box */
+  .prop-cover-uploader {
+    position: relative;
+    border: 1px solid #CBD5E1;
+    border-radius: var(--radius-md);
+    background: #F1F5F9;
+    overflow: hidden;
+    height: 105px;
+    max-width: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+  }
+  .prop-cover-uploader:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(125, 179, 58, 0.15);
+  }
+  .prop-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .prop-cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #FFFFFF;
+    font-size: 0.76rem;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  .prop-cover-uploader:hover .prop-cover-overlay {
+    opacity: 1;
+  }
+
+  /* Galería Múltiple */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .gallery-item-card {
+    position: relative;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+  }
+  .gallery-item-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .gallery-item-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(220, 38, 38, 0.9);
+    color: #FFFFFF;
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery-add-btn {
+    border: 2px dashed #CBD5E1;
+    border-radius: 8px;
+    background: #FAFAFC;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .gallery-add-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+  }
+
+  /* Amenities Tag Selector Grid */
+  .amenities-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .amenity-checkbox-item {
+    background: #F8FAFC;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+  }
+  .amenity-checkbox-item:hover {
+    background: #F1F5F9;
+    border-color: #CBD5E1;
+  }
+  .amenity-checkbox-item.checked {
+    background: #F0FDF4;
+    border-color: #86EFAC;
+    color: #15803D;
+  }
+  .amenity-checkbox-item input {
+    accent-color: var(--primary);
+    width: 16px;
+    height: 16px;
+  }
+  .amenity-icon-box {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 0.88rem;
+    flex-shrink: 0;
+  }
+
+  /* Currency / Unit input styling */
+  .input-currency-wrap {
+    position: relative;
+  }
+  .input-currency-prefix {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 800;
+    color: var(--primary);
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+  .input-currency-wrap .form-input {
+    padding-left: 28px;
+    font-weight: 700;
+  }
+</style>
+
+<!-- HEADER FIJO ARRIBA -->
+<div class="prop-sticky-header">
+  <div>
+    <h2 style="font-size: 1.25rem; font-weight: 800; color: var(--text-heading); margin-bottom: 2px;">
+      <i class="fa-solid fa-building-circle-check" style="color: var(--primary); margin-right: 6px;"></i>
+      <%= isNew ? 'Registrar Nueva Propiedad' : 'Editar Proyecto: ' + (project ? project.name : '') %>
+    </h2>
+    <p style="font-size: 0.8rem; color: var(--text-muted);">
+      <%= isNew ? 'Completa los datos técnicos, estructura de inversión y amenidades para publicar' : 'Modifica especificaciones técnicas, precios, retorno de inversión y disponibilidad' %>
+    </p>
+  </div>
+  
+  <div style="display: flex; gap: 8px;">
+    <% if (!isNew && project) { %>
+      <a href="/proyectos/<%= project.slug || project.id %>" target="_blank" class="btn btn-secondary btn-sm" title="Ver ficha pública en el portal">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver en Portal
+      </a>
+    <% } %>
+    <a href="/admin/propiedades" class="btn btn-secondary btn-sm"><i class="fa-solid fa-arrow-left"></i> Volver a Lista</a>
+  </div>
+</div>
+
+<% if (error) { %>
+<div class="alert alert-error" style="margin-bottom: 16px;"><i class="fa-solid fa-circle-exclamation"></i> <%= error %></div>
+<% } %>
+
+<!-- CONTENEDOR CON SCROLL INTERNO -->
+<div class="prop-scrollable-form">
+  <form id="propertyForm" method="POST" action="/admin/propiedades/<%= isNew ? 'nueva' : (project.id + '/editar') %>">
+    
+    <!-- 1. INFORMACIÓN PRINCIPAL & PORTADA -->
+    <div class="form-section-card">
+      <div class="form-section-header">
+        <div class="form-section-icon"><i class="fa-solid fa-circle-info"></i></div>
+        <div>
+          <div class="form-section-title">1. Identificación & Ubicación del Inmueble</div>
+          <div class="form-section-subtitle">Nombre oficial, código comercial, tipo de desarrollo, polo turístico y estado</div>
+        </div>
+      </div>
+
+      <div class="form-section-body">
+        <div class="form-grid">
+          <div class="form-group" style="flex: 2;">
+            <label class="form-label">Nombre del Proyecto *</label>
+            <input type="text" name="name" class="form-input" value="<%= project ? project.name : '' %>" placeholder="Ingresa el nombre del proyecto..." required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Código CIASA / Ref</label>
+            <input type="text" name="code" class="form-input" value="<%= project ? project.code : '' %>" placeholder="Código de referencia">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tipo de Inmueble</label>
+            <select name="type" class="form-input">
+              <% ['apartamento','villa','townhouse','penthouse','solar','local-comercial'].forEach(t => { %>
+              <option value="<%= t %>" <%= project && (project.type === t || project.type === t.charAt(0).toUpperCase() + t.slice(1)) ? 'selected' : '' %>>
+                <%= t === 'apartamento' ? 'Apartamento Turístico' : (t === 'villa' ? 'Villa Exclusiva' : (t === 'townhouse' ? 'Townhouse' : (t === 'penthouse' ? 'Penthouse de Lujo' : (t === 'solar' ? 'Solar / Terreno' : 'Local Comercial')))) %>
+              </option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Polo Turístico / Región *</label>
+            <select name="region" class="form-input" required>
+              <% [
+                {val: 'punta-cana', label: 'Punta Cana'},
+                {val: 'cap-cana', label: 'Cap Cana'},
+                {val: 'bavaro', label: 'Bávaro'},
+                {val: 'bayahibe', label: 'Bayahíbe / La Romana'},
+                {val: 'juan-dolio', label: 'Juan Dolio'},
+                {val: 'santo-domingo', label: 'Santo Domingo'},
+                {val: 'miches', label: 'Miches'},
+                {val: 'las-terrenas', label: 'Las Terrenas / Samaná'}
+              ].forEach(r => { %>
+              <option value="<%= r.val %>" <%= project && (project.region === r.val || project.region === r.label) ? 'selected' : '' %>><%= r.label %></option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Sector / Sub-ubicación</label>
+            <input type="text" name="subLocation" class="form-input" value="<%= project ? project.subLocation || '' : '' %>" placeholder="Sector o comunidad...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Estado de Visibilidad</label>
+            <select name="available" class="form-input">
+              <option value="true" <%= !project || project.available !== false ? 'selected' : '' %>>Disponible (Visible en catálogo)</option>
+              <option value="false" <%= project && project.available === false ? 'selected' : '' %>>Oculto / Reservado</option>
+            </select>
+          </div>
+
+          <!-- Portada Compacta -->
+          <div class="form-group">
+            <label class="form-label">Imagen de Portada (Clic para seleccionar)</label>
+            <div class="prop-cover-uploader" onclick="chooseCoverImage()" title="Seleccionar foto de portada">
+              <% if (project && project.image) { %>
+                <img src="/<%= project.image.replace(/^\/+/,'') %>" id="propCoverPreview" class="prop-cover-img" alt="Portada">
+                <div class="prop-cover-overlay">
+                  <i class="fa-solid fa-camera"></i> Cambiar
+                </div>
+              <% } else { %>
+                <img src="" id="propCoverPreview" class="prop-cover-img" style="display: none;" alt="Portada">
+                <div id="propCoverEmpty" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: var(--text-muted); padding: 12px; text-align: center;">
+                  <i class="fa-regular fa-image" style="font-size: 1.6rem; color: #94A3B8;"></i>
+                  <span style="font-size: 0.75rem; font-weight: 700;">Seleccionar Portada</span>
+                </div>
+              <% } %>
+            </div>
+            <input type="hidden" name="image" id="propCoverInput" value="<%= project && project.image ? project.image : '' %>">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Destacado en Portada</label>
+            <select name="featured" class="form-input">
+              <option value="true" <%= project && project.featured ? 'selected' : '' %>>Proyecto Destacado (Top Home)</option>
+              <option value="false" <%= !project || !project.featured ? 'selected' : '' %>>Catálogo Regular</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label">Descripción Comercial</label>
+            <textarea name="description" class="form-input" rows="3" placeholder="Describe los atractivos principales, acabados, vistas y modelo de rentabilidad..."><%= project ? project.description || '' : '' %></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. GALERÍA DE FOTOS MULTIMEDIA -->
+    <div class="form-section-card">
+      <div class="form-section-header">
+        <div class="form-section-icon" style="background: #FAF5FF; color: #9333EA;"><i class="fa-solid fa-images"></i></div>
+        <div>
+          <div class="form-section-title">2. Galería Multimedia del Proyecto</div>
+          <div class="form-section-subtitle">Añade fotos de renders, áreas sociales, planos y vistas del desarrollo</div>
+        </div>
+      </div>
+
+      <div class="form-section-body">
+        <div class="gallery-grid" id="galleryContainer">
+          <% 
+            const galleryList = (project && project.gallery) || [];
+            galleryList.forEach((gImg, gIdx) => { 
+          %>
+            <div class="gallery-item-card" id="gallery-card-<%= gIdx %>">
+              <img src="/<%= gImg.replace(/^\/+/,'') %>" onerror="this.src='/assets/images/hero-dr.jpg'">
+              <button type="button" class="gallery-item-remove" onclick="removeGalleryItem('<%= gIdx %>')">&times;</button>
+              <input type="hidden" name="gallery" value="<%= gImg %>">
+            </div>
+          <% }) %>
+
+          <div class="gallery-add-btn" onclick="openGalleryPicker()">
+            <i class="fa-solid fa-plus" style="font-size: 1.2rem;"></i>
+            <span>Añadir Foto</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. PRECIOS, ROI & DIMENSIONES -->
+    <div class="form-section-card">
+      <div class="form-section-header">
+        <div class="form-section-icon" style="background: #F0FDF4; color: #16A34A;"><i class="fa-solid fa-sack-dollar"></i></div>
+        <div>
+          <div class="form-section-title">3. Estructura Financiera, Precios & Metros</div>
+          <div class="form-section-subtitle">Rango de precios en USD, retorno estimado anual (ROI), separación y metraje</div>
+        </div>
+      </div>
+
+      <div class="form-section-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Precio Desde (USD) *</label>
+            <div class="input-currency-wrap">
+              <span class="input-currency-prefix">$</span>
+              <input type="number" name="priceFrom" class="form-input" value="<%= project ? project.priceFrom || '' : '' %>" placeholder="Precio inicial" min="0" step="1000" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Precio Hasta (USD)</label>
+            <div class="input-currency-wrap">
+              <span class="input-currency-prefix">$</span>
+              <input type="number" name="priceTo" class="form-input" value="<%= project ? project.priceTo || '' : '' %>" placeholder="Precio máximo" min="0" step="1000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">ROI Estimado Anual</label>
+            <input type="text" name="roi" class="form-input" value="<%= project ? project.roi || '' : '' %>" placeholder="Porcentaje estimado (ej. 8.5%)">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Monto de Separación (USD)</label>
+            <div class="input-currency-wrap">
+              <span class="input-currency-prefix">$</span>
+              <input type="number" name="reserveAmount" class="form-input" value="<%= project ? project.reserveAmount || 5000 : 5000 %>" placeholder="5000" min="0" step="500">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Área Construcción Desde (m²)</label>
+            <input type="number" name="sizeFrom" class="form-input" value="<%= project ? project.sizeFrom || '' : '' %>" placeholder="Metros mínimos" min="0" step="0.5">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Área Construcción Hasta (m²)</label>
+            <input type="number" name="sizeTo" class="form-input" value="<%= project ? project.sizeTo || '' : '' %>" placeholder="Metros máximos" min="0" step="0.5">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Habitaciones</label>
+            <select name="bedrooms" class="form-input">
+              <option value="">No especificado</option>
+              <% ['Estudio / 1 Hab','2 Habitaciones','3 Habitaciones','4 Habitaciones','5+ Habitaciones'].forEach(b => { %>
+              <option value="<%= b %>" <%= project && (project.bedrooms == b || project.bedrooms == b.charAt(0)) ? 'selected' : '' %>><%= b %></option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Fecha Estimada de Entrega</label>
+            <input type="text" name="delivery" class="form-input" value="<%= project ? project.delivery || '' : '' %>" placeholder="Fecha o trimestre de entrega">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. BENEFICIOS FISCALES & AMENIDADES INTELIGENTES -->
+    <div class="form-section-card">
+      <div class="form-section-header">
+        <div class="form-section-icon" style="background: #EFF6FF; color: #2563EB;"><i class="fa-solid fa-shield-halved"></i></div>
+        <div>
+          <div class="form-section-title">4. Incentivos Fiscales & Amenidades</div>
+          <div class="form-section-subtitle">Exención CONFOTUR, Airbnb Friendly y catálogo interactivo de servicios</div>
+        </div>
+      </div>
+
+      <div class="form-section-body">
+        <div class="form-grid" style="margin-bottom: 18px;">
+          <div class="form-group">
+            <label class="form-label">Ley CONFOTUR (15 Años Exento de Impuestos)</label>
+            <select name="confotur" class="form-input">
+              <option value="true" <%= project && project.confotur ? 'selected' : '' %>>Aplica CONFOTUR (0% Transferencia + 0% IPI)</option>
+              <option value="false" <%= project && !project.confotur ? 'selected' : '' %>>No Aplica CONFOTUR</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Régimen Airbnb / Renta Vacacional</label>
+            <select name="airbnbFriendly" class="form-input">
+              <option value="true" <%= !project || project.airbnbFriendly ? 'selected' : '' %>>Airbnb Friendly (Permite gestión vacacional)</option>
+              <option value="false" <%= project && !project.airbnbFriendly ? 'selected' : '' %>>Solo Residencial Permanente</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Creador de Nuevas Amenidades con Detección Automática de Icono -->
+        <div style="background: #F8FAFC; border: 1px solid var(--border-color); border-radius: 8px; padding: 14px 16px; margin-top: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+            <label class="form-label" style="margin: 0; font-size: 0.76rem;"><i class="fa-solid fa-plus-circle" style="color: var(--primary);"></i> Agregar Nueva Amenidad Personalizada</label>
+          </div>
+
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="newAmenityInput" class="form-input" style="height: 38px; font-size: 0.85rem;" placeholder="Escribe una nueva amenidad (ej. Helipuerto, Cine, Coworking, Marina)..." onkeydown="if(event.key==='Enter'){event.preventDefault(); addNewAmenity();}">
+            <button type="button" class="btn btn-secondary" onclick="addNewAmenity()" style="height: 38px; font-weight: 700; white-space: nowrap;">
+              <i class="fa-solid fa-plus"></i> Agregar
+            </button>
+          </div>
+        </div>
+
+        <label class="form-label" style="margin-top: 16px; display: block;">Amenidades y Servicios Seleccionados</label>
+        
+        <% 
+          const currentAmenities = (project && project.amenities) || [];
+          const baseAmenities = [
+            { name: "Piscina Infinity", icon: "fa-person-swimming" },
+            { name: "Gimnasio Equipado", icon: "fa-dumbbell" },
+            { name: "Seguridad 24/7", icon: "fa-shield-halved" },
+            { name: "Club de Playa Privado", icon: "fa-umbrella-beach" },
+            { name: "Lobby Amueblado", icon: "fa-couch" },
+            { name: "Ascensor", icon: "fa-elevator" },
+            { name: "Cancha de Tenis / Pádel", icon: "fa-baseball" },
+            { name: "Área de Juegos", icon: "fa-shapes" },
+            { name: "Parqueo Techado", icon: "fa-square-parking" },
+            { name: "Jacuzzi", icon: "fa-hot-tub-person" },
+            { name: "Spa & Wellness", icon: "fa-spa" },
+            { name: "Acceso a Campo de Golf", icon: "fa-golf-ball-tee" },
+            { name: "Restaurante / Bar", icon: "fa-utensils" },
+            { name: "Pet Friendly", icon: "fa-paw" },
+            { name: "Planta Eléctrica Total", icon: "fa-bolt" },
+            { name: "Cámaras de Vigilancia", icon: "fa-video" }
+          ];
+
+          // Agregar las amenidades existentes del proyecto que no estén en la lista base
+          currentAmenities.forEach(ca => {
+            if (!baseAmenities.some(b => b.name.toLowerCase() === ca.toLowerCase())) {
+              baseAmenities.push({ name: ca, icon: "fa-check-circle" });
+            }
+          });
+        %>
+
+        <div class="amenities-selector-grid" id="amenitiesGrid">
+          <% baseAmenities.forEach((am, idx) => { 
+               const isChecked = currentAmenities.includes(am.name);
+          %>
+          <label class="amenity-checkbox-item <%= isChecked ? 'checked' : '' %>" id="am-box-<%= idx %>">
+            <input type="checkbox" name="amenities" value="<%= am.name %>" <%= isChecked ? 'checked' : '' %> onchange="toggleAmenityClass(this, 'am-box-<%= idx %>')">
+            <span><%= am.name %></span>
+          </label>
+          <% }) %>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BOTONES DE ACCIÓN FLUIDOS -->
+    <div style="display: flex; gap: 12px; justify-content: flex-end; align-items: center; padding-bottom: 24px;">
+      <a href="/admin/propiedades" class="btn btn-secondary" style="padding: 10px 22px;">Cancelar</a>
+      <button type="submit" class="btn btn-primary" style="padding: 11px 32px; font-size: 0.92rem; font-weight: 800;">
+        <i class="fa-solid fa-floppy-disk"></i> <%= isNew ? 'Registrar Propiedad en Catálogo' : 'Guardar Cambios del Proyecto' %>
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<!-- MODAL SELECTOR RÁPIDO DE IMÁGENES (PORTADA & GALERÍA) -->
+<div id="imageGalleryModal" style="display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.7); z-index: 10000; overflow-y: auto; backdrop-filter: blur(4px); padding: 40px 16px;">
+  <div style="background: #FFFFFF; max-width: 780px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-lg);">
+    <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #FAFAFC;">
+      <strong style="font-size: 0.95rem; color: var(--text-heading);" id="imageModalTitle"><i class="fa-regular fa-images"></i> Seleccionar Imagen</strong>
+      <button type="button" onclick="closeImageGallery()" style="background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+    </div>
+    
+    <div style="padding: 20px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; max-height: 400px; overflow-y: auto; padding-right: 6px;">
+        <% 
+          const sampleImages = [
+            'assets/images/projects/marina-garden-2.jpg',
+            'assets/images/projects/wave-garden.jpg',
+            'assets/images/projects/secret-garden.jpg',
+            'assets/images/projects/cassia.jpg',
+            'assets/images/projects/moon-garden.jpg',
+            'assets/images/projects/moon-garden-2.jpg',
+            'assets/images/projects/crystal-garden.jpg',
+            'assets/images/projects/sun-garden.jpg',
+            'assets/images/projects/level-business.jpg',
+            'assets/images/projects/pueblito-caribeno.jpg',
+            'assets/images/projects/ourux-luxury.jpg',
+            'assets/images/hero-dr.jpg',
+            'assets/images/projects/cap-cana-hero.jpg'
+          ];
+          sampleImages.forEach(img => { 
+        %>
+          <div onclick="handleImageSelected('<%= img %>')" style="cursor: pointer; border: 2px solid #E2E8F0; border-radius: 8px; overflow: hidden; height: 90px; transition: transform 0.15s; background: #0F172A;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='#E2E8F0'">
+            <img src="/<%= img %>" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='/assets/images/hero-dr.jpg'">
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentImageMode = 'cover'; // 'cover' or 'gallery'
+
+function toggleAmenityClass(checkbox, boxId) {
+  const box = document.getElementById(boxId);
+  if (box) {
+    if (checkbox.checked) box.classList.add('checked');
+    else box.classList.remove('checked');
+  }
+}
+
+function addNewAmenity() {
+  const input = document.getElementById('newAmenityInput');
+  const name = input.value.trim();
+  if (!name) return;
+
+  const grid = document.getElementById('amenitiesGrid');
+  const customIndex = 'custom_' + Date.now();
+
+  const label = document.createElement('label');
+  label.className = 'amenity-checkbox-item checked';
+  label.id = 'am-box-' + customIndex;
+  label.innerHTML = `
+    <input type="checkbox" name="amenities" value="${name}" checked onchange="toggleAmenityClass(this, 'am-box-${customIndex}')">
+    <span>${name}</span>
+  `;
+
+  grid.appendChild(label);
+  input.value = '';
+}
+
+function chooseCoverImage() {
+  currentImageMode = 'cover';
+  document.getElementById('imageModalTitle').innerHTML = '<i class="fa-regular fa-image"></i> Seleccionar Imagen de Portada';
+  document.getElementById('imageGalleryModal').style.display = 'block';
+}
+
+function openGalleryPicker() {
+  currentImageMode = 'gallery';
+  document.getElementById('imageModalTitle').innerHTML = '<i class="fa-solid fa-images"></i> Añadir Foto a la Galería';
+  document.getElementById('imageGalleryModal').style.display = 'block';
+}
+
+function closeImageGallery() {
+  document.getElementById('imageGalleryModal').style.display = 'none';
+}
+
+function handleImageSelected(imgSrc) {
+  if (currentImageMode === 'cover') {
+    document.getElementById('propCoverInput').value = imgSrc;
+    const imgEl = document.getElementById('propCoverPreview');
+    const emptyEl = document.getElementById('propCoverEmpty');
+    if (imgEl) {
+      imgEl.src = '/' + imgSrc.replace(/^\/+/,'');
+      imgEl.style.display = 'block';
+    }
+    if (emptyEl) {
+      emptyEl.style.display = 'none';
+    }
+  } else {
+    // Añadir a galería
+    const container = document.getElementById('galleryContainer');
+    const gIndex = 'g_' + Date.now();
+    const card = document.createElement('div');
+    card.className = 'gallery-item-card';
+    card.id = 'gallery-card-' + gIndex;
+    card.innerHTML = `
+      <img src="/${imgSrc.replace(/^\/+/,'')}" onerror="this.src='/assets/images/hero-dr.jpg'">
+      <button type="button" class="gallery-item-remove" onclick="removeGalleryItem('${gIndex}')">&times;</button>
+      <input type="hidden" name="gallery" value="${imgSrc}">
+    `;
+    container.insertBefore(card, container.lastElementChild);
+  }
+  closeImageGallery();
+}
+
+function removeGalleryItem(id) {
+  const card = document.getElementById('gallery-card-' + id);
+  if (card) card.remove();
+}
+</script>
+
+<%- include('../layout-end') %>

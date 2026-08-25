@@ -1,0 +1,344 @@
+<%- include('../layouts/header', { pageTitle: 'Servicios Complementarios | CIASA Bolsa Inmobiliaria', pageDesc: 'Seguros, viajes, servicios financieros, legales y gestión de trámites para inversionistas inmobiliarios en República Dominicana.', activePage: 'servicios' }) %>
+
+  <style>
+    /* Hero Banner matching ciasard.com 1:1 */
+    .servicios-hero {
+      background-image: linear-gradient(135deg, rgba(10, 30, 54, 0.78), rgba(8, 145, 178, 0.58)),
+                        url('/assets/images/flyers/pictures/Family_on_balcony_202604231822_3.jpeg');
+      background-size: cover;
+      background-position: center 30%;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 0 120px;
+      text-align: center;
+      color: #ffffff;
+      position: relative;
+    }
+    .servicios-hero h1 {
+      font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: #ffffff;
+      margin-bottom: 14px;
+      line-height: 1.15;
+    }
+    .servicios-hero p {
+      font-size: 1.18rem;
+      color: rgba(255, 255, 255, 0.92);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid Overlapping Hero */
+    .servicios-grid-section {
+      max-width: 1160px;
+      margin: -70px auto 90px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .servicio-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 36px 30px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+      transition: all 0.25s ease;
+      border: 1px solid #E2E8F0;
+      border-top: 4px solid var(--teal);
+      display: flex;
+      flex-direction: column;
+    }
+    .servicio-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+      border-top-color: var(--green);
+    }
+
+    .servicio-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .servicio-icon {
+      width: 52px;
+      height: 52px;
+      background: #F1F5F9;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--teal);
+      font-size: 1.45rem;
+      transition: all 0.25s ease;
+    }
+    .servicio-card:hover .servicio-icon {
+      background: #ECFDF5;
+      color: var(--green);
+      transform: scale(1.05);
+    }
+    .servicio-card h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin: 0;
+      line-height: 1.2;
+    }
+    .servicio-card p.desc {
+      font-size: 0.94rem;
+      color: #64748B;
+      line-height: 1.6;
+      margin: 0 0 20px;
+    }
+
+    .servicio-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+      flex-grow: 1;
+    }
+    .servicio-card ul li {
+      padding: 9px 0;
+      font-size: 0.88rem;
+      color: #334155;
+      border-bottom: 1px solid #F1F5F9;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.45;
+    }
+    .servicio-card ul li:last-child {
+      border-bottom: none;
+    }
+    .servicio-card ul li i {
+      color: var(--green);
+      font-size: 0.92rem;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .servicio-card-cta {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid #F1F5F9;
+    }
+    .btn-servicio-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      color: var(--navy);
+      font-size: 0.86rem;
+      font-weight: 700;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-servicio-wa:hover {
+      background: var(--green);
+      color: #ffffff;
+      border-color: var(--green);
+      box-shadow: 0 4px 12px rgba(125, 179, 58, 0.25);
+    }
+
+    /* CTA Section matching ciasard.com */
+    .servicios-cta {
+      background: #F8FAFC;
+      border-top: 1px solid #E2E8F0;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .servicios-cta h2 {
+      color: var(--navy);
+      font-size: clamp(1.8rem, 3vw, 2.3rem);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .servicios-cta p {
+      color: #64748B;
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .servicios-grid {
+        grid-template-columns: 1fr;
+      }
+      .servicios-grid-section {
+        margin-top: -35px;
+      }
+      .servicio-card {
+        padding: 26px 20px;
+      }
+    }
+  </style>
+
+  <!-- ==========================================================================
+       HERO SERVICIOS (1:1 CON FOTO FAMILY ON BALCONY)
+       ========================================================================== -->
+  <section class="servicios-hero">
+    <div class="container">
+      <h1>Servicios Complementarios</h1>
+      <p>Te acompañamos con seguros, viajes, servicios financieros, legales y gestión de trámites para tu inversión en República Dominicana.</p>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       GRID DE 5 SERVICIOS COMPLEMENTARIOS
+       ========================================================================== -->
+  <main class="servicios-grid-section">
+    <div class="servicios-grid">
+
+      <!-- 1. Seguros -->
+      <div class="servicio-card">
+        <div class="servicio-header">
+          <div class="servicio-icon">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3>Seguros</h3>
+        </div>
+        <p class="desc">Protección completa para tu propiedad y tu inversión.</p>
+        <ul>
+          <li><i class="fa-solid fa-check"></i> Seguro de propiedad (huracán, terremoto, inundaciones)</li>
+          <li><i class="fa-solid fa-check"></i> Responsabilidad civil para rentas vacacionales</li>
+          <li><i class="fa-solid fa-check"></i> Seguro de renta garantizada ante impagos</li>
+          <li><i class="fa-solid fa-check"></i> Seguro de vida y desgravamen hipotecario</li>
+        </ul>
+        <div class="servicio-card-cta">
+          <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20quisiera%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20Seguros." target="_blank" class="btn-servicio-wa">
+            <i class="fa-brands fa-whatsapp" style="color: var(--green);"></i> Consultar Seguros
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. Viajes y Alojamiento -->
+      <div class="servicio-card">
+        <div class="servicio-header">
+          <div class="servicio-icon">
+            <i class="fa-solid fa-plane-departure"></i>
+          </div>
+          <h3>Viajes y Alojamiento</h3>
+        </div>
+        <p class="desc">Facilitamos tus viajes a RD para conocer los proyectos.</p>
+        <ul>
+          <li><i class="fa-solid fa-check"></i> Paquetes de inspección de propiedades con tours guiados</li>
+          <li><i class="fa-solid fa-check"></i> Traslados privados aeropuerto - proyecto - hotel</li>
+          <li><i class="fa-solid fa-check"></i> Hospedaje temporal mientras conoces tu futura propiedad</li>
+          <li><i class="fa-solid fa-check"></i> Asesor presencial asignado durante tu estadía</li>
+        </ul>
+        <div class="servicio-card-cta">
+          <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20deseo%20coordinar%20un%20viaje%20de%20inspecci%C3%B3n%20a%20Rep%C3%BAblica%20Dominicana." target="_blank" class="btn-servicio-wa">
+            <i class="fa-brands fa-whatsapp" style="color: var(--green);"></i> Coordinar Viaje / Visita
+          </a>
+        </div>
+      </div>
+
+      <!-- 3. Servicios Financieros -->
+      <div class="servicio-card">
+        <div class="servicio-header">
+          <div class="servicio-icon">
+            <i class="fa-solid fa-coins"></i>
+          </div>
+          <h3>Servicios Financieros</h3>
+        </div>
+        <p class="desc">Facilita las transacciones y maximiza el retorno de tu inversión.</p>
+        <ul>
+          <li><i class="fa-solid fa-check"></i> Asesoría en financiamiento con BanReservas y bancos en RD</li>
+          <li><i class="fa-solid fa-check"></i> Transferencias internacionales con tasas preferenciales</li>
+          <li><i class="fa-solid fa-check"></i> Planificación fiscal para inversionistas residentes en el exterior</li>
+          <li><i class="fa-solid fa-check"></i> Apertura de cuentas bancarias en RD de forma 100% remota</li>
+        </ul>
+        <div class="servicio-card-cta">
+          <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20necesito%20asesor%C3%ADa%20financiera%20y%20bancaria%20para%20invertir%20en%20RD." target="_blank" class="btn-servicio-wa">
+            <i class="fa-brands fa-whatsapp" style="color: var(--green);"></i> Asesoría Financiera
+          </a>
+        </div>
+      </div>
+
+      <!-- 4. Servicios Legales -->
+      <div class="servicio-card">
+        <div class="servicio-header">
+          <div class="servicio-icon">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <h3>Servicios Legales</h3>
+        </div>
+        <p class="desc">Asegura que cada transacción sea transparente, blindada y protegida.</p>
+        <ul>
+          <li><i class="fa-solid fa-check"></i> Revisión y redacción de contratos de compraventa y reserva</li>
+          <li><i class="fa-solid fa-check"></i> Verificación de títulos (deslinde y Certificado de Título)</li>
+          <li><i class="fa-solid fa-check"></i> Constitución de fideicomisos inmobiliarios fiduciarios</li>
+          <li><i class="fa-solid fa-check"></i> Representación legal ante notarios y Registro de Títulos</li>
+          <li><i class="fa-solid fa-check"></i> Asesoría e instrumentación bajo la Ley CONFOTUR 158-01</li>
+        </ul>
+        <div class="servicio-card-cta">
+          <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20quisiera%20asesor%C3%ADa%20legal%20para%20mi%20inversi%C3%B3n%20en%20RD." target="_blank" class="btn-servicio-wa">
+            <i class="fa-brands fa-whatsapp" style="color: var(--green);"></i> Asesoría Legal
+          </a>
+        </div>
+      </div>
+
+      <!-- 5. Gestión de Trámites -->
+      <div class="servicio-card">
+        <div class="servicio-header">
+          <div class="servicio-icon">
+            <i class="fa-solid fa-file-signature"></i>
+          </div>
+          <h3>Gestión de Trámites</h3>
+        </div>
+        <p class="desc">Nos encargamos de todo el papeleo para que tú no tengas que preocuparte.</p>
+        <ul>
+          <li><i class="fa-solid fa-check"></i> Gestión de permisos de construcción y habitabilidad</li>
+          <li><i class="fa-solid fa-check"></i> Trámite formal de exoneración fiscal CONFOTUR (DGII)</li>
+          <li><i class="fa-solid fa-check"></i> Registro de propiedad y traspaso de título a tu nombre</li>
+          <li><i class="fa-solid fa-check"></i> Contratación de servicios básicos (agua, luz, internet fibra)</li>
+          <li><i class="fa-solid fa-check"></i> Administración y property management para propietarios ausentes</li>
+        </ul>
+        <div class="servicio-card-cta">
+          <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20necesito%20gesti%C3%B3n%20de%20tr%C3%A1mites%20y%20documentos%20en%20RD." target="_blank" class="btn-servicio-wa">
+            <i class="fa-brands fa-whatsapp" style="color: var(--green);"></i> Solicitar Trámites
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       CTA COMPLEMENTARIO
+       ========================================================================== -->
+  <section class="servicios-cta">
+    <div class="container">
+      <h2>¿Necesitas alguno de estos servicios?</h2>
+      <p>Nuestro equipo está listo para ayudarte con todos los servicios complementarios que necesites para tu inversión con total transparencia.</p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="/contacto" class="btn-cta" style="background: var(--navy); color: #ffffff; padding: 12px 24px;">
+          <i class="fa-solid fa-envelope"></i> Formulario de Contacto
+        </a>
+        <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20quisiera%20consultar%20sobre%20sus%20servicios%20complementarios." target="_blank" class="btn-cta" style="background: var(--green); color: #ffffff; padding: 12px 24px;">
+          <i class="fa-brands fa-whatsapp"></i> Chatear por WhatsApp
+        </a>
+        <a href="tel:+18092995233" class="btn-cta" style="background: #ffffff; color: var(--navy); border: 1px solid #CBD5E1; padding: 12px 24px;">
+          <i class="fa-solid fa-phone"></i> +1 (809) 299-5233
+        </a>
+      </div>
+    </div>
+  </section>
+
+<%- include('../layouts/footer') %>

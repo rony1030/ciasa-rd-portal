@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'CIASA Bolsa Inmobiliaria — Inversión Inmobiliaria en RD' %></title>
+  <meta name="description" content="<%= typeof pageDesc !== 'undefined' ? pageDesc : 'Conectamos a dominicanos en el exterior con las mejores oportunidades de inversión patrimonial en República Dominicana.' %>">
+  
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --navy: #0A1E36;
+      --navy-dark: #071526;
+      --navy-footer: #0B2238;
+      --green: #7DB33A;
+      --green-hover: #6ca02e;
+      --teal: #5B9BD5;
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --border: #E2E8F0;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 14px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.12);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, video {
+      max-width: 100%;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 0 16px;
+      }
+    }
+
+    /* Global Button Utilities */
+    .btn-cta, .btn-primary {
+      background: var(--green);
+      color: #ffffff !important;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 14px rgba(125, 179, 58, 0.25);
+    }
+    .btn-cta:hover, .btn-primary:hover {
+      background: var(--green-hover);
+      color: #ffffff !important;
+      text-decoration: none !important;
+      transform: translateY(-2px);
+    }
+    .btn-blue {
+      background: #2563EB !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+    }
+    .btn-blue:hover {
+      background: #1D4ED8 !important;
+      color: #ffffff !important;
+    }
+
+    /* 1. Header & Navigation (Fixed Permanently on Top for Desktop & Mobile) */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 9999;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+    body {
+      padding-top: 76px;
+    }
+    @media (max-width: 920px) {
+      .site-header {
+        min-height: 70px;
+      }
+      body {
+        padding-top: 70px;
+      }
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 16px;
+    }
+
+    /* Logo & Branding */
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .brand-logo img {
+      height: 50px;
+      width: auto;
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .brand-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #1B3A5C;
+      letter-spacing: -0.3px;
+      line-height: 1.05;
+    }
+    .brand-tagline {
+      font-size: 1.02rem;
+      color: var(--green);
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .brand-sub {
+      font-size: 0.74rem;
+      font-style: italic;
+      color: #64748B;
+      line-height: 1.15;
+      margin-top: 1px;
+      display: block;
+      font-weight: 500;
+    }
+
+    /* Nav Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(10px, 1.4vw, 22px);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a, .nav-dropdown-trigger {
+      text-decoration: none;
+      color: #334155;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 4px;
+      font-family: inherit;
+    }
+    .nav-links a:hover, .nav-links a.active, .nav-dropdown:hover .nav-dropdown-trigger {
+      color: var(--green);
+    }
+
+    /* Dropdown Menus */
+    .nav-dropdown {
+      position: relative;
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      padding: 8px 0;
+      min-width: 200px;
+      display: none;
+      flex-direction: column;
+      z-index: 1010;
+    }
+    .nav-dropdown:hover .dropdown-menu {
+      display: flex;
+    }
+    .dropdown-menu a {
+      padding: 10px 18px;
+      font-size: 0.88rem;
+      color: #334155;
+      font-weight: 500;
+      display: block;
+      transition: background 0.15s, color 0.15s;
+    }
+    .dropdown-menu a:hover {
+      background: #F8FAFC;
+      color: var(--green);
+    }
+
+    /* Header Actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .wa-btn-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn-wa-action {
+      background: var(--green);
+      color: #ffffff;
+      border-radius: 8px;
+      height: 38px;
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(125, 179, 58, 0.3);
+      white-space: nowrap;
+    }
+    .btn-wa-action:hover {
+      background: var(--green-hover);
+      transform: translateY(-1px);
+    }
+    .btn-wa-action i {
+      font-size: 1.2rem;
+    }
+    .wa-btn-label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+
+    /* Burbuja de Chat Flotante en Modo Compacto */
+    .wa-chat-bubble {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: #0B2238;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.22);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      z-index: 1050;
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .wa-bubble-arrow {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent #0B2238 transparent;
+    }
+    .btn-icon-action {
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-icon-action:hover {
+      background: #E2E8F0;
+      color: var(--navy);
+    }
+
+    .lang-dropdown-container {
+      position: relative;
+    }
+    .lang-pill {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      height: 38px;
+      padding: 0 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-pill:hover {
+      background: #F1F5F9;
+      border-color: #CBD5E1;
+    }
+    .lang-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      padding: 6px 0;
+      min-width: 140px;
+      display: none;
+      flex-direction: column;
+      z-index: 1020;
+    }
+    .lang-dropdown-container:hover .lang-menu {
+      display: flex;
+    }
+    .lang-menu button {
+      background: none;
+      border: none;
+      padding: 8px 16px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #334155;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+    }
+    .lang-menu button:hover, .lang-menu button.active {
+      background: #F8FAFC;
+      color: var(--green);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: var(--navy);
+      cursor: pointer;
+    }
+    .mobile-cta-item { display: none; }
+
+    /* Commons */
+    .section-pad { padding: 80px 0; }
+    .sec-head { text-align: center; max-width: 680px; margin: 0 auto 46px; }
+    .sec-tag {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--green);
+      background: #ECFDF5;
+      padding: 4px 12px;
+      border-radius: 50px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .sec-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .sec-sub { font-size: 1rem; color: var(--text-muted); }
+
+    /* Responsive Breakdown */
+    @media (max-width: 1220px) {
+      .btn-wa-action {
+        width: 38px;
+        padding: 0;
+        justify-content: center;
+      }
+      .wa-btn-label {
+        display: none;
+      }
+      .wa-chat-bubble {
+        display: flex;
+      }
+      .wa-btn-wrapper:hover .wa-chat-bubble {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+    @media (max-width: 1080px) {
+      .nav-links { gap: 10px; }
+    }
+    @media (max-width: 920px) {
+      .header-actions .lang-pill { display: none !important; }
+      .mobile-cta-item { display: block !important; width: 100%; margin-top: 10px; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        flex-direction: column;
+        padding: 24px;
+        box-shadow: 0 14px 35px rgba(0,0,0,0.14);
+        border-bottom: 1px solid var(--border);
+        gap: 16px;
+        align-items: flex-start;
+      }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: inline-flex; }
+      .nav-dropdown .dropdown-menu {
+        position: static;
+        display: flex;
+        box-shadow: none;
+        border: none;
+        background: #F8FAFC;
+        margin-top: 6px;
+        padding-left: 14px;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION (IDÉNTICO A CIASARD.COM CON TODAS LAS OPCIONES)
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container" style="width: 100%;">
+      <div class="header-inner">
+        <!-- Logo & Branding -->
+        <a href="/" class="brand-logo">
+          <img src="/assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Bolsa Inmobiliaria">
+          <div class="brand-text">
+            <span class="brand-name">CIASA</span>
+            <span class="brand-tagline">Bolsa Inmobiliaria</span>
+            <span class="brand-sub">Tu Ruta a la Prosperidad</span>
+          </div>
+        </a>
+
+        <!-- Menú Principal con Submenú Asesoría -->
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/proyectos" class="<%= (typeof activePage !== 'undefined' && activePage === 'proyectos') ? 'active' : '' %>">Proyectos</a></li>
+          <li><a href="/mapa" class="<%= (typeof activePage !== 'undefined' && activePage === 'mapa') ? 'active' : '' %>">Mapa</a></li>
+          
+          <!-- Dropdown Asesoría -->
+          <li class="nav-dropdown">
+            <button type="button" class="nav-dropdown-trigger <%= (typeof activePage !== 'undefined' && (activePage === 'invertir' || activePage === 'wizard' || activePage === 'herramientas' || activePage === 'articulos')) ? 'active' : '' %>">
+              Asesoría <i class="fa-solid fa-chevron-down" style="font-size: 0.72rem; margin-left: 2px;"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a href="/invertir">Guía de Inversión</a>
+              <a href="/wizard">Wizard de Inversión</a>
+              <a href="/herramientas">Calculadoras</a>
+              <a href="/articulos">Artículos</a>
+            </div>
+          </li>
+
+          <li><a href="/servicios" class="<%= (typeof activePage !== 'undefined' && activePage === 'servicios') ? 'active' : '' %>">Servicios</a></li>
+          <li><a href="/nosotros" class="<%= (typeof activePage !== 'undefined' && activePage === 'nosotros') ? 'active' : '' %>">Nosotros</a></li>
+          <li><a href="/contacto" class="<%= (typeof activePage !== 'undefined' && activePage === 'contacto') ? 'active' : '' %>">Contacto</a></li>
+
+          <!-- Mobile Call To Action -->
+          <li class="mobile-cta-item">
+            <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20deseo%20asesor%C3%ADa%20para%20invertir%20en%20Rep%C3%BAblica%20Dominicana." target="_blank" class="btn-cta" style="width: 100%; justify-content: center; padding: 12px;">
+              <i class="fa-brands fa-whatsapp"></i> Invertir Ahora
+            </a>
+          </li>
+        </ul>
+
+        <!-- Acciones a la Derecha: WhatsApp (Full / Compact con Burbuja de Chat) + Lupa + Idioma -->
+        <div class="header-actions">
+          <div class="wa-btn-wrapper">
+            <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20deseo%20asesor%C3%ADa%20para%20invertir%20en%20Rep%C3%BAblica%20Dominicana." target="_blank" class="btn-wa-action" aria-label="Invertir Ahora por WhatsApp">
+              <i class="fa-brands fa-whatsapp"></i>
+              <span class="wa-btn-label">Invertir Ahora</span>
+            </a>
+            <!-- Burbuja de Chat al pasar el cursor en modo compacto -->
+            <div class="wa-chat-bubble">
+              <i class="fa-brands fa-whatsapp" style="color: #22C55E; font-size: 0.9rem;"></i>
+              <span>Invertir Ahora</span>
+              <div class="wa-bubble-arrow"></div>
+            </div>
+          </div>
+
+          <a href="/proyectos" class="btn-icon-action" title="Buscar Proyectos" aria-label="Buscar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </a>
+
+          <!-- Selector de Idioma / Traducción -->
+          <div class="lang-dropdown-container">
+            <div class="lang-pill" title="Traducir Página / Language">
+              <i class="fa-solid fa-language" style="font-size: 1.15rem; color: #2563EB;"></i>
+              <span>ES</span>
+              <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem; color: #94A3B8;"></i>
+            </div>
+            <div class="lang-menu">
+              <button type="button" class="active">Español</button>
+              <button type="button">English</button>
+              <button type="button">Français</button>
+            </div>
+          </div>
+
+          <button class="nav-toggle" id="navToggle" aria-label="Abrir Menú">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>

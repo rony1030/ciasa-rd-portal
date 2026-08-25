@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIASA — Bolsa Inmobiliaria | Tu Ruta a la Prosperidad</title>
+  <meta name="description" content="Acompañamos a dominicanos en el exterior a construir patrimonio de regreso a casa. 27+ proyectos verificados en 6 regiones con Ley CONFOTUR.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --navy: #0B1E36;
+      --navy-light: #162E4E;
+      --teal: #5B9BD5;
+      --green: #7DB33A;
+      --green-hover: #6CA02E;
+      --text: #1E293B;
+      --text-muted: #64748B;
+      --bg: #F8FAFC;
+      --white: #FFFFFF;
+      --border: #E2E8F0;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(11,30,54,0.08);
+      --shadow-lg: 0 10px 30px rgba(11,30,54,0.12);
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 1. Header & Navigation */
+    .site-header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand-logo img { height: 48px; width: auto; }
+    .brand-words {
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.1;
+    }
+    .brand-title span { color: var(--green); }
+    .brand-sub {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-link {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #334155;
+      text-decoration: none;
+      transition: all 0.2s;
+      padding: 6px 0;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--green); }
+
+    .header-actions { display: flex; align-items: center; gap: 14px; }
+    .btn-cta {
+      background: var(--green) !important;
+      color: #FFFFFF !important;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(125,179,58,0.3);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      transition: all 0.2s;
+    }
+    .btn-cta:hover {
+      background: var(--green-hover) !important;
+      transform: translateY(-2px);
+    }
+    .mobile-cta-item { display: none; }
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--navy);
+      cursor: pointer;
+    }
+
+    /* 2. Hero Section */
+    .hero-wrap {
+      position: relative;
+      background: linear-gradient(135deg, rgba(11,30,54,0.90) 0%, rgba(22,46,78,0.85) 100%),
+                  url('assets/images/hero-dr.jpg') center/cover no-repeat;
+      color: #FFFFFF;
+      padding: 135px 0 160px;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      color: #A3E635;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .hero-h1 {
+      font-size: 3.1rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+    .hero-lead {
+      font-size: 1.1rem;
+      color: #E2E8F0;
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 580px;
+    }
+    .hero-btns {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-hero-primary {
+      background: var(--green);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 26px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(125,179,58,0.4);
+      transition: all 0.2s;
+    }
+    .btn-hero-primary:hover {
+      background: var(--green-hover);
+      transform: translateY(-2px);
+    }
+    .btn-hero-outline {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(6px);
+      border: 1.5px solid rgba(255,255,255,0.7);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-hero-outline:hover {
+      background: #FFFFFF;
+      color: var(--navy);
+    }
+
+    /* Hero Video Container - Autoplay Loop */
+    .hero-video-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+      border: 2px solid rgba(255,255,255,0.2);
+      aspect-ratio: 16 / 9;
+      background: #000000;
+    }
+    .hero-video-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* 3. Stats Strip */
+    .stats-strip {
+      position: relative;
+      margin-top: -55px;
+      z-index: 10;
+      margin-bottom: 60px;
+    }
+    .stats-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      padding: 28px 36px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .stat-cell {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+      padding-right: 18px;
+    }
+    .stat-cell:last-child { border-right: none; padding-right: 0; }
+    .stat-num {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-num span { color: var(--green); }
+    .stat-lbl {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* 4. Section Commons */
+    .section-pad { padding: 70px 0; }
+    .sec-head { text-align: center; max-width: 660px; margin: 0 auto 46px; }
+    .sec-tag {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--green);
+      background: #ECFDF5;
+      padding: 4px 12px;
+      border-radius: 50px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .sec-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .sec-sub { font-size: 1rem; color: var(--text-muted); }
+
+    /* 5. Regions Grid */
+    .regions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .region-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+    .region-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: #CBD5E1;
+    }
+    .rc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .rc-title { font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3; }
+    .rc-badge { background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0; }
+    .rc-desc { font-size: 0.88rem; color: var(--text-muted); flex: 1; }
+    .rc-foot { font-size: 0.85rem; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 6px; }
+
+    /* 6. Featured Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+    .project-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+    .proj-thumb {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: var(--navy-light);
+      overflow: hidden;
+    }
+    .proj-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .project-card:hover .proj-thumb img { transform: scale(1.04); }
+    .proj-badges {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .pill { font-size: 0.7rem; font-weight: 800; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; }
+    .pill-confotur { background: #059669; color: #FFFFFF; }
+    .pill-roi { background: #0F2440; color: #FFFFFF; }
+    .pill-airbnb { background: #EA580C; color: #FFFFFF; }
+    .proj-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+    .proj-loc { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
+    .proj-title { font-size: 1.18rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .proj-price { font-size: 1.3rem; font-weight: 800; color: var(--green); margin-bottom: 14px; }
+    .proj-specs {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      margin-top: auto;
+    }
+
+    /* 7. Team Section (Equipo CIASA) */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .team-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s;
+    }
+    .team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .team-photo { aspect-ratio: 1 / 1; width: 100%; overflow: hidden; background: #e2e8f0; }
+    .team-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .team-info { padding: 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .team-name { font-size: 1.15rem; font-weight: 800; color: var(--navy); }
+    .team-role { font-size: 0.84rem; font-weight: 700; color: var(--green); text-transform: uppercase; }
+    .team-bio { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin: 6px 0 14px; }
+    .btn-team-wa {
+      margin-top: auto;
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      color: #16A34A;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-team-wa:hover { background: #16A34A; color: #FFFFFF; }
+
+    /* 8. CONFOTUR Section - Clean & Sophisticated */
+    .confotur-wrap {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
+    }
+    .confotur-content { max-width: 680px; }
+    .confotur-h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; line-height: 1.2; }
+    .confotur-h2 span { color: var(--green); }
+    .confotur-text { font-size: 1rem; color: #CBD5E1; line-height: 1.6; }
+    .btn-confotur {
+      background: var(--green);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(125,179,58,0.4);
+      transition: all 0.2s;
+    }
+    .btn-confotur:hover { background: var(--green-hover); transform: translateY(-2px); }
+
+    /* 9. Footer (Idéntico a ciasard.com) */
+    .site-footer {
+      background: #0B2238;
+      color: #94A3B8;
+      padding: 70px 0 30px;
+      margin-top: 80px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1.2fr 1fr 1fr;
+      gap: 36px;
+      margin-bottom: 50px;
+    }
+    .ft-head {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 18px;
+    }
+    .ft-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .ft-links a { color: #94A3B8; font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: all 0.2s; }
+    .ft-links a:hover { color: #FFFFFF; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: #94A3B8;
+    }
+    .footer-bottom-left { display: flex; align-items: center; gap: 20px; }
+    /* Enlace de texto simple para CRM */
+    .footer-crm-link {
+      color: #64748B;
+      font-size: 0.84rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-crm-link:hover {
+      color: #CBD5E1;
+      text-decoration: underline;
+    }
+
+    /* 10. Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+      .stats-box { grid-template-columns: repeat(2, 1fr); }
+      .stat-cell { border-right: none; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .confotur-wrap { flex-direction: column; text-align: center; padding: 36px 24px; }
+    }
+    @media (max-width: 768px) {
+      .header-actions .btn-cta { display: none !important; }
+      .mobile-cta-item { display: block !important; width: 100%; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: #FFFFFF;
+        padding: 24px 20px;
+        gap: 16px;
+        box-shadow: var(--shadow-lg);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: block; }
+      .hero-wrap { padding: 60px 0 100px; }
+      .hero-h1 { font-size: 2.2rem; }
+      .stats-box { grid-template-columns: 1fr; padding: 20px; }
+      .team-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER & NAVBAR (LIMPIO SIN BOTONES INTERNOS)
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="/" class="brand-logo">
+          <img src="assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Logo">
+          <div class="brand-words">
+            <span class="brand-title">CIASA <span>Bolsa Inmobiliaria</span></span>
+            <span class="brand-sub">Tu Ruta a la Prosperidad</span>
+          </div>
+        </a>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/" class="nav-link active">Inicio</a></li>
+          <li><a href="/proyectos/" class="nav-link">Proyectos</a></li>
+          <li><a href="/mapa/" class="nav-link">Mapa Interactivo</a></li>
+          <li><a href="/invertir/" class="nav-link">Guía de Inversión</a></li>
+          <li><a href="/nosotros/" class="nav-link">Nosotros</a></li>
+          <li><a href="/contacto/" class="nav-link">Contacto</a></li>
+          <li class="mobile-cta-item">
+            <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20deseo%20asesor%C3%ADa%20para%20invertir%20en%20Rep%C3%BAblica%20Dominicana." target="_blank" class="btn-cta" style="width: 100%; justify-content: center; padding: 12px; margin-top: 8px;">
+              <i class="fa-brands fa-whatsapp"></i> Invertir Ahora
+            </a>
+          </li>
+        </ul>
+
+        <div class="header-actions">
+          <a href="https://wa.me/18092995233?text=Hola%20CIASA,%20deseo%20asesor%C3%ADa%20para%20invertir%20en%20Rep%C3%BAblica%20Dominicana." target="_blank" class="btn-cta">
+            <i class="fa-brands fa-whatsapp"></i> Invertir Ahora
+          </a>
+          <button class="nav-toggle" id="navToggle" aria-label="Abrir Menú">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==========================================================================
+         HERO SECTION (AUTOPLAY LOOP VIDEO)
+         ========================================================================== -->
+    <section class="hero-wrap">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-text-col">
+            <span class="hero-eyebrow">PARA DOMINICANOS EN EL EXTERIOR</span>
+            <h1 class="hero-h1">Tu ruta a la prosperidad en República Dominicana</h1>
+            <p class="hero-lead">
+              Acompañamos a dominicanos y dominicanas a construir patrimonio de regreso a casa. 
+              <strong>27+ proyectos verificados</strong> en 6 regiones, CONFOTUR, financiamiento, y un equipo dominicano que contesta personalmente.
+            </p>
+            <div class="hero-btns">
+              <a href="/proyectos/" class="btn-hero-primary">
+                Ver Proyectos <i class="fa-solid fa-arrow-right"></i>
+              </a>
+              <a href="#regiones" class="btn-hero-outline">
+                Ver Regiones Turísticas
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-video-col">
+            <div class="hero-video-card">
+              <!-- Video Autoplay en Loop Infinito -->
+              <video id="heroVideo" poster="assets/images/hero-dr.jpg" autoplay loop muted playsinline>
+                <source src="assets/videos/ciasard-intro.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FRANJA DE ESTADÍSTICAS
+         ========================================================================== -->
+    <section class="stats-strip">
+      <div class="container">
+        <div class="stats-box">
+          <div class="stat-cell">
+            <div class="stat-num">27<span>+</span></div>
+            <div class="stat-lbl">Proyectos verificados en 6 regiones</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">CONFOTUR</div>
+            <div class="stat-lbl">15 años exención total de impuestos</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">8% <span>- 14%</span></div>
+            <div class="stat-lbl">Retorno anual estimado (ROI en USD)</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-num">100<span>%</span></div>
+            <div class="stat-lbl">Asistencia bancaria y legal 1 a 1</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         REGIONES TURÍSTICAS
+         ========================================================================== -->
+    <section class="section-pad" id="regiones" style="background: #FFFFFF;">
+      <div class="container">
+        <div class="sec-head">
+          <span class="sec-tag">Destinos de Alta Plusvalía</span>
+          <h2 class="sec-title">Explora por Región en RD</h2>
+          <p class="sec-sub">Selecciona el polo turístico o residencial ideal para tu inversión de renta corta o vivienda de retiro.</p>
+        </div>
+
+        <div class="regions-grid">
+          <!-- Punta Cana -->
+          <a href="/proyectos/?region=punta-cana" class="region-card">
+            <div class="rc-top">
+              <span class="rc-title">Punta Cana & Bávaro</span>
+              <span class="rc-badge">12 Proyectos</span>
+            </div>
+            <p class="rc-desc">Epicentro del turismo en el Caribe. Playas de arena blanca, campos de golf y alta ocupación Airbnb todo el año.</p>
+            <div class="rc-foot">
+              <span>Desde US$ 145,000</span> <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </a>
+
+          <!-- Santo Domingo -->
+          <a href="/proyectos/?region=santo-domingo" class="region-card">
+            <div class="rc-top">
+              <span class="rc-title">Santo Domingo & DN</span>
+              <span class="rc-badge">5 Proyectos</span>
+            </div>
+            <p class="rc-desc">El centro corporativo, financiero y cultural del país. Torretas residenciales con alta plusvalía y renta fija.</p>
+            <div class="rc-foot">
+              <span>Desde US$ 125,000</span> <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </a>
+
+          <!-- Juan Dolio -->
+          <a href="/proyectos/?region=juan-dolio" class="region-card">
+            <div class="rc-top">
+              <span class="rc-title">Juan Dolio & Guayacanes</span>
+              <span class="rc-badge">3 Proyectos</span>
+            </div>
+            <p class="rc-desc">A solo 45 minutos de la capital y 20 min del Aeropuerto Las Américas. Frente de playa y vida relajada.</p>
+            <div class="rc-foot">
+              <span>Desde US$ 138,000</span> <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </a>
+
+          <!-- Bayahíbe -->
+          <a href="/proyectos/?region=bayahibe" class="region-card">
+            <div class="rc-top">
+              <span class="rc-title">Bayahíbe & Dominicus</span>
+              <span class="rc-badge">3 Proyectos</span>
+            </div>
+            <p class="rc-desc">Aguas turquesas del Mar Caribe y punto de partida a Isla Saona. Exclusividad y entorno natural caribeño.</p>
+            <div class="rc-foot">
+              <span>Desde US$ 160,000</span> <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </a>
+
+          <!-- Las Terrenas -->
+          <a href="/proyectos/?region=las-terrenas" class="region-card">
+            <div class="rc-top">
+              <span class="rc-title">Las Terrenas & Samaná</span>
+              <span class="rc-badge">2 Proyectos</span>
+            </div>
+            <p class="rc-desc">Península paradisíaca con vegetación exuberante, estilo de vida bohemio chic y alta demanda europea y norteamericana.</p>
+            <div class="rc-foot">
+              <span>Desde US$ 175,000</span> <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </a>
+
+          <!-- Miches -->
+          <a href="/proyectos/?region=miches" class="region-card">
+            <div class="rc-top">
+              <span class="rc-title">Miches & Costa Esmeralda</span>
+              <span class="rc-badge">2 Proyectos</span>
+            </div>
+            <p class="rc-desc">El nuevo polo de lujo sostenible del país con hoteles 5 estrellas y el mayor potencial de revalorización.</p>
+            <div class="rc-foot">
+              <span>Desde US$ 63,000</span> <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PROYECTOS DESTACADOS
+         ========================================================================== -->
+    <section class="section-pad" style="background: #F8FAFC;">
+      <div class="container">
+        <div class="sec-head">
+          <span class="sec-tag">Selección Verificada</span>
+          <h2 class="sec-title">Proyectos Destacados</h2>
+          <p class="sec-sub">Desarrollos inmobiliarios con licencias al día, fiduciarias bancarias de primer nivel y entrega garantizada.</p>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Marina Garden 2 -->
+          <a href="/proyectos/ciasa-001-pc" class="project-card">
+            <div class="proj-thumb">
+              <img src="assets/images/projects/marina-garden-2.jpg" alt="Marina Garden 2">
+              <div class="proj-badges">
+                <span class="pill pill-confotur">CONFOTUR</span>
+                <span class="pill pill-roi">ROI 11.5%</span>
+                <span class="pill pill-airbnb">Airbnb</span>
+              </div>
+            </div>
+            <div class="proj-body">
+              <div class="proj-loc">Cap Cana · Frente a la Marina</div>
+              <h3 class="proj-title">Marina Garden 2 Luxury Condos</h3>
+              <div class="proj-price">Desde US$ 265,000</div>
+              <div class="proj-specs">
+                <span><i class="fa-solid fa-bed"></i> 1-3 Hab</span>
+                <span><i class="fa-solid fa-ruler-combined"></i> 85 - 190 m²</span>
+                <span><i class="fa-solid fa-calendar"></i> Dic 2026</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Wave Garden -->
+          <a href="/proyectos/ciasa-002-pc" class="project-card">
+            <div class="proj-thumb">
+              <img src="assets/images/projects/wave-garden.jpg" alt="Wave Garden">
+              <div class="proj-badges">
+                <span class="pill pill-confotur">CONFOTUR</span>
+                <span class="pill pill-roi">ROI 12.0%</span>
+                <span class="pill pill-airbnb">Airbnb</span>
+              </div>
+            </div>
+            <div class="proj-body">
+              <div class="proj-loc">Cap Cana · Campo de Golf Las Iguanas</div>
+              <h3 class="proj-title">Wave Garden Residences</h3>
+              <div class="proj-price">Desde US$ 195,000</div>
+              <div class="proj-specs">
+                <span><i class="fa-solid fa-bed"></i> 1-2 Hab</span>
+                <span><i class="fa-solid fa-ruler-combined"></i> 65 - 120 m²</span>
+                <span><i class="fa-solid fa-calendar"></i> Mar 2027</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Cassia Cap Cana -->
+          <a href="/proyectos/ciasa-003-pc" class="project-card">
+            <div class="proj-thumb">
+              <img src="assets/images/projects/cassia.jpg" alt="Cassia Residences">
+              <div class="proj-badges">
+                <span class="pill pill-confotur">CONFOTUR</span>
+                <span class="pill pill-roi">ROI 10.8%</span>
+              </div>
+            </div>
+            <div class="proj-body">
+              <div class="proj-loc">Cap Cana · Banyan Tree Group</div>
+              <h3 class="proj-title">Cassia Hotel & Residences</h3>
+              <div class="proj-price">Desde US$ 215,000</div>
+              <div class="proj-specs">
+                <span><i class="fa-solid fa-bed"></i> 1-2 Hab</span>
+                <span><i class="fa-solid fa-ruler-combined"></i> 70 - 135 m²</span>
+                <span><i class="fa-solid fa-calendar"></i> Ago 2026</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECCIÓN DE EQUIPO CIASA (FOTOS REALES)
+         ========================================================================== -->
+    <section class="section-pad" style="background: #FFFFFF;">
+      <div class="container">
+        <div class="sec-head">
+          <span class="sec-tag">Acompañamiento Personal</span>
+          <h2 class="sec-title">Nuestro Equipo en República Dominicana</h2>
+          <p class="sec-sub">Asesoras profesionales con amplia experiencia en inversiones para la diáspora dominicana.</p>
+        </div>
+
+        <div class="team-grid">
+          <!-- Paola Caram -->
+          <div class="team-card">
+            <div class="team-photo">
+              <img src="assets/images/team/paola-caram.jpg" alt="Paola Caram">
+            </div>
+            <div class="team-info">
+              <div class="team-name">Paola Caram</div>
+              <div class="team-role">Directora Comercial</div>
+              <p class="team-bio">Especialista en estructuración de inversiones patrimoniales y asesoría fiduciaria para compradores en el exterior.</p>
+              <a href="https://wa.me/18092995233?text=Hola%20Paola,%20deseo%20asesor%C3%ADa%20inmobiliaria%20con%20CIASA." target="_blank" class="btn-team-wa">
+                <i class="fa-brands fa-whatsapp"></i> Contactar a Paola
+              </a>
+            </div>
+          </div>
+
+          <!-- Angeline Pimentel -->
+          <div class="team-card">
+            <div class="team-photo">
+              <img src="assets/images/team/angeline-pimentel.jpg" alt="Angeline Pimentel">
+            </div>
+            <div class="team-info">
+              <div class="team-name">Angeline Pimentel</div>
+              <div class="team-role">Asesora Senior de Inversión</div>
+              <p class="team-bio">Experta en proyectos turísticos de Punta Cana, Cap Cana y rentabilidad por alquileres vacacionales Airbnb.</p>
+              <a href="https://wa.me/18092995233?text=Hola%20Angeline,%20deseo%20informaci%C3%B3n%20sobre%20proyectos%20en%20Punta%20Cana." target="_blank" class="btn-team-wa">
+                <i class="fa-brands fa-whatsapp"></i> Contactar a Angeline
+              </a>
+            </div>
+          </div>
+
+          <!-- Giordana Moscoso -->
+          <div class="team-card">
+            <div class="team-photo">
+              <img src="assets/images/team/giordana-moscoso.jpg" alt="Giordana Moscoso">
+            </div>
+            <div class="team-info">
+              <div class="team-name">Giordana Moscoso</div>
+              <div class="team-role">Consultora Inmobiliaria</div>
+              <p class="team-bio">Guía a familias dominicanas en el proceso bancario, precalificación hipotecaria y beneficios de Ley CONFOTUR.</p>
+              <a href="https://wa.me/18092995233?text=Hola%20Giordana,%20deseo%20asesor%C3%ADa%20para%20comprar%20mi%20propiedad." target="_blank" class="btn-team-wa">
+                <i class="fa-brands fa-whatsapp"></i> Contactar a Giordana
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         BANNER BENEFICIOS CONFOTUR (DISEÑO LIMPIO Y ELEGANTE)
+         ========================================================================== -->
+    <section class="container" style="margin-bottom: 70px;">
+      <div class="confotur-wrap">
+        <div class="confotur-content">
+          <h2 class="confotur-h2">Beneficios Fiscales <span>Ley CONFOTUR</span></h2>
+          <p class="confotur-text">
+            Incentivos exclusivos para inversionistas y dominicanos en el exterior: 
+            <strong>15 años de exención del 100% de impuestos</strong> sobre la propiedad inmobiliaria (IPI), 0% impuesto de transferencia de título y 0% impuesto sobre la renta por alquileres.
+          </p>
+        </div>
+        <a href="/invertir/" class="btn-confotur">
+          <i class="fa-solid fa-file-invoice-dollar"></i> Conocer Beneficios
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER CORPORATIVO (CON BOTÓN DISCRETO "CRM" AL LADO DE LA UBICACIÓN)
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Brand & Logo exacto como ciasard.com -->
+        <div>
+          <div style="display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px;">
+            <img src="assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Logo" style="height: 52px; width: auto;">
+            <div>
+              <div style="font-size: 1.35rem; font-weight: 800; color: #FFFFFF; line-height: 1.1; letter-spacing: -0.3px;">CIASA</div>
+              <div style="font-size: 1.1rem; font-weight: 700; color: var(--green); line-height: 1.2;">Bolsa Inmobiliaria</div>
+              <div style="font-size: 0.78rem; font-style: italic; color: #94A3B8; margin-top: 2px;">Tu Ruta a la Prosperidad</div>
+            </div>
+          </div>
+          <p style="font-size: 0.86rem; color: #CBD5E1; line-height: 1.6;">
+            Conectamos a dominicanos en el exterior con las mejores oportunidades de inversión inmobiliaria en República Dominicana.
+          </p>
+        </div>
+
+        <!-- Col 2: EXPLORAR -->
+        <div>
+          <div class="ft-head">Explorar</div>
+          <ul class="ft-links">
+            <li><a href="/proyectos/">Proyectos</a></li>
+            <li><a href="/mapa/">Mapa Interactivo</a></li>
+            <li><a href="/invertir/">Guía de Inversión</a></li>
+            <li><a href="/nosotros/">Nosotros</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: RESPONSABILIDAD SOCIAL -->
+        <div>
+          <div class="ft-head">Responsabilidad Social</div>
+          <p style="font-size: 0.84rem; color: #94A3B8; line-height: 1.5; margin-bottom: 14px;">Parte de nuestro impacto va de regreso a la comunidad.</p>
+          <a href="https://www.evolutionfoundationusa.org.do" target="_blank" style="color: #38BDF8; font-weight: 700; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+            💙 Evolution Foundation
+          </a>
+        </div>
+
+        <!-- Col 4: HERRAMIENTAS -->
+        <div>
+          <div class="ft-head">Herramientas</div>
+          <ul class="ft-links">
+            <li><a href="/herramientas/">Calculadoras</a></li>
+            <li><a href="/faq/">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5: CONTACTO -->
+        <div>
+          <div class="ft-head">Contacto</div>
+          <ul class="ft-links">
+            <li><a href="tel:+18092995233">+1 (809) 299-5233</a></li>
+            <li><a href="mailto:paola.caram@ciasard.org.do">paola.caram@ciasard.org.do</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Barra Inferior del Footer con el enlace simple de CRM -->
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">
+          <span>&copy; 2026 CIASA Bolsa Inmobiliaria. Todos los derechos reservados.</span>
+        </div>
+        <div class="footer-bottom-right" style="display: flex; align-items: center; gap: 10px;">
+          <span>Santo Domingo, República Dominicana · Nueva York, EE.UU.</span>
+          <span style="color: #475569;">·</span>
+          <a href="/crm-npi" class="footer-crm-link">CRM</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Menú Responsive
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>

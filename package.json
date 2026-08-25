@@ -1,0 +1,27 @@
+{
+  "name": "ciasa-rd-portal",
+  "version": "2.0.0",
+  "description": "CIASA Bolsa Inmobiliaria - Plataforma Oficial y Portal de Inversión",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node -e \"console.log('CIASA Node.js server test ok')\""
+  },
+  "keywords": [
+    "ciasa",
+    "inmobiliaria",
+    "republica-dominicana",
+    "real-estate",
+    "crm-npi"
+  ],
+  "author": "CIASA RD",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "ejs": "^6.0.1",
+    "express": "^5.2.1"
+  }
+}

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas Frecuentes | Bolsa Inmobiliaria</title>
+    <meta name="description" content="Respuestas a las preguntas más frecuentes sobre inversión inmobiliaria en República Dominicana para dominicanos en el exterior. CONFOTUR, financiamiento, proceso de compra y más.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Preguntas Frecuentes | Bolsa Inmobiliaria">
+    <meta property="og:description" content="Todo lo que necesitas saber para invertir en bienes raíces en República Dominicana desde el exterior.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_DO">
+    <meta property="og:image" content="https://ciasard.com/assets/images/branding/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Google Fonts -->
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/variables.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/layout.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/components.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/pages.css?v=20260820_v4">
+
+    <style>
+        /* FAQ Page Styles */
+        .faq-hero {
+            background-image: linear-gradient(135deg, rgba(27,58,92,0.72), rgba(91,155,213,0.55)),
+                              url('../assets/images/flyers/pictures/Brownstones_and_beach_202604231822_3.jpeg');
+            background-size: cover;
+            background-position: center;
+            min-height: clamp(380px, 52vh, 540px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: calc(64px + var(--space-12)) 0 var(--space-12);
+            text-align: center;
+        }
+        .faq-hero h1 {
+            color: var(--white);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--space-4);
+        }
+        .faq-hero p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Search Bar */
+        .faq-search {
+            max-width: 600px;
+            margin: calc(var(--space-8) * -1) auto var(--space-8);
+            position: relative;
+            z-index: 10;
+            padding: 0 var(--space-4);
+        }
+        .faq-search-input {
+            width: 100%;
+            padding: var(--space-4) var(--space-5);
+            padding-left: 3rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            background: var(--white);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            box-sizing: border-box;
+        }
+        .faq-search-input:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 4px 20px rgba(8, 145, 178, 0.15);
+        }
+        .faq-search-icon {
+            position: absolute;
+            left: calc(var(--space-4) + var(--space-4));
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            pointer-events: none;
+        }
+        .faq-search-clear {
+            position: absolute;
+            right: calc(var(--space-4) + var(--space-3));
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            font-size: 1.25rem;
+            padding: var(--space-1);
+            display: none;
+            line-height: 1;
+        }
+        .faq-search-clear.visible {
+            display: block;
+        }
+
+        /* Category Tabs */
+        .faq-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            justify-content: center;
+            margin-bottom: var(--space-8);
+            padding: 0 var(--space-4);
+        }
+        .faq-tab {
+            padding: var(--space-2) var(--space-4);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-full);
+            background: var(--white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .faq-tab:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+        .faq-tab.active {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: var(--white);
+        }
+
+        /* Results Count */
+        .faq-results-info {
+            text-align: center;
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            margin-bottom: var(--space-6);
+            display: none;
+        }
+        .faq-results-info.visible {
+            display: block;
+        }
+
+        /* Accordion */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        .faq-category-group {
+            margin-bottom: var(--space-8);
+        }
+        .faq-category-heading {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: var(--space-4);
+            padding-bottom: var(--space-2);
+            border-bottom: 2px solid var(--teal);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        .faq-item {
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-3);
+            background: var(--white);
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+        .faq-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        .faq-item.open {
+            border-color: var(--teal);
+            box-shadow: 0 2px 12px rgba(8, 145, 178, 0.1);
+        }
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-4);
+            padding: var(--space-4) var(--space-5);
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1.5;
+        }
+        .faq-question:hover {
+            color: var(--teal);
+        }
+        .faq-question-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+        .faq-item.open .faq-question-icon {
+            transform: rotate(45deg);
+        }
+        .faq-answer-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-answer {
+            padding: 0 var(--space-5) var(--space-5);
+            color: var(--gray-600);
+            line-height: 1.7;
+            font-size: 0.9375rem;
+        }
+
+        /* No Results */
+        .faq-no-results {
+            text-align: center;
+            padding: var(--space-12) var(--space-4);
+            display: none;
+        }
+        .faq-no-results.visible {
+            display: block;
+        }
+        .faq-no-results-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-4);
+        }
+        .faq-no-results h3 {
+            color: var(--navy);
+            margin-bottom: var(--space-2);
+        }
+        .faq-no-results p {
+            color: var(--gray-500);
+        }
+
+        /* CTA Section */
+        .faq-cta {
+            background: var(--navy);
+            padding: var(--space-12) 0;
+            text-align: center;
+            margin-top: var(--space-12);
+        }
+        .faq-cta h2 {
+            color: var(--white);
+            font-size: 1.75rem;
+            margin-bottom: var(--space-4);
+        }
+        .faq-cta p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: var(--space-8);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .faq-cta-buttons {
+            display: flex;
+            gap: var(--space-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .faq-hero h1 {
+                font-size: 1.75rem;
+            }
+            .faq-tabs {
+                gap: var(--space-1);
+            }
+            .faq-tab {
+                font-size: 0.8125rem;
+                padding: var(--space-2) var(--space-3);
+            }
+            .faq-question {
+                font-size: 0.9375rem;
+                padding: var(--space-3) var(--space-4);
+            }
+            .faq-answer {
+                padding: 0 var(--space-4) var(--space-4);
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="navbar-logo">
+        <img class="navbar-logomark" src="../assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Bolsa Inmobiliaria" aria-hidden="true">
+        <span class="navbar-logo-words">CIASA <span>Bolsa Inmobiliaria</span> <small class="navbar-tagline">Tu Ruta a la Prosperidad</small></span>
+      </a>
+      <ul class="navbar-links" id="navLinks">
+        <li><a href="/proyectos/" data-i18n="nav.proyectos">Proyectos</a></li>
+        <li><a href="/mapa/" data-i18n="nav.mapa">Mapa</a></li>
+        <li class="navbar-dropdown">
+          <button type="button" class="navbar-dropdown-trigger" aria-expanded="false" aria-controls="advisoryMenu" data-i18n="nav.asesoria">Asesoría</button>
+          <ul class="navbar-dropdown-menu" id="advisoryMenu">
+            <li><a href="/invertir/" data-i18n="nav.guia">Guía de Inversión</a></li>
+            <li><a href="/wizard/" data-i18n="nav.wizard">Wizard de Inversión</a></li>
+            <li><a href="/herramientas/" data-i18n="nav.calculadoras">Calculadoras</a></li>
+            <li><a href="/articulos/" data-i18n="nav.articulos">Artículos</a></li>
+          </ul>
+        </li>
+        <li><a href="/servicios/" data-i18n="nav.servicios">Servicios</a></li>
+        <li><a href="/nosotros/" data-i18n="nav.nosotros">Nosotros</a></li>
+        <li><a href="/contacto/" data-i18n="nav.contacto">Contacto</a></li>
+        <li><a href="/contacto/" class="btn btn-primary btn-sm" style="background:#7DB33A!important;color:#FFFFFF!important;font-weight:700!important;text-shadow:0 1px 2px rgba(0,0,0,0.35)!important;" data-i18n="nav.invertir">Invertir Ahora</a></li>
+        <li><button class="search-trigger" onclick="openSearch()" aria-label="Buscar" data-i18n-title="nav.buscar" title="Buscar (Ctrl+K)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button></li>
+        <li class="lang-dropdown-wrap" id="langDropdownWrap">
+          <button class="lang-trigger" id="langTrigger" onclick="toggleLangDropdown(event)" aria-label="Idioma / Language" aria-expanded="false" aria-controls="langDropdownMenu">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span id="langCurrentLabel">ES</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="lang-dropdown-menu" id="langDropdownMenu">
+            <button class="lang-btn lang-option active" data-lang="es" onclick="if(typeof setLang==='function')setLang('es');closeLangDropdown()">Español</button>
+            <button class="lang-btn lang-option" data-lang="en" onclick="if(typeof setLang==='function')setLang('en');closeLangDropdown()">English</button>
+            <button class="lang-btn lang-option" data-lang="fr" onclick="if(typeof setLang==='function')setLang('fr');closeLangDropdown()">Français</button>
+          </div>
+        </li>
+      </ul>
+      <button class="navbar-toggle" id="navToggle" type="button" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+    <!-- Hero -->
+    <section class="faq-hero">
+        <div class="container">
+            <h1 data-i18n="faq.title">Preguntas Frecuentes</h1>
+            <p>Todo lo que necesitas saber para invertir en bienes raíces en República Dominicana desde el exterior</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main data-pagefind-body>
+
+        <!-- Search Bar -->
+        <div class="faq-search">
+            <svg class="faq-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <input type="text" class="faq-search-input" id="faqSearch" placeholder="Buscar preguntas..." autocomplete="off">
+            <button class="faq-search-clear" id="faqSearchClear" aria-label="Limpiar búsqueda">&times;</button>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="faq-tabs" id="faqTabs">
+            <button class="faq-tab active" data-category="all">Todas</button>
+        </div>
+
+        <!-- Results Count -->
+        <div class="faq-results-info" id="faqResultsInfo"></div>
+
+        <!-- FAQ List -->
+        <section class="faq-list" id="faqList">
+            <!-- Populated by JS -->
+        </section>
+
+        <!-- No Results -->
+        <div class="faq-no-results" id="faqNoResults">
+            <div class="faq-no-results-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#5B9BD5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+            <h3>No encontramos resultados</h3>
+            <p>Intenta con otras palabras o explora las categorías disponibles</p>
+        </div>
+
+    </main>
+
+    <!-- CTA Section -->
+    <section class="faq-cta">
+        <div class="container">
+            <h2>¿No encontraste tu respuesta?</h2>
+            <p>Nuestro equipo de asesores está listo para ayudarte con cualquier pregunta sobre inversión inmobiliaria en República Dominicana.</p>
+            <div class="faq-cta-buttons">
+                <a href="../contacto/" class="btn btn-primary btn-lg">Contáctanos</a>
+                <a href="../contacto/" class="btn btn-outline btn-lg" style="color: white; border-color: white;">Solicitar Asesoría</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="siteFooter">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logomark" src="../assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Logo" aria-hidden="true">
+            <span class="footer-brand-words">CIASA <span class="footer-brand-accent">Bolsa Inmobiliaria</span> <small class="navbar-tagline">Tu Ruta a la Prosperidad</small></span>
+          </div>
+          <p class="footer-description" data-i18n="footer.description">Conectamos a dominicanos en el exterior con las mejores oportunidades de inversión inmobiliaria en República Dominicana.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.explorar">Explorar</h4>
+          <ul class="footer-links">
+            <li><a href="/proyectos/" data-i18n="nav.proyectos">Proyectos</a></li>
+            <li><a href="/mapa/">Mapa Interactivo</a></li>
+            <li><a href="/invertir/" data-i18n="nav.guia">Guía de Inversión</a></li>
+            <li><a href="/nosotros/" data-i18n="nav.nosotros">Nosotros</a></li>
+            <li><a href="/contacto/" data-i18n="nav.contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Responsabilidad Social</h4>
+          <p style="font-size:var(--font-size-xs);color:var(--gray-400);line-height:1.6;margin:0 0 var(--space-3);">Parte de nuestro impacto va de regreso a la comunidad.</p>
+          <a href="https://www.evolutionfoundationusa.org.do" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;font-size:var(--font-size-sm);color:var(--teal);font-weight:600;text-decoration:none;">
+            ❤ Evolution Foundation
+          </a>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.herramientas">Herramientas</h4>
+          <ul class="footer-links">
+            <li><a href="/herramientas/" data-i18n="nav.calculadoras">Calculadoras</a></li>
+            <li><a href="/faq/">Preguntas Frecuentes</a></li>
+            <li><a href="/crm-npi" style="color:var(--teal);font-weight:600;"><i class="fa-solid fa-chart-line" style="margin-right:4px;"></i> NPI CRM</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.contacto">Contacto</h4>
+          <ul class="footer-links">
+            <li><a href="tel:+18092995233" data-sc="phone-href" data-sc-no-text>+1 (809) 299-5233</a></li>
+            <li><a href="mailto:paola.caram@ciasard.org.do" data-sc="email-href" data-sc-no-text>paola.caram@ciasard.org.do</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n-html="footer.rights">&copy; 2026 Bolsa Inmobiliaria. Todos los derechos reservados.</p>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <a href="/crm-npi" class="footer-crm-badge" title="Panel de CRM & Leads"><i class="fa-solid fa-lock" style="font-size:0.75rem;margin-right:4px;"></i> NPI CRM</a>
+          <p>Powered by CIASA</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <!-- App Scripts -->
+    <script src="../js/relpath.js?v=20260820_v4"></script>
+    <script src="../js/icons.js?v=20260820_v4"></script>
+    <script src="../js/i18n.js?v=20260820_v4"></script>
+    <script src="../js/components.js?v=20260820_v4"></script>
+    <script src="../faq/data.js?v=20260820_v4"></script>
+
+    <script>
+        // ── FAQ Application ────────────────────────────────────
+        (function () {
+            var activeCategory = "all";
+            var searchQuery = "";
+            var openItems = {};
+
+            var tabsContainer = document.getElementById("faqTabs");
+            var listContainer = document.getElementById("faqList");
+            var noResults = document.getElementById("faqNoResults");
+            var resultsInfo = document.getElementById("faqResultsInfo");
+            var searchInput = document.getElementById("faqSearch");
+            var searchClear = document.getElementById("faqSearchClear");
+
+            // Build category tabs
+            FAQ_DATA.categories.forEach(function (cat) {
+                var btn = document.createElement("button");
+                btn.className = "faq-tab";
+                btn.setAttribute("data-category", cat.id);
+                btn.innerHTML = ICON(cat.icon, 16, 'currentColor') + " " + getLocalizedCatLabel(cat);
+                tabsContainer.appendChild(btn);
+            });
+
+            // Tab click handler
+            tabsContainer.addEventListener("click", function (e) {
+                var tab = e.target.closest(".faq-tab");
+                if (!tab) return;
+                activeCategory = tab.getAttribute("data-category");
+                tabsContainer.querySelectorAll(".faq-tab").forEach(function (t) {
+                    t.classList.toggle("active", t.getAttribute("data-category") === activeCategory);
+                });
+                render();
+            });
+
+            // Search input handler
+            var searchTimeout;
+            searchInput.addEventListener("input", function () {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(function () {
+                    searchQuery = searchInput.value.trim().toLowerCase();
+                    searchClear.classList.toggle("visible", searchQuery.length > 0);
+                    render();
+                }, 200);
+            });
+
+            searchClear.addEventListener("click", function () {
+                searchInput.value = "";
+                searchQuery = "";
+                searchClear.classList.remove("visible");
+                render();
+                searchInput.focus();
+            });
+
+            // Normalize text for search (remove accents)
+            function normalize(text) {
+                return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+            }
+
+            // Filter items
+            function getLocalizedQ(item) {
+                var lang = typeof getLang === 'function' ? getLang() : 'es';
+                return (lang !== 'es' && item['question_' + lang]) || item.question;
+            }
+            function getLocalizedA(item) {
+                var lang = typeof getLang === 'function' ? getLang() : 'es';
+                return (lang !== 'es' && item['answer_' + lang]) || item.answer;
+            }
+            function getLocalizedCatLabel(cat) {
+                var lang = typeof getLang === 'function' ? getLang() : 'es';
+                return (lang !== 'es' && cat['label_' + lang]) || cat.label;
+            }
+
+            function getFilteredItems() {
+                return FAQ_DATA.items.filter(function (item) {
+                    var matchesCategory = activeCategory === "all" || item.category === activeCategory;
+                    if (!matchesCategory) return false;
+                    if (!searchQuery) return true;
+                    var normalizedQuery = normalize(searchQuery);
+                    var q = getLocalizedQ(item);
+                    var a = getLocalizedA(item);
+                    var matchesSearch = normalize(q).indexOf(normalizedQuery) !== -1 ||
+                                       normalize(a).indexOf(normalizedQuery) !== -1;
+                    return matchesSearch;
+                });
+            }
+
+            // Get category info by id
+            function getCategoryById(id) {
+                for (var i = 0; i < FAQ_DATA.categories.length; i++) {
+                    if (FAQ_DATA.categories[i].id === id) return FAQ_DATA.categories[i];
+                }
+                return null;
+            }
+
+            // Render FAQ list
+            function render() {
+                var filtered = getFilteredItems();
+                listContainer.innerHTML = "";
+
+                if (filtered.length === 0) {
+                    noResults.classList.add("visible");
+                    resultsInfo.classList.remove("visible");
+                    return;
+                }
+
+                noResults.classList.remove("visible");
+
+                // Show results info when searching
+                if (searchQuery) {
+                    resultsInfo.textContent = filtered.length + " resultado" + (filtered.length !== 1 ? "s" : "") + " para \"" + searchInput.value.trim() + "\"";
+                    resultsInfo.classList.add("visible");
+                } else {
+                    resultsInfo.classList.remove("visible");
+                }
+
+                // Group by category
+                var groups = {};
+                var categoryOrder = [];
+                filtered.forEach(function (item) {
+                    if (!groups[item.category]) {
+                        groups[item.category] = [];
+                        categoryOrder.push(item.category);
+                    }
+                    groups[item.category].push(item);
+                });
+
+                // Maintain original category order
+                var orderedIds = FAQ_DATA.categories.map(function (c) { return c.id; });
+                categoryOrder.sort(function (a, b) {
+                    return orderedIds.indexOf(a) - orderedIds.indexOf(b);
+                });
+
+                categoryOrder.forEach(function (catId) {
+                    var cat = getCategoryById(catId);
+                    var group = document.createElement("div");
+                    group.className = "faq-category-group";
+
+                    // Category heading (show when viewing all or searching)
+                    if (activeCategory === "all" || searchQuery) {
+                        var heading = document.createElement("h2");
+                        heading.className = "faq-category-heading";
+                        heading.innerHTML = '<span style="display:inline-flex;vertical-align:middle;">' + ICON(cat.icon, 20, '#5B9BD5') + '</span> ' + getLocalizedCatLabel(cat);
+                        group.appendChild(heading);
+                    }
+
+                    groups[catId].forEach(function (item) {
+                        var div = document.createElement("div");
+                        div.className = "faq-item" + (openItems[item.id] ? " open" : "");
+                        div.setAttribute("data-id", item.id);
+
+                        var questionBtn = document.createElement("button");
+                        questionBtn.className = "faq-question";
+                        questionBtn.innerHTML =
+                            '<span>' + getLocalizedQ(item) + '</span>' +
+                            '<svg class="faq-question-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+                                '<path d="M12 5v14M5 12h14"/>' +
+                            '</svg>';
+
+                        var answerWrapper = document.createElement("div");
+                        answerWrapper.className = "faq-answer-wrapper";
+                        if (openItems[item.id]) {
+                            answerWrapper.style.maxHeight = "500px";
+                        }
+
+                        var answerDiv = document.createElement("div");
+                        answerDiv.className = "faq-answer";
+                        answerDiv.textContent = getLocalizedA(item);
+
+                        answerWrapper.appendChild(answerDiv);
+                        div.appendChild(questionBtn);
+                        div.appendChild(answerWrapper);
+                        group.appendChild(div);
+                    });
+
+                    listContainer.appendChild(group);
+                });
+            }
+
+            // Toggle accordion item
+            listContainer.addEventListener("click", function (e) {
+                var question = e.target.closest(".faq-question");
+                if (!question) return;
+                var item = question.closest(".faq-item");
+                var id = item.getAttribute("data-id");
+                var wrapper = item.querySelector(".faq-answer-wrapper");
+
+                if (openItems[id]) {
+                    delete openItems[id];
+                    item.classList.remove("open");
+                    wrapper.style.maxHeight = "0";
+                } else {
+                    openItems[id] = true;
+                    item.classList.add("open");
+                    wrapper.style.maxHeight = wrapper.scrollHeight + "px";
+                }
+            });
+
+            // Initial render
+            render();
+
+            // Re-render on language change
+            document.addEventListener('langchange', function() { render(); });
+        })();
+    </script>
+
+</body>
+</html>

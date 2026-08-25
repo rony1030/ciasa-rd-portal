@@ -1,0 +1,131 @@
+  </div><!-- /admin-content -->
+</div><!-- /admin-main -->
+
+<script>
+  // 1. Sidebar Toggle Mobile
+  function toggleSidebar() {
+    document.getElementById('adminSidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('adminSidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('open');
+  }
+
+  // 2. Dropdowns Hando (Notifications / User Profile)
+  function toggleDropdown(id) {
+    const el = document.getElementById(id);
+    const wasOpen = el.classList.contains('show');
+    document.querySelectorAll('.dropdown-menu-hando').forEach(d => d.classList.remove('show'));
+    if (!wasOpen) el.classList.add('show');
+  }
+
+  window.addEventListener('click', function(e) {
+    if (!e.target.closest('.icon-btn') && !e.target.closest('.user-pill') && !e.target.closest('.dropdown-menu-hando')) {
+      document.querySelectorAll('.dropdown-menu-hando').forEach(d => d.classList.remove('show'));
+    }
+  });
+
+  // 3. Notification Handling with Direct Tracking & Badge Decrement
+  function getReadNotifs() {
+    try {
+      return JSON.parse(localStorage.getItem('ciasa_read_notifs') || '[]');
+    } catch (e) { return []; }
+  }
+
+  function handleNotifClick(notifId) {
+    const read = getReadNotifs();
+    if (!read.includes(notifId)) {
+      read.push(notifId);
+      localStorage.setItem('ciasa_read_notifs', JSON.stringify(read));
+    }
+    updateNotifBadge();
+  }
+
+  function updateNotifBadge() {
+    const read = getReadNotifs();
+    const allNotifs = document.querySelectorAll('.notif-item');
+    let unreadCount = 0;
+
+    allNotifs.forEach(el => {
+      const id = el.id;
+      if (read.includes(id)) {
+        el.style.opacity = '0.6';
+        el.style.background = '#F8FAFC';
+      } else {
+        unreadCount++;
+      }
+    });
+
+    const badge = document.getElementById('notifBadge');
+    if (badge) {
+      if (unreadCount > 0) {
+        badge.textContent = unreadCount;
+        badge.style.display = 'flex';
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+  }
+
+  // Clear Notifications
+  function clearNotifs() {
+    const allNotifs = document.querySelectorAll('.notif-item');
+    const read = [];
+    allNotifs.forEach(el => read.push(el.id));
+    localStorage.setItem('ciasa_read_notifs', JSON.stringify(read));
+    
+    const list = document.getElementById('notifList');
+    if (list) {
+      list.innerHTML = '<div style="text-align: center; padding: 24px 12px; color: var(--text-muted); font-size: 0.82rem;"><i class="fa-solid fa-check-double" style="font-size: 1.4rem; display: block; margin-bottom: 8px; color: var(--primary);"></i>Bandeja de notificaciones limpia</div>';
+    }
+    const badge = document.getElementById('notifBadge');
+    if (badge) badge.style.display = 'none';
+  }
+
+  // Initialize notification state on load
+  document.addEventListener('DOMContentLoaded', updateNotifBadge);
+
+  // 4. Fullscreen Toggle
+  function toggleFullScreen() {
+    const icon = document.getElementById('fsIcon');
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => {
+        if (icon) icon.className = 'fa-solid fa-compress';
+      }).catch(err => console.log(err));
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().then(() => {
+          if (icon) icon.className = 'fa-solid fa-expand';
+        });
+      }
+    }
+  }
+
+  // Enforce Clean Light Mode Permanently
+  (function() {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.removeItem('ciasa_theme');
+  })();
+
+  // 6. Global Search Bar
+  function handleGlobalSearch(q) {
+    if (!q || q.trim().length === 0) return;
+    if (window.location.pathname !== '/admin/leads') {
+      if (event && event.key === 'Enter') {
+        window.location.href = '/admin/leads?q=' + encodeURIComponent(q.trim());
+      }
+    } else {
+      const formInput = document.querySelector('input[name="q"]');
+      if (formInput) {
+        formInput.value = q;
+        if (event && event.key === 'Enter') formInput.form.submit();
+      }
+    }
+  }
+  document.getElementById('globalSearchInput')?.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleGlobalSearch(this.value);
+  });
+</script>
+</body>
+</html>

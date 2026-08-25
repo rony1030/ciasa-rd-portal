@@ -1,0 +1,86 @@
+<%- include('../layouts/header', { pageTitle: 'Preguntas Frecuentes (FAQ) | CIASA Bolsa Inmobiliaria', pageDesc: 'Respuestas claras sobre compra a distancia, Ley CONFOTUR, financiamiento bancario y rentas Airbnb en República Dominicana.', activePage: 'faq' }) %>
+
+  <!-- ==========================================================================
+       HERO FAQ
+       ========================================================================== -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="hero-tag">Centro de Ayuda</span>
+      <h1 class="page-title">Preguntas <span>Frecuentes</span></h1>
+      <p class="page-sub">
+        Respuestas directas y transparentes a las dudas más comunes de nuestros clientes e inversionistas en el exterior.
+      </p>
+    </div>
+  </section>
+
+  <main>
+    <section class="section-pad">
+      <div class="container" style="max-width: 860px;">
+        
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          
+          <!-- FAQ 1 -->
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);">
+            <div onclick="toggleFaq(this)" style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; color: var(--navy); font-size: 1.05rem;">
+              <span>¿Puedo comprar una propiedad en RD sin viajar al país?</span>
+              <i class="fa-solid fa-chevron-down faq-arrow" style="color: var(--green); transition: transform 0.2s;"></i>
+            </div>
+            <div class="faq-ans" style="display: none; padding: 0 24px 20px; color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; border-top: 1px solid #F1F5F9;">
+              Sí, totalmente. Todo el proceso de selección, reserva, revisión legal, firma de contrato digital y pagos se realiza de forma remota a través de plataformas fiduciarias bancarias seguras. Para la firma final de título puedes otorgar un poder especial consular o notariado.
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);">
+            <div onclick="toggleFaq(this)" style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; color: var(--navy); font-size: 1.05rem;">
+              <span>¿Qué beneficios concretos me da la Ley CONFOTUR?</span>
+              <i class="fa-solid fa-chevron-down faq-arrow" style="color: var(--green); transition: transform 0.2s;"></i>
+            </div>
+            <div class="faq-ans" style="display: none; padding: 0 24px 20px; color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; border-top: 1px solid #F1F5F9;">
+              La Ley 158-01 (CONFOTUR) te exonera del pago del 3% de impuesto de transferencia de título inmobiliario y te otorga 15 años de exención total (0%) del impuesto IPI (1% anual sobre el valor de la propiedad), además de exonerar el impuesto sobre la renta generada por alquileres turísticos.
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);">
+            <div onclick="toggleFaq(this)" style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; color: var(--navy); font-size: 1.05rem;">
+              <span>¿Los bancos dominicanos financian a dominicanos y extranjeros en EE.UU.?</span>
+              <i class="fa-solid fa-chevron-down faq-arrow" style="color: var(--green); transition: transform 0.2s;"></i>
+            </div>
+            <div class="faq-ans" style="display: none; padding: 0 24px 20px; color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; border-top: 1px solid #F1F5F9;">
+              Sí. Los principales bancos comerciales de RD (Banco BHD, Banreservas, Banco Popular, etc.) cuentan con líneas de préstamos hipotecarios para no residentes, financiando hasta el 70% u 80% del valor del inmueble en dólares estadounidenses basándose en tus taxes (W2 o 1040) y crédito de EE.UU.
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);">
+            <div onclick="toggleFaq(this)" style="padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 700; color: var(--navy); font-size: 1.05rem;">
+              <span>¿Cómo funciona la administración y renta de la propiedad en Airbnb?</span>
+              <i class="fa-solid fa-chevron-down faq-arrow" style="color: var(--green); transition: transform 0.2s;"></i>
+            </div>
+            <div class="faq-ans" style="display: none; padding: 0 24px 20px; color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; border-top: 1px solid #F1F5F9;">
+              La mayoría de nuestros proyectos cuentan con empresas operadoras de condo-hotel o property management que se encargan del check-in, limpieza, mantenimiento, cobro a huéspedes y liquidación mensual de ingresos directamente a tu cuenta bancaria en USD.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function toggleFaq(headerEl) {
+      const ans = headerEl.nextElementSibling;
+      const arrow = headerEl.querySelector('.faq-arrow');
+      if (ans.style.display === 'block') {
+        ans.style.display = 'none';
+        arrow.style.transform = 'rotate(0deg)';
+      } else {
+        ans.style.display = 'block';
+        arrow.style.transform = 'rotate(180deg)';
+      }
+    }
+  </script>
+
+<%- include('../layouts/footer') %>

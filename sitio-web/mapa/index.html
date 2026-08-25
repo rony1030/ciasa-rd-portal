@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Inversiones | Bolsa Inmobiliaria</title>
+    <!-- fonts -->
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="../css/variables.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/layout.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/components.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/pages.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/chat-widget.css?v=20260820_v4">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="navbar-logo">
+        <img class="navbar-logomark" src="../assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Bolsa Inmobiliaria" aria-hidden="true">
+        <span class="navbar-logo-words">CIASA <span>Bolsa Inmobiliaria</span> <small class="navbar-tagline">Tu Ruta a la Prosperidad</small></span>
+      </a>
+      <ul class="navbar-links" id="navLinks">
+        <li><a href="/proyectos/" data-i18n="nav.proyectos">Proyectos</a></li>
+        <li><a href="/mapa/" class="active" data-i18n="nav.mapa">Mapa</a></li>
+        <li class="navbar-dropdown">
+          <button type="button" class="navbar-dropdown-trigger" aria-expanded="false" aria-controls="advisoryMenu" data-i18n="nav.asesoria">Asesoría</button>
+          <ul class="navbar-dropdown-menu" id="advisoryMenu">
+            <li><a href="/invertir/" data-i18n="nav.guia">Guía de Inversión</a></li>
+            <li><a href="/wizard/" data-i18n="nav.wizard">Wizard de Inversión</a></li>
+            <li><a href="/herramientas/" data-i18n="nav.calculadoras">Calculadoras</a></li>
+            <li><a href="/articulos/" data-i18n="nav.articulos">Artículos</a></li>
+          </ul>
+        </li>
+        <li><a href="/servicios/" data-i18n="nav.servicios">Servicios</a></li>
+        <li><a href="/nosotros/" data-i18n="nav.nosotros">Nosotros</a></li>
+        <li><a href="/contacto/" data-i18n="nav.contacto">Contacto</a></li>
+        <li><a href="/contacto/" class="btn btn-primary btn-sm" style="background:#7DB33A!important;color:#FFFFFF!important;font-weight:700!important;text-shadow:0 1px 2px rgba(0,0,0,0.35)!important;" data-i18n="nav.invertir">Invertir Ahora</a></li>
+        <li><button class="search-trigger" onclick="openSearch()" aria-label="Buscar" data-i18n-title="nav.buscar" title="Buscar (Ctrl+K)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button></li>
+        <li class="lang-dropdown-wrap" id="langDropdownWrap">
+          <button class="lang-trigger" id="langTrigger" onclick="toggleLangDropdown(event)" aria-label="Idioma / Language" aria-expanded="false" aria-controls="langDropdownMenu">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span id="langCurrentLabel">ES</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="lang-dropdown-menu" id="langDropdownMenu">
+            <button class="lang-btn lang-option active" data-lang="es" onclick="if(typeof setLang==='function')setLang('es');closeLangDropdown()">Español</button>
+            <button class="lang-btn lang-option" data-lang="en" onclick="if(typeof setLang==='function')setLang('en');closeLangDropdown()">English</button>
+            <button class="lang-btn lang-option" data-lang="fr" onclick="if(typeof setLang==='function')setLang('fr');closeLangDropdown()">Français</button>
+          </div>
+        </li>
+      </ul>
+      <button class="navbar-toggle" id="navToggle" type="button" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+    <main data-pagefind-body>
+
+    <div class="map-page">
+        <div class="map-container">
+            <div id="map"></div>
+            <div class="map-sidebar" id="mapSidebar">
+                <div class="map-sidebar-header">
+                    <h3 style="margin-bottom: var(--space-2);" data-i18n="map.title">Regiones de Inversión</h3>
+                    <p class="text-sm text-gray" data-i18n="map.subtitle">Haz clic en una región para ver proyectos</p>
+                </div>
+                <div class="map-sidebar-content" id="sidebarContent">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="siteFooter">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logomark" src="../assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Logo" aria-hidden="true">
+            <span class="footer-brand-words">CIASA <span class="footer-brand-accent">Bolsa Inmobiliaria</span> <small class="navbar-tagline">Tu Ruta a la Prosperidad</small></span>
+          </div>
+          <p class="footer-description" data-i18n="footer.description">Conectamos a dominicanos en el exterior con las mejores oportunidades de inversión inmobiliaria en República Dominicana.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.explorar">Explorar</h4>
+          <ul class="footer-links">
+            <li><a href="/proyectos/" data-i18n="nav.proyectos">Proyectos</a></li>
+            <li><a href="/mapa/">Mapa Interactivo</a></li>
+            <li><a href="/invertir/" data-i18n="nav.guia">Guía de Inversión</a></li>
+            <li><a href="/nosotros/" data-i18n="nav.nosotros">Nosotros</a></li>
+            <li><a href="/contacto/" data-i18n="nav.contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Responsabilidad Social</h4>
+          <p style="font-size:var(--font-size-xs);color:var(--gray-400);line-height:1.6;margin:0 0 var(--space-3);">Parte de nuestro impacto va de regreso a la comunidad.</p>
+          <a href="https://www.evolutionfoundationusa.org.do" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;font-size:var(--font-size-sm);color:var(--teal);font-weight:600;text-decoration:none;">
+            ❤ Evolution Foundation
+          </a>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.herramientas">Herramientas</h4>
+          <ul class="footer-links">
+            <li><a href="/herramientas/" data-i18n="nav.calculadoras">Calculadoras</a></li>
+            <li><a href="/faq/">Preguntas Frecuentes</a></li>
+            <li><a href="/crm-npi" style="color:var(--teal);font-weight:600;"><i class="fa-solid fa-chart-line" style="margin-right:4px;"></i> NPI CRM</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.contacto">Contacto</h4>
+          <ul class="footer-links">
+            <li><a href="tel:+18092995233" data-sc="phone-href" data-sc-no-text>+1 (809) 299-5233</a></li>
+            <li><a href="mailto:paola.caram@ciasard.org.do" data-sc="email-href" data-sc-no-text>paola.caram@ciasard.org.do</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n-html="footer.rights">&copy; 2026 Bolsa Inmobiliaria. Todos los derechos reservados.</p>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <a href="/crm-npi" class="footer-crm-badge" title="Panel de CRM & Leads"><i class="fa-solid fa-lock" style="font-size:0.75rem;margin-right:4px;"></i> NPI CRM</a>
+          <p>Powered by CIASA</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <!-- Leaflet JS -->
+    <script src="../js/relpath.js?v=20260820_v4"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- App data -->
+    <script src="../js/icons.js?v=20260820_v4"></script>
+    <script src="../js/i18n.js?v=20260820_v4"></script>
+    <script src="../js/components.js?v=20260820_v4"></script>
+    <script src="../js/regions-data.js?v=20260820_v4"></script>
+    <script src="../js/projects-data.js?v=20260820_v4"></script>
+
+    <script>
+        // Initialize map
+        var map = L.map("map").setView([18.9, -70.0], 8);
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: '&copy; OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(map);
+
+        // Region colors
+        var regionColors = {
+            "punta-cana": "#5B9BD5",
+            "bayahibe": "#059669",
+            "juan-dolio": "#D97706",
+            "distrito-nacional": "#7C3AED",
+            "bani": "#DC2626",
+            "miches": "#2563EB"
+        };
+
+        // Add markers for each region
+        var markers = {};
+        REGIONS.forEach(function(region) {
+            var projects = getProjectsByRegion(region.id);
+            var color = regionColors[region.id] || "#1B3A5C";
+
+            // Create circle marker with project count
+            var marker = L.circleMarker([region.coordinates.lat, region.coordinates.lng], {
+                radius: 15 + (projects.length * 1.5),
+                fillColor: color,
+                color: "#fff",
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.85
+            }).addTo(map);
+
+            // Custom tooltip showing count
+            marker.bindTooltip(region.projectCount.toString(), {
+                permanent: true,
+                direction: "center",
+                className: "region-count-tooltip"
+            });
+
+            // Build popup content
+            var popupHtml = '<div style="min-width: 250px;">' +
+                '<div class="popup-title">' + ICON(region.icon, 20, '#5B9BD5') + ' ' + region.name + '</div>' +
+                '<div class="popup-count">' + projects.length + ' ' + T('map.projects') + ' &middot; ' + region.priceRange + '</div>' +
+                '<ul class="popup-projects">';
+
+            projects.forEach(function(p) {
+                popupHtml += '<li><a href="' + getProjectUrl(p) + '">' +
+                    '<span>' + getPublicName(p) + '</span>' +
+                    '<span class="popup-price">' + formatPriceRange(p) + '</span>' +
+                    '</a></li>';
+            });
+
+            popupHtml += '</ul>' +
+                '<a href="../proyectos/?region=' + region.id + '" style="display:block; text-align:center; margin-top:8px; font-weight:600; font-size:0.875rem;">' + T('map.view_all') + ' ' + region.name + ' &rarr;</a>' +
+                '</div>';
+
+            marker.bindPopup(popupHtml, { maxHeight: 300 });
+
+            markers[region.id] = marker;
+
+            // Click handler to also update sidebar
+            marker.on("click", function() {
+                showRegionInSidebar(region.id);
+            });
+        });
+
+        // Populate sidebar
+        var sidebarContent = document.getElementById("sidebarContent");
+        REGIONS.forEach(function(region) {
+            var projects = getProjectsByRegion(region.id);
+            var item = document.createElement("div");
+            item.className = "map-project-item";
+            item.setAttribute("data-region", region.id);
+            item.innerHTML =
+                '<div style="display:flex;align-items:center;">' + ICON(region.icon, 28, '#5B9BD5') + '</div>' +
+                '<div>' +
+                    '<strong>' + region.name + '</strong>' +
+                    '<div class="text-sm text-gray">' + projects.length + ' ' + T('map.projects') + ' &middot; ' + region.priceRange + '</div>' +
+                '</div>';
+            item.addEventListener("click", function() {
+                var coords = region.coordinates;
+                map.setView([coords.lat, coords.lng], 11);
+                markers[region.id].openPopup();
+                showRegionInSidebar(region.id);
+            });
+            sidebarContent.appendChild(item);
+        });
+
+        function showRegionInSidebar(regionId) {
+            document.querySelectorAll(".map-project-item").forEach(function(el) {
+                el.style.background = el.getAttribute("data-region") === regionId ? "var(--sand)" : "";
+            });
+        }
+
+        // Custom CSS for tooltip
+        var style = document.createElement("style");
+        style.textContent = ".region-count-tooltip { background: none !important; border: none !important; box-shadow: none !important; color: white !important; font-weight: 700 !important; font-size: 14px !important; } .region-count-tooltip::before { display: none !important; }";
+        document.head.appendChild(style);
+    </script>
+
+    <script>
+    </script>
+
+</body>
+</html>

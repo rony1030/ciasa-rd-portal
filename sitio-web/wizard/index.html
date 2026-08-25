@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre tu Inversión Ideal | Bolsa Inmobiliaria</title>
+    <meta name="description" content="Responde unas preguntas y descubre qué región, tipo de propiedad y nivel de inversión se ajusta mejor a tu perfil. Recomendaciones personalizadas.">
+
+    <meta property="og:title" content="Descubre tu Inversión Ideal | Bolsa Inmobiliaria">
+    <meta property="og:description" content="Wizard interactivo de inversión inmobiliaria en República Dominicana.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_DO">
+    <meta property="og:image" content="https://ciasard.com/assets/images/branding/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <link rel="stylesheet" href="../css/variables.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/layout.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/components.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/pages.css?v=20260820_v4">
+    <link rel="stylesheet" href="../css/chat-widget.css?v=20260820_v4">
+
+    <style>
+        .wizard-hero {
+            background-image: linear-gradient(135deg, rgba(27,58,92,0.78), rgba(91,155,213,0.62)),
+                              url('../assets/images/flyers/pictures/Family_on_balcony_202604231822_2.jpeg');
+            background-size: cover;
+            background-position: center;
+            min-height: clamp(380px, 52vh, 540px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: calc(64px + var(--space-12)) 0 var(--space-12);
+            text-align: center;
+            color: #ffffff;
+        }
+        .wizard-hero h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: var(--space-3);
+            color: #ffffff;
+        }
+        .wizard-hero p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .wizard-section {
+            padding: var(--space-12) 0 var(--space-16);
+            background: var(--sand, #EAF0F5);
+            min-height: 60vh;
+        }
+        .wizard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--space-4);
+        }
+        /* Mode toggle */
+        .wizard-mode-toggle {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-8);
+        }
+        .wizard-mode-btn {
+            padding: var(--space-2) var(--space-6);
+            border: 2px solid var(--teal, #5B9BD5);
+            border-radius: var(--radius-full, 9999px);
+            background: transparent;
+            color: var(--teal, #5B9BD5);
+            font-family: 'Inter', sans-serif;
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .wizard-mode-btn.active {
+            background: var(--teal, #5B9BD5);
+            color: #fff;
+        }
+        .wizard-mode-btn:hover:not(.active) {
+            background: rgba(8, 145, 178, 0.1);
+        }
+        /* Region recommendation badge in results */
+        .region-rec-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            background: rgba(8, 145, 178, 0.1);
+            border: 1.5px solid var(--teal, #5B9BD5);
+            border-radius: var(--radius-full, 9999px);
+            color: var(--teal, #5B9BD5);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            margin: 4px;
+        }
+        .region-rec-section {
+            text-align: center;
+            margin-bottom: var(--space-8);
+            padding: var(--space-6);
+            background: white;
+            border-radius: var(--radius-xl, 16px);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .region-rec-section h3 {
+            color: var(--navy, #1B3A5C);
+            margin-bottom: var(--space-2);
+        }
+        .region-rec-section p {
+            color: var(--gray-500);
+            font-size: var(--font-size-sm);
+            margin-bottom: var(--space-4);
+        }
+        @media (max-width: 640px) {
+            .wizard-hero h1 { font-size: 1.75rem; }
+            .wizard-mode-toggle { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="navbar-logo">
+        <img class="navbar-logomark" src="../assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Bolsa Inmobiliaria" aria-hidden="true">
+        <span class="navbar-logo-words">CIASA <span>Bolsa Inmobiliaria</span> <small class="navbar-tagline">Tu Ruta a la Prosperidad</small></span>
+      </a>
+      <ul class="navbar-links" id="navLinks">
+        <li><a href="/proyectos/" data-i18n="nav.proyectos">Proyectos</a></li>
+        <li><a href="/mapa/" data-i18n="nav.mapa">Mapa</a></li>
+        <li class="navbar-dropdown">
+          <button type="button" class="navbar-dropdown-trigger" aria-expanded="false" aria-controls="advisoryMenu" data-i18n="nav.asesoria">Asesoría</button>
+          <ul class="navbar-dropdown-menu" id="advisoryMenu">
+            <li><a href="/invertir/" data-i18n="nav.guia">Guía de Inversión</a></li>
+            <li><a href="/wizard/" class="active" data-i18n="nav.wizard">Wizard de Inversión</a></li>
+            <li><a href="/herramientas/" data-i18n="nav.calculadoras">Calculadoras</a></li>
+            <li><a href="/articulos/" data-i18n="nav.articulos">Artículos</a></li>
+          </ul>
+        </li>
+        <li><a href="/servicios/" data-i18n="nav.servicios">Servicios</a></li>
+        <li><a href="/nosotros/" data-i18n="nav.nosotros">Nosotros</a></li>
+        <li><a href="/contacto/" data-i18n="nav.contacto">Contacto</a></li>
+        <li><a href="/contacto/" class="btn btn-primary btn-sm" style="background:#7DB33A!important;color:#FFFFFF!important;font-weight:700!important;text-shadow:0 1px 2px rgba(0,0,0,0.35)!important;" data-i18n="nav.invertir">Invertir Ahora</a></li>
+        <li><button class="search-trigger" onclick="openSearch()" aria-label="Buscar" data-i18n-title="nav.buscar" title="Buscar (Ctrl+K)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button></li>
+        <li class="lang-dropdown-wrap" id="langDropdownWrap">
+          <button class="lang-trigger" id="langTrigger" onclick="toggleLangDropdown(event)" aria-label="Idioma / Language" aria-expanded="false" aria-controls="langDropdownMenu">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span id="langCurrentLabel">ES</span>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="lang-dropdown-menu" id="langDropdownMenu">
+            <button class="lang-btn lang-option active" data-lang="es" onclick="if(typeof setLang==='function')setLang('es');closeLangDropdown()">Español</button>
+            <button class="lang-btn lang-option" data-lang="en" onclick="if(typeof setLang==='function')setLang('en');closeLangDropdown()">English</button>
+            <button class="lang-btn lang-option" data-lang="fr" onclick="if(typeof setLang==='function')setLang('fr');closeLangDropdown()">Français</button>
+          </div>
+        </li>
+      </ul>
+      <button class="navbar-toggle" id="navToggle" type="button" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="navLinks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+    <!-- Hero -->
+    <section class="wizard-hero">
+        <div class="container">
+            <h1 data-i18n="section.wizard">Descubre tu Inversión Ideal</h1>
+            <p data-i18n="section.wizard_subtitle">Responde unas preguntas y te recomendamos la región, tipo de propiedad y proyectos que mejor se ajustan a tu perfil.</p>
+        </div>
+    </section>
+
+    <!-- Wizard -->
+    <section class="wizard-section">
+        <div class="wizard-container">
+            <div class="wizard-mode-toggle">
+                <button class="wizard-mode-btn active" id="modeAuto" data-i18n="wizard.mode.auto" onclick="setMode('auto')">Recomiéndame la región</button>
+                <button class="wizard-mode-btn" id="modeManual" data-i18n="wizard.mode.manual" onclick="setMode('manual')">Yo elijo la región</button>
+            </div>
+            <div id="wizardContainer"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="siteFooter">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <img class="footer-logomark" src="../assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA Logo" aria-hidden="true">
+            <span class="footer-brand-words">CIASA <span class="footer-brand-accent">Bolsa Inmobiliaria</span> <small class="navbar-tagline">Tu Ruta a la Prosperidad</small></span>
+          </div>
+          <p class="footer-description" data-i18n="footer.description">Conectamos a dominicanos en el exterior con las mejores oportunidades de inversión inmobiliaria en República Dominicana.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.explorar">Explorar</h4>
+          <ul class="footer-links">
+            <li><a href="/proyectos/" data-i18n="nav.proyectos">Proyectos</a></li>
+            <li><a href="/mapa/">Mapa Interactivo</a></li>
+            <li><a href="/invertir/" data-i18n="nav.guia">Guía de Inversión</a></li>
+            <li><a href="/nosotros/" data-i18n="nav.nosotros">Nosotros</a></li>
+            <li><a href="/contacto/" data-i18n="nav.contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Responsabilidad Social</h4>
+          <p style="font-size:var(--font-size-xs);color:var(--gray-400);line-height:1.6;margin:0 0 var(--space-3);">Parte de nuestro impacto va de regreso a la comunidad.</p>
+          <a href="https://www.evolutionfoundationusa.org.do" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;font-size:var(--font-size-sm);color:var(--teal);font-weight:600;text-decoration:none;">
+            ❤ Evolution Foundation
+          </a>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.herramientas">Herramientas</h4>
+          <ul class="footer-links">
+            <li><a href="/herramientas/" data-i18n="nav.calculadoras">Calculadoras</a></li>
+            <li><a href="/faq/">Preguntas Frecuentes</a></li>
+            <li><a href="/crm-npi" style="color:var(--teal);font-weight:600;"><i class="fa-solid fa-chart-line" style="margin-right:4px;"></i> NPI CRM</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading" data-i18n="footer.contacto">Contacto</h4>
+          <ul class="footer-links">
+            <li><a href="tel:+18092995233" data-sc="phone-href" data-sc-no-text>+1 (809) 299-5233</a></li>
+            <li><a href="mailto:paola.caram@ciasard.org.do" data-sc="email-href" data-sc-no-text>paola.caram@ciasard.org.do</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n-html="footer.rights">&copy; 2026 Bolsa Inmobiliaria. Todos los derechos reservados.</p>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <a href="/crm-npi" class="footer-crm-badge" title="Panel de CRM & Leads"><i class="fa-solid fa-lock" style="font-size:0.75rem;margin-right:4px;"></i> NPI CRM</a>
+          <p>Powered by CIASA</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <!-- App Scripts -->
+    <script src="../js/relpath.js?v=20260820_v4"></script>
+    <script src="../js/icons.js?v=20260820_v4"></script>
+    <script src="../js/i18n.js?v=20260820_v4"></script>
+    <script src="../js/components.js?v=20260820_v4"></script>
+    <script src="../js/regions-data.js?v=20260820_v4"></script>
+    <script src="../js/projects-data.js?v=20260820_v4"></script>
+    <script src="../js/lead-form.js?v=20260820_v4"></script>
+    <script src="../js/wizard.js?v=20260820_v4"></script>
+
+    <script>
+        // Mode state
+        var currentMode = 'auto';
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.getElementById('modeAuto').classList.toggle('active', mode === 'auto');
+            document.getElementById('modeManual').classList.toggle('active', mode === 'manual');
+            startWizard();
+        }
+
+        function startWizard() {
+            if (currentMode === 'manual') {
+                initWizard('wizardContainer');
+            } else {
+                initSmartWizard('wizardContainer');
+            }
+        }
+
+        // Smart wizard — no region step, algorithm picks best regions
+        function initSmartWizard(containerId) {
+            var container = document.getElementById(containerId);
+            if (!container) return;
+
+            var state = { step: 0, budget: null, purpose: [], type: null, priority: null, timeline: null };
+
+            var steps = [
+                {
+                    title: T('wizard.step1.title'),
+                    subtitle: T('wizard.step1.subtitle'),
+                    type: "single", key: "budget",
+                    options: [
+                        { value: "0-200", label: T('wizard.step1.opt1.label'), icon: "wallet", desc: T('wizard.step1.opt1.desc') },
+                        { value: "200-350", label: T('wizard.step1.opt2.label'), icon: "banknote", desc: T('wizard.step1.opt2.desc') },
+                        { value: "350-500", label: T('wizard.step1.opt3.label'), icon: "banknote", desc: T('wizard.step1.opt3.desc') },
+                        { value: "500-1000", label: T('wizard.step1.opt4.label'), icon: "gem", desc: T('wizard.step1.opt4.desc') },
+                        { value: "1000+", label: T('wizard.step1.opt5.label'), icon: "crown", desc: T('wizard.step1.opt5.desc') }
+                    ]
+                },
+                {
+                    title: T('wizard.step3.title'),
+                    subtitle: T('wizard.step3.subtitle'),
+                    type: "multi", key: "purpose",
+                    options: [
+                        { value: "renta-corta", label: T('wizard.step3.renta_corta'), icon: "calendar-check", desc: T('wizard.step3.renta_corta_desc') },
+                        { value: "plusvalia", label: T('wizard.step3.plusvalia'), icon: "trending-up", desc: T('wizard.step3.plusvalia_desc') },
+                        { value: "retiro", label: T('wizard.step3.retiro'), icon: "armchair", desc: T('wizard.step3.retiro_desc') },
+                        { value: "uso-familiar", label: T('wizard.step3.uso_familiar'), icon: "users", desc: T('wizard.step3.uso_familiar_desc') },
+                        { value: "renta-larga", label: T('wizard.step3.renta_larga'), icon: "key", desc: T('wizard.step3.renta_larga_desc') },
+                        { value: "desarrollo", label: T('wizard.step3.desarrollo'), icon: "hammer", desc: T('wizard.step3.desarrollo_desc') }
+                    ]
+                },
+                {
+                    title: T('wizard.step4.title'),
+                    subtitle: T('wizard.step4.subtitle'),
+                    type: "single", key: "type",
+                    options: [
+                        { value: "", label: T('wizard.step4.any'), icon: "layout-grid", desc: T('wizard.step4.any_desc') },
+                        { value: "apartamento", label: T('wizard.step4.apartamento'), icon: "building", desc: T('wizard.step4.apartamento_desc') },
+                        { value: "villa", label: T('wizard.step4.villa'), icon: "house", desc: T('wizard.step4.villa_desc') },
+                        { value: "townhouse", label: T('wizard.step4.townhouse'), icon: "door-open", desc: T('wizard.step4.townhouse_desc') },
+                        { value: "terreno", label: T('wizard.step4.terreno'), icon: "trees", desc: T('wizard.step4.terreno_desc') },
+                        { value: "comercial", label: T('wizard.step4.comercial'), icon: "store", desc: T('wizard.step4.comercial_desc') }
+                    ]
+                },
+                {
+                    title: T('wizard.step5.title'),
+                    subtitle: T('wizard.step5.subtitle'),
+                    type: "single", key: "priority",
+                    options: [
+                        { value: "roi", label: T('wizard.step5.roi'), icon: "bar-chart-3", desc: T('wizard.step5.roi_desc') },
+                        { value: "price", label: T('wizard.step5.price'), icon: "piggy-bank", desc: T('wizard.step5.price_desc') },
+                        { value: "location", label: T('wizard.step5.location'), icon: "map-pin", desc: T('wizard.step5.location_desc') },
+                        { value: "confotur", label: T('wizard.step5.confotur'), icon: "landmark", desc: T('wizard.step5.confotur_desc') },
+                        { value: "delivery", label: T('wizard.step5.delivery'), icon: "zap", desc: T('wizard.step5.delivery_desc') },
+                        { value: "nature", label: T('wizard.step5.nature'), icon: "leaf", desc: T('wizard.step5.nature_desc') }
+                    ]
+                }
+            ];
+
+            function render() {
+                if (state.step >= steps.length) {
+                    renderSmartResults();
+                    return;
+                }
+
+                var step = steps[state.step];
+                var html = '<div class="wizard-progress">';
+                for (var i = 0; i < steps.length; i++) {
+                    var cls = "wizard-dot";
+                    if (i < state.step) cls += " completed";
+                    if (i === state.step) cls += " active";
+                    html += '<div class="' + cls + '"></div>';
+                }
+                html += '</div>';
+
+                html += '<h2 class="text-center mb-2">' + step.title + '</h2>';
+                html += '<p class="text-center text-gray mb-8">' + step.subtitle + '</p>';
+
+                html += '<div class="wizard-options">';
+                step.options.forEach(function (opt) {
+                    var selected = "";
+                    if (step.type === "multi") {
+                        if (state[step.key] && state[step.key].indexOf(opt.value) > -1) selected = " selected";
+                    } else {
+                        if (state[step.key] === opt.value) selected = " selected";
+                    }
+                    html +=
+                        '<div class="wizard-option' + selected + '" data-value="' + opt.value + '">' +
+                        '<div class="wizard-option-icon">' + ICON(opt.icon, 28, '#5B9BD5') + '</div>' +
+                        '<div class="wizard-option-label">' + opt.label + '</div>' +
+                        '<div class="wizard-option-desc">' + opt.desc + '</div></div>';
+                });
+                html += '</div>';
+
+                html += '<div class="flex justify-center gap-4 mt-8">';
+                if (state.step > 0) html += '<button class="btn btn-outline" id="wizardBack">' + T('wizard.back') + '</button>';
+                html += '<button class="btn btn-primary btn-lg" id="wizardNext">' + T('wizard.next') + '</button>';
+                html += '</div>';
+
+                container.innerHTML = html;
+
+                // Events
+                container.querySelectorAll(".wizard-option").forEach(function (el) {
+                    el.addEventListener("click", function () {
+                        var val = el.getAttribute("data-value");
+                        if (step.type === "multi") {
+                            if (!state[step.key]) state[step.key] = [];
+                            var idx = state[step.key].indexOf(val);
+                            if (idx > -1) { state[step.key].splice(idx, 1); }
+                            else { state[step.key].push(val); }
+                            el.classList.toggle("selected");
+                        } else {
+                            state[step.key] = val;
+                            container.querySelectorAll(".wizard-option").forEach(function (o) { o.classList.remove("selected"); });
+                            el.classList.add("selected");
+                        }
+                    });
+                });
+
+                var nextBtn = document.getElementById("wizardNext");
+                if (nextBtn) nextBtn.addEventListener("click", function () { state.step++; render(); });
+
+                var backBtn = document.getElementById("wizardBack");
+                if (backBtn) backBtn.addEventListener("click", function () { state.step--; render(); });
+            }
+
+            // Smart region scoring: pick best regions based on user answers
+            function scoreRegions() {
+                var regionScores = {};
+                REGIONS.forEach(function (r) { regionScores[r.id] = 0; });
+
+                // Score based on purpose
+                var purposes = state.purpose || [];
+                if (purposes.indexOf("renta-corta") > -1) {
+                    regionScores["punta-cana"] += 20;  // Best Airbnb market
+                    regionScores["bayahibe"] += 12;
+                    regionScores["juan-dolio"] += 8;
+                }
+                if (purposes.indexOf("plusvalia") > -1) {
+                    regionScores["punta-cana"] += 15;
+                    regionScores["miches"] += 18;       // Emerging market = highest appreciation
+                    regionScores["bani"] += 12;
+                    regionScores["distrito-nacional"] += 10;
+                }
+                if (purposes.indexOf("retiro") > -1) {
+                    regionScores["bayahibe"] += 15;     // Peaceful, nature
+                    regionScores["juan-dolio"] += 12;   // Close to city
+                    regionScores["bani"] += 10;
+                    regionScores["punta-cana"] += 8;
+                }
+                if (purposes.indexOf("uso-familiar") > -1) {
+                    regionScores["punta-cana"] += 15;
+                    regionScores["juan-dolio"] += 12;
+                    regionScores["bayahibe"] += 10;
+                }
+                if (purposes.indexOf("renta-larga") > -1) {
+                    regionScores["distrito-nacional"] += 18;  // Urban rental demand
+                    regionScores["juan-dolio"] += 10;
+                    regionScores["punta-cana"] += 8;
+                }
+                if (purposes.indexOf("desarrollo") > -1) {
+                    regionScores["miches"] += 15;
+                    regionScores["bani"] += 15;
+                    regionScores["punta-cana"] += 10;
+                }
+
+                // Score based on priority
+                if (state.priority === "roi") {
+                    regionScores["punta-cana"] += 15;
+                    regionScores["bayahibe"] += 10;
+                }
+                if (state.priority === "price") {
+                    regionScores["bani"] += 15;
+                    regionScores["miches"] += 12;
+                    regionScores["juan-dolio"] += 8;
+                }
+                if (state.priority === "location") {
+                    regionScores["punta-cana"] += 18;
+                    regionScores["distrito-nacional"] += 12;
+                }
+                if (state.priority === "confotur") {
+                    regionScores["punta-cana"] += 15;
+                    regionScores["bayahibe"] += 12;
+                    regionScores["miches"] += 10;
+                }
+                if (state.priority === "delivery") {
+                    regionScores["punta-cana"] += 12;
+                    regionScores["juan-dolio"] += 10;
+                }
+                if (state.priority === "nature") {
+                    regionScores["bayahibe"] += 18;
+                    regionScores["miches"] += 15;
+                    regionScores["bani"] += 12;
+                }
+
+                // Score based on budget (some regions have higher entry points)
+                if (state.budget) {
+                    var budgetMax = state.budget === "1000+" ? 2000000 : parseInt(state.budget.split("-")[1]) * 1000;
+                    if (budgetMax <= 200000) {
+                        regionScores["bani"] += 10;
+                        regionScores["miches"] += 8;
+                        regionScores["juan-dolio"] += 5;
+                    } else if (budgetMax <= 350000) {
+                        regionScores["juan-dolio"] += 8;
+                        regionScores["bayahibe"] += 8;
+                        regionScores["punta-cana"] += 5;
+                    } else {
+                        regionScores["punta-cana"] += 10;
+                        regionScores["distrito-nacional"] += 8;
+                    }
+                }
+
+                // Sort and return top regions
+                var sorted = Object.keys(regionScores).sort(function (a, b) {
+                    return regionScores[b] - regionScores[a];
+                });
+
+                return sorted.map(function (id) {
+                    return { id: id, score: regionScores[id], region: REGIONS.find(function (r) { return r.id === id; }) };
+                }).filter(function (r) { return r.score > 0; });
+            }
+
+            function getSmartProjects(topRegionIds) {
+                var results = PROJECTS.slice();
+
+                // Filter by budget
+                if (state.budget) {
+                    var parts = state.budget.split("-");
+                    var min = parseInt(parts[0]) * 1000;
+                    var max = parts[1] === "+" ? Infinity : parseInt(parts[1]) * 1000;
+                    results = results.filter(function (p) {
+                        return p.priceFrom >= min * 0.8 && p.priceFrom <= max * 1.2;
+                    });
+                }
+
+                // Filter by type
+                if (state.type) {
+                    results = results.filter(function (p) { return p.type === state.type; });
+                }
+
+                // Score
+                results.forEach(function (p) {
+                    p._score = 0;
+
+                    // Region match — top region gets highest boost
+                    var regionIdx = topRegionIds.indexOf(p.region);
+                    if (regionIdx === 0) p._score += 20;
+                    else if (regionIdx === 1) p._score += 12;
+                    else if (regionIdx >= 2) p._score += 5;
+
+                    // Purpose
+                    if (state.purpose && state.purpose.length > 0) {
+                        state.purpose.forEach(function (purpose) {
+                            if (p.investmentProfile && p.investmentProfile.indexOf(purpose) > -1) p._score += 10;
+                        });
+                    }
+
+                    // Priority
+                    if (state.priority === "roi" && p.roi) p._score += 15;
+                    if (state.priority === "price") p._score += (1000000 - p.priceFrom) / 100000;
+                    if (state.priority === "confotur" && p.confotur) p._score += 15;
+                    if (state.priority === "delivery" && p.delivery && p.delivery !== "En Desarrollo") p._score += 10;
+                    if (state.priority === "location" && (p.region === "punta-cana" || (p.subLocation && p.subLocation.indexOf("Cap Cana") > -1))) p._score += 10;
+                    if (state.priority === "nature" && (p.region === "bayahibe" || p.region === "miches" || p.region === "bani")) p._score += 12;
+
+                    if (p.featured) p._score += 5;
+                });
+
+                results.sort(function (a, b) { return b._score - a._score; });
+                return results.slice(0, 6);
+            }
+
+            function renderSmartResults() {
+                var rankedRegions = scoreRegions();
+                var topRegionIds = rankedRegions.slice(0, 3).map(function (r) { return r.id; });
+                var matches = getSmartProjects(topRegionIds);
+
+                var html = '<div class="wizard-progress">';
+                for (var i = 0; i < steps.length; i++) html += '<div class="wizard-dot completed"></div>';
+                html += '</div>';
+
+                html += '<h2 class="text-center mb-2">' + T('wizard.smart.results.title') + '</h2>';
+                html += '<p class="text-center text-gray mb-8">' + T('wizard.smart.results.subtitle') + '</p>';
+
+                // Region recommendation
+                html += '<div class="region-rec-section">';
+                html += '<h3>' + T('wizard.smart.regions.title') + '</h3>';
+                html += '<p>' + T('wizard.smart.regions.subtitle') + '</p>';
+                html += '<div>';
+                rankedRegions.slice(0, 3).forEach(function (r, idx) {
+                    if (!r.region) return;
+                    var label = (idx === 0 ? ICON('star', 16, '#D4A853') + ' ' : '') + ICON(r.region.icon, 18, '#5B9BD5') + ' ' + r.region.name;
+                    html += '<a href="../proyectos/?region=' + r.id + '" class="region-rec-badge">' + label + '</a>';
+                });
+                html += '</div>';
+
+                // Explain why
+                if (rankedRegions.length > 0 && rankedRegions[0].region) {
+                    var top = rankedRegions[0].region;
+                    html += '<p style="margin-top: var(--space-4); font-size: var(--font-size-sm); color: var(--gray-600);">';
+                    html += '<strong>' + top.name + '</strong> ' + T('wizard.smart.regions.best') + ' ' + top.description;
+                    html += ' (' + top.projectCount + ' ' + T('wizard.smart.regions.projects') + ', ' + top.priceRange + ')';
+                    html += '</p>';
+                }
+                html += '</div>';
+
+                // Project results (only show if there are matches)
+                if (matches.length === 0) {
+                    // Skip entire section
+                } else {
+                    html += '<h3 class="text-center mb-6" style="color: var(--navy);">' + T('wizard.results.title') + '</h3>';
+                    html += '<div class="projects-grid">';
+                    matches.forEach(function (project) {
+                        var regionData = getRegionById(project.region);
+                        var badges = '';
+                        if (project.confotur) badges += '<span class="badge badge-confotur">CONFOTUR</span> ';
+                        if (project.roi) badges += '<span class="badge badge-roi">ROI ' + project.roi + '</span> ';
+
+                        var imgStyle = project.image
+                            ? 'background-image: url(\'' + (typeof window.relRoot === 'function' ? window.relRoot() : '') + project.image + '\'); background-size: cover; background-position: center;'
+                            : 'background: linear-gradient(135deg, var(--navy), var(--teal));';
+
+                        html +=
+                            '<a href="' + getProjectUrl(project) + '" class="card project-card" style="text-decoration:none; color:inherit;">' +
+                            '<div class="card-image" style="' + imgStyle + '">' +
+                            '<div style="position:absolute; bottom: var(--space-3); left: var(--space-3);">' + badges + '</div></div>' +
+                            '<div class="card-body">' +
+                            '<p class="card-subtitle">' + (regionData ? regionData.name : '') + ' &middot; ' + getPublicLocation(project) + '</p>' +
+                            '<h3 class="card-title">' + getPublicName(project) + '</h3>' +
+                            '<p class="price">' + formatPriceRange(project) + '</p>' +
+                            '<div class="card-stats">' +
+                            (project.bedrooms ? '<span class="stat"><strong>' + project.bedrooms + '</strong> Hab</span>' : '') +
+                            '<span class="stat"><strong>' + formatSize(project) + '</strong></span>' +
+                            '</div></div></a>';
+                    });
+                    html += '</div>';
+                }
+
+                // Lead capture
+                html +=
+                    '<div style="margin-top: var(--space-8); padding: var(--space-8); background: var(--navy); border-radius: var(--radius-xl); text-align: center;">' +
+                    '<h3 style="color: var(--white); margin-bottom: var(--space-2);">' + T('wizard.lead.title') + '</h3>' +
+                    '<p style="color: rgba(255,255,255,0.7); margin-bottom: var(--space-6);">' + T('wizard.lead.subtitle') + '</p>' +
+                    '<form id="wizardLeadForm" style="max-width: 400px; margin: 0 auto; text-align: left;">' +
+                    '<div class="lead-form-inline">' +
+                    '<div class="form-group"><label class="form-label">' + T('form.nombre') + '</label><input type="text" name="nombre" class="form-input" required></div>' +
+                    '<div class="form-group"><label class="form-label">' + T('form.email') + '</label><input type="email" name="email" class="form-input" required></div>' +
+                    '<div class="form-group"><label class="form-label">' + T('form.telefono') + '</label><input type="tel" name="telefono" class="form-input"></div>' +
+                    '<div class="form-group"><label class="form-label">' + T('form.ciudad') + '</label><input type="text" name="ciudad" class="form-input" placeholder="Ej: New York"></div>' +
+                    '<div class="form-group"><label class="form-label">' + T('form.zipcode') + '</label><input type="text" name="zipCode" class="form-input" placeholder="10001"></div>' +
+                    '<input type="hidden" name="montoInversion" value="' + (state.budget || '') + '">' +
+                    '<input type="hidden" name="region" value="' + (topRegionIds[0] || '') + '">' +
+                    '<div class="form-group"><label class="form-label">¿Cómo nos encontraste?</label>' +
+                    '<select name="comoNosEncontro" class="form-select">' +
+                    '<option value="">Selecciona una opción</option>' +
+                    '<optgroup label="Referido por">' +
+                    '<option value="referido-anyelina">Anyelina</option>' +
+                    '<option value="referido-giordana">Giordana</option>' +
+                    '<option value="referido-paola">Paola</option>' +
+                    '<option value="referido-carmen">Carmen</option>' +
+                    '<option value="referido-cemi">CEMI</option>' +
+                    '<option value="amistad">Amistad / Conocido</option>' +
+                    '<option value="referido-otro">Otro referidor/agente</option>' +
+                    '</optgroup>' +
+                    '<optgroup label="Búsqueda en Internet">' +
+                    '<option value="google">Google</option>' +
+                    '<option value="bing">Bing</option>' +
+                    '</optgroup>' +
+                    '<optgroup label="Redes Sociales">' +
+                    '<option value="instagram-post">Instagram (publicación)</option>' +
+                    '<option value="instagram-ad">Instagram (anuncio)</option>' +
+                    '<option value="linkedin-post">LinkedIn (publicación)</option>' +
+                    '<option value="linkedin-ad">LinkedIn (anuncio)</option>' +
+                    '<option value="facebook-post">Facebook (publicación)</option>' +
+                    '<option value="facebook-ad">Facebook (anuncio)</option>' +
+                    '</optgroup>' +
+                    '<option value="otros">Otros medios...</option>' +
+                    '</select>' +
+                    '<input type="text" name="comoNosEncontroNombre" class="form-input" style="display:none;margin-top:var(--space-2);" placeholder="¿Quién te refirió?">' +
+                    '<input type="text" name="otrosMedios" class="form-input" style="display:none;margin-top:var(--space-2);" placeholder="¿Cuál?">' +
+                    '</div>' +
+                    '<button type="submit" class="btn btn-primary btn-lg btn-block">' + T('form.submit_contact') + '</button>' +
+                    '</div></form></div>';
+
+                html += '<div class="text-center mt-6"><button class="btn btn-outline" id="wizardRestart">' + T('wizard.restart') + '</button></div>';
+
+                container.innerHTML = html;
+
+                if (typeof initLeadForm === "function") initLeadForm("wizardLeadForm", "wizard-smart");
+
+                var restartBtn = document.getElementById("wizardRestart");
+                if (restartBtn) restartBtn.addEventListener("click", function () {
+                    state = { step: 0, budget: null, purpose: [], type: null, priority: null };
+                    render();
+                });
+            }
+
+            render();
+        }
+
+        // Start with auto mode
+        startWizard();
+
+        // Init chat widget
+
+        // Re-render wizard when language changes
+        document.addEventListener('langchange', function() {
+            document.getElementById('modeAuto').textContent = T('wizard.mode.auto');
+            document.getElementById('modeManual').textContent = T('wizard.mode.manual');
+            startWizard();
+        });
+    </script>
+
+
+</body>
+</html>
