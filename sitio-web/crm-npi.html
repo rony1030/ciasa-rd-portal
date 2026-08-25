@@ -484,88 +484,196 @@
       align-items: center;
       gap: 6px;
       padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      transition: all 0.15s;
     }
-    .badge-import-new { background: #dcfce7; color: #15803d; }
-    .badge-import-updated { background: #dbeafe; color: #1e40af; }
 
-    /* Responsive */
+    /* Responsive adjustments */
     @media (max-width: 1024px) {
-      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .kpi-ribbon-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .kpi-item:nth-child(2) {
+        border-right: none;
+        padding-right: 0;
+      }
     }
     @media (max-width: 768px) {
-      .app-container { padding: 12px 12px 40px; }
-      .top-header { padding: 10px 14px; }
-      .brand-title { font-size: 1rem; }
-      .user-info { display: none; }
-      .kpi-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .kpi-card { padding: 12px; }
-      .kpi-num { font-size: 1.35rem; }
-      .filter-card { padding: 12px; }
-      .action-buttons { width: 100%; }
-      .action-buttons .btn-action { flex: 1; justify-content: center; font-size: 0.78rem; padding: 0 8px; }
+      .top-header {
+        padding: 10px 14px;
+      }
+      .app-container {
+        padding: 10px 10px 40px;
+        gap: 12px;
+      }
+      .kpi-ribbon-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 10px;
+        gap: 10px;
+      }
+      .kpi-number-val {
+        font-size: 1.1rem;
+      }
+      .filter-card {
+        padding: 12px;
+      }
+      .filter-row {
+        gap: 8px;
+      }
+      .form-group {
+        min-width: 100% !important;
+        flex: 1 1 100% !important;
+      }
+      .filter-bottom-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .checkbox-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .action-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+      }
+      .action-buttons .btn-action {
+        width: 100%;
+        justify-content: center;
+        height: 38px;
+        font-size: 0.8rem;
+      }
+      .btn-import-sync {
+        grid-column: 1 / -1;
+      }
       .table-container { display: none; }
       .mobile-cards-grid { display: grid; }
       .social-channel-tabs { grid-template-columns: repeat(2, 1fr); }
     }
+    @media (max-width: 480px) {
+      .kpi-ribbon-grid {
+        grid-template-columns: 1fr;
+      }
+      .kpi-item {
+        border-right: none;
+        padding-right: 0;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 8px;
+      }
+      .kpi-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .checkbox-group {
+        grid-template-columns: 1fr;
+      }
+      .action-buttons {
+        grid-template-columns: 1fr;
+      }
+      .btn-nav-action span {
+        display: none;
+      }
+      .brand-title {
+        font-size: 0.95rem;
+      }
+    }
   </style>
-</head>
-<body>
+</head><body>
 
-  <div class="app-container" style="padding-top: 10px;">    <!-- ==========================================================================
-         ULTRA-SLIM KPI RIBBON (SINGLE ROW SLEEK METRICS)
+  <!-- Top Navigation Bar -->
+  <header class="top-header">
+    <div class="brand-section">
+      <img src="/assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA" class="brand-logo-img" onerror="this.src='/favicon.png';">
+      <div>
+        <div class="brand-title">CIASA <span>NPI CRM</span></div>
+        <div class="brand-sub">Marketing & Proveedores Médicos</div>
+      </div>
+    </div>
+    <div class="user-section">
+      <a href="/admin" class="btn-nav-action primary" title="Regresar al CRM Principal">
+        <i class="fa-solid fa-house-chimney-window"></i>
+        <span>Volver a CRM Admin</span>
+      </a>
+      <a href="/admin/leads" class="btn-nav-action" title="Ver Pipeline de Prospectos">
+        <i class="fa-solid fa-users"></i>
+        <span>Leads</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <!-- ==========================================================================
+         RESPONSIVE KPI RIBBON
          ========================================================================== -->
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; flex-shrink: 0; background: #FFFFFF; border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 8px 14px; box-shadow: var(--shadow-sm);">
+    <div class="kpi-ribbon-grid">
       
       <!-- Total Providers -->
-      <div style="display: flex; align-items: center; gap: 10px; border-right: 1px solid var(--border-color); padding-right: 10px;">
-        <div style="width: 28px; height: 28px; border-radius: 6px; background: #EFF6FF; color: #2563EB; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0;"><i class="fa-solid fa-user-doctor"></i></div>
-        <div>
-          <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted);">Total Proveedores</div>
-          <div style="font-size: 1.1rem; font-weight: 900; color: #0F172A; line-height: 1;" id="kpiTotalProviders">8,880,716</div>
+      <div class="kpi-item">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="kpi-icon-box" style="background: #EFF6FF; color: #2563EB;">
+            <i class="fa-solid fa-user-doctor"></i>
+          </div>
+          <div>
+            <div class="kpi-label-text">Total Proveedores</div>
+            <div class="kpi-number-val" id="kpiTotalProviders">8,880,716</div>
+          </div>
         </div>
       </div>
 
       <!-- Total Latinos -->
-      <div style="display: flex; align-items: center; justify-content: space-between; border-right: 1px solid var(--border-color); padding-right: 10px;">
+      <div class="kpi-item">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <div style="width: 28px; height: 28px; border-radius: 6px; background: #FEF3C7; color: #D97706; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0;"><i class="fa-solid fa-flag"></i></div>
+          <div class="kpi-icon-box" style="background: #FEF3C7; color: #D97706;">
+            <i class="fa-solid fa-flag"></i>
+          </div>
           <div>
-            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #D97706;">Médicos Latinos</div>
-            <div style="font-size: 1.1rem; font-weight: 900; color: #B45309; line-height: 1;" id="kpiTotalLatinos">1,420,500</div>
+            <div class="kpi-label-text" style="color: #D97706;">Médicos Latinos</div>
+            <div class="kpi-number-val" style="color: #B45309;" id="kpiTotalLatinos">1,420,500</div>
           </div>
         </div>
-        <button id="btnToggleLatinoKpi" style="background: #FEF3C7; border: 1px solid #FDE68A; color: #B45309; font-size: 0.65rem; font-weight: 700; padding: 3px 7px; border-radius: 4px; cursor: pointer;" onclick="toggleLatinoFilter()">
+        <button id="btnToggleLatinoKpi" class="kpi-action-btn" style="background: #FEF3C7; border-color: #FDE68A; color: #B45309;" onclick="toggleLatinoFilter()">
           <i class="fa-solid fa-filter"></i> Latinos
         </button>
       </div>
 
       <!-- Total Emails -->
-      <div style="display: flex; align-items: center; justify-content: space-between; border-right: 1px solid var(--border-color); padding-right: 10px;">
+      <div class="kpi-item">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <div style="width: 28px; height: 28px; border-radius: 6px; background: #F0FDF4; color: #16A34A; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0;"><i class="fa-solid fa-envelope"></i></div>
+          <div class="kpi-icon-box" style="background: #F0FDF4; color: #16A34A;">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
           <div>
-            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #16A34A;">Email Directo</div>
-            <div style="font-size: 1.1rem; font-weight: 900; color: #15803D; line-height: 1;" id="kpiTotalEmails">2,150,000</div>
+            <div class="kpi-label-text" style="color: #16A34A;">Email Directo</div>
+            <div class="kpi-number-val" style="color: #15803D;" id="kpiTotalEmails">2,150,000</div>
           </div>
         </div>
-        <button style="background: #F0FDF4; border: 1px solid #BBF7D0; color: #15803D; font-size: 0.65rem; font-weight: 700; padding: 3px 7px; border-radius: 4px; cursor: pointer;" onclick="openEmailModal()">
+        <button class="kpi-action-btn" style="background: #F0FDF4; border-color: #BBF7D0; color: #15803D;" onclick="openEmailModal()">
           <i class="fa-solid fa-paper-plane"></i> Email
         </button>
       </div>
 
       <!-- Total Phones -->
-      <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div class="kpi-item">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <div style="width: 28px; height: 28px; border-radius: 6px; background: #FAF5FF; color: #9333EA; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0;"><i class="fa-solid fa-phone"></i></div>
+          <div class="kpi-icon-box" style="background: #FAF5FF; color: #9333EA;">
+            <i class="fa-solid fa-phone"></i>
+          </div>
           <div>
-            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #9333EA;">Teléfono / WA</div>
-            <div style="font-size: 1.1rem; font-weight: 900; color: #7E22CE; line-height: 1;" id="kpiTotalPhones">3,890,000</div>
+            <div class="kpi-label-text" style="color: #9333EA;">Teléfono / WA</div>
+            <div class="kpi-number-val" style="color: #7E22CE;" id="kpiTotalPhones">3,890,000</div>
           </div>
         </div>
-        <button style="background: #FAF5FF; border: 1px solid #E9D5FF; color: #7E22CE; font-size: 0.65rem; font-weight: 700; padding: 3px 7px; border-radius: 4px; cursor: pointer;" onclick="openSocialAdsModal()">
+        <button class="kpi-action-btn" style="background: #FAF5FF; border-color: #E9D5FF; color: #7E22CE;" onclick="openSocialAdsModal()">
           <i class="fa-solid fa-share-nodes"></i> Pauta
         </button>
       </div>

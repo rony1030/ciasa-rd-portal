@@ -1,0 +1,1741 @@
+[
+  {
+    "available": true,
+    "id": "ciasa-001-pc",
+    "code": "CIASA 001 - PC",
+    "name": "Marina Garden 2",
+    "slug": "marina-garden-2",
+    "image": "assets/images/projects/marina-garden-2.jpg",
+    "region": "punta-cana",
+    "subLocation": "La Marina, Cap Cana",
+    "type": "apartamento",
+    "description": "Proyecto residencial de lujo en la exclusiva zona de La Marina, Cap Cana. Apartamentos y penthouses con acabados premium, vistas al mar y acceso a la marina más grande del Caribe.",
+    "description_en": "Luxury residential development in the exclusive La Marina area of Cap Cana. Apartments and penthouses with premium finishes, ocean views, and access to the largest marina in the Caribbean.",
+    "description_fr": "Projet résidentiel de luxe dans le quartier exclusif de La Marina, Cap Cana. Appartements et penthouses avec finitions haut de gamme, vue sur la mer et accès à la plus grande marina des Caraïbes.",
+    "priceFrom": 630000,
+    "priceTo": 630000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 183.07,
+    "sizeTo": 183.07,
+    "bedrooms": "2",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": "7.4%",
+    "confotur": true,
+    "airbnbFriendly": true,
+    "delivery": "Diciembre 2025",
+    "delivery_en": "December 2025",
+    "delivery_fr": "Décembre 2025",
+    "amenities": [
+      "Piscina",
+      "Gimnasio",
+      "Área social",
+      "Seguridad 24/7",
+      "Parqueo",
+      "Club de playa"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Gym",
+      "Social Area",
+      "24/7 Security",
+      "Parking",
+      "Beach Club"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Gymnase",
+      "Espace social",
+      "Sécurité 24/7",
+      "Stationnement",
+      "Club de plage"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.5,
+      "lng": -68.37
+    },
+    "featured": true,
+    "gallery": [
+      "assets/images/projects/marina-garden-2.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-002-pc",
+    "code": "CIASA 002 - PC",
+    "name": "Wave Garden",
+    "slug": "wave-garden",
+    "image": "assets/images/projects/wave-garden.jpg",
+    "region": "punta-cana",
+    "subLocation": "Blvd Zona Hotelera",
+    "type": "apartamento",
+    "description": "Ubicado en el corazón de la Zona Hotelera de Punta Cana, Wave Garden ofrece apartamentos modernos con acceso directo a la playa y el mejor retorno de inversión de la zona.",
+    "description_en": "Located in the heart of Punta Cana's Hotel Zone, Wave Garden offers modern apartments with direct beach access and the best investment returns in the area.",
+    "description_fr": "Situé au cœur de la Zone Hôtelière de Punta Cana, Wave Garden propose des appartements modernes avec accès direct à la plage et les meilleurs rendements de la région.",
+    "priceFrom": 350000,
+    "priceTo": 690000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 62,
+    "sizeTo": 93,
+    "bedrooms": "1",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": "11.2%",
+    "confotur": true,
+    "airbnbFriendly": true,
+    "delivery": "Abril 2025",
+    "delivery_en": "April 2025",
+    "delivery_fr": "Avril 2025",
+    "amenities": [
+      "Piscina infinity",
+      "Beach club",
+      "Gimnasio",
+      "Restaurante",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Infinity Pool",
+      "Beach Club",
+      "Gym",
+      "Restaurant",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine à débordement",
+      "Club de plage",
+      "Gymnase",
+      "Restaurant",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.58,
+      "lng": -68.36
+    },
+    "featured": true,
+    "gallery": [
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-003-pc",
+    "code": "CIASA 003 - PC",
+    "name": "Secret Garden",
+    "slug": "secret-garden",
+    "image": "assets/images/projects/secret-garden.jpg",
+    "region": "punta-cana",
+    "subLocation": "El Cortecito, Bavaro",
+    "type": "apartamento",
+    "description": "Complejo residencial en El Cortecito con mezcla de apartamentos y villas. Zona de alta demanda turística con playas premiadas y vida nocturna vibrante.",
+    "description_en": "Residential complex in El Cortecito featuring a mix of apartments and villas. High-demand tourist area with award-winning beaches and vibrant nightlife.",
+    "description_fr": "Complexe résidentiel à El Cortecito avec un mélange d'appartements et de villas. Zone à forte demande touristique avec des plages primées et une vie nocturne animée.",
+    "priceFrom": 240000,
+    "priceTo": 435000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 83,
+    "sizeTo": 192,
+    "bedrooms": "2",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": "6%",
+    "confotur": true,
+    "airbnbFriendly": true,
+    "delivery": "Diciembre 2025",
+    "delivery_en": "December 2025",
+    "delivery_fr": "Décembre 2025",
+    "amenities": [
+      "Piscina",
+      "Área BBQ",
+      "Gimnasio",
+      "Parque infantil",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Pool",
+      "BBQ Area",
+      "Gym",
+      "Playground",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Espace BBQ",
+      "Gymnase",
+      "Aire de jeux",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "uso-familiar"
+    ],
+    "coordinates": {
+      "lat": 18.67,
+      "lng": -68.4
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/secret-garden.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-004-pc",
+    "code": "CIASA 004 - PC",
+    "name": "Cassia",
+    "slug": "cassia",
+    "image": "assets/images/projects/cassia.jpg",
+    "region": "punta-cana",
+    "subLocation": "El Cortecito, Bavaro",
+    "type": "apartamento",
+    "description": "Suite hotelera con operación tipo resort en El Cortecito. Inversión desde $225K con retornos proyectados de hasta 20.6%. Operación todo incluido.",
+    "description_en": "Hotel suite with resort-style operations in El Cortecito. Investment starting at $225K with projected returns up to 20.6%. Fully managed, all-inclusive operation.",
+    "description_fr": "Suite hôtelière avec exploitation de type resort à El Cortecito. Investissement à partir de 225 000 $ avec des rendements projetés jusqu'à 20,6 %. Exploitation tout compris et entièrement gérée.",
+    "priceFrom": 225000,
+    "priceTo": 225000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 45,
+    "sizeTo": 45,
+    "bedrooms": null,
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": "10%",
+    "confotur": false,
+    "airbnbFriendly": false,
+    "delivery": "Marzo 2026",
+    "delivery_en": "March 2026",
+    "delivery_fr": "Mars 2026",
+    "amenities": [
+      "Piscina",
+      "Restaurante",
+      "Spa",
+      "Lobby bar",
+      "Servicio de concierge"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Restaurant",
+      "Spa",
+      "Lobby Bar",
+      "Concierge Service"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Restaurant",
+      "Spa",
+      "Bar du hall",
+      "Service de conciergerie"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "hands-off"
+    ],
+    "coordinates": {
+      "lat": 18.67,
+      "lng": -68.39
+    },
+    "featured": true,
+    "gallery": [
+      "assets/images/projects/cassia.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-005-pc",
+    "code": "CIASA 005 - PC",
+    "name": "Moon Garden",
+    "slug": "moon-garden",
+    "image": "assets/images/projects/moon-garden.jpg",
+    "region": "punta-cana",
+    "subLocation": "El Cortecito, Bavaro",
+    "type": "apartamento",
+    "description": "Proyecto de apartamentos con múltiples configuraciones en El Cortecito. Desde studios hasta 3 habitaciones con excelentes retornos proyectados.",
+    "description_en": "Apartment development with multiple layouts in El Cortecito. From studios to 3-bedroom units with excellent projected returns.",
+    "description_fr": "Projet d'appartements avec de multiples configurations à El Cortecito. Du studio au 3 chambres avec d'excellents rendements projetés.",
+    "priceFrom": 200000,
+    "priceTo": 447000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 68,
+    "sizeTo": 170,
+    "bedrooms": "1-3",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": "9%",
+    "confotur": true,
+    "airbnbFriendly": true,
+    "delivery": "Enero 2027",
+    "delivery_en": "January 2027",
+    "delivery_fr": "Janvier 2027",
+    "amenities": [
+      "Piscina",
+      "Gimnasio",
+      "Área social",
+      "Coworking",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Gym",
+      "Social Area",
+      "Coworking",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Gymnase",
+      "Espace social",
+      "Coworking",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.67,
+      "lng": -68.41
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/moon-garden.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-006-pc",
+    "code": "CIASA 006 - PC",
+    "name": "Moon Garden 2",
+    "slug": "moon-garden-2",
+    "image": "assets/images/projects/moon-garden-2.jpg",
+    "region": "punta-cana",
+    "subLocation": "Cabeza de Toro",
+    "type": "apartamento",
+    "description": "Segunda fase del exitoso Moon Garden, ahora en Cabeza de Toro. Apartamentos de 2 y 3 habitaciones con amenidades de resort y altos retornos.",
+    "description_en": "Second phase of the successful Moon Garden, now in Cabeza de Toro. 2 and 3-bedroom apartments with resort amenities and high returns.",
+    "description_fr": "Deuxième phase du populaire Moon Garden, désormais à Cabeza de Toro. Appartements de 2 et 3 chambres avec commodités de resort et rendements élevés.",
+    "priceFrom": 280000,
+    "priceTo": 504000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 83,
+    "sizeTo": 209,
+    "bedrooms": "2-3",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": "9%",
+    "confotur": true,
+    "airbnbFriendly": true,
+    "delivery": "Septiembre 2027",
+    "delivery_en": "September 2027",
+    "delivery_fr": "Septembre 2027",
+    "amenities": [
+      "Piscina",
+      "Gimnasio",
+      "Beach club",
+      "Área infantil",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Gym",
+      "Beach Club",
+      "Kids Area",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Gymnase",
+      "Club de plage",
+      "Aire de jeux",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.62,
+      "lng": -68.38
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/moon-garden-2.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-007-pc",
+    "code": "CIASA 007 - PC",
+    "name": "Crystal Garden",
+    "slug": "crystal-garden",
+    "image": "assets/images/projects/crystal-garden.jpg",
+    "region": "punta-cana",
+    "subLocation": "Cap Cana",
+    "type": "apartamento",
+    "description": "Apartamentos premium en Cap Cana con vistas espectaculares. Proyecto exclusivo con acabados de alta gama y acceso a todas las amenidades de Cap Cana.",
+    "description_en": "Premium apartments in Cap Cana with spectacular views. An exclusive development with high-end finishes and full access to Cap Cana's world-class amenities.",
+    "description_fr": "Appartements haut de gamme à Cap Cana avec des vues spectaculaires. Projet exclusif avec finitions de luxe et accès à toutes les commodités de Cap Cana.",
+    "priceFrom": 475000,
+    "priceTo": 498000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 105,
+    "sizeTo": 131,
+    "bedrooms": "2-3",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": "5.6%",
+    "confotur": false,
+    "airbnbFriendly": true,
+    "delivery": "Agosto 2027",
+    "delivery_en": "August 2027",
+    "delivery_fr": "Août 2027",
+    "amenities": [
+      "Piscina",
+      "Gimnasio",
+      "Club de playa",
+      "Golf",
+      "Marina",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Gym",
+      "Beach Club",
+      "Golf",
+      "Marina",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Gymnase",
+      "Club de plage",
+      "Golf",
+      "Marina",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "plusvalia",
+      "uso-familiar"
+    ],
+    "coordinates": {
+      "lat": 18.51,
+      "lng": -68.37
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/crystal-garden.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-008-pc",
+    "code": "CIASA 008 - PC",
+    "name": "Sun Garden",
+    "slug": "sun-garden",
+    "image": "assets/images/projects/sun-garden.jpg",
+    "region": "punta-cana",
+    "subLocation": "Cabeza de Toro",
+    "type": "apartamento",
+    "description": "Amplia gama de opciones desde studios hasta 3 habitaciones en Cabeza de Toro. Precios accesibles desde $158K con CONFOTUR y excelente retorno.",
+    "description_en": "Wide range of options from studios to 3-bedroom units in Cabeza de Toro. Affordable pricing starting at $158K with CONFOTUR tax benefits and excellent returns.",
+    "description_fr": "Large gamme d'options, du studio au 3 chambres, à Cabeza de Toro. Prix accessibles à partir de 158 000 $ avec avantages fiscaux CONFOTUR et excellent rendement.",
+    "priceFrom": 158000,
+    "priceTo": 499000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 45,
+    "sizeTo": 189,
+    "bedrooms": "1-3",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": "9.4%",
+    "confotur": true,
+    "airbnbFriendly": true,
+    "delivery": "Septiembre 2028",
+    "delivery_en": "September 2028",
+    "delivery_fr": "Septembre 2028",
+    "amenities": [
+      "Piscina",
+      "Gimnasio",
+      "Área social",
+      "Parqueo",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Gym",
+      "Social Area",
+      "Parking",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Gymnase",
+      "Espace social",
+      "Stationnement",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.61,
+      "lng": -68.39
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/sun-garden.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-009-pc",
+    "code": "CIASA 009 - PC",
+    "name": "Level Business Center",
+    "slug": "level-business-center",
+    "image": "assets/images/projects/level-business-center.jpg",
+    "region": "punta-cana",
+    "subLocation": "Cap Cana",
+    "type": "comercial",
+    "description": "Centro de negocios y locales comerciales en Cap Cana. Ideal para inversionistas que buscan renta comercial en la zona de mayor crecimiento.",
+    "description_en": "Business center and commercial spaces in Cap Cana. Ideal for investors seeking commercial rental income in the fastest-growing area of the Dominican Republic.",
+    "description_fr": "Centre d'affaires et locaux commerciaux à Cap Cana. Idéal pour les investisseurs recherchant des revenus locatifs commerciaux dans la zone à plus forte croissance.",
+    "priceFrom": 238000,
+    "priceTo": 510000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 60,
+    "sizeTo": 122,
+    "bedrooms": null,
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": false,
+    "delivery": "Octubre 2027",
+    "delivery_en": "October 2027",
+    "delivery_fr": "Octobre 2027",
+    "amenities": [
+      "Lobby corporativo",
+      "Parqueo",
+      "Seguridad 24/7",
+      "Elevador",
+      "Área común"
+    ],
+    "amenities_en": [
+      "Corporate Lobby",
+      "Parking",
+      "24/7 Security",
+      "Elevator",
+      "Common Area"
+    ],
+    "amenities_fr": [
+      "Hall d'entreprise",
+      "Stationnement",
+      "Sécurité 24/7",
+      "Ascenseur",
+      "Espace commun"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-comercial"
+    ],
+    "coordinates": {
+      "lat": 18.51,
+      "lng": -68.36
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/level-business-center.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-010-pc",
+    "code": "CIASA 010 - PC",
+    "name": "Pueblito Caribeno",
+    "slug": "pueblito-caribeno",
+    "image": "assets/images/projects/pueblito-caribeno.jpg",
+    "region": "punta-cana",
+    "subLocation": "Vista Cana, Bavaro",
+    "type": "apartamento",
+    "description": "Concepto único estilo pueblo caribeño con apartamentos de 1 y 2 habitaciones. Precios accesibles y reserva de solo $1,000.",
+    "description_en": "Unique Caribbean village-style concept with 1 and 2-bedroom apartments. Affordable pricing and a reserve deposit of just $1,000.",
+    "description_fr": "Concept unique de village caribéen avec appartements de 1 et 2 chambres. Prix accessibles et réservation à partir de seulement 1 000 $.",
+    "priceFrom": 170000,
+    "priceTo": 327000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 64,
+    "sizeTo": 224,
+    "bedrooms": "1-2",
+    "bathrooms": null,
+    "reserveAmount": 1000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": true,
+    "delivery": "Junio 2027",
+    "delivery_en": "June 2027",
+    "delivery_fr": "Juin 2027",
+    "amenities": [
+      "Piscina",
+      "Plaza comercial",
+      "Área social",
+      "Parqueo"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Shopping Plaza",
+      "Social Area",
+      "Parking"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Place commerciale",
+      "Espace social",
+      "Stationnement"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "uso-familiar"
+    ],
+    "coordinates": {
+      "lat": 18.6,
+      "lng": -68.42
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/pueblito-caribeno.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-011-pc",
+    "code": "CIASA 011 - PC",
+    "name": "Qurux Luxury Villas",
+    "slug": "qurux-luxury-villas",
+    "image": "assets/images/projects/qurux-luxury-villas.jpg",
+    "region": "punta-cana",
+    "subLocation": "Vista Cana, Bavaro",
+    "type": "villa",
+    "description": "Villas de lujo con amplios terrenos en Vista Cana. 2 y 3 habitaciones con piscina privada y acabados de primera.",
+    "description_en": "Luxury villas on spacious lots in Vista Cana. 2 and 3 bedrooms with private pool and top-tier finishes.",
+    "description_fr": "Villas de luxe sur de vastes terrains à Vista Cana. 2 et 3 chambres avec piscine privée et finitions de premier ordre.",
+    "priceFrom": 596000,
+    "priceTo": 876000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 298,
+    "sizeTo": 438,
+    "bedrooms": "2-3",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": true,
+    "delivery": "Octubre 2027",
+    "delivery_en": "October 2027",
+    "delivery_fr": "Octobre 2027",
+    "amenities": [
+      "Piscina privada",
+      "Terraza",
+      "Jardín",
+      "Parqueo doble",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Private Pool",
+      "Terrace",
+      "Garden",
+      "Double Parking",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine privée",
+      "Terrasse",
+      "Jardin",
+      "Double stationnement",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "uso-familiar",
+      "renta-corta"
+    ],
+    "coordinates": {
+      "lat": 18.59,
+      "lng": -68.43
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/qurux-luxury-villas.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-012-pc",
+    "code": "CIASA 012 - PC",
+    "name": "Zayes 2",
+    "slug": "zayes-2",
+    "image": "assets/images/projects/zayes-2.jpg",
+    "region": "punta-cana",
+    "subLocation": "Vista Cana, Bavaro",
+    "type": "villa",
+    "description": "Villas de 3 habitaciones con excelente relación precio-calidad en Vista Cana. Reserva desde solo $1,000.",
+    "description_en": "3-bedroom villas with excellent value for money in Vista Cana. Reserve with just $1,000 down.",
+    "description_fr": "Villas de 3 chambres offrant un excellent rapport qualité-prix à Vista Cana. Réservation à partir de seulement 1 000 $.",
+    "priceFrom": 250000,
+    "priceTo": 297000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 131,
+    "sizeTo": 161,
+    "bedrooms": "3",
+    "bathrooms": null,
+    "reserveAmount": 1000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": true,
+    "delivery": "Octubre 2026",
+    "delivery_en": "October 2026",
+    "delivery_fr": "Octobre 2026",
+    "amenities": [
+      "Piscina comunal",
+      "Área verde",
+      "Parqueo",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Community Pool",
+      "Green Area",
+      "Parking",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine communautaire",
+      "Espace vert",
+      "Stationnement",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "uso-familiar",
+      "renta-corta"
+    ],
+    "coordinates": {
+      "lat": 18.59,
+      "lng": -68.44
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/zayes-2.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-013-pc",
+    "code": "CIASA 013 - PC",
+    "name": "Casa Loto",
+    "slug": "casa-loto",
+    "image": "assets/images/projects/casa-loto.jpg",
+    "region": "punta-cana",
+    "subLocation": "Vista Cana, Bavaro",
+    "type": "villa",
+    "description": "Villas amplias de 2 y 3 habitaciones con más de 300m2 de construcción. Diseño contemporáneo con acabados de lujo.",
+    "description_en": "Spacious 2 and 3-bedroom villas with over 300 sqm of living space. Contemporary design with luxury finishes.",
+    "description_fr": "Villas spacieuses de 2 et 3 chambres avec plus de 300 m2 de construction. Design contemporain avec finitions de luxe.",
+    "priceFrom": 365000,
+    "priceTo": 475000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 316,
+    "sizeTo": 332,
+    "bedrooms": "2-3",
+    "bathrooms": null,
+    "reserveAmount": 3000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": true,
+    "delivery": "Julio 2026",
+    "delivery_en": "July 2026",
+    "delivery_fr": "Juillet 2026",
+    "amenities": [
+      "Piscina privada",
+      "Terraza",
+      "Jardín",
+      "Vestidor",
+      "Parqueo"
+    ],
+    "amenities_en": [
+      "Private Pool",
+      "Terrace",
+      "Garden",
+      "Walk-in Closet",
+      "Parking"
+    ],
+    "amenities_fr": [
+      "Piscine privée",
+      "Terrasse",
+      "Jardin",
+      "Dressing",
+      "Stationnement"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "uso-familiar",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.6,
+      "lng": -68.43
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/casa-loto.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-014-pc",
+    "code": "CIASA 014 - PC",
+    "name": "Caicu",
+    "slug": "caicu",
+    "image": "assets/images/projects/caicu.jpg",
+    "region": "punta-cana",
+    "subLocation": "Caoba, Punta Cana",
+    "type": "apartamento",
+    "description": "Amplio proyecto en Caoba con apartamentos de 1 a 3 habitaciones. CONFOTUR aprobado y múltiples opciones de inversión.",
+    "description_en": "Large-scale development in Caoba with 1 to 3-bedroom apartments. CONFOTUR-approved with multiple investment options.",
+    "description_fr": "Grand projet à Caoba avec appartements de 1 à 3 chambres. Approuvé CONFOTUR avec de multiples options d'investissement.",
+    "priceFrom": 209000,
+    "priceTo": 582000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 100,
+    "sizeTo": 310,
+    "bedrooms": "1-3",
+    "bathrooms": null,
+    "reserveAmount": 2000,
+    "roi": null,
+    "confotur": true,
+    "airbnbFriendly": true,
+    "delivery": "Mayo 2028",
+    "delivery_en": "May 2028",
+    "delivery_fr": "Mai 2028",
+    "amenities": [
+      "Piscina",
+      "Gimnasio",
+      "Coworking",
+      "Área social",
+      "Parqueo",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Gym",
+      "Coworking",
+      "Social Area",
+      "Parking",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Gymnase",
+      "Coworking",
+      "Espace social",
+      "Stationnement",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.55,
+      "lng": -68.38
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/caicu.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-015-pc",
+    "code": "CIASA 015 - PC",
+    "name": "Tropic Golf Suites",
+    "slug": "tropic-golf-suites",
+    "image": "assets/images/projects/tropic-golf-suites.jpg",
+    "region": "punta-cana",
+    "subLocation": "Vista Cana, Bavaro",
+    "type": "apartamento",
+    "description": "Apartamentos con terraza privada de 22m2 junto al campo de golf de Vista Cana. 2 habitaciones con vista al green.",
+    "description_en": "Apartments with a private 22 sqm terrace next to the Vista Cana golf course. 2 bedrooms with views of the green.",
+    "description_fr": "Appartements avec terrasse privée de 22 m2 en bordure du terrain de golf de Vista Cana. 2 chambres avec vue sur le green.",
+    "priceFrom": 230000,
+    "priceTo": 230000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 76,
+    "sizeTo": 98,
+    "bedrooms": "2",
+    "bathrooms": null,
+    "reserveAmount": 10000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": true,
+    "delivery": null,
+    "delivery_en": null,
+    "delivery_fr": null,
+    "amenities": [
+      "Campo de golf",
+      "Piscina",
+      "Club house",
+      "Restaurante",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Golf Course",
+      "Pool",
+      "Clubhouse",
+      "Restaurant",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Terrain de golf",
+      "Piscine",
+      "Pavillon",
+      "Restaurant",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "uso-familiar",
+      "renta-corta"
+    ],
+    "coordinates": {
+      "lat": 18.6,
+      "lng": -68.45
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/tropic-golf-suites.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-016-pc",
+    "code": "CIASA 016 - PC",
+    "name": "Royal Gardens",
+    "slug": "royal-gardens",
+    "image": "assets/images/projects/royal-gardens.jpg",
+    "region": "punta-cana",
+    "subLocation": "Vista Cana, Bavaro",
+    "type": "terreno",
+    "description": "Solares residenciales en Vista Cana desde 463m2 hasta 645m2. Ideal para construir tu villa personalizada.",
+    "description_en": "Residential lots in Vista Cana ranging from 463 to 645 sqm. Perfect for building your custom villa.",
+    "description_fr": "Terrains résidentiels à Vista Cana de 463 à 645 m2. Idéal pour construire votre villa sur mesure.",
+    "priceFrom": 97000,
+    "priceTo": 142000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 463,
+    "sizeTo": 645,
+    "bedrooms": null,
+    "bathrooms": null,
+    "reserveAmount": 1000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": false,
+    "delivery": "En Desarrollo",
+    "delivery_en": "Under Development",
+    "delivery_fr": "En développement",
+    "amenities": [
+      "Calles asfaltadas",
+      "Servicios básicos",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Paved Roads",
+      "Basic Utilities",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Routes asphaltées",
+      "Services de base",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "plusvalia",
+      "construccion-propia"
+    ],
+    "coordinates": {
+      "lat": 18.59,
+      "lng": -68.42
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/royal-gardens.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-001-bay",
+    "code": "CIASA 001 - BAY",
+    "name": "Estrella Dominicus",
+    "slug": "estrella-dominicus",
+    "image": "assets/images/projects/estrella-dominicus.jpg",
+    "region": "bayahibe",
+    "subLocation": "Av. la Laguna, Bayahibe",
+    "type": "apartamento",
+    "description": "Apartamentos frente a la laguna en Dominicus, Bayahibe. De 1 a 3 habitaciones en una de las playas más hermosas del Caribe.",
+    "description_en": "Lagoon-front apartments in Dominicus, Bayahibe. 1 to 3 bedrooms on one of the most beautiful beaches in the Caribbean.",
+    "description_fr": "Appartements face au lagon à Dominicus, Bayahibe. De 1 à 3 chambres sur l'une des plus belles plages des Caraïbes.",
+    "priceFrom": 260000,
+    "priceTo": 340000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 101,
+    "sizeTo": 220,
+    "bedrooms": "1-3",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": true,
+    "delivery": null,
+    "delivery_en": null,
+    "delivery_fr": null,
+    "amenities": [
+      "Piscina",
+      "Área social",
+      "Parqueo",
+      "Seguridad 24/7",
+      "Cerca de la playa"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Social Area",
+      "Parking",
+      "24/7 Security",
+      "Near the Beach"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Espace social",
+      "Stationnement",
+      "Sécurité 24/7",
+      "Proche de la plage"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "uso-familiar"
+    ],
+    "coordinates": {
+      "lat": 18.37,
+      "lng": -68.83
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/estrella-dominicus.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-002-bay",
+    "code": "CIASA 002 - BAY",
+    "name": "Estrella Gardens Condos",
+    "slug": "estrella-gardens-condos",
+    "image": "assets/images/projects/estrella-gardens-condos.jpg",
+    "region": "bayahibe",
+    "subLocation": "Dominicus",
+    "type": "apartamento",
+    "description": "Condominios de 1 a 3 habitaciones en Dominicus. Precios accesibles desde $165K en zona de alto potencial turístico.",
+    "description_en": "1 to 3-bedroom condos in Dominicus. Affordable pricing starting at $165K in a high-potential tourist area.",
+    "description_fr": "Condominiums de 1 à 3 chambres à Dominicus. Prix accessibles à partir de 165 000 $ dans une zone à fort potentiel touristique.",
+    "priceFrom": 165000,
+    "priceTo": 330000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 65,
+    "sizeTo": 142,
+    "bedrooms": "1-3",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": true,
+    "delivery": null,
+    "delivery_en": null,
+    "delivery_fr": null,
+    "amenities": [
+      "Piscina",
+      "Gimnasio",
+      "Área verde",
+      "Parqueo",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Gym",
+      "Green Area",
+      "Parking",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Gymnase",
+      "Espace vert",
+      "Stationnement",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.37,
+      "lng": -68.84
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/estrella-gardens-condos.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-003-bay",
+    "code": "CIASA 003 - BAY",
+    "name": "Lake Gardens",
+    "slug": "lake-gardens",
+    "image": "assets/images/projects/lake-gardens.jpg",
+    "region": "bayahibe",
+    "subLocation": "Bayahibe, La Romana",
+    "type": "townhouse",
+    "description": "Townhouses de 3 habitaciones con vista a la laguna en Bayahibe. Amplios espacios y diseño moderno.",
+    "description_en": "3-bedroom townhouses with lagoon views in Bayahibe. Generous living spaces and modern design.",
+    "description_fr": "Maisons en rangée de 3 chambres avec vue sur le lagon à Bayahibe. Espaces généreux et design moderne.",
+    "priceFrom": 499800,
+    "priceTo": 499800,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 178,
+    "sizeTo": 178,
+    "bedrooms": "3",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": true,
+    "delivery": null,
+    "delivery_en": null,
+    "delivery_fr": null,
+    "amenities": [
+      "Piscina comunal",
+      "Área BBQ",
+      "Jardín privado",
+      "Parqueo",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Community Pool",
+      "BBQ Area",
+      "Private Garden",
+      "Parking",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine communautaire",
+      "Espace BBQ",
+      "Jardin privé",
+      "Stationnement",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "uso-familiar",
+      "renta-corta"
+    ],
+    "coordinates": {
+      "lat": 18.36,
+      "lng": -68.85
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/lake-gardens.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-001-spm",
+    "code": "CIASA 001 - SPM",
+    "name": "Oua Palms",
+    "slug": "oua-palms",
+    "image": "assets/images/projects/oua-palms.jpg",
+    "region": "juan-dolio",
+    "subLocation": "Juan Dolio",
+    "type": "apartamento",
+    "description": "Apartamentos de 2 habitaciones en Juan Dolio con ROI proyectado de 31.6%. A solo 45 minutos de Santo Domingo y cerca de la playa.",
+    "description_en": "2-bedroom apartments in Juan Dolio with a projected ROI of 31.6%. Just 45 minutes from Santo Domingo and steps from the beach.",
+    "description_fr": "Appartements de 2 chambres à Juan Dolio avec un rendement projeté de 31,6 %. À seulement 45 minutes de Santo Domingo et à proximité de la plage.",
+    "priceFrom": 179400,
+    "priceTo": 179400,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 97.5,
+    "sizeTo": 97.5,
+    "bedrooms": "2",
+    "bathrooms": null,
+    "reserveAmount": 2000,
+    "roi": "31.6%",
+    "confotur": false,
+    "airbnbFriendly": true,
+    "delivery": "Diciembre 2027",
+    "delivery_en": "December 2027",
+    "delivery_fr": "Décembre 2027",
+    "amenities": [
+      "Piscina",
+      "Área social",
+      "Parqueo",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Social Area",
+      "Parking",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Espace social",
+      "Stationnement",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "renta-corta",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.43,
+      "lng": -69.85
+    },
+    "featured": true,
+    "gallery": [
+      "assets/images/projects/oua-palms.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-002-spm",
+    "code": "CIASA 002 - SPM",
+    "name": "Sotavento 2",
+    "slug": "sotavento-2",
+    "image": "assets/images/projects/sotavento-2.jpg",
+    "region": "juan-dolio",
+    "subLocation": "Playa Nueva Romana",
+    "type": "townhouse",
+    "description": "Townhouses de 2 habitaciones en Playa Nueva Romana. Proyecto exclusivo con acceso a playa privada.",
+    "description_en": "2-bedroom townhouses at Playa Nueva Romana. An exclusive development with private beach access.",
+    "description_fr": "Maisons en rangée de 2 chambres à Playa Nueva Romana. Projet exclusif avec accès à une plage privée.",
+    "priceFrom": 361400,
+    "priceTo": 361400,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 135,
+    "sizeTo": 135,
+    "bedrooms": "2",
+    "bathrooms": null,
+    "reserveAmount": 5000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": true,
+    "delivery": null,
+    "delivery_en": null,
+    "delivery_fr": null,
+    "amenities": [
+      "Playa privada",
+      "Piscina",
+      "Club de playa",
+      "Parqueo",
+      "Seguridad 24/7"
+    ],
+    "amenities_en": [
+      "Private Beach",
+      "Pool",
+      "Beach Club",
+      "Parking",
+      "24/7 Security"
+    ],
+    "amenities_fr": [
+      "Plage privée",
+      "Piscine",
+      "Club de plage",
+      "Stationnement",
+      "Sécurité 24/7"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "uso-familiar",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.44,
+      "lng": -69.84
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/sotavento-2.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-001-dn",
+    "code": "CIASA 001 - DN",
+    "name": "Residencial Bolero",
+    "slug": "residencial-bolero",
+    "image": "assets/images/projects/residencial-bolero.jpg",
+    "region": "distrito-nacional",
+    "subLocation": "Calle Jose A. Brea Pena #72, D.N.",
+    "type": "apartamento",
+    "description": "Apartamentos duplex de 2 y 3 habitaciones en el Distrito Nacional. Ideales para uso residencial o renta a largo plazo en la capital.",
+    "description_en": "2 and 3-bedroom duplex apartments in the National District. Ideal for residential use or long-term rental income in the capital city.",
+    "description_fr": "Appartements duplex de 2 et 3 chambres dans le District National. Idéaux pour un usage résidentiel ou la location à long terme dans la capitale.",
+    "priceFrom": 342000,
+    "priceTo": 342000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 316,
+    "sizeTo": 332,
+    "bedrooms": "2-3",
+    "bathrooms": null,
+    "reserveAmount": null,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": false,
+    "delivery": null,
+    "delivery_en": null,
+    "delivery_fr": null,
+    "amenities": [
+      "Lobby",
+      "Parqueo",
+      "Área social",
+      "Planta eléctrica"
+    ],
+    "amenities_en": [
+      "Lobby",
+      "Parking",
+      "Social Area",
+      "Generator"
+    ],
+    "amenities_fr": [
+      "Hall d'entrée",
+      "Stationnement",
+      "Espace social",
+      "Génératrice"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "uso-propio",
+      "renta-larga"
+    ],
+    "coordinates": {
+      "lat": 18.47,
+      "lng": -69.93
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/residencial-bolero.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-002-dn",
+    "code": "CIASA 002 - DN",
+    "name": "Casa Almirall",
+    "slug": "casa-almirall",
+    "image": "assets/images/projects/casa-almirall.jpg",
+    "region": "distrito-nacional",
+    "subLocation": "Billo Frometa 14, Arroyo Hondo",
+    "type": "apartamento",
+    "description": "Residencias de lujo en Arroyo Hondo de 3 habitaciones. Acabados premium en una de las zonas más exclusivas de Santo Domingo.",
+    "description_en": "Luxury 3-bedroom residences in Arroyo Hondo. Premium finishes in one of Santo Domingo's most exclusive neighborhoods.",
+    "description_fr": "Résidences de luxe de 3 chambres à Arroyo Hondo. Finitions haut de gamme dans l'un des quartiers les plus exclusifs de Santo Domingo.",
+    "priceFrom": 570000,
+    "priceTo": 680000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 253,
+    "sizeTo": 262,
+    "bedrooms": "3",
+    "bathrooms": null,
+    "reserveAmount": 10000,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": false,
+    "delivery": null,
+    "delivery_en": null,
+    "delivery_fr": null,
+    "amenities": [
+      "Piscina",
+      "Gimnasio",
+      "Área social",
+      "Lobby",
+      "Parqueo doble",
+      "Planta eléctrica"
+    ],
+    "amenities_en": [
+      "Pool",
+      "Gym",
+      "Social Area",
+      "Lobby",
+      "Double Parking",
+      "Generator"
+    ],
+    "amenities_fr": [
+      "Piscine",
+      "Gymnase",
+      "Espace social",
+      "Hall d'entrée",
+      "Double stationnement",
+      "Génératrice"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "uso-propio",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.49,
+      "lng": -69.95
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/casa-almirall.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-001-bni",
+    "code": "CIASA 001 - BNI",
+    "name": "Villa Alfarera",
+    "slug": "villa-alfarera",
+    "image": "assets/images/projects/villa-alfarera.jpg",
+    "region": "bani",
+    "subLocation": "Bani, Peravia",
+    "type": "villa",
+    "description": "Villa de lujo con 622m2 de construcción en terreno de 1,863m2. 4 habitaciones, 4.5 baños, piscina privada y acabados de primera.",
+    "description_en": "Luxury villa with 622 sqm of living space on a 1,863 sqm lot. 4 bedrooms, 4.5 bathrooms, private pool, and top-tier finishes.",
+    "description_fr": "Villa de luxe de 622 m2 sur un terrain de 1 863 m2. 4 chambres, 4,5 salles de bain, piscine privée et finitions haut de gamme.",
+    "priceFrom": 1500000,
+    "priceTo": 1500000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 622,
+    "sizeTo": 622,
+    "bedrooms": "4",
+    "bathrooms": "4.5",
+    "reserveAmount": null,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": false,
+    "delivery": null,
+    "delivery_en": null,
+    "delivery_fr": null,
+    "amenities": [
+      "Piscina privada",
+      "Jardín tropical",
+      "Terraza",
+      "Vestidor",
+      "Cuarto de servicio",
+      "Parqueo múltiple"
+    ],
+    "amenities_en": [
+      "Private Pool",
+      "Tropical Garden",
+      "Terrace",
+      "Walk-in Closet",
+      "Service Quarters",
+      "Multi-car Parking"
+    ],
+    "amenities_fr": [
+      "Piscine privée",
+      "Jardin tropical",
+      "Terrasse",
+      "Dressing",
+      "Chambre de service",
+      "Stationnement multiple"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "uso-propio",
+      "lujo"
+    ],
+    "coordinates": {
+      "lat": 18.28,
+      "lng": -70.33
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/villa-alfarera.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-002-bni",
+    "code": "CIASA 002 - BNI",
+    "name": "Villa Arenara",
+    "slug": "villa-arenara",
+    "image": "assets/images/projects/villa-arenara.jpg",
+    "region": "bani",
+    "subLocation": "Bani, Peravia",
+    "type": "villa",
+    "description": "Villa de lujo con 515m2 de construcción en terreno de 1,648m2. 3 habitaciones, 3.5 baños con diseño contemporáneo.",
+    "description_en": "Luxury villa with 515 sqm of living space on a 1,648 sqm lot. 3 bedrooms, 3.5 bathrooms with contemporary design.",
+    "description_fr": "Villa de luxe de 515 m2 sur un terrain de 1 648 m2. 3 chambres, 3,5 salles de bain au design contemporain.",
+    "priceFrom": 1500000,
+    "priceTo": 1500000,
+    "currency": "USD",
+    "pricePerM2": null,
+    "sizeFrom": 515,
+    "sizeTo": 515,
+    "bedrooms": "3",
+    "bathrooms": "3.5",
+    "reserveAmount": null,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": false,
+    "delivery": null,
+    "delivery_en": null,
+    "delivery_fr": null,
+    "amenities": [
+      "Piscina privada",
+      "Jardín",
+      "Terraza panorámica",
+      "Vestidor",
+      "Cuarto de servicio"
+    ],
+    "amenities_en": [
+      "Private Pool",
+      "Garden",
+      "Panoramic Terrace",
+      "Walk-in Closet",
+      "Service Quarters"
+    ],
+    "amenities_fr": [
+      "Piscine privée",
+      "Jardin",
+      "Terrasse panoramique",
+      "Dressing",
+      "Chambre de service"
+    ],
+    "security": true,
+    "investmentProfile": [
+      "uso-propio",
+      "lujo"
+    ],
+    "coordinates": {
+      "lat": 18.28,
+      "lng": -70.34
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/villa-arenara.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-001-mic",
+    "code": "CIASA 001 - MIC",
+    "name": "Terreno Playa Miches 63K m2",
+    "slug": "terreno-playa-miches-63k",
+    "image": "assets/images/projects/terreno-playa-miches-63k.jpg",
+    "region": "miches",
+    "subLocation": "Miches, El Seibo",
+    "type": "terreno",
+    "description": "Terreno de 63,263 m2 frente al mar en Miches. Zona de desarrollo turístico con proyecto Club Med en construcción. Oportunidad única de inversión temprana.",
+    "description_en": "63,263 sqm oceanfront land in Miches. A tourism development zone with Club Med currently under construction. A unique early-stage investment opportunity.",
+    "description_fr": "Terrain de 63 263 m2 en bord de mer à Miches. Zone de développement touristique avec le Club Med en construction. Opportunité d'investissement unique en phase initiale.",
+    "priceFrom": 12652600,
+    "priceTo": 12652600,
+    "currency": "USD",
+    "pricePerM2": 200,
+    "sizeFrom": 63263,
+    "sizeTo": 63263,
+    "bedrooms": null,
+    "bathrooms": null,
+    "reserveAmount": null,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": false,
+    "delivery": null,
+    "delivery_en": null,
+    "delivery_fr": null,
+    "amenities": [
+      "Frente al mar",
+      "Acceso a carretera",
+      "Zona turística en desarrollo"
+    ],
+    "amenities_en": [
+      "Oceanfront",
+      "Road Access",
+      "Emerging Tourism Zone"
+    ],
+    "amenities_fr": [
+      "Front de mer",
+      "Accès routier",
+      "Zone touristique en développement"
+    ],
+    "security": false,
+    "investmentProfile": [
+      "desarrollo",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.98,
+      "lng": -69.05
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/terreno-playa-miches-63k.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  },
+  {
+    "available": true,
+    "id": "ciasa-002-mic",
+    "code": "CIASA 002 - MIC",
+    "name": "Terreno Playa Las Caracolas 18K m2",
+    "slug": "terreno-playa-las-caracolas",
+    "image": "assets/images/projects/terreno-playa-las-caracolas.jpg",
+    "region": "miches",
+    "subLocation": "Las Caracolas, Miches",
+    "type": "terreno",
+    "description": "Terreno de 18,300 m2 frente al mar en Las Caracolas, Miches. Playa virgen con potencial de desarrollo turístico o residencial.",
+    "description_en": "18,300 sqm oceanfront land at Las Caracolas, Miches. Pristine beach with potential for tourism or residential development.",
+    "description_fr": "Terrain de 18 300 m2 en bord de mer à Las Caracolas, Miches. Plage vierge avec un potentiel de développement touristique ou résidentiel.",
+    "priceFrom": 3660000,
+    "priceTo": 3660000,
+    "currency": "USD",
+    "pricePerM2": 200,
+    "sizeFrom": 18300,
+    "sizeTo": 18300,
+    "bedrooms": null,
+    "bathrooms": null,
+    "reserveAmount": null,
+    "roi": null,
+    "confotur": false,
+    "airbnbFriendly": false,
+    "delivery": null,
+    "delivery_en": null,
+    "delivery_fr": null,
+    "amenities": [
+      "Frente al mar",
+      "Playa virgen",
+      "Acceso vehicular"
+    ],
+    "amenities_en": [
+      "Oceanfront",
+      "Pristine Beach",
+      "Vehicle Access"
+    ],
+    "amenities_fr": [
+      "Front de mer",
+      "Plage vierge",
+      "Accès véhiculaire"
+    ],
+    "security": false,
+    "investmentProfile": [
+      "desarrollo",
+      "plusvalia"
+    ],
+    "coordinates": {
+      "lat": 18.97,
+      "lng": -69.06
+    },
+    "featured": false,
+    "gallery": [
+      "assets/images/projects/terreno-playa-las-caracolas.jpg",
+      "assets/images/projects/wave-garden.jpg",
+      "assets/images/hero-dr.jpg"
+    ]
+  }
+]

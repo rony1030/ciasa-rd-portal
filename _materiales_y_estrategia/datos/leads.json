@@ -1,0 +1,364 @@
+[
+  {
+    "_id": "lead_1787331587189_sp5tis",
+    "nombre": "Dra. Carmen Tejada (Prueba Directa)",
+    "email": "carmen.tejada.md@gmail.com",
+    "telefono": "+1 (201) 555-0841",
+    "pais": "EE.UU.",
+    "ciudad": "Jersey City",
+    "estado": "New Jersey",
+    "montoInversion": ",000 - ,000 USD",
+    "region": "punta-cana",
+    "proyectoInteres": "Marina Garden 2 Luxury Condos",
+    "comoNosEncontro": "",
+    "razones": "",
+    "source": "Formulario Web Directo",
+    "statusVentas": "nuevo",
+    "statusConstructora": "pendiente",
+    "notas": [
+      {
+        "id": "n_1787331587189",
+        "texto": "Mensaje de contacto inicial: Hola Paola, me interesa recibir el brochure y los numeros de retorno para una unidad de 2 habitaciones.",
+        "fecha": "2026-08-21T16:59:47.189Z",
+        "autor": "Sistema Web CIASA"
+      }
+    ],
+    "tareas": [
+      {
+        "id": "t_1787331587190",
+        "titulo": "Contactar a Dra. Carmen Tejada (Prueba Directa) por Marina Garden 2 Luxury Condos",
+        "fechaLimite": "2026-08-22",
+        "completada": false,
+        "prioridad": "alta"
+      }
+    ],
+    "documentos": [],
+    "createdAt": "2026-08-21T16:59:47.190Z",
+    "updatedAt": "2026-08-21T16:59:47.190Z"
+  },
+  {
+    "_id": "8RkP2TNaynVLJsBwjBWH",
+    "createdAt": "2026-05-24T18:22:32.388Z",
+    "montoInversion": "240000",
+    "comoNosEncontro": "",
+    "comoNosEncontroNombre": "",
+    "statusConstructora": "pendiente",
+    "pais": "Dominican Republic",
+    "telefono": "8097105591",
+    "otrosMedios": "",
+    "acciones": "",
+    "proyectoInteres": "CIASA 002 - BAY",
+    "nombre": "James",
+    "updatedAt": "2026-05-24T18:22:32.388Z",
+    "estado": "Nacional",
+    "nurtureStatus": "email1=sent | email2=sent | email3=sent",
+    "email": "james_doorly@hotmail.com",
+    "region": "bayahibe",
+    "source": "proyecto",
+    "statusVentas": "nuevo",
+    "razones": "",
+    "ciudad": "Santo Domingo",
+    "zipCode": "10148",
+    "authUid": "",
+    "clienteAt": "",
+    "notas": [
+      {
+        "id": "n1",
+        "texto": "Prospecto contactado vía WhatsApp. Interesado en rentabilidad y exenciones CONFOTUR.",
+        "fecha": "2026-06-14T14:30:00Z",
+        "autor": "Paola Caram"
+      },
+      {
+        "id": "n2",
+        "texto": "Se envió dossier ejecutivo y lista de precios de unidades tipo B.",
+        "fecha": "2026-06-15T10:15:00Z",
+        "autor": "Angeline Pimentel"
+      }
+    ],
+    "tareas": [
+      {
+        "id": "t1",
+        "titulo": "Enviar cotización personalizada con plan de pago",
+        "fechaLimite": "2026-08-25",
+        "completada": false,
+        "prioridad": "alta"
+      },
+      {
+        "id": "t2",
+        "titulo": "Agendar llamada de asesoría fiscal CONFOTUR",
+        "fechaLimite": "2026-08-28",
+        "completada": true,
+        "prioridad": "media"
+      }
+    ],
+    "documentos": [
+      {
+        "id": "d1",
+        "nombre": "Dossier_Inversion_CONFOTUR_2026.pdf",
+        "tamano": "2.4 MB",
+        "fecha": "2026-06-14",
+        "url": "#"
+      }
+    ]
+  },
+  {
+    "_id": "aGN05znxH2uj4AZpNO9P",
+    "createdAt": "2026-06-13T13:04:49.348Z",
+    "montoInversion": "240000",
+    "comoNosEncontro": "",
+    "comoNosEncontroNombre": "",
+    "statusConstructora": "pendiente",
+    "pais": "Estados Unidos",
+    "telefono": "18092995233",
+    "otrosMedios": "",
+    "acciones": "",
+    "proyectoInteres": "CIASA-MIC-01",
+    "nombre": "Paola Caram",
+    "updatedAt": "2026-06-13T13:04:49.348Z",
+    "estado": "",
+    "nurtureStatus": "email3=sent | email2=sent | email1=sent",
+    "email": "carampaola@gmail.com",
+    "region": "",
+    "source": "proyecto",
+    "statusVentas": "nuevo",
+    "razones": "",
+    "ciudad": "New York",
+    "zipCode": "",
+    "authUid": "",
+    "clienteAt": "",
+    "notas": [
+      {
+        "id": "n1",
+        "texto": "Prospecto contactado vía WhatsApp. Interesado en rentabilidad y exenciones CONFOTUR.",
+        "fecha": "2026-06-14T14:30:00Z",
+        "autor": "Paola Caram"
+      },
+      {
+        "id": "n2",
+        "texto": "Se envió dossier ejecutivo y lista de precios de unidades tipo B.",
+        "fecha": "2026-06-15T10:15:00Z",
+        "autor": "Angeline Pimentel"
+      }
+    ],
+    "tareas": [
+      {
+        "id": "t1",
+        "titulo": "Enviar cotización personalizada con plan de pago",
+        "fechaLimite": "2026-08-25",
+        "completada": false,
+        "prioridad": "alta"
+      },
+      {
+        "id": "t2",
+        "titulo": "Agendar llamada de asesoría fiscal CONFOTUR",
+        "fechaLimite": "2026-08-28",
+        "completada": true,
+        "prioridad": "media"
+      }
+    ],
+    "documentos": [
+      {
+        "id": "d1",
+        "nombre": "Dossier_Inversion_CONFOTUR_2026.pdf",
+        "tamano": "2.4 MB",
+        "fecha": "2026-06-14",
+        "url": "#"
+      }
+    ]
+  },
+  {
+    "_id": "ra7546gb8OZmUnX3xMD9",
+    "createdAt": "2026-05-24T18:21:31.798Z",
+    "montoInversion": "240000",
+    "comoNosEncontro": "instagram-ad",
+    "comoNosEncontroNombre": "",
+    "statusConstructora": "pendiente",
+    "pais": "Dominican Republic",
+    "telefono": "8097105591",
+    "otrosMedios": "",
+    "acciones": "",
+    "proyectoInteres": "CIASA 001 - BAY",
+    "nombre": "James",
+    "updatedAt": "2026-05-24T18:21:31.798Z",
+    "estado": "Nacional",
+    "nurtureStatus": "email2=sent | email1=sent | email3=sent",
+    "email": "james_doorly@hotmail.com",
+    "region": "bayahibe",
+    "source": "proyecto",
+    "statusVentas": "nuevo",
+    "razones": "",
+    "ciudad": "Santo Domingo",
+    "zipCode": "10148",
+    "authUid": "",
+    "clienteAt": "",
+    "notas": [
+      {
+        "id": "n1",
+        "texto": "Prospecto contactado vía WhatsApp. Interesado en rentabilidad y exenciones CONFOTUR.",
+        "fecha": "2026-06-14T14:30:00Z",
+        "autor": "Paola Caram"
+      },
+      {
+        "id": "n2",
+        "texto": "Se envió dossier ejecutivo y lista de precios de unidades tipo B.",
+        "fecha": "2026-06-15T10:15:00Z",
+        "autor": "Angeline Pimentel"
+      }
+    ],
+    "tareas": [
+      {
+        "id": "t1",
+        "titulo": "Enviar cotización personalizada con plan de pago",
+        "fechaLimite": "2026-08-25",
+        "completada": false,
+        "prioridad": "alta"
+      },
+      {
+        "id": "t2",
+        "titulo": "Agendar llamada de asesoría fiscal CONFOTUR",
+        "fechaLimite": "2026-08-28",
+        "completada": true,
+        "prioridad": "media"
+      }
+    ],
+    "documentos": [
+      {
+        "id": "d1",
+        "nombre": "Dossier_Inversion_CONFOTUR_2026.pdf",
+        "tamano": "2.4 MB",
+        "fecha": "2026-06-14",
+        "url": "#"
+      }
+    ]
+  },
+  {
+    "_id": "rmsf221dRAePjhZAMStP",
+    "createdAt": "2026-05-24T18:23:25.716Z",
+    "montoInversion": "240000",
+    "comoNosEncontro": "instagram-ad",
+    "comoNosEncontroNombre": "",
+    "statusConstructora": "pendiente",
+    "pais": "RD",
+    "telefono": "8097105591",
+    "otrosMedios": "",
+    "acciones": "",
+    "proyectoInteres": "CIASA 002 - BAY",
+    "nombre": "James",
+    "updatedAt": "2026-06-02T19:29:45.530Z",
+    "estado": "Dn",
+    "nurtureStatus": "email3=sent | email2=sent | email1=sent",
+    "email": "james_doorly@hotmail.com",
+    "region": "bayahibe",
+    "source": "proyecto",
+    "statusVentas": "contactado",
+    "razones": "",
+    "ciudad": "Santo Domingo",
+    "zipCode": "10148",
+    "authUid": "usWmkMZClYaX5zoOKzWVrJ5LpfI3",
+    "clienteAt": "2026-05-29T18:36:56.517Z",
+    "notas": [
+      {
+        "id": "n1",
+        "texto": "Prospecto contactado vía WhatsApp. Interesado en rentabilidad y exenciones CONFOTUR.",
+        "fecha": "2026-06-14T14:30:00Z",
+        "autor": "Paola Caram"
+      },
+      {
+        "id": "n2",
+        "texto": "Se envió dossier ejecutivo y lista de precios de unidades tipo B.",
+        "fecha": "2026-06-15T10:15:00Z",
+        "autor": "Angeline Pimentel"
+      }
+    ],
+    "tareas": [
+      {
+        "id": "t1",
+        "titulo": "Enviar cotización personalizada con plan de pago",
+        "fechaLimite": "2026-08-25",
+        "completada": false,
+        "prioridad": "alta"
+      },
+      {
+        "id": "t2",
+        "titulo": "Agendar llamada de asesoría fiscal CONFOTUR",
+        "fechaLimite": "2026-08-28",
+        "completada": true,
+        "prioridad": "media"
+      }
+    ],
+    "documentos": [
+      {
+        "id": "d1",
+        "nombre": "Dossier_Inversion_CONFOTUR_2026.pdf",
+        "tamano": "2.4 MB",
+        "fecha": "2026-06-14",
+        "url": "#"
+      }
+    ]
+  },
+  {
+    "_id": "vT2f5Wuqst4nyHHbzTq7",
+    "createdAt": "2026-05-05T14:32:49.866Z",
+    "montoInversion": "100-200K",
+    "comoNosEncontro": "otros",
+    "comoNosEncontroNombre": "",
+    "statusConstructora": "pendiente",
+    "pais": "United States",
+    "telefono": "3472351673",
+    "otrosMedios": "franciel payano basilica",
+    "acciones": "",
+    "proyectoInteres": "",
+    "nombre": "Franciel payano",
+    "updatedAt": "2026-05-05T14:32:49.866Z",
+    "estado": "New York",
+    "nurtureStatus": "email1=sent | email2=sent | email3=sent",
+    "email": "francielpg23@gmail.com",
+    "region": "punta-cana",
+    "source": "contacto",
+    "statusVentas": "nuevo",
+    "razones": "renta",
+    "ciudad": "New York",
+    "zipCode": "10458",
+    "authUid": "q9HSk6qpqBV8CuvBIFoHal8mv5J3",
+    "clienteAt": "2026-05-29T18:36:56.004Z",
+    "notas": [
+      {
+        "id": "n1",
+        "texto": "Prospecto contactado vía WhatsApp. Interesado en rentabilidad y exenciones CONFOTUR.",
+        "fecha": "2026-06-14T14:30:00Z",
+        "autor": "Paola Caram"
+      },
+      {
+        "id": "n2",
+        "texto": "Se envió dossier ejecutivo y lista de precios de unidades tipo B.",
+        "fecha": "2026-06-15T10:15:00Z",
+        "autor": "Angeline Pimentel"
+      }
+    ],
+    "tareas": [
+      {
+        "id": "t1",
+        "titulo": "Enviar cotización personalizada con plan de pago",
+        "fechaLimite": "2026-08-25",
+        "completada": false,
+        "prioridad": "alta"
+      },
+      {
+        "id": "t2",
+        "titulo": "Agendar llamada de asesoría fiscal CONFOTUR",
+        "fechaLimite": "2026-08-28",
+        "completada": true,
+        "prioridad": "media"
+      }
+    ],
+    "documentos": [
+      {
+        "id": "d1",
+        "nombre": "Dossier_Inversion_CONFOTUR_2026.pdf",
+        "tamano": "2.4 MB",
+        "fecha": "2026-06-14",
+        "url": "#"
+      }
+    ]
+  }
+]

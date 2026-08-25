@@ -144,9 +144,9 @@
   </table>
 </div>
 
-<div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 14px; flex-wrap: wrap; gap: 8px;">
   <div>Mostrando <%= leads.length %> de <%= totalLeads %> prospectos registrados</div>
-  <div>Exportación a Excel / CSV habilitada en CRM NPI</div>
+  <div><a href="/admin/npi" style="color: var(--primary); font-weight: 700; text-decoration: none;"><i class="fa-solid fa-file-excel"></i> Módulo de Segmentación & Exportación NPI</a></div>
 </div>
 
 <%- include('../layout-end') %>

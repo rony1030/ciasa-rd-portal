@@ -105,9 +105,12 @@ app.get('/videos/:filename', (req, res) => {
   }
 });
 
-// 5. Redirección de URL obsoleta /crm-npi al módulo protegido del panel
+// 5. Redirección y soporte para URL /crm-npi y /crm-npi.html
 app.get('/crm-npi', (req, res) => {
-  res.redirect(301, '/admin/npi');
+  res.redirect(301, '/admin');
+});
+app.get('/crm-npi.html', (req, res) => {
+  res.sendFile(path.join(SITIO_DIR, 'crm-npi.html'));
 });
 
 // 6. CRM Admin Panel (Solo Admin/Dev)

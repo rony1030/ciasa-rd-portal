@@ -2,8 +2,8 @@
 RewriteEngine On
 RewriteBase /
 
-# Clean URLs para crm-npi
-RewriteRule ^crm-npi/?$ /crm-npi.html [L]
+# Redirección de /crm-npi al CRM principal
+RewriteRule ^crm-npi/?$ /admin [R=301,L]
 
 # Clean URLs generales (.html automático si no tiene extensión)
 RewriteCond %{REQUEST_FILENAME} !-f

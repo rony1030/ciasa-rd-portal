@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>CIASA RD — Documento de Entrega de Materiales</title>
+<style>
+  :root { --navy:#1B3A5C; --blue:#5B9BD5; --bg:#EAF0F5; --green:#7DB33A; --ink:#1f2937; --muted:#6B7280; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", Inter, Roboto, sans-serif; color: var(--ink);
+         line-height: 1.6; margin: 0; background: var(--bg); }
+  .wrap { max-width: 880px; margin: 0 auto; background: #fff; padding: 56px 64px; }
+  header { border-bottom: 4px solid var(--blue); padding-bottom: 20px; margin-bottom: 32px; }
+  h1 { color: var(--navy); font-size: 28px; margin: 0 0 6px; }
+  .sub { color: var(--muted); font-size: 15px; }
+  h2 { color: var(--navy); font-size: 20px; margin: 34px 0 12px; padding-bottom: 6px;
+       border-bottom: 1px solid #e5e7eb; }
+  h3 { color: var(--navy); font-size: 16px; margin: 20px 0 6px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+  th { background: var(--bg); color: var(--navy); font-weight: 600; }
+  code { background: #f3f4f6; padding: 1px 6px; border-radius: 4px; font-size: 13px; }
+  .pill { display: inline-block; background: var(--green); color: #fff; font-size: 12px;
+          padding: 2px 10px; border-radius: 999px; font-weight: 600; }
+  .note { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 14px; }
+  .excl { background: #FEF2F2; border: 1px solid #FECACA; border-radius: 8px; padding: 14px 18px; margin: 16px 0; font-size: 14px; }
+  .download { display: inline-flex; align-items: center; gap: 10px; background: var(--green); color: #fff;
+              text-decoration: none; font-weight: 700; font-size: 16px; padding: 14px 26px; border-radius: 10px;
+              margin: 6px 0 2px; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+  .download:hover { background: #6aa02f; }
+  .download small { font-weight: 500; opacity: .85; font-size: 13px; }
+  .open { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--navy);
+          text-decoration: none; font-weight: 600; font-size: 15px; padding: 11px 20px; border-radius: 10px;
+          border: 1px solid var(--blue); }
+  .open:hover { background: var(--bg); }
+  .ico-svg { width: 18px; height: 18px; flex: 0 0 auto; color: var(--blue); }
+  @media print { .download, .open { display: none; } }
+  ul { margin: 8px 0; padding-left: 22px; }
+  li { margin: 4px 0; }
+  footer { margin-top: 44px; padding-top: 18px; border-top: 1px solid #e5e7eb; color: var(--muted); font-size: 13px; }
+  @media print { body { background: #fff; } .wrap { padding: 0; max-width: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>CIASA RD — Documento de Entrega de Materiales</h1>
+  <div class="sub">Paquete de entrega del sitio web · Materiales, datos y recursos gráficos</div>
+</header>
+
+<p>Este documento describe el contenido del paquete de entrega del sitio web de
+<strong>CIASA RD</strong>. El paquete incluye el sitio web completo en formato
+estático (listo para alojar en cualquier servidor), las exportaciones de datos y
+los recursos gráficos en alta resolución.</p>
+
+<div class="note">
+  <strong>En resumen:</strong> recibe un sitio web autónomo que funciona sin
+  necesidad de base de datos ni servicios externos, más una copia de sus datos de
+  catálogo y contactos, y las imágenes fuente. Para publicarlo, vea
+  <code>README-tecnico.md</code>.
+</div>
+
+<p style="margin:22px 0 6px;">
+  <a class="download" href="CIASARD-entrega-completa.zip" download>
+    ⬇ Descargar todo el paquete (.zip)
+    <small>sitio web · datos · imágenes</small>
+  </a>
+</p>
+<p style="margin:14px 0 4px;display:flex;flex-wrap:wrap;gap:10px;">
+  <a class="open" href="sitio-web/index.html" target="_blank" rel="noopener">
+    <svg class="ico-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+    Abrir el sitio web</a>
+  <a class="open" href="social-media/index.html" target="_blank" rel="noopener">
+    <svg class="ico-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+    Abrir redes sociales y contenidos</a>
+</p>
+<p style="font-size:13px;color:var(--muted);margin:2px 0 0;">
+  El archivo <code>CIASARD-entrega-completa.zip</code> contiene todo lo descrito en
+  este documento. Descomprímalo para obtener las carpetas <code>sitio-web/</code>,
+  <code>datos/</code> e <code>imagenes-fuente/</code>.
+</p>
+
+<h2>1. Estructura del paquete</h2>
+<table>
+  <tr><th>Carpeta / archivo</th><th>Contenido</th></tr>
+  <tr><td><code>index.html</code></td><td>Este documento (página de inicio del paquete).</td></tr>
+  <tr><td><code>README-tecnico.md</code></td><td>Instrucciones de publicación y configuración.</td></tr>
+  <tr><td><code>sitio-web/</code></td><td>Sitio web estático completo (HTML, CSS, JS, imágenes, buscador).</td></tr>
+  <tr><td><code>datos/</code></td><td>Exportaciones de datos en CSV y JSON.</td></tr>
+  <tr><td><code>imagenes-fuente/</code></td><td>Imágenes de proyectos en alta resolución (originales).</td></tr>
+  <tr><td><code>social-media/</code></td><td>Calendario de contenidos, publicaciones, historias y reels para redes sociales.</td></tr>
+  <tr><td><code>estrategia-de-contenidos/</code></td><td>Documento de Estrategia de Contenidos (HTML y Markdown).</td></tr>
+</table>
+
+<h2>2. Sitio web <span class="pill">incluido</span></h2>
+<p>Sitio estático listo para alojar en cualquier proveedor (Netlify, Vercel,
+GitHub Pages, cPanel, S3, etc.). Incluye:</p>
+<table>
+  <tr><th>Sección</th><th>Detalle</th></tr>
+  <tr><td>Página principal</td><td>Hero, regiones, proyectos destacados.</td></tr>
+  <tr><td>Proyectos</td><td>Listado con filtros + <strong>27 fichas</strong> de proyecto individuales.</td></tr>
+  <tr><td>Mapa</td><td>Mapa interactivo de regiones (Leaflet).</td></tr>
+  <tr><td>Asesoría</td><td>Guía de inversión, Wizard de inversión, Calculadoras (ROI, hipoteca, CONFOTUR), Artículos.</td></tr>
+  <tr><td>Otras</td><td>Servicios, Nosotros, Contacto, Preguntas Frecuentes (FAQ).</td></tr>
+  <tr><td>Buscador</td><td>Búsqueda interna del sitio (funciona sin conexión; índice ya generado).</td></tr>
+  <tr><td>Artes / Estrategia</td><td>Galería de artes promocionales y presentación de estrategia (páginas por URL directa).</td></tr>
+  <tr><td>Idiomas</td><td>Español · Inglés · Francés.</td></tr>
+</table>
+<p style="font-size:14px;color:var(--muted)">Totales aproximados: 46 páginas HTML
+· 27 fichas de proyecto · 48 fotografías de proyecto · 47 artes promocionales y QR.</p>
+
+<h3>Formularios de contacto</h3>
+<p>Al no haber servidor, los formularios abren el correo del visitante con los
+datos prellenados hacia <code>paola.caram@ciasard.org.do</code> (configurable).
+También puede conectarlos a su propio servicio de formularios o CRM — ver
+<code>README-tecnico.md</code>, sección 4.</p>
+
+<h2>3. Datos exportados <span class="pill">incluido</span></h2>
+<table>
+  <tr><th>Archivo</th><th>Contenido</th></tr>
+  <tr><td><code>datos/propiedades.csv</code></td><td>Catálogo de las 27 propiedades (Excel / hoja de cálculo, UTF-8).</td></tr>
+  <tr><td><code>datos/propiedades.json</code></td><td>El mismo catálogo en JSON, con todos los campos.</td></tr>
+  <tr><td><code>datos/contactos.csv</code></td><td>Mensajes recibidos por el formulario de contacto. <em>(exportación puntual)</em></td></tr>
+  <tr><td><code>datos/leads.csv</code></td><td>Leads captados por los formularios del sitio. <em>(exportación puntual)</em></td></tr>
+</table>
+
+<h2>4. Imágenes en alta resolución <span class="pill">incluido</span></h2>
+<ul>
+  <li><code>imagenes-fuente/proyectos-alta-resolucion/</code> — PNG originales en alta resolución de los proyectos.</li>
+  <li>Las versiones optimizadas (JPEG) ya están dentro del sitio en <code>sitio-web/assets/images/projects/</code>.</li>
+  <li>Artes promocionales y códigos QR: dentro del sitio en <code>sitio-web/assets/images/flyers/</code> y <code>…/qr/</code>.</li>
+</ul>
+
+<h3>Códigos QR incluidos (35 en total)</h3>
+<table>
+  <tr><th>Cantidad</th><th>Tipo de código QR</th></tr>
+  <tr><td>1</td><td>Página principal (homepage).</td></tr>
+  <tr><td>27</td><td>Propiedades — un código QR por cada propiedad.</td></tr>
+  <tr><td>6</td><td>Regiones — un código QR por cada región.</td></tr>
+  <tr><td>1</td><td>WhatsApp.</td></tr>
+</table>
+
+<h3>Inventario de recursos gráficos y multimedia</h3>
+<table>
+  <tr><th>Cantidad</th><th>Recurso</th></tr>
+  <tr><td>93</td><td>Imágenes para redes sociales (social media).</td></tr>
+  <tr><td>48</td><td>Imágenes de proyecto.</td></tr>
+  <tr><td>47</td><td>Imágenes de flyers (posters).</td></tr>
+  <tr><td>27</td><td>Imágenes de tarjetas de presentación.</td></tr>
+  <tr><td>35</td><td>Códigos QR (ver detalle arriba).</td></tr>
+  <tr><td>1</td><td>Video promocional.</td></tr>
+</table>
+
+<h2>5. Redes sociales y estrategia de contenidos <span class="pill">incluido</span></h2>
+
+<h3>Calendario de contenidos y publicaciones</h3>
+<p>La carpeta <code>social-media/</code> contiene el plan de contenidos completo de la
+campaña para redes sociales, listo para revisar sin conexión:</p>
+<ul>
+  <li><code>social-media/index.html</code> — página de inicio de la sección de redes sociales
+      (enlaza el calendario, los reels y la estrategia). Ábrala en el navegador.</li>
+  <li><code>social-media/calendario-y-posts.html</code> — calendario de contenidos con
+      todas las piezas organizadas por fecha, con su texto, plataforma, hashtags e imagen/video.
+      Ábralo en el navegador.</li>
+  <li><code>social-media/posts.json</code> — las mismas piezas en formato de datos estructurado.</li>
+  <li><code>social-media/assets/clients/ciasard/</code> — todas las imágenes y videos referenciados por las publicaciones.</li>
+</ul>
+<table>
+  <tr><th>Cantidad</th><th>Pieza de contenido</th></tr>
+  <tr><td>141</td><td>Piezas en total.</td></tr>
+  <tr><td>103</td><td>Publicaciones (posts).</td></tr>
+  <tr><td>30</td><td>Historias (stories).</td></tr>
+  <tr><td>8</td><td>Reels para historias en redes sociales.</td></tr>
+</table>
+
+<h3>Reels para historias (8)</h3>
+<p>Los 8 reels en video están en
+<code>social-media/assets/clients/ciasard/reels/</code>
+(<code>reel-01</code> … <code>reel-08</code>, formato MP4).</p>
+
+<h3>Estrategia de Contenidos</h3>
+<p>El documento de estrategia está en <code>estrategia-de-contenidos/</code> en dos formatos:
+<code>ciasa-estrategia-de-contenido.html</code> (ábralo en el navegador) y
+<code>ciasa-estrategia-de-contenido.md</code> (Markdown).</p>
+
+<h2>6. No incluido en la entrega</h2>
+<div class="excl">
+Los siguientes elementos eran <strong>servicios operados por el proveedor</strong>
+sobre su propia infraestructura, y no forman parte del sitio web entregable:
+<ul>
+  <li>Panel CRM y de administración (gestión de leads, usuarios, correos, propiedades).</li>
+  <li>Funciones de servidor (Cloud Functions), envío automático de correos y asistente de IA (chat) — el asistente de IA fue retirado del sitio entregado.</li>
+  <li>Claves de API, contraseñas, credenciales y accesos a bases de datos o infraestructura (recursos propietarios del proveedor).</li>
+  <li>Sistemas internos de atribución de campañas, seguimiento y analítica.</li>
+</ul>
+</div>
+
+<footer>
+  CIASA RD · Documento de entrega de materiales. Para asistencia con la publicación
+  del sitio, consulte <code>README-tecnico.md</code>.
+</footer>
+</div>
+</body>
+</html>
