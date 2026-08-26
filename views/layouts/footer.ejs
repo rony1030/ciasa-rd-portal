@@ -245,70 +245,7 @@
     </div>
   </footer>
 
-  <!-- Librerías de Animación Premium (AOS & Vanilla Tilt 3D) -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-
   <script>
-    // 1. Barra de Progreso de Lectura / Scroll Superior (Ligera y Rápida)
-    window.addEventListener('scroll', () => {
-      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      const pBar = document.getElementById('scrollProgressBar');
-      if (pBar) pBar.style.width = scrolled + '%';
-    }, { passive: true });
-
-    // 3. Inicializar AOS con curvas de aceleración suaves
-    document.addEventListener('DOMContentLoaded', () => {
-      if (typeof AOS !== 'undefined') {
-        AOS.init({
-          duration: 800,
-          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-          once: true,
-          offset: 50
-        });
-      }
-
-      // 4. Inicializar Efecto 3D Tilt en tarjetas interactivas
-      if (typeof VanillaTilt !== 'undefined') {
-        VanillaTilt.init(document.querySelectorAll('.tilt-card, .project-card, .value-card, .team-card'), {
-          max: 6,
-          speed: 400,
-          glare: true,
-          'max-glare': 0.12,
-          perspective: 1000,
-          scale: 1.02
-        });
-      }
-
-      // 5. Animación de Contadores Numéricos Suaves al entrar en pantalla
-      const counters = document.querySelectorAll('.animate-number');
-      const speed = 200;
-      
-      const countObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const target = +entry.target.getAttribute('data-target');
-            let count = 0;
-            const step = Math.ceil(target / 40) || 1;
-            const timer = setInterval(() => {
-              count += step;
-              if (count >= target) {
-                entry.target.innerText = target + (entry.target.getAttribute('data-suffix') || '');
-                clearInterval(timer);
-              } else {
-                entry.target.innerText = count + (entry.target.getAttribute('data-suffix') || '');
-              }
-            }, 30);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.5 });
-
-      counters.forEach(c => countObserver.observe(c));
-    });
-
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
     if (navToggle && navLinks) {
