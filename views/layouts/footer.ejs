@@ -245,35 +245,19 @@
     </div>
   </footer>
 
-  <!-- Librerías de Animación Premium (AOS, Vanilla Tilt 3D & Lenis Smooth Inertia) -->
+  <!-- Librerías de Animación Premium (AOS & Vanilla Tilt 3D) -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
-  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 
   <script>
-    // 1. Lenis Smooth Inertia Scroll (Efecto Studio Webflow / Vista Haven)
-    if (typeof Lenis !== 'undefined') {
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        smoothWheel: true
-      });
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-    }
-
-    // 2. Barra de Progreso de Lectura / Scroll Superior
+    // 1. Barra de Progreso de Lectura / Scroll Superior (Ligera y Rápida)
     window.addEventListener('scroll', () => {
       const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
       const pBar = document.getElementById('scrollProgressBar');
       if (pBar) pBar.style.width = scrolled + '%';
-    });
+    }, { passive: true });
 
     // 3. Inicializar AOS con curvas de aceleración suaves
     document.addEventListener('DOMContentLoaded', () => {
