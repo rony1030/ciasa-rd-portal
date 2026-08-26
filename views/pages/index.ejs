@@ -167,24 +167,24 @@
   </script>
 
   <!-- ==========================================================================
-       ESTADÍSTICAS RESPONSIVE CON ANIMACIÓN REVEAL
+       ESTADÍSTICAS RESPONSIVE CON ANIMACIÓN REVEAL Y CONTADORES DINÁMICOS
        ========================================================================== -->
   <section class="container home-stats-wrapper" data-aos="fade-up" data-aos-duration="800">
     <div class="home-stats-grid">
       <div class="home-stat-cell">
-        <div style="font-size: 2.2rem; font-weight: 900; color: var(--navy); margin-bottom: 4px;">27+</div>
+        <div class="animate-number" data-target="27" data-suffix="+" style="font-size: 2.2rem; font-weight: 900; color: var(--navy); margin-bottom: 4px;">0</div>
         <div style="font-size: 0.84rem; color: var(--text-muted); font-weight: 600;">Proyectos Verificados</div>
       </div>
       <div class="home-stat-cell">
-        <div style="font-size: 2.2rem; font-weight: 900; color: var(--green); margin-bottom: 4px;">15 Años</div>
+        <div class="animate-number" data-target="15" data-suffix=" Años" style="font-size: 2.2rem; font-weight: 900; color: var(--green); margin-bottom: 4px;">0</div>
         <div style="font-size: 0.84rem; color: var(--text-muted); font-weight: 600;">Exención Impuestos IPI</div>
       </div>
       <div class="home-stat-cell">
-        <div style="font-size: 2.2rem; font-weight: 900; color: var(--navy); margin-bottom: 4px;">8-14%</div>
+        <div class="animate-number" data-target="14" data-suffix="%" style="font-size: 2.2rem; font-weight: 900; color: var(--navy); margin-bottom: 4px;">0</div>
         <div style="font-size: 0.84rem; color: var(--text-muted); font-weight: 600;">ROI Anual Estimado (USD)</div>
       </div>
       <div class="home-stat-cell">
-        <div style="font-size: 2.2rem; font-weight: 900; color: var(--green); margin-bottom: 4px;">100%</div>
+        <div class="animate-number" data-target="100" data-suffix="%" style="font-size: 2.2rem; font-weight: 900; color: var(--green); margin-bottom: 4px;">0</div>
         <div style="font-size: 0.84rem; color: var(--text-muted); font-weight: 600;">Asistencia a Distancia</div>
       </div>
     </div>
@@ -204,7 +204,7 @@
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 24px;">
           <!-- Punta Cana -->
-          <a href="/proyectos?region=punta-cana" data-aos="fade-up" data-aos-delay="100" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+          <a href="/proyectos?region=punta-cana" class="shine-effect interactive-card" data-aos="fade-up" data-aos-delay="100" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
               <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Punta Cana & Cap Cana</div>
               <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">12 Proyectos</span>
@@ -214,7 +214,7 @@
           </a>
 
           <!-- Santo Domingo -->
-          <a href="/proyectos?region=santo-domingo" data-aos="fade-up" data-aos-delay="200" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+          <a href="/proyectos?region=santo-domingo" class="shine-effect interactive-card" data-aos="fade-up" data-aos-delay="200" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
               <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Santo Domingo & DN</div>
               <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">5 Proyectos</span>
@@ -224,7 +224,7 @@
           </a>
 
           <!-- Juan Dolio -->
-          <a href="/proyectos?region=juan-dolio" data-aos="fade-up" data-aos-delay="300" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+          <a href="/proyectos?region=juan-dolio" class="shine-effect interactive-card" data-aos="fade-up" data-aos-delay="300" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
               <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Juan Dolio & Guayacanes</div>
               <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">3 Proyectos</span>
@@ -234,7 +234,7 @@
           </a>
 
           <!-- Bayahíbe -->
-          <a href="/proyectos?region=bayahibe" data-aos="fade-up" data-aos-delay="100" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+          <a href="/proyectos?region=bayahibe" class="shine-effect interactive-card" data-aos="fade-up" data-aos-delay="100" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
               <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Bayahíbe & Dominicus</div>
               <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">3 Proyectos</span>
@@ -244,7 +244,7 @@
           </a>
 
           <!-- Samaná -->
-          <a href="/proyectos?region=las-terrenas" data-aos="fade-up" data-aos-delay="200" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+          <a href="/proyectos?region=las-terrenas" class="shine-effect interactive-card" data-aos="fade-up" data-aos-delay="200" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
               <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Las Terrenas & Samaná</div>
               <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">2 Proyectos</span>
@@ -254,7 +254,7 @@
           </a>
 
           <!-- Miches -->
-          <a href="/proyectos?region=miches" data-aos="fade-up" data-aos-delay="300" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: all 0.2s;">
+          <a href="/proyectos?region=miches" class="shine-effect interactive-card" data-aos="fade-up" data-aos-delay="300" style="background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; text-decoration: none; display: flex; flex-direction: column; gap: 12px;">
             <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
               <div style="font-size: 1.18rem; font-weight: 700; color: var(--navy); line-height: 1.3;">Miches & Costa Esmeralda</div>
               <span style="background: #EFF6FF; color: #2563EB; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;">2 Proyectos</span>
