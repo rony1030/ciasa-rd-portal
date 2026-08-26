@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Acceso al Panel Administrativo — CIASA Bolsa Inmobiliaria</title>
+  <title>Acceso Administrativo — CIASA Bolsa Inmobiliaria</title>
   <link rel="icon" href="/favicon.ico">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,11 +15,10 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --primary: #7DB33A;
-      --primary-hover: #68992E;
+      --green: #7DB33A;
+      --green-dark: #68992E;
       --navy: #0A1E36;
-      --navy-dark: #071526;
-      --bg: #0A1E36;
+      --navy-deep: #061426;
       --card-bg: #FFFFFF;
       --border: #E2E8F0;
       --text-main: #0F172A;
@@ -28,70 +27,106 @@
 
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(135deg, rgba(7, 21, 38, 0.95), rgba(10, 30, 54, 0.92)), url('/assets/images/projects/marina-garden-2.jpg');
-      background-size: cover;
-      background-position: center;
+      background: radial-gradient(circle at 20% 20%, rgba(125, 179, 58, 0.15), transparent 45%),
+                  radial-gradient(circle at 80% 80%, rgba(37, 99, 235, 0.12), transparent 45%),
+                  linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 24px 16px;
       color: var(--text-main);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle background grid pattern */
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+      z-index: 10;
+      animation: cardEntrance 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes cardEntrance {
+      from { opacity: 0; transform: translateY(18px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .login-card {
       background: #FFFFFF;
-      border-radius: 18px;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
-      width: 100%;
-      max-width: 420px;
+      border-radius: 24px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      animation: fadeIn 0.35s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .login-header {
-      background: var(--navy);
-      padding: 36px 32px 30px;
+      padding: 38px 36px 24px;
       text-align: center;
-      color: #FFFFFF;
-      position: relative;
+      background: #FFFFFF;
     }
 
-    .login-brand-icon {
-      width: 58px;
-      height: 58px;
-      border-radius: 14px;
-      background: rgba(125, 179, 58, 0.15);
-      border: 1px solid rgba(125, 179, 58, 0.35);
-      display: flex;
+    .brand-logo-wrap {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 16px;
-      color: var(--primary);
-      font-size: 1.6rem;
+      gap: 12px;
+      margin-bottom: 20px;
+      text-decoration: none;
+    }
+
+    .brand-logo-img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .brand-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      text-align: left;
+      line-height: 1.1;
+    }
+
+    .brand-subtitle {
+      font-size: 0.76rem;
+      color: var(--green);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      display: block;
     }
 
     .login-header h1 {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: 800;
+      color: var(--navy);
       letter-spacing: -0.3px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .login-header p {
-      font-size: 0.84rem;
-      color: #94A3B8;
+      font-size: 0.86rem;
+      color: var(--text-muted);
       font-weight: 500;
     }
 
     .login-body {
-      padding: 32px;
+      padding: 10px 36px 36px;
     }
 
     .form-group {
@@ -100,35 +135,35 @@
 
     .form-label {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.80rem;
       font-weight: 700;
-      color: var(--text-main);
+      color: #334155;
       margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.2px;
     }
 
     .input-wrapper {
       position: relative;
+      display: flex;
+      align-items: center;
     }
 
-    .input-icon {
+    .input-icon-left {
       position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
+      left: 16px;
       color: #94A3B8;
       font-size: 1rem;
       transition: color 0.2s ease;
+      pointer-events: none;
     }
 
     .form-input {
       width: 100%;
-      height: 48px;
-      padding: 0 14px 0 42px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 0.95rem;
+      height: 50px;
+      padding: 0 46px 0 46px;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 12px;
+      font-size: 0.94rem;
       color: var(--text-main);
       background: #F8FAFC;
       transition: all 0.2s ease;
@@ -137,39 +172,58 @@
     }
 
     .form-input:focus {
-      border-color: var(--primary);
+      border-color: var(--green);
       background: #FFFFFF;
-      box-shadow: 0 0 0 3px rgba(125, 179, 58, 0.15);
+      box-shadow: 0 0 0 4px rgba(125, 179, 58, 0.15);
     }
 
-    .form-input:focus + .input-icon,
-    .form-input:focus ~ .input-icon {
-      color: var(--primary);
+    .form-input:focus ~ .input-icon-left {
+      color: var(--green);
+    }
+
+    .toggle-pass-btn {
+      position: absolute;
+      right: 14px;
+      background: none;
+      border: none;
+      color: #94A3B8;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s ease;
+    }
+
+    .toggle-pass-btn:hover {
+      color: var(--navy);
     }
 
     .btn-submit {
       width: 100%;
-      height: 48px;
-      background: var(--primary);
+      height: 50px;
+      background: var(--green);
       color: #FFFFFF;
       border: none;
-      border-radius: 10px;
-      font-size: 1rem;
+      border-radius: 12px;
+      font-size: 0.98rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 14px rgba(125, 179, 58, 0.35);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 6px 18px rgba(125, 179, 58, 0.35);
       margin-top: 26px;
     }
 
     .btn-submit:hover {
-      background: var(--primary-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(125, 179, 58, 0.45);
+      background: var(--green-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(125, 179, 58, 0.45);
     }
 
     .btn-submit:active {
@@ -178,80 +232,142 @@
 
     .alert-error {
       background: #FEF2F2;
-      border: 1px solid #F87171;
-      color: #B91C1C;
-      padding: 12px 14px;
-      border-radius: 8px;
-      font-size: 0.84rem;
+      border: 1px solid #FECACA;
+      color: #DC2626;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 0.86rem;
       font-weight: 600;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       display: flex;
       align-items: center;
       gap: 10px;
+      animation: shake 0.3s ease-in-out;
     }
 
-    .login-footer {
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+
+    .login-footer-links {
+      margin-top: 26px;
       text-align: center;
-      padding: 0 32px 28px;
-      font-size: 0.78rem;
-      color: #94A3B8;
+      font-size: 0.82rem;
+      color: #64748B;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .login-footer a {
+    .login-footer-links a {
       color: #2563EB;
       text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .login-footer-links a:hover {
+      color: #1D4ED8;
+      text-decoration: underline;
+    }
+
+    .security-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.74rem;
       font-weight: 600;
+      color: #94A3B8;
+      margin-top: 6px;
     }
   </style>
 </head>
 <body>
 
-  <div class="login-card">
-    <div class="login-header">
-      <div class="login-brand-icon">
-        <i class="fa-solid fa-shield-halved"></i>
+  <div class="login-container">
+    <div class="login-card">
+      
+      <!-- Encabezado con Identidad Institucional -->
+      <div class="login-header">
+        <a href="/" class="brand-logo-wrap" title="Ir al portal público">
+          <img src="/assets/images/branding/ciasa-bolsa-inmobiliaria-logomark-transparent.png" alt="CIASA" class="brand-logo-img" onerror="this.src='/favicon.png';">
+          <div>
+            <div class="brand-title">CIASA</div>
+            <span class="brand-subtitle">Bolsa Inmobiliaria</span>
+          </div>
+        </a>
+        <h1>Acceso Administrativo</h1>
+        <p>Inicia sesión para gestionar el CRM, leads y catálogo</p>
       </div>
-      <h1>CIASA Admin</h1>
-      <p>Suite Administrativa & CRM Inmobiliario</p>
-    </div>
 
-    <div class="login-body">
-      <% if (typeof error !== 'undefined' && error) { %>
-        <div class="alert-error">
-          <i class="fa-solid fa-triangle-exclamation"></i>
-          <span><%= error %></span>
-        </div>
-      <% } %>
-
-      <form action="/admin/login" method="POST">
-        <div class="form-group">
-          <label class="form-label" for="username">Usuario o Correo</label>
-          <div class="input-wrapper">
-            <input type="text" id="username" name="username" class="form-input" placeholder="" required autofocus autocomplete="username">
-            <i class="fa-regular fa-user input-icon"></i>
+      <!-- Cuerpo del Formulario -->
+      <div class="login-body">
+        <% if (typeof error !== 'undefined' && error) { %>
+          <div class="alert-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span><%= error %></span>
           </div>
-        </div>
+        <% } %>
 
-        <div class="form-group">
-          <label class="form-label" for="password">Contraseña</label>
-          <div class="input-wrapper">
-            <input type="password" id="password" name="password" class="form-input" placeholder="" required autocomplete="current-password">
-            <i class="fa-solid fa-lock input-icon"></i>
+        <form action="/admin/login" method="POST">
+          <div class="form-group">
+            <label class="form-label" for="username">Usuario o Correo Institucional</label>
+            <div class="input-wrapper">
+              <input type="text" id="username" name="username" class="form-input" required autofocus autocomplete="username">
+              <i class="fa-regular fa-envelope input-icon-left"></i>
+            </div>
           </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">Contraseña</label>
+            <div class="input-wrapper">
+              <input type="password" id="password" name="password" class="form-input" required autocomplete="current-password">
+              <i class="fa-solid fa-lock input-icon-left"></i>
+              <button type="button" class="toggle-pass-btn" onclick="togglePasswordVisibility()" title="Mostrar/Ocultar contraseña">
+                <i class="fa-regular fa-eye" id="eyeIcon"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span>Entrar al Panel</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </form>
+
+        <div class="login-footer-links">
+          <div class="security-badge">
+            <i class="fa-solid fa-shield-halved" style="color: var(--green);"></i> Conexión Fiduciaria Encriptada SSL
+          </div>
+          <a href="/"><i class="fa-solid fa-arrow-left"></i> Regresar al Sitio Web</a>
         </div>
+      </div>
 
-        <button type="submit" class="btn-submit">
-          <span>Ingresar al Panel</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-      </form>
-    </div>
-
-    <div class="login-footer">
-      <p><i class="fa-solid fa-lock" style="margin-right: 4px;"></i> Acceso Fiduciario & Comercial Protegido</p>
-      <p style="margin-top: 6px;"><a href="/">← Regresar al Portal Público</a></p>
     </div>
   </div>
+
+  <script>
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        passInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    }
+  </script>
 
 </body>
 </html>
