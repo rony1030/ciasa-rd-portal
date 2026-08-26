@@ -2,41 +2,53 @@
 
 <div class="section-header">
   <div>
-    <h2>Gestión de Usuarios</h2>
-    <p>Control de acceso y roles del panel admin</p>
+    <h2>Gestión de Usuarios & Control de Acceso</h2>
+    <p>Roles de equipo, permisos por módulo y seguridad del panel administrativo</p>
   </div>
-  <span class="ph-tag">Fase 2</span>
+  <span class="badge badge-purple" style="font-size: 0.8rem; padding: 6px 14px;"><i class="fa-solid fa-layer-group"></i> Fase 2</span>
 </div>
 
-<div class="placeholder-card">
-  <div class="ph-icon"><i class="fa-solid fa-user-shield"></i></div>
-  <h3>Usuarios & Roles — Próximamente</h3>
-  <p>Este módulo permitirá crear múltiples usuarios con roles definidos (Admin, Editor, Viewer) para controlar el acceso al panel de administración con autenticación segura por base de datos.</p>
-  <span class="ph-tag">Disponible en Fase 2</span>
+<div class="form-card" style="text-align: center; padding: 48px 24px; max-width: 900px; margin: 0 auto 40px;">
+  <div style="width: 64px; height: 64px; border-radius: 16px; background: #EEF2FF; color: #4F46E5; display: inline-flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 20px;">
+    <i class="fa-solid fa-user-shield"></i>
+  </div>
+  <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-heading); margin-bottom: 8px;">Control de Usuarios y Permisos — Próximamente</h3>
+  <p style="color: var(--text-muted); font-size: 0.88rem; max-width: 580px; margin: 0 auto 28px; line-height: 1.5;">
+    Este módulo permitirá registrar múltiples asesores con roles definidos (Administrador, Asesor Comercial, Editor de Blog) para gestionar la cartera de leads y asignación de prospectos de manera individual.
+  </p>
 
-  <div style="margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
-    <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 18px; text-align: left; opacity: 0.5;">
-      <div style="font-size: 1.2rem; margin-bottom: 8px;">👑</div>
-      <div style="font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 4px;">Rol Admin</div>
-      <div style="font-size: 0.76rem; color: var(--muted);">Acceso total al panel</div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; text-align: left;">
+    <div style="background: #F8FAFC; border: 1px solid var(--border-color); border-radius: 14px; padding: 20px;">
+      <div style="width: 36px; height: 36px; border-radius: 8px; background: #FEF3C7; color: #D97706; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 12px;">
+        <i class="fa-solid fa-crown"></i>
+      </div>
+      <div style="font-size: 0.90rem; font-weight: 800; color: var(--text-heading); margin-bottom: 4px;">Rol Administrador</div>
+      <div style="font-size: 0.78rem; color: var(--text-muted);">Acceso total a leads, ajustes del portal, catálogo y base NPI</div>
     </div>
-    <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 18px; text-align: left; opacity: 0.5;">
-      <div style="font-size: 1.2rem; margin-bottom: 8px;">✏️</div>
-      <div style="font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 4px;">Rol Editor</div>
-      <div style="font-size: 0.76rem; color: var(--muted);">Gestión de contenido y blog</div>
+
+    <div style="background: #F8FAFC; border: 1px solid var(--border-color); border-radius: 14px; padding: 20px;">
+      <div style="width: 36px; height: 36px; border-radius: 8px; background: #EFF6FF; color: #2563EB; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 12px;">
+        <i class="fa-solid fa-user-tie"></i>
+      </div>
+      <div style="font-size: 0.90rem; font-weight: 800; color: var(--text-heading); margin-bottom: 4px;">Rol Asesor Comercial</div>
+      <div style="font-size: 0.78rem; color: var(--text-muted);">Gestión de su cartera de prospectos, notas y tareas asignadas</div>
     </div>
-    <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; padding: 18px; text-align: left; opacity: 0.5;">
-      <div style="font-size: 1.2rem; margin-bottom: 8px;">👁️</div>
-      <div style="font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 4px;">Rol Viewer</div>
-      <div style="font-size: 0.76rem; color: var(--muted);">Solo lectura de leads y stats</div>
+
+    <div style="background: #F8FAFC; border: 1px solid var(--border-color); border-radius: 14px; padding: 20px;">
+      <div style="width: 36px; height: 36px; border-radius: 8px; background: #F0FDF4; color: #16A34A; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 12px;">
+        <i class="fa-solid fa-pen-nib"></i>
+      </div>
+      <div style="font-size: 0.90rem; font-weight: 800; color: var(--text-heading); margin-bottom: 4px;">Rol Editor de Contenido</div>
+      <div style="font-size: 0.78rem; color: var(--text-muted);">Publicación de artículos en el blog, noticias y análisis del sector</div>
     </div>
   </div>
 
-  <div style="margin-top: 24px; padding: 16px 20px; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 10px; display: inline-block;">
-    <div style="font-size: 0.82rem; color: #FCD34D; font-weight: 600;">
-      <i class="fa-solid fa-lock"></i> Actualmente: acceso con Basic Auth (admin / <span style="letter-spacing: 2px;">••••••••</span>)
+  <div style="padding: 14px 20px; background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; display: inline-flex; align-items: center; gap: 10px; text-align: left;">
+    <i class="fa-solid fa-shield-halved" style="color: #D97706; font-size: 1.1rem;"></i>
+    <div>
+      <div style="font-size: 0.82rem; color: #92400E; font-weight: 700;">Acceso Principal Protegido con Credenciales CIASA Core</div>
+      <div style="font-size: 0.74rem; color: #B45309;">Sesión activa para Paola Caram (Directora Comercial)</div>
     </div>
-    <div style="font-size: 0.76rem; color: var(--muted); margin-top: 4px;">Cambia las credenciales en el archivo .env</div>
   </div>
 </div>
 
