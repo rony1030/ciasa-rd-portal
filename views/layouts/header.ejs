@@ -67,12 +67,14 @@
 
     /* Global Button Utilities */
     .btn-cta, .btn-primary {
+    /* Global Button Utilities */
+    .btn-cta, .btn-primary {
       background: var(--green);
-      color: #ffffff !important;
+      color: #ffffff;
       font-weight: 700;
       padding: 12px 24px;
       border-radius: 8px;
-      text-decoration: none !important;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -85,18 +87,28 @@
     }
     .btn-cta:hover, .btn-primary:hover {
       background: var(--green-hover);
-      color: #ffffff !important;
-      text-decoration: none !important;
+      color: #ffffff;
       transform: translateY(-2px);
     }
     .btn-blue {
-      background: #2563EB !important;
-      color: #ffffff !important;
+      background: #2563EB;
+      color: #ffffff;
       box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
     }
     .btn-blue:hover {
-      background: #1D4ED8 !important;
-      color: #ffffff !important;
+      background: #1D4ED8;
+      color: #ffffff;
+    }
+    .btn-outline-dark {
+      background: #ffffff;
+      color: var(--navy) !important;
+      border: 1.5px solid #CBD5E1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .btn-outline-dark:hover {
+      background: #F1F5F9;
+      color: var(--navy) !important;
+      border-color: #94A3B8;
     }
 
     /* 1. Header & Navigation (Fixed Permanently on Top for Desktop & Mobile) */
@@ -480,7 +492,7 @@
       .nav-links { gap: 10px; }
     }
     @media (max-width: 920px) {
-      .header-actions .lang-pill { display: none !important; }
+      .header-actions .lang-dropdown-container { display: flex !important; }
       .mobile-cta-item { display: block !important; width: 100%; margin-top: 10px; }
       .nav-links {
         display: none;
@@ -508,17 +520,20 @@
         margin-top: 6px;
         padding-left: 14px;
         width: 100%;
+        border-left: 3px solid var(--green);
+        border-radius: 8px;
       }
+    }
+    @media (max-width: 480px) {
+      .brand-name { font-size: 1.25rem !important; }
+      .brand-tagline { font-size: 0.88rem !important; }
+      .brand-sub { display: none !important; }
+      .brand-logo img { height: 42px !important; }
+      .header-actions { gap: 8px !important; }
     }
   </style>
 </head>
 <body>
-
-  <!-- ==========================================================================
-       HEADER & NAVIGATION (IDÉNTICO A CIASARD.COM CON TODAS LAS OPCIONES)
-       ========================================================================== -->
-  <!-- Barra de Progreso de Lectura / Scroll en la parte superior -->
-  <div id="scrollProgressBar"></div>
 
   <header class="site-header">
     <div class="container" style="width: 100%;">
@@ -577,10 +592,6 @@
               <div class="wa-bubble-arrow"></div>
             </div>
           </div>
-
-          <a href="/proyectos" class="btn-icon-action" title="Buscar Proyectos" aria-label="Buscar">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </a>
 
           <!-- Selector de Idioma / Traducción Compacto: Bandera Arriba + Iniciales Abajo -->
           <div class="lang-dropdown-container" id="langDropdownWrap">
