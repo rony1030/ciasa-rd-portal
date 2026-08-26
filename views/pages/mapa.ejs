@@ -237,16 +237,22 @@
     }
     .project-card-code {
       font-size: 0.75rem;
+    @media (max-width: 480px) {
+      .project-card-body {
+        padding: 16px 16px;
+      }
+    }
+
     /* Altnest Card Styling */
     .project-header-row {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 8px;
     }
     .project-card-title {
-      font-size: 1.18rem;
+      font-size: 1.15rem;
       font-weight: 800;
       color: #0A1E36;
       margin: 0;
@@ -255,65 +261,88 @@
       letter-spacing: -0.2px;
       transition: color 0.2s ease;
       flex: 1;
+      word-break: break-word;
+    }
+    @media (max-width: 480px) {
+      .project-card-title {
+        font-size: 1.02rem;
+      }
     }
     .project-card:hover .project-card-title {
       color: var(--green);
     }
     .project-card-price {
-      font-size: 1.28rem;
+      font-size: 1.22rem;
       font-weight: 900;
       color: #0A1E36;
       white-space: nowrap;
       letter-spacing: -0.3px;
       line-height: 1.2;
+      flex-shrink: 0;
+    }
+    @media (max-width: 480px) {
+      .project-card-price {
+        font-size: 1.1rem;
+      }
     }
     
     .project-location-line {
-      font-size: 0.86rem;
+      font-size: 0.84rem;
       color: #64748B;
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       font-weight: 500;
+      line-height: 1.35;
     }
     .project-location-line i {
       color: #94A3B8;
       font-size: 0.88rem;
+      flex-shrink: 0;
     }
 
     /* Altnest Specs Strip */
     .project-specs-strip {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding-top: 14px;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 12px;
       border-top: 1px solid #F1F5F9;
       margin-top: auto;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: #475569;
       text-transform: uppercase;
       letter-spacing: 0.4px;
     }
+    @media (max-width: 480px) {
+      .project-specs-strip {
+        gap: 8px;
+        font-size: 0.76rem;
+      }
+    }
     .spec-item {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      white-space: nowrap;
     }
     .spec-item i {
       color: #64748B;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
     }
     .roi-pill-altnest {
       margin-left: auto;
       background: #EFF6FF;
       color: #2563EB;
       border: 1px solid #DBEAFE;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 800;
       padding: 3px 8px;
       border-radius: 6px;
+      white-space: nowrap;
     }
 
     /* Custom Leaflet Marker Styling */
