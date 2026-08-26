@@ -130,54 +130,134 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      background: var(--body-bg);
+      background: #F8FAFC;
     }
     .admin-topbar {
-      background: var(--header-bg);
-      border-bottom: 1px solid var(--border-color);
-      padding: 0 24px;
-      height: 64px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 0 28px;
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 50;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-      backdrop-filter: blur(8px);
     }
     .topbar-left { display: flex; align-items: center; gap: 14px; }
     .topbar-search-box {
       position: relative;
-      width: 280px;
+      width: 320px;
     }
     .topbar-search-input {
       width: 100%;
-      height: 38px;
+      height: 40px;
       background: #F1F5F9;
-      border: 1px solid transparent;
-      border-radius: var(--radius-md);
-      padding: 0 14px 0 36px;
-      font-size: 0.84rem;
+      border: 1.5px solid transparent;
+      border-radius: 12px;
+      padding: 0 16px 0 38px;
+      font-size: 0.86rem;
       font-family: inherit;
+      font-weight: 500;
       color: var(--text-heading);
       outline: none;
-      transition: all 0.2s;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .topbar-search-input:focus {
       border-color: var(--primary);
       background: #FFFFFF;
       box-shadow: 0 0 0 3px rgba(125, 179, 58, 0.15);
-      width: 320px;
+      width: 360px;
     }
     .topbar-search-icon {
       position: absolute;
-      left: 12px;
+      left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 0.85rem;
+      color: #94A3B8;
+      font-size: 0.88rem;
       pointer-events: none;
+    }
+
+    /* TOPBAR RIGHT ICONS (TRACKFLOW SAAS STYLE) */
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      background: #FFFFFF;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      position: relative;
+      transition: all 0.15s ease;
+    }
+    .icon-btn:hover {
+      background: #F8FAFC;
+      color: var(--text-heading);
+      border-color: #CBD5E1;
+    }
+    .icon-badge-dot {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: #EF4444;
+      color: #FFFFFF;
+      font-size: 0.65rem;
+      font-weight: 800;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #FFFFFF;
+    }
+
+    /* USER AVATAR PILL (TRACKFLOW STYLE) */
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 10px 4px 4px;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      background: #FFFFFF;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+    .user-pill:hover {
+      border-color: #CBD5E1;
+      background: #F8FAFC;
+    }
+    .user-avatar-img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #EFF6FF;
+    }
+    .user-name {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      line-height: 1.1;
+    }
+    .user-role-label {
+      font-size: 0.68rem;
+      color: #94A3B8;
+      font-weight: 600;
+      display: block;
+      margin-top: 1px;
     }
 
     /* TOPBAR RIGHT ICONS (HANDO STYLE) */
@@ -951,8 +1031,11 @@
       <div style="position: relative;">
         <div class="user-pill" onclick="toggleDropdown('userDropdown')">
           <img src="/assets/images/team/paola-caram.jpg" alt="Paola Caram" class="user-avatar-img" onerror="this.src='/favicon.png';">
-          <span class="user-name">Paola Caram</span>
-          <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem; color: var(--text-muted);"></i>
+          <div>
+            <span class="user-name">Paola Caram</span>
+            <span class="user-role-label">Directora Comercial</span>
+          </div>
+          <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem; color: #94A3B8; margin-left: 4px;"></i>
         </div>
 
         <div class="dropdown-menu-hando" id="userDropdown" style="width: 220px;">
