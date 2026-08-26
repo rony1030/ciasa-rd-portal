@@ -239,16 +239,28 @@
         <div>
           <span>&copy; 2026 CIASA Bolsa Inmobiliaria. Todos los derechos reservados.</span>
         </div>
-        <div class="footer-locations">
-          <span>Santo Domingo, República Dominicana · Nueva York, EE.UU.</span>
-          <span style="color: #475569;">·</span>
           <a href="/admin" class="crm-discreet-link" title="Panel Administrativo CIASA">CRM</a>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- AOS Animation Script (Estilo Vista Haven / Webflow) -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
   <script>
+    // Inicializar AOS con curvas de aceleración suaves tipo Webflow
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 750,
+          easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          once: true,
+          offset: 60
+        });
+      }
+    });
+
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
     if (navToggle && navLinks) {
