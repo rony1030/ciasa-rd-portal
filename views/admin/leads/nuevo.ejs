@@ -2,12 +2,12 @@
 
 <style>
   .lead-form-container {
-    max-width: 980px;
-    margin: 0 auto 40px;
+    width: 100%;
+    margin-bottom: 40px;
   }
 
   .form-section-card {
-    background: var(--card-bg);
+    background: #FFFFFF;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
@@ -24,19 +24,19 @@
     gap: 12px;
   }
   .form-section-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    background: var(--primary-light);
-    color: var(--primary);
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #F0FDF4;
+    color: #16A34A;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 700;
   }
   .form-section-title {
-    font-size: 0.88rem;
+    font-size: 0.90rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -44,7 +44,7 @@
     margin: 0;
   }
   .form-section-subtitle {
-    font-size: 0.74rem;
+    font-size: 0.76rem;
     color: var(--text-muted);
     margin-top: 1px;
   }
@@ -61,12 +61,12 @@
     left: 14px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--text-muted);
+    color: #94A3B8;
     font-size: 0.88rem;
     pointer-events: none;
   }
   .input-with-icon .form-input {
-    padding-left: 38px;
+    padding-left: 40px;
   }
 
   .currency-input-wrap {
@@ -94,10 +94,10 @@
   <!-- Encabezado de Página -->
   <div class="section-header" style="margin-bottom: 20px;">
     <div>
-      <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--text-heading); margin-bottom: 2px;">
+      <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--text-heading); margin-bottom: 2px;">
         <i class="fa-solid fa-user-plus" style="color: var(--primary); margin-right: 6px;"></i> Registrar Nuevo Prospecto
       </h2>
-      <p style="font-size: 0.82rem; color: var(--text-muted);">Ingresa la información comercial y perfil del inversionista para iniciar seguimiento</p>
+      <p style="font-size: 0.84rem; color: var(--text-muted);">Ingresa la información comercial y perfil del inversionista para iniciar seguimiento</p>
     </div>
     <a href="/admin/leads" class="btn btn-secondary btn-sm">
       <i class="fa-solid fa-arrow-left"></i> Volver a Leads
@@ -126,7 +126,7 @@
             <label class="form-label">Nombre Completo *</label>
             <div class="input-with-icon">
               <i class="fa-regular fa-user"></i>
-              <input type="text" name="nombre" class="form-input" placeholder="Ej. Dr. Roberto Gómez" required>
+              <input type="text" name="nombre" class="form-input" required>
             </div>
           </div>
 
@@ -134,7 +134,7 @@
             <label class="form-label">Correo Electrónico *</label>
             <div class="input-with-icon">
               <i class="fa-regular fa-envelope"></i>
-              <input type="email" name="email" class="form-input" placeholder="roberto.gomez@gmail.com" required>
+              <input type="email" name="email" class="form-input" required>
             </div>
           </div>
 
@@ -142,27 +142,47 @@
             <label class="form-label">Teléfono / WhatsApp *</label>
             <div class="input-with-icon">
               <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
-              <input type="tel" name="telefono" class="form-input" placeholder="+1 (786) 554-1234" required>
+              <input type="tel" name="telefono" class="form-input" required>
             </div>
           </div>
 
+          <!-- Dropdown Personalizado: País -->
           <div class="form-group">
             <label class="form-label">País de Residencia</label>
-            <select name="pais" class="form-input">
-              <option value="United States">Estados Unidos (Diáspora)</option>
-              <option value="Dominican Republic">República Dominicana</option>
-              <option value="Puerto Rico">Puerto Rico</option>
-              <option value="Spain">España / Europa</option>
-              <option value="Canada">Canadá</option>
-              <option value="Other">Otro País</option>
-            </select>
+            <div class="custom-dropdown-wrap" id="paisDropdownWrap">
+              <div class="custom-dropdown-trigger" onclick="toggleAdminDropdown('paisDropdownWrap')">
+                <span id="paisSelectedLabel">Estados Unidos (Diáspora)</span>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+              </div>
+              <div class="custom-dropdown-menu">
+                <div class="custom-dropdown-item selected" onclick="selectAdminOption('paisInput', 'United States', 'Estados Unidos (Diáspora)', 'paisSelectedLabel', 'paisDropdownWrap')">
+                  <span>Estados Unidos (Diáspora)</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('paisInput', 'Dominican Republic', 'República Dominicana', 'paisSelectedLabel', 'paisDropdownWrap')">
+                  <span>República Dominicana</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('paisInput', 'Puerto Rico', 'Puerto Rico', 'paisSelectedLabel', 'paisDropdownWrap')">
+                  <span>Puerto Rico</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('paisInput', 'Spain', 'España / Europa', 'paisSelectedLabel', 'paisDropdownWrap')">
+                  <span>España / Europa</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('paisInput', 'Canada', 'Canadá', 'paisSelectedLabel', 'paisDropdownWrap')">
+                  <span>Canadá</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('paisInput', 'Other', 'Otro País', 'paisSelectedLabel', 'paisDropdownWrap')">
+                  <span>Otro País</span>
+                </div>
+              </div>
+              <input type="hidden" name="pais" id="paisInput" value="United States">
+            </div>
           </div>
 
           <div class="form-group full">
             <label class="form-label">Ciudad / Estado</label>
             <div class="input-with-icon">
               <i class="fa-solid fa-location-dot"></i>
-              <input type="text" name="ciudad" class="form-input" placeholder="Ej. Miami, Florida / Nueva York / Santo Domingo">
+              <input type="text" name="ciudad" class="form-input">
             </div>
           </div>
         </div>
@@ -185,48 +205,102 @@
             <label class="form-label">Presupuesto Estimado (USD)</label>
             <div class="currency-input-wrap">
               <span class="currency-prefix">$</span>
-              <input type="number" name="montoInversion" class="form-input" placeholder="240000" min="0" step="5000">
+              <input type="number" name="montoInversion" class="form-input" min="0" step="5000">
             </div>
           </div>
 
+          <!-- Dropdown Personalizado: Proyecto -->
           <div class="form-group">
             <label class="form-label">Proyecto Inmobiliario de Interés</label>
-            <select name="proyectoInteres" class="form-input">
-              <option value="">-- Seleccionar Proyecto del Catálogo --</option>
-              <% projects.forEach(p => { %>
-              <option value="<%= p.code %> - <%= p.name %>"><%= p.code %> — <%= p.name %></option>
-              <% }) %>
-            </select>
+            <div class="custom-dropdown-wrap" id="leadProjDropdownWrap">
+              <div class="custom-dropdown-trigger" onclick="toggleAdminDropdown('leadProjDropdownWrap')">
+                <span id="leadProjSelectedLabel">-- Seleccionar Proyecto del Catálogo --</span>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+              </div>
+              <div class="custom-dropdown-menu">
+                <div class="custom-dropdown-item selected" onclick="selectAdminOption('leadProjInput', '', '-- Seleccionar Proyecto del Catálogo --', 'leadProjSelectedLabel', 'leadProjDropdownWrap')">
+                  <span>-- Seleccionar Proyecto del Catálogo --</span>
+                </div>
+                <% projects.forEach(p => { %>
+                  <div class="custom-dropdown-item" onclick="selectAdminOption('leadProjInput', '<%= p.code %> - <%= p.name %>', '<%= p.code %> — <%= p.name %>', 'leadProjSelectedLabel', 'leadProjDropdownWrap')">
+                    <span><%= p.code %> — <%= p.name %></span>
+                  </div>
+                <% }) %>
+              </div>
+              <input type="hidden" name="proyectoInteres" id="leadProjInput" value="">
+            </div>
           </div>
 
+          <!-- Dropdown Personalizado: Origen -->
           <div class="form-group">
             <label class="form-label">Origen / Canal de Captación</label>
-            <select name="source" class="form-input">
-              <option value="admin-manual">Registro Manual en Oficina</option>
-              <option value="instagram-ad">Campaña Instagram Ads (Diáspora)</option>
-              <option value="facebook-ad">Facebook Ads Leads</option>
-              <option value="referido">Referido por Inversionista</option>
-              <option value="proyecto">Formulario Web Portal</option>
-              <option value="whatsapp">Chat Directo WhatsApp</option>
-              <option value="evento">Feria Inmobiliaria / Expo</option>
-              <option value="npi">Base Médicos / NPI</option>
-            </select>
+            <div class="custom-dropdown-wrap" id="sourceDropdownWrap">
+              <div class="custom-dropdown-trigger" onclick="toggleAdminDropdown('sourceDropdownWrap')">
+                <span id="sourceSelectedLabel">Registro Manual en Oficina</span>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+              </div>
+              <div class="custom-dropdown-menu">
+                <div class="custom-dropdown-item selected" onclick="selectAdminOption('sourceInput', 'admin-manual', 'Registro Manual en Oficina', 'sourceSelectedLabel', 'sourceDropdownWrap')">
+                  <span>Registro Manual en Oficina</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('sourceInput', 'instagram-ad', 'Campaña Instagram Ads (Diáspora)', 'sourceSelectedLabel', 'sourceDropdownWrap')">
+                  <span>Campaña Instagram Ads (Diáspora)</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('sourceInput', 'facebook-ad', 'Facebook Ads Leads', 'sourceSelectedLabel', 'sourceDropdownWrap')">
+                  <span>Facebook Ads Leads</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('sourceInput', 'referido', 'Referido por Inversionista', 'sourceSelectedLabel', 'sourceDropdownWrap')">
+                  <span>Referido por Inversionista</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('sourceInput', 'proyecto', 'Formulario Web Portal', 'sourceSelectedLabel', 'sourceDropdownWrap')">
+                  <span>Formulario Web Portal</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('sourceInput', 'whatsapp', 'Chat Directo WhatsApp', 'sourceSelectedLabel', 'sourceDropdownWrap')">
+                  <span>Chat Directo WhatsApp</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('sourceInput', 'evento', 'Feria Inmobiliaria / Expo', 'sourceSelectedLabel', 'sourceDropdownWrap')">
+                  <span>Feria Inmobiliaria / Expo</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('sourceInput', 'npi', 'Base Médicos / NPI', 'sourceSelectedLabel', 'sourceDropdownWrap')">
+                  <span>Base Médicos / NPI</span>
+                </div>
+              </div>
+              <input type="hidden" name="source" id="sourceInput" value="admin-manual">
+            </div>
           </div>
 
+          <!-- Dropdown Personalizado: Estado Inicial -->
           <div class="form-group">
             <label class="form-label">Estado Inicial en Pipeline</label>
-            <select name="statusVentas" class="form-input">
-              <option value="nuevo">Nuevo (Sin contactar)</option>
-              <option value="contactado">Contactado (En seguimiento)</option>
-              <option value="calificado">Calificado (Presupuesto validado)</option>
-              <option value="negociacion">En Negociación / Separación</option>
-              <option value="cerrado">Cierre Ganado</option>
-            </select>
+            <div class="custom-dropdown-wrap" id="leadStatusDropdownWrap">
+              <div class="custom-dropdown-trigger" onclick="toggleAdminDropdown('leadStatusDropdownWrap')">
+                <span id="leadStatusSelectedLabel">Nuevo (Sin contactar)</span>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+              </div>
+              <div class="custom-dropdown-menu">
+                <div class="custom-dropdown-item selected" onclick="selectAdminOption('leadStatusInput', 'nuevo', 'Nuevo (Sin contactar)', 'leadStatusSelectedLabel', 'leadStatusDropdownWrap')">
+                  <span>Nuevo (Sin contactar)</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('leadStatusInput', 'contactado', 'Contactado (En seguimiento)', 'leadStatusSelectedLabel', 'leadStatusDropdownWrap')">
+                  <span>Contactado (En seguimiento)</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('leadStatusInput', 'calificado', 'Calificado (Presupuesto validado)', 'leadStatusSelectedLabel', 'leadStatusDropdownWrap')">
+                  <span>Calificado (Presupuesto validado)</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('leadStatusInput', 'negociacion', 'En Negociación / Separación', 'leadStatusSelectedLabel', 'leadStatusDropdownWrap')">
+                  <span>En Negociación / Separación</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('leadStatusInput', 'cerrado', 'Cierre Ganado', 'leadStatusSelectedLabel', 'leadStatusDropdownWrap')">
+                  <span>Cierre Ganado</span>
+                </div>
+              </div>
+              <input type="hidden" name="statusVentas" id="leadStatusInput" value="nuevo">
+            </div>
           </div>
 
           <div class="form-group full">
             <label class="form-label">Notas Iniciales de la Conversación / Requerimientos</label>
-            <textarea name="notas" class="form-input" rows="3" placeholder="Ingresa detalles sobre objetivos del comprador (rentabilidad vacacional, exención CONFOTUR, fechas tentativas de visita a RD)..."></textarea>
+            <textarea name="notas" class="form-input" rows="3"></textarea>
           </div>
         </div>
       </div>
