@@ -374,45 +374,59 @@
   <main>
     <div class="container">
       
-      <!-- 7 Stat Cards Grid (Idéntico a ciasard.com) -->
-      <div class="project-stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 16px; margin: -30px auto 40px; position: relative; z-index: 10;">
-        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
-          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">Precio</div>
-          <div style="font-size: 1.35rem; font-weight: 800; color: #0A1E36;"><%= project.priceFrom ? '$' + (project.priceFrom >= 1000 ? Math.round(project.priceFrom / 1000) + 'K' : project.priceFrom) : 'Consultar' %></div>
-          <div style="font-size: 0.74rem; color: #94A3B8; margin-top: 2px;">a partir de</div>
+      <!-- 7 Stat Cards Grid (Modernizadas y Elegantes) -->
+      <div class="project-stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; margin: -35px auto 40px; position: relative; z-index: 10;">
+        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
+          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
+            <i class="fa-solid fa-tag" style="color: var(--green);"></i> Precio
+          </div>
+          <div style="font-size: 1.35rem; font-weight: 900; color: #0A1E36; letter-spacing: -0.5px;"><%= project.priceFrom ? '$' + (project.priceFrom >= 1000 ? Math.round(project.priceFrom / 1000) + 'K' : project.priceFrom) : 'Consultar' %></div>
+          <div style="font-size: 0.72rem; color: #94A3B8; margin-top: 3px; font-weight: 600;">a partir de</div>
         </div>
 
-        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
-          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">Tamaño</div>
-          <div style="font-size: 1.25rem; font-weight: 800; color: #0A1E36;">
+        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
+          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
+            <i class="fa-solid fa-ruler-combined" style="color: #2563EB;"></i> Tamaño
+          </div>
+          <div style="font-size: 1.22rem; font-weight: 800; color: #0A1E36;">
             <%= (project.sizeFrom === project.sizeTo || !project.sizeTo) ? (project.sizeFrom ? project.sizeFrom + ' m²' : 'Consultar') : (project.sizeFrom + ' - ' + project.sizeTo + ' m²') %>
           </div>
         </div>
 
-        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
-          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">Habitaciones</div>
+        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
+          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
+            <i class="fa-solid fa-bed" style="color: #6366F1;"></i> Habitaciones
+          </div>
           <div style="font-size: 1.35rem; font-weight: 800; color: #0A1E36;"><%= project.bedrooms || 1 %></div>
         </div>
 
-        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
-          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">Reserva</div>
+        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
+          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
+            <i class="fa-solid fa-receipt" style="color: #0891B2;"></i> Reserva
+          </div>
           <div style="font-size: 1.35rem; font-weight: 800; color: #0A1E36;">$<%= project.reserveAmount ? project.reserveAmount.toLocaleString('en-US') : '1,000' %></div>
         </div>
 
-        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
-          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">ROI Estimado</div>
-          <div style="font-size: 1.35rem; font-weight: 800; color: #2563EB;"><%= project.roi || '8.5%' %></div>
-          <div style="font-size: 0.74rem; color: #94A3B8; margin-top: 2px;">a partir de</div>
+        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
+          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
+            <i class="fa-solid fa-chart-line" style="color: #2563EB;"></i> ROI Estimado
+          </div>
+          <div style="font-size: 1.35rem; font-weight: 900; color: #2563EB;"><%= project.roi || '8.5%' %></div>
+          <div style="font-size: 0.72rem; color: #94A3B8; margin-top: 3px; font-weight: 600;">a partir de</div>
         </div>
 
-        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
-          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">Entrega</div>
-          <div style="font-size: 1.15rem; font-weight: 800; color: #0A1E36;"><%= project.delivery || 'En desarrollo' %></div>
+        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
+          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
+            <i class="fa-solid fa-calendar-check" style="color: #F59E0B;"></i> Entrega
+          </div>
+          <div style="font-size: 1.10rem; font-weight: 800; color: #0A1E36;"><%= project.delivery || 'En desarrollo' %></div>
         </div>
 
-        <div class="project-stat-card" style="background: #ffffff; padding: 20px 16px; border-radius: 14px; text-align: center; box-shadow: 0 4px 18px rgba(0,0,0,0.06); border: 1px solid var(--border);">
-          <div style="font-size: 0.78rem; color: #64748B; margin-bottom: 4px; font-weight: 600;">CONFOTUR</div>
-          <div style="font-size: 1.35rem; font-weight: 800; color: <%= project.confotur ? '#059669' : '#64748B' %>;"><%= project.confotur ? 'Sí' : 'No' %></div>
+        <div class="project-stat-card" style="background: <%= project.confotur ? '#ECFDF5' : '#ffffff' %>; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid <%= project.confotur ? '#A7F3D0' : '#E2E8F0' %>; transition: transform 0.2s ease;">
+          <div style="font-size: 0.74rem; color: <%= project.confotur ? '#065F46' : '#64748B' %>; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
+            <i class="fa-solid fa-shield-halved" style="color: <%= project.confotur ? '#10B981' : '#94A3B8' %>;"></i> CONFOTUR
+          </div>
+          <div style="font-size: 1.35rem; font-weight: 900; color: <%= project.confotur ? '#059669' : '#64748B' %>;"><%= project.confotur ? 'Sí' : 'No' %></div>
         </div>
       </div>
 
