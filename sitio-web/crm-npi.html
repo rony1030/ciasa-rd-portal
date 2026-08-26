@@ -90,42 +90,69 @@
     .tab-badge { background: #1e293b; color: #ffffff; font-size: 0.82rem; font-weight: 700; padding: 6px 12px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; }
     .tab-doc { color: #2563eb; font-size: 0.82rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
 
-    /* KPI METRICS BAR COMPACTA */
-    .kpi-grid {
+    /* KPI RIBBON COMPACTO Y RESPONSIVO */
+    .kpi-ribbon-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      flex-shrink: 0;
-    }
-    .kpi-card {
       background: #ffffff;
       border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      gap: 16px;
       box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      position: relative;
     }
-    .kpi-header { display: flex; align-items: center; justify-content: space-between; }
-    .kpi-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.4px; }
-    .kpi-icon { width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; }
-    .kpi-num { font-size: 1.35rem; font-weight: 800; color: #0f172a; line-height: 1.1; }
-    .kpi-sub { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; display: flex; align-items: center; gap: 4px; }
-    .kpi-btn-quick {
-      margin-top: 2px;
-      background: #f8fafc;
-      border: 1px solid var(--border-color);
-      color: #334155;
-      font-size: 0.68rem;
+    .kpi-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-right: 1px solid var(--border-color);
+      padding-right: 16px;
+    }
+    .kpi-item:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+    .kpi-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .kpi-label-text {
+      font-size: 0.74rem;
       font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      line-height: 1.2;
+    }
+    .kpi-number-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.1;
+      margin-top: 2px;
+    }
+    .kpi-action-btn {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      border: 1px solid transparent;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .kpi-action-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
     }
 
     /* Quick Presets Pills Compactas */
@@ -587,7 +614,23 @@
         font-size: 0.95rem;
       }
     }
+
+    /* Ajuste elegante cuando está embebido en el Panel CRM Admin */
+    body.in-iframe .top-header {
+      display: none !important;
+    }
+    body.in-iframe .app-container {
+      padding-top: 10px;
+    }
   </style>
+  <script>
+    if (window.self !== window.top) {
+      document.documentElement.classList.add('in-iframe');
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('in-iframe');
+      });
+    }
+  </script>
 </head><body>
 
   <!-- Top Navigation Bar -->
