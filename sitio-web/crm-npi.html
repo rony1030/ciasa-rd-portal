@@ -1049,10 +1049,9 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
     </div>
   </div>
 
-  <script src="js/curated_npi_data.js"></script>
+  <script src="/js/curated_npi_data.js"></script>
   <script>
-    const IS_HOSTINGER = window.location.hostname.includes('hostingersite.com') || window.location.protocol.startsWith('http');
-    const API_BASE = IS_HOSTINGER ? '/api/npi.php' : 'http://localhost:8085/api/npi';
+    const API_BASE = '/api/npi';
     
     let currentPage = 1;
     const pageLimit = 100;

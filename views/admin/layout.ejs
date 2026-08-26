@@ -180,6 +180,14 @@
     }
 
     /* TOPBAR RIGHT ICONS (TRACKFLOW SAAS STYLE) */
+    .sidebar-toggle-btn {
+      display: none; /* En desktop el sidebar siempre está visible */
+    }
+    @media (max-width: 1024px) {
+      .sidebar-toggle-btn {
+        display: inline-flex !important;
+      }
+    }
     .topbar-right {
       display: flex;
       align-items: center;
@@ -966,7 +974,7 @@
   <!-- TOPBAR FUNCIONAL HANDO STYLE -->
   <div class="admin-topbar">
     <div class="topbar-left">
-      <button class="icon-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+      <button class="icon-btn sidebar-toggle-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
       
       <!-- Buscador en vivo -->
       <div class="topbar-search-box">
