@@ -249,10 +249,42 @@
       box-shadow: 0 16px 32px rgba(0,0,0,0.12);
       border-color: #CBD5E1;
     }
+    .team-wa-btn {
+      background: #25D366;
+      color: #ffffff;
+      border: 1px solid #20BD5A;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 0.90rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .team-wa-btn:hover {
+      background: #20BD5A;
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+    }
+    .team-wa-btn i {
+      font-size: 1.15rem;
+      animation: waPulse 2s infinite ease-in-out;
+    }
+    @keyframes waPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.22); }
+    }
     .team-photo {
       aspect-ratio: 4 / 4.8;
       max-height: 350px;
-      background: #E2E8F0;
+      background: #ffffff;
       position: relative;
       overflow: hidden;
     }
@@ -536,7 +568,7 @@
                 <span class="team-tag">Harvard Kennedy School</span>
                 <span class="team-tag">Sucesión Ibarra</span>
               </div>
-              <a href="https://wa.me/18092995233?text=Hola%20Paola,%20quisiera%20conversar%20sobre%20una%20inversi%C3%B3n%20en%20RD." target="_blank" class="btn-cta" style="margin-top: 14px; justify-content: center;">
+              <a href="https://wa.me/18092995233?text=Hola%20Paola,%20quisiera%20conversar%20sobre%20una%20inversi%C3%B3n%20en%20RD." target="_blank" class="team-wa-btn" style="margin-top: 14px; width: 100%;">
                 <i class="fa-brands fa-whatsapp"></i> Hablar con Paola
               </a>
             </div>
@@ -544,8 +576,8 @@
 
           <!-- Angeline Pimentel Polanco -->
           <article class="team-card">
-            <div class="team-photo">
-              <img src="/assets/images/team/angeline-pimentel.jpg" alt="Angeline Pimentel Polanco">
+            <div class="team-photo" style="background: #ffffff;">
+              <img src="/assets/images/team/angeline-pimentel.jpg" alt="Angeline Pimentel Polanco" style="object-position: center top;">
               <span class="team-role-tag">Asesora Inmobiliaria</span>
             </div>
             <div class="team-body">
@@ -562,7 +594,7 @@
                 <span class="team-tag">Asociación Empresas Inmobiliarias</span>
                 <span class="team-tag">Tributación & CONFOTUR</span>
               </div>
-              <a href="https://wa.me/18092995233?text=Hola%20Angeline,%20deseo%20asesor%C3%ADa%20para%20invertir%20en%20Punta%20Cana." target="_blank" class="btn-cta" style="margin-top: 14px; justify-content: center;">
+              <a href="https://wa.me/18092995233?text=Hola%20Angeline,%20deseo%20asesor%C3%ADa%20para%20invertir%20en%20Punta%20Cana." target="_blank" class="team-wa-btn" style="margin-top: 14px; width: 100%;">
                 <i class="fa-brands fa-whatsapp"></i> Hablar con Angeline
               </a>
             </div>
@@ -570,8 +602,8 @@
 
           <!-- Giordana Moscoso Rodríguez -->
           <article class="team-card">
-            <div class="team-photo">
-              <img src="/assets/images/team/giordana-moscoso.jpg" alt="Giordana Moscoso Rodríguez">
+            <div class="team-photo" style="background: #ffffff;">
+              <img src="/assets/images/team/giordana-moscoso.jpg" alt="Giordana Moscoso Rodríguez" style="object-position: center top;">
               <span class="team-role-tag">Asesora Inmobiliaria</span>
             </div>
             <div class="team-body">
@@ -588,7 +620,7 @@
                 <span class="team-tag">Mercadotecnia</span>
                 <span class="team-tag">Coordinación de Visitas</span>
               </div>
-              <a href="https://wa.me/18092995233?text=Hola%20Giordana,%20deseo%20informaci%C3%B3n%20sobre%20proyectos%20inmobiliarios." target="_blank" class="btn-cta" style="margin-top: 14px; justify-content: center;">
+              <a href="https://wa.me/18092995233?text=Hola%20Giordana,%20deseo%20informaci%C3%B3n%20sobre%20proyectos%20inmobiliarios." target="_blank" class="team-wa-btn" style="margin-top: 14px; width: 100%;">
                 <i class="fa-brands fa-whatsapp"></i> Hablar con Giordana
               </a>
             </div>

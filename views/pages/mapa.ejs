@@ -5,11 +5,11 @@
 
   <style>
     .map-page-hero {
-      background-image: linear-gradient(135deg, rgba(10, 30, 54, 0.85), rgba(8, 145, 178, 0.65)),
+      background-image: linear-gradient(135deg, rgba(10, 30, 54, 0.88), rgba(8, 145, 178, 0.70)),
                         url('/assets/images/flyers/pictures/Coastal_development_at_202604231822_2.jpeg');
       background-size: cover;
       background-position: center;
-      padding: 70px 0 60px;
+      padding: 60px 0 50px;
       text-align: center;
       color: #ffffff;
     }
@@ -22,153 +22,271 @@
     .map-page-hero p {
       font-size: 1.1rem;
       color: rgba(255, 255, 255, 0.9);
-      max-width: 620px;
+      max-width: 680px;
       margin: 0 auto;
     }
 
     .map-wrapper-section {
-      padding: 40px 0 80px;
+      padding: 30px 0 80px;
       background: #F8FAFC;
     }
 
-    .map-layout-grid {
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 0;
+    /* Contenedor del Mapa Superior */
+    .map-top-card {
       background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 12px 36px rgba(0,0,0,0.08);
-      min-height: 650px;
+      margin-bottom: 35px;
+      position: relative;
     }
 
     #interactiveMap {
       width: 100%;
-      height: 100%;
-      min-height: 550px;
+      height: 480px;
       z-index: 1;
     }
 
-    .map-sidebar {
-      background: #ffffff;
-      border-left: 1px solid var(--border);
+    /* Píldoras Rápidas de Regiones sobre el mapa o barra */
+    .region-pills-bar {
       display: flex;
-      flex-direction: column;
-      height: 100%;
-      max-height: 700px;
+      gap: 10px;
+      padding: 14px 20px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      align-items: center;
+    }
+    .region-pill-btn {
+      padding: 8px 16px;
+      border-radius: 50px;
+      border: 1px solid #CBD5E1;
+      background: #F8FAFC;
+      color: #334155;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .region-pill-btn:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: #FFFFFF;
+    }
+    .region-pill-btn.active {
+      background: var(--navy);
+      color: #FFFFFF;
+      border-color: var(--navy);
+      box-shadow: 0 4px 12px rgba(10, 30, 54, 0.2);
+    }
+    .region-pill-btn .count-badge {
+      background: rgba(0,0,0,0.08);
+      padding: 2px 7px;
+      border-radius: 50px;
+      font-size: 0.76rem;
+    }
+    .region-pill-btn.active .count-badge {
+      background: var(--green);
+      color: #FFFFFF;
     }
 
+    /* Barra de Filtros Inferior */
+    .map-filter-bar {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      margin-bottom: 30px;
+    }
+    .filter-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+      gap: 16px;
+      align-items: flex-end;
+    }
     @media (max-width: 991px) {
-      .map-wrapper-section {
-        padding: 24px 0 60px;
-      }
-      .map-layout-grid {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        border-radius: 14px;
-        overflow: visible;
+      .filter-grid {
+        grid-template-columns: 1fr 1fr;
       }
       #interactiveMap {
         height: 380px;
-        min-height: 380px;
-        border-bottom: 1px solid var(--border);
       }
-      .map-sidebar {
-        border-left: none;
-        border-top: none;
-        max-height: none;
-        height: auto;
-        overflow: visible;
-      }
-      .map-sidebar-list {
-        max-height: 480px;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+    }
+    @media (max-width: 600px) {
+      .filter-grid {
+        grid-template-columns: 1fr;
       }
     }
 
-    .map-sidebar-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid #F1F5F9;
-      background: #FAFAFA;
-    }
-    .map-sidebar-header h3 {
-      font-size: 1.15rem;
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
       font-weight: 800;
       color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .form-control-select, .form-control-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      font-size: 0.90rem;
+      font-family: inherit;
+      color: #334155;
+      background: #F8FAFC;
+    }
+
+    .confotur-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 42px;
+      cursor: pointer;
+    }
+    .confotur-toggle-wrap input {
+      accent-color: var(--green);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    /* Grilla de Proyectos */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .project-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.12);
+    }
+    .project-card.highlighted {
+      border: 2px solid var(--green);
+      box-shadow: 0 0 0 4px rgba(125, 179, 58, 0.25);
+    }
+
+    .project-card-media {
+      height: 200px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-color: #0A1E36;
+    }
+    .card-badge-region {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(10, 30, 54, 0.85);
+      backdrop-filter: blur(4px);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .card-badge-confotur {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #ECFDF5;
+      color: #059669;
+      border: 1px solid #A7F3D0;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .project-card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card-code {
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       margin-bottom: 4px;
     }
-    .map-sidebar-header p {
+    .project-card-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+      line-height: 1.25;
+      transition: color 0.2s;
+    }
+    .project-card:hover .project-card-title {
+      color: var(--green);
+    }
+    .project-card-sub {
       font-size: 0.84rem;
       color: #64748B;
-      margin: 0;
+      margin-bottom: 14px;
+      line-height: 1.4;
     }
 
-    .map-sidebar-list {
-      overflow-y: auto;
-      flex: 1;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .region-item-card {
-      background: #ffffff;
-      border: 1px solid #E2E8F0;
-      border-radius: 12px;
-      padding: 16px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .region-item-card:hover {
-      border-color: var(--green);
-      background: #F8FAFC;
-      transform: translateY(-2px);
-    }
-    .region-item-card.active {
-      border-color: var(--green);
-      background: #ECFDF5;
-      box-shadow: 0 4px 12px rgba(125, 179, 58, 0.15);
-    }
-
-    .region-card-top {
+    .project-card-footer {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-end;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid #F1F5F9;
     }
-    .region-card-top strong {
-      font-size: 1rem;
-      color: var(--navy);
-      font-weight: 800;
+    .price-label {
+      font-size: 0.72rem;
+      color: #64748B;
+      text-transform: uppercase;
+      font-weight: 700;
     }
-    .region-badge-count {
+    .price-value {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1.1;
+    }
+    .roi-badge {
       background: #EFF6FF;
       color: #2563EB;
       font-size: 0.76rem;
       font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 4px;
-    }
-
-    .region-item-card p {
-      font-size: 0.82rem;
-      color: #64748B;
-      line-height: 1.4;
-      margin: 0;
-    }
-
-    .region-card-metrics {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.78rem;
-      margin-top: 4px;
-      padding-top: 6px;
-      border-top: 1px dashed #E2E8F0;
+      padding: 4px 8px;
+      border-radius: 6px;
+      text-align: right;
     }
 
     /* Custom Leaflet Marker Styling */
@@ -184,10 +302,29 @@
       justify-content: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.35);
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
     .custom-map-pin.active-pin {
+      background: var(--green) !important;
+      transform: scale(1.3);
+      box-shadow: 0 6px 18px rgba(125, 179, 58, 0.6);
+    }
+
+    .custom-proj-pin {
       background: var(--green);
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .custom-proj-pin:hover {
       transform: scale(1.25);
     }
 
@@ -198,74 +335,109 @@
       padding: 6px;
     }
     .popup-box {
-      min-width: 240px;
+      min-width: 220px;
     }
     .popup-box h4 {
       font-size: 1.05rem;
       font-weight: 800;
       color: #0A1E36;
-      margin: 0 0 6px;
+      margin: 0 0 4px;
     }
     .popup-box p {
-      font-size: 0.82rem;
+      font-size: 0.80rem;
       color: #64748B;
       line-height: 1.4;
       margin: 0 0 10px;
-    }
-    .popup-projects-list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .popup-projects-list li a {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.82rem;
-      color: #334155;
-      text-decoration: none;
-      padding: 4px 6px;
-      border-radius: 4px;
-      background: #F8FAFC;
-      transition: background 0.15s;
-    }
-    .popup-projects-list li a:hover {
-      background: #EFF6FF;
-      color: #2563EB;
     }
   </style>
 
   <!-- Hero Section -->
   <section class="map-page-hero">
     <div class="container">
-      <h1>Mapa Interactivo de Inversiones</h1>
-      <p>Haz clic en cualquier región para explorar su vocación turística, proyectos activos y rango de rentabilidad en dólares.</p>
+      <h1>Mapa Interactivo & Proyectos</h1>
+      <p>Selecciona una región en el mapa para ver sus proyectos o utiliza los filtros para explorar oportunidades en toda República Dominicana.</p>
     </div>
   </section>
 
-  <!-- Map Layout Section -->
+  <!-- Map & Projects Section -->
   <section class="map-wrapper-section">
     <div class="container">
-      <div class="map-layout-grid">
-        
-        <!-- Mapa Leaflet -->
+      
+      <!-- 1. MAPA SUPERIOR PANORÁMICO -->
+      <div class="map-top-card">
         <div id="interactiveMap"></div>
+        
+        <!-- Píldoras de Selección de Región Rápida -->
+        <div class="region-pills-bar" id="regionPillsContainer">
+          <button class="region-pill-btn active" data-region="all" onclick="selectRegionFilter('all')">
+            <i class="fa-solid fa-earth-americas"></i> Todos los Polos
+            <span class="count-badge" id="pill-count-all">0</span>
+          </button>
+          <!-- Píldoras dinámicas generadas por JS -->
+        </div>
+      </div>
 
-        <!-- Sidebar de Regiones -->
-        <div class="map-sidebar">
-          <div class="map-sidebar-header">
-            <h3>Polos de Desarrollo</h3>
-            <p>Selecciona una región para centrar el mapa y ver proyectos</p>
+      <!-- 2. BARRA DE FILTROS INFERIOR -->
+      <div class="map-filter-bar">
+        <div class="filter-grid">
+          <div class="form-group">
+            <label><i class="fa-solid fa-magnifying-glass"></i> Buscar por Nombre</label>
+            <input type="text" id="searchInput" class="form-control-input" placeholder="Ej: Punta Cana, Cana Pearl, Bayahibe..." oninput="applyAllFilters()">
           </div>
-
-          <div class="map-sidebar-list" id="regionsSidebar">
-            <!-- Renderizado dinámico vía JS -->
+          <div class="form-group">
+            <label><i class="fa-solid fa-location-dot"></i> Región / Polo</label>
+            <select id="regionSelect" class="form-control-select" onchange="onRegionSelectChange(this.value)">
+              <option value="all">Todas las Regiones</option>
+              <!-- Opciones dinámicas -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-dollar-sign"></i> Presupuesto Máximo</label>
+            <select id="budgetSelect" class="form-control-select" onchange="applyAllFilters()">
+              <option value="all">Sin límite de precio</option>
+              <option value="150000">Hasta $150,000 USD</option>
+              <option value="250000">Hasta $250,000 USD</option>
+              <option value="400000">Hasta $400,000 USD</option>
+              <option value="600000">Hasta $600,000 USD</option>
+              <option value="1000000">Hasta $1,000,000 USD</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="confotur-toggle-wrap">
+              <input type="checkbox" id="confoturCheckbox" onchange="applyAllFilters()">
+              <span class="confotur-toggle-label"><i class="fa-solid fa-shield-halved" style="color: var(--green);"></i> Ley CONFOTUR</span>
+            </label>
+          </div>
+          <div class="form-group" style="display: flex; gap: 8px;">
+            <button class="btn-cta" onclick="resetFilters()" style="background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; padding: 10px 16px; font-size: 0.86rem;">
+              <i class="fa-solid fa-rotate-left"></i> Limpiar
+            </button>
           </div>
         </div>
-
       </div>
+
+      <!-- Resumen del Estado de Filtro -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+        <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--navy);" id="resultsHeading">
+          Mostrando Proyectos Disponibles
+        </h3>
+        <div style="font-size: 0.90rem; font-weight: 700; color: #64748B;" id="projectsCountLabel">
+          Cargando proyectos...
+        </div>
+      </div>
+
+      <!-- 3. GRILLA DE PROYECTOS FILTRADOS -->
+      <div class="projects-grid" id="projectsGrid">
+        <!-- Renderizado dinámico vía JavaScript -->
+      </div>
+
+      <div id="noResults" style="display: none; text-align: center; padding: 60px 20px; background: #ffffff; border-radius: 16px; border: 1px solid var(--border);">
+        <i class="fa-solid fa-building-circle-xmark" style="font-size: 3rem; color: #94A3B8; margin-bottom: 16px;"></i>
+        <h4 style="font-size: 1.25rem; font-weight: 800; color: var(--navy); margin-bottom: 8px;">No encontramos proyectos con esos filtros</h4>
+        <p style="color: #64748B; font-size: 0.92rem; margin-bottom: 20px;">Intenta ajustar tu búsqueda o limpiar los filtros para ver todo el inventario.</p>
+        <button class="btn-cta" onclick="resetFilters()" style="background: var(--green);">Ver Todos los Proyectos</button>
+      </div>
+
     </div>
   </section>
 
@@ -276,126 +448,215 @@
     const DYNAMIC_REGIONS = <%- JSON.stringify(typeof dynamicRegions !== 'undefined' ? dynamicRegions : []) %>;
     const ALL_PROJECTS = <%- JSON.stringify(typeof projects !== 'undefined' ? projects : []) %>;
 
-    // 1. Inicializar Mapa Centrado en República Dominicana
+    let currentSelectedRegion = 'all';
+    let regionMarkers = {};
+    let projectMarkers = [];
+
+    // 1. Inicializar Mapa Centrado en República Dominicana (OpenStreetMap 100% Gratuito)
     const map = L.map('interactiveMap', {
       center: [18.7357, -69.5],
       zoom: 8,
-      zoomControl: true
+      zoomControl: true,
+      scrollWheelZoom: false
     });
 
-    // 2. Capa de Azulejos Elegante (CartoDB Positron / OpenStreetMap)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      maxZoom: 18
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19
     }).addTo(map);
 
-    const markersMap = {};
-
-    // 3. Renderizar Regiones 100% Dinámicas desde la Base de Datos
-    const sidebarEl = document.getElementById('regionsSidebar');
+    // 2. Inicializar Píldoras y Selectores de Regiones
+    const pillsContainer = document.getElementById('regionPillsContainer');
+    const regionSelect = document.getElementById('regionSelect');
+    document.getElementById('pill-count-all').innerText = ALL_PROJECTS.length;
 
     DYNAMIC_REGIONS.forEach(region => {
-      const regProjects = region.projects || [];
-      const count = region.projectCount || regProjects.length;
+      const regProjects = ALL_PROJECTS.filter(p => matchRegion(p, region.id));
+      const count = regProjects.length;
 
-      // Crear tarjeta en Sidebar con datos dinámicos de la BD
-      const card = document.createElement('div');
-      card.className = 'region-item-card';
-      card.id = `sidebar-card-${region.id}`;
-      card.innerHTML = `
-        <div class="region-card-top">
-          <strong>${region.name}</strong>
-          <span class="region-badge-count">${count} ${count === 1 ? 'Proyecto' : 'Proyectos'}</span>
-        </div>
-        <p>${region.desc || region.description}</p>
-        <div class="region-card-metrics">
-          <span style="color: var(--green); font-weight: 700;">${region.priceRange}</span>
-          <span style="color: #2563EB; font-weight: 700;">ROI ${region.avgRoi}</span>
-        </div>
-      `;
+      // Píldora
+      const pillBtn = document.createElement('button');
+      pillBtn.className = 'region-pill-btn';
+      pillBtn.id = `pill-${region.id}`;
+      pillBtn.innerHTML = `<span>${region.name}</span> <span class="count-badge">${count}</span>`;
+      pillBtn.onclick = () => selectRegionFilter(region.id);
+      pillsContainer.appendChild(pillBtn);
 
-      card.onclick = () => focusRegion(region.id);
-      sidebarEl.appendChild(card);
+      // Opción en Select
+      const opt = document.createElement('option');
+      opt.value = region.id;
+      opt.innerText = `${region.name} (${count})`;
+      regionSelect.appendChild(opt);
 
-      // Crear Icono Personalizado Leaflet con Contador Real de BD
+      // Marcador de Polo en el Mapa con número de proyectos
       const pinIcon = L.divIcon({
         className: 'custom-map-pin-container',
-        html: `<div class="custom-map-pin" id="pin-${region.id}" style="width: 34px; height: 34px;">${count}</div>`,
-        iconSize: [34, 34],
-        iconAnchor: [17, 17]
+        html: `<div class="custom-map-pin" id="pin-${region.id}" style="width: 36px; height: 36px;">${count}</div>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 18]
       });
 
-      // Crear Marcador
       const marker = L.marker(region.coords, { icon: pinIcon }).addTo(map);
-
-      // Crear Contenido Popup con Proyectos Reales de la BD
-      let popupHtml = `
+      
+      marker.bindPopup(`
         <div class="popup-box">
           <h4>${region.name}</h4>
-          <p>${region.desc || region.description}</p>
-          <div style="font-size: 0.78rem; font-weight: 700; color: #64748B; margin-bottom: 6px;">PROYECTOS DISPONIBLES (${count}):</div>
-          <ul class="popup-projects-list">
-      `;
-
-      if (regProjects.length > 0) {
-        regProjects.slice(0, 5).forEach(p => {
-          popupHtml += `
-            <li>
-              <a href="/proyectos/${p.slug || p.id}">
-                <span><strong>${p.name}</strong> <small style="color: #94A3B8;">(${p.code || ''})</small></span>
-                <span style="color: var(--green); font-weight: 700;">$${p.priceFrom ? p.priceFrom.toLocaleString('en-US') : 'Consultar'}</span>
-              </a>
-            </li>
-          `;
-        });
-      } else {
-        popupHtml += `<li><a href="/proyectos"><span>Ver proyectos en catálogo</span></a></li>`;
-      }
-
-      popupHtml += `
-          </ul>
-          <a href="/proyectos" style="display: block; text-align: center; background: var(--navy); color: #ffffff; padding: 7px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-decoration: none;">
-            Ver Todos los Proyectos en Catálogo &rarr;
-          </a>
+          <p>${region.desc || region.description || ''}</p>
+          <div style="font-size: 0.8rem; font-weight: 800; color: var(--green); margin-bottom: 8px;">${count} Proyectos Disponibles</div>
+          <button onclick="selectRegionFilter('${region.id}')" style="width: 100%; background: var(--navy); color: #ffffff; border: none; padding: 7px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer;">
+            Filtrar proyectos de esta zona &darr;
+          </button>
         </div>
-      `;
-
-      marker.bindPopup(popupHtml, { maxWidth: 320 });
+      `, { maxWidth: 280 });
 
       marker.on('click', () => {
-        highlightSidebarCard(region.id);
+        selectRegionFilter(region.id);
       });
 
-      markersMap[region.id] = { marker, region };
+      regionMarkers[region.id] = { marker, region };
     });
 
-    function focusRegion(regionId) {
-      const item = markersMap[regionId];
-      if (!item) return;
-
-      map.flyTo(item.region.coords, item.region.zoom, { duration: 1.2 });
-      setTimeout(() => {
-        item.marker.openPopup();
-      }, 1200);
-
-      highlightSidebarCard(regionId);
+    // 3. Helper de Matching de Región
+    function matchRegion(proj, regionId) {
+      if (!regionId || regionId === 'all') return true;
+      const reg = (proj.region || proj.polo || '').toLowerCase();
+      const target = regionId.toLowerCase().replace(/-/g, ' ');
+      return reg.includes(regionId.toLowerCase()) || reg.includes(target) || (regionId === 'distrito-nacional' && (reg.includes('santo domingo') || reg.includes('distrito')));
     }
 
-    function highlightSidebarCard(regionId) {
-      document.querySelectorAll('.region-item-card').forEach(c => c.classList.remove('active'));
+    // 4. Selección de Región Bidireccional
+    function selectRegionFilter(regionId) {
+      currentSelectedRegion = regionId;
+      regionSelect.value = regionId;
+
+      // Actualizar estilo de píldoras
+      document.querySelectorAll('.region-pill-btn').forEach(btn => btn.classList.remove('active'));
+      const activePill = document.getElementById(regionId === 'all' ? 'pill-count-all' : `pill-${regionId}`);
+      if (activePill) {
+        (activePill.closest('.region-pill-btn') || activePill).classList.add('active');
+      } else if (regionId === 'all') {
+        document.querySelector('.region-pill-btn[data-region="all"]').classList.add('active');
+      }
+
+      // Actualizar pines en mapa
       document.querySelectorAll('.custom-map-pin').forEach(p => p.classList.remove('active-pin'));
-
-      const activeCard = document.getElementById(`sidebar-card-${regionId}`);
-      if (activeCard) {
-        activeCard.classList.add('active');
-        activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (regionId !== 'all' && regionMarkers[regionId]) {
+        const pinEl = document.getElementById(`pin-${regionId}`);
+        if (pinEl) pinEl.classList.add('active-pin');
+        map.flyTo(regionMarkers[regionId].region.coords, regionMarkers[regionId].region.zoom, { duration: 1.0 });
+      } else {
+        map.flyTo([18.7357, -69.5], 8, { duration: 1.0 });
       }
 
-      const activePin = document.getElementById(`pin-${regionId}`);
-      if (activePin) {
-        activePin.classList.add('active-pin');
-      }
+      applyAllFilters();
     }
+
+    function onRegionSelectChange(val) {
+      selectRegionFilter(val);
+    }
+
+    // 5. Aplicar Filtros Combinados y Renderizar Tarjetas
+    function applyAllFilters() {
+      const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
+      const regionVal = currentSelectedRegion;
+      const budgetVal = document.getElementById('budgetSelect').value;
+      const confoturVal = document.getElementById('confoturCheckbox').checked;
+
+      const filtered = ALL_PROJECTS.filter(p => {
+        // Filtro por texto
+        const matchSearch = !searchVal || 
+          (p.name && p.name.toLowerCase().includes(searchVal)) ||
+          (p.code && p.code.toLowerCase().includes(searchVal)) ||
+          (p.location && p.location.toLowerCase().includes(searchVal)) ||
+          (p.region && p.region.toLowerCase().includes(searchVal));
+
+        // Filtro por región
+        const matchReg = matchRegion(p, regionVal);
+
+        // Filtro por presupuesto
+        let matchBudget = true;
+        if (budgetVal !== 'all') {
+          const maxB = parseFloat(budgetVal);
+          const price = p.priceFrom || 0;
+          matchBudget = price > 0 && price <= maxB;
+        }
+
+        // Filtro por CONFOTUR
+        const matchConfotur = !confoturVal || (p.confotur === true || p.taxIncentive === true);
+
+        return matchSearch && matchReg && matchBudget && matchConfotur;
+      });
+
+      renderProjectsGrid(filtered);
+    }
+
+    // 6. Renderizar Grilla de Proyectos
+    function renderProjectsGrid(projects) {
+      const grid = document.getElementById('projectsGrid');
+      const noRes = document.getElementById('noResults');
+      const countLabel = document.getElementById('projectsCountLabel');
+      const heading = document.getElementById('resultsHeading');
+
+      grid.innerHTML = '';
+
+      if (currentSelectedRegion === 'all') {
+        heading.innerText = 'Mostrando Proyectos en Todo el País';
+      } else {
+        const regObj = DYNAMIC_REGIONS.find(r => r.id === currentSelectedRegion);
+        heading.innerText = `Proyectos en ${regObj ? regObj.name : currentSelectedRegion}`;
+      }
+
+      countLabel.innerText = `${projects.length} ${projects.length === 1 ? 'propiedad encontrada' : 'propiedades encontradas'}`;
+
+      if (projects.length === 0) {
+        noRes.style.display = 'block';
+        return;
+      }
+      noRes.style.display = 'none';
+
+      projects.forEach(p => {
+        const card = document.createElement('a');
+        card.href = `/proyectos/${p.slug || p.id}`;
+        card.className = 'project-card';
+        card.id = `card-proj-${p.slug || p.id}`;
+
+        const imgUrl = p.coverImage || p.image || '/assets/images/flyers/pictures/Coastal_development_at_202604231822_2.jpeg';
+        const priceFmt = p.priceFrom ? `$${p.priceFrom.toLocaleString('en-US')} USD` : 'Consultar';
+
+        card.innerHTML = `
+          <div class="project-card-media" style="background-image: url('${imgUrl}');">
+            <span class="card-badge-region"><i class="fa-solid fa-location-dot"></i> ${p.region || p.location || 'República Dominicana'}</span>
+            ${p.confotur ? `<span class="card-badge-confotur"><i class="fa-solid fa-shield-halved"></i> CONFOTUR</span>` : ''}
+          </div>
+          <div class="project-card-body">
+            <div class="project-card-code">${p.code || ''}</div>
+            <h3 class="project-card-title">${p.name}</h3>
+            <p class="project-card-sub">${p.tagline || p.summary || p.location || ''}</p>
+            <div class="project-card-footer">
+              <div>
+                <div class="price-label">Desde</div>
+                <div class="price-value">${priceFmt}</div>
+              </div>
+              ${p.roi ? `<div class="roi-badge"><i class="fa-solid fa-chart-line"></i> ROI ${p.roi}</div>` : ''}
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    // 7. Resetear Filtros
+    function resetFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('budgetSelect').value = 'all';
+      document.getElementById('confoturCheckbox').checked = false;
+      selectRegionFilter('all');
+    }
+
+    // Ejecutar render inicial
+    applyAllFilters();
   </script>
 
 <%- include('../layouts/footer') %>
+
