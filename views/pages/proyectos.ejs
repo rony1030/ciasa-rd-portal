@@ -389,7 +389,10 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
         <span style="font-size: 0.95rem; font-weight: 700; color: var(--navy);" id="resultsCount">
           Mostrando <%= projects.length %> proyectos disponibles
-        </span>      <!-- Grid de Proyectos Dinámico (Estilo Altnest Webflow) -->
+        </span>
+      </div>
+
+      <!-- Grid de Proyectos Dinámico (Estilo Altnest Webflow) -->
       <div class="projects-grid" id="projectsGrid">
         <% projects.forEach(p => { %>
           <% 
