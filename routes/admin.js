@@ -562,10 +562,13 @@ router.post('/blog/:id/eliminar', (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════
-// MÓDULO MARKETING & CRM NPI (Integrado en panel Admin)
+// MÓDULO MARKETING & CRM NPI (Integrado nativo en panel Admin)
 // ═══════════════════════════════════════════════════════════════════════════
 router.get(['/npi', '/crm-npi'], (req, res) => {
-  res.sendFile(path.join(__dirname, '../sitio-web/crm-npi.html'));
+  res.render('admin/npi', {
+    pageTitle: 'Marketing & Proveedores NPI — CIASA Admin',
+    activePage: 'npi'
+  });
 });
 
 // ═══════════════════════════════════════════════════════════════════════════

@@ -111,9 +111,12 @@ app.get('/videos/:filename', (req, res) => {
   }
 });
 
-// 5. Redirección y soporte para URL /crm-npi y /crm-npi.html
+// 5. Soporte para módulo interno CRM NPI
+app.get('/admin/npi-content', (req, res) => {
+  res.sendFile(path.join(SITIO_DIR, 'crm-npi.html'));
+});
 app.get('/crm-npi', (req, res) => {
-  res.redirect(301, '/admin');
+  res.redirect(301, '/admin/npi');
 });
 app.get('/crm-npi.html', (req, res) => {
   res.sendFile(path.join(SITIO_DIR, 'crm-npi.html'));
