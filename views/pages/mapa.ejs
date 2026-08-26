@@ -88,7 +88,7 @@
       letter-spacing: 0.6px;
       margin-bottom: 8px;
     }
-    .form-control-select, .form-control-input {
+    .form-control-input {
       width: 100%;
       height: 48px;
       padding: 0 16px;
@@ -102,33 +102,114 @@
       transition: all 0.2s ease;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     }
-    .form-control-select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748B' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      background-size: 16px;
-      padding-right: 40px;
-      cursor: pointer;
-    }
-    .form-control-select:hover {
-      border-color: #CBD5E1;
-      background-color: #F8FAFC;
-    }
-    .form-control-select:focus, .form-control-input:focus {
+    .form-control-input:focus {
       outline: none;
       border-color: var(--green);
       background-color: #FFFFFF;
       box-shadow: 0 0 0 4px rgba(125, 179, 58, 0.15);
     }
-    .form-control-select option {
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: #0A1E36;
+
+    /* Custom Modern UI Dropdowns (No nativos, redondeados, elegantes) */
+    .custom-dropdown-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .custom-dropdown-trigger {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 14px;
       background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #0A1E36;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      user-select: none;
+    }
+    .custom-dropdown-trigger:hover {
+      border-color: #CBD5E1;
+      background: #F8FAFC;
+    }
+    .custom-dropdown-wrap.active .custom-dropdown-trigger {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(125, 179, 58, 0.15);
+      background: #FFFFFF;
+    }
+    .custom-dropdown-trigger i.chevron-icon {
+      font-size: 0.82rem;
+      color: #94A3B8;
+      transition: transform 0.25s ease;
+    }
+    .custom-dropdown-wrap.active .custom-dropdown-trigger i.chevron-icon {
+      transform: rotate(180deg);
+      color: var(--green);
+    }
+
+    .custom-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 18px 40px -10px rgba(10, 30, 54, 0.18), 0 0 0 1px rgba(0,0,0,0.03);
+      padding: 8px;
+      z-index: 1000;
+      max-height: 280px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      animation: dropMenuFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .custom-dropdown-wrap.active .custom-dropdown-menu {
+      display: block;
+    }
+
+    @keyframes dropMenuFade {
+      from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .custom-dropdown-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .custom-dropdown-item:hover {
+      background: #F1F5F9;
+      color: var(--navy);
+      transform: translateX(3px);
+    }
+    .custom-dropdown-item.selected {
+      background: #ECFDF5;
+      color: #065F46;
+      font-weight: 800;
+    }
+    .custom-dropdown-item .badge-count {
+      font-size: 0.74rem;
+      font-weight: 800;
+      background: #EFF6FF;
+      color: #2563EB;
+      padding: 2px 8px;
+      border-radius: 50px;
+    }
+    .custom-dropdown-item.selected .badge-count {
+      background: #D1FAE5;
+      color: #047857;
     }
 
     .confotur-pill-filter {
@@ -460,23 +541,54 @@
             <label><i class="fa-solid fa-magnifying-glass" style="color: #64748B;"></i> Buscar Proyecto</label>
             <input type="text" id="searchInput" class="form-control-input" placeholder="Nombre, ubicación o código..." oninput="applyAllFilters()">
           </div>
+          <!-- Dropdown Personalizado de Región -->
           <div class="form-group">
             <label><i class="fa-solid fa-location-dot" style="color: #64748B;"></i> Región / Polo</label>
-            <select id="regionSelect" class="form-control-select" onchange="onRegionSelectChange(this.value)">
-              <option value="all">Todas las Regiones</option>
-              <!-- Opciones dinámicas -->
-            </select>
+            <div class="custom-dropdown-wrap" id="regionDropdownWrap">
+              <div class="custom-dropdown-trigger" onclick="toggleCustomDropdown('regionDropdownWrap')">
+                <span id="regionSelectedLabel">Todas las Regiones</span>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+              </div>
+              <div class="custom-dropdown-menu" id="regionDropdownMenu">
+                <div class="custom-dropdown-item selected" onclick="selectRegionOption('all', 'Todas las Regiones')">
+                  <span>Todas las Regiones</span>
+                  <span class="badge-count" id="badgeAllRegions">27</span>
+                </div>
+              </div>
+              <input type="hidden" id="regionSelect" value="all">
+            </div>
           </div>
+
+          <!-- Dropdown Personalizado de Presupuesto -->
           <div class="form-group">
             <label><i class="fa-solid fa-dollar-sign" style="color: #64748B;"></i> Presupuesto Máx.</label>
-            <select id="budgetSelect" class="form-control-select" onchange="applyAllFilters()">
-              <option value="all">Sin límite</option>
-              <option value="150000">Hasta $150,000 USD</option>
-              <option value="250000">Hasta $250,000 USD</option>
-              <option value="400000">Hasta $400,000 USD</option>
-              <option value="600000">Hasta $600,000 USD</option>
-              <option value="1000000">Hasta $1,000,000 USD</option>
-            </select>
+            <div class="custom-dropdown-wrap" id="budgetDropdownWrap">
+              <div class="custom-dropdown-trigger" onclick="toggleCustomDropdown('budgetDropdownWrap')">
+                <span id="budgetSelectedLabel">Sin límite</span>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+              </div>
+              <div class="custom-dropdown-menu" id="budgetDropdownMenu">
+                <div class="custom-dropdown-item selected" onclick="selectBudgetOption('all', 'Sin límite')">
+                  <span>Sin límite</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectBudgetOption('150000', 'Hasta $150,000 USD')">
+                  <span>Hasta $150,000 USD</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectBudgetOption('250000', 'Hasta $250,000 USD')">
+                  <span>Hasta $250,000 USD</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectBudgetOption('400000', 'Hasta $400,000 USD')">
+                  <span>Hasta $400,000 USD</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectBudgetOption('600000', 'Hasta $600,000 USD')">
+                  <span>Hasta $600,000 USD</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectBudgetOption('1000000', 'Hasta $1,000,000 USD')">
+                  <span>Hasta $1,000,000 USD</span>
+                </div>
+              </div>
+              <input type="hidden" id="budgetSelect" value="all">
+            </div>
           </div>
           <div class="form-group">
             <label class="confotur-pill-filter">
@@ -561,18 +673,68 @@
       maxZoom: 19
     }).addTo(map);
 
-    // 2. Inicializar Selectores de Regiones y Pines del Mapa
-    const regionSelect = document.getElementById('regionSelect');
+    // 2. Control de Dropdowns Modernos Personalizados
+    function toggleCustomDropdown(wrapId) {
+      const wrap = document.getElementById(wrapId);
+      const isOpen = wrap.classList.contains('active');
+      closeAllCustomDropdowns();
+      if (!isOpen) {
+        wrap.classList.add('active');
+      }
+    }
+
+    function closeAllCustomDropdowns() {
+      document.querySelectorAll('.custom-dropdown-wrap').forEach(w => w.classList.remove('active'));
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.custom-dropdown-wrap')) {
+        closeAllCustomDropdowns();
+      }
+    });
+
+    function selectRegionOption(regId, label) {
+      document.getElementById('regionSelect').value = regId;
+      document.getElementById('regionSelectedLabel').innerText = label;
+      
+      document.querySelectorAll('#regionDropdownMenu .custom-dropdown-item').forEach(item => {
+        item.classList.toggle('selected', item.getAttribute('data-val') === regId);
+      });
+      
+      closeAllCustomDropdowns();
+      onRegionSelectChange(regId);
+    }
+
+    function selectBudgetOption(val, label) {
+      document.getElementById('budgetSelect').value = val;
+      document.getElementById('budgetSelectedLabel').innerText = label;
+
+      document.querySelectorAll('#budgetDropdownMenu .custom-dropdown-item').forEach(item => {
+        item.classList.toggle('selected', item.getAttribute('data-val') === val);
+      });
+
+      closeAllCustomDropdowns();
+      applyAllFilters();
+    }
+
+    // Inicializar Opciones de Región en el Menú Personalizado
+    const regionMenu = document.getElementById('regionDropdownMenu');
+    document.getElementById('badgeAllRegions').innerText = ALL_PROJECTS.length;
 
     DYNAMIC_REGIONS.forEach(region => {
       const regProjects = ALL_PROJECTS.filter(p => matchRegion(p, region.id));
       const count = regProjects.length;
 
-      // Opción en Select
-      const opt = document.createElement('option');
-      opt.value = region.id;
-      opt.innerText = `${region.name} (${count})`;
-      regionSelect.appendChild(opt);
+      // Item en Dropdown Custom
+      const item = document.createElement('div');
+      item.className = 'custom-dropdown-item';
+      item.setAttribute('data-val', region.id);
+      item.onclick = () => selectRegionOption(region.id, `${region.name}`);
+      item.innerHTML = `
+        <span>${region.name}</span>
+        <span class="badge-count">${count}</span>
+      `;
+      regionMenu.appendChild(item);
 
       // Marcador de Polo en el Mapa con número de proyectos
       const pinIcon = L.divIcon({
