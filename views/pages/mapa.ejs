@@ -48,67 +48,6 @@
       z-index: 1;
     }
 
-    /* Píldoras Rápidas de Regiones sobre el mapa con Scrollbar Estilizado */
-    .region-pills-bar {
-      display: flex;
-      gap: 10px;
-      padding: 16px 20px;
-      background: #FFFFFF;
-      border-top: 1px solid var(--border);
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: #CBD5E1 transparent;
-      align-items: center;
-    }
-    .region-pills-bar::-webkit-scrollbar {
-      height: 6px;
-    }
-    .region-pills-bar::-webkit-scrollbar-thumb {
-      background: #CBD5E1;
-      border-radius: 10px;
-    }
-    .region-pill-btn {
-      padding: 8px 18px;
-      border-radius: 50px;
-      border: 1px solid #E2E8F0;
-      background: #F8FAFC;
-      color: #334155;
-      font-size: 0.88rem;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-    .region-pill-btn:hover {
-      border-color: var(--green);
-      color: var(--green);
-      background: #FFFFFF;
-      transform: translateY(-1px);
-    }
-    .region-pill-btn.active {
-      background: var(--navy) !important;
-      color: #FFFFFF !important;
-      border-color: var(--navy) !important;
-      box-shadow: 0 4px 14px rgba(10, 30, 54, 0.25);
-    }
-    .region-pill-btn .count-badge {
-      background: #E2E8F0;
-      color: #475569;
-      padding: 2px 8px;
-      border-radius: 50px;
-      font-size: 0.76rem;
-      font-weight: 800;
-    }
-    .region-pill-btn.active .count-badge {
-      background: var(--green);
-      color: #FFFFFF;
-    }
-
     /* Barra de Filtros Inferior Premium */
     .map-filter-bar {
       background: #ffffff;
@@ -436,18 +375,9 @@
   <section class="map-wrapper-section">
     <div class="container">
       
-      <!-- 1. MAPA SUPERIOR PANORÁMICO -->
+      <!-- 1. MAPA SUPERIOR PANORÁMICO LIMPIO -->
       <div class="map-top-card">
         <div id="interactiveMap"></div>
-        
-        <!-- Píldoras de Selección de Región Rápida -->
-        <div class="region-pills-bar" id="regionPillsContainer">
-          <button class="region-pill-btn active" data-region="all" onclick="selectRegionFilter('all')">
-            <i class="fa-solid fa-earth-americas" style="color: var(--green);"></i> Todos los Polos
-            <span class="count-badge" id="pill-count-all">0</span>
-          </button>
-          <!-- Píldoras dinámicas generadas por JS -->
-        </div>
       </div>
 
       <!-- 2. BARRA DE FILTROS INFERIOR REDISEÑADA -->
@@ -547,22 +477,12 @@
       maxZoom: 19
     }).addTo(map);
 
-    // 2. Inicializar Píldoras y Selectores de Regiones
-    const pillsContainer = document.getElementById('regionPillsContainer');
+    // 2. Inicializar Selectores de Regiones y Pines del Mapa
     const regionSelect = document.getElementById('regionSelect');
-    document.getElementById('pill-count-all').innerText = ALL_PROJECTS.length;
 
     DYNAMIC_REGIONS.forEach(region => {
       const regProjects = ALL_PROJECTS.filter(p => matchRegion(p, region.id));
       const count = regProjects.length;
-
-      // Píldora
-      const pillBtn = document.createElement('button');
-      pillBtn.className = 'region-pill-btn';
-      pillBtn.id = `pill-${region.id}`;
-      pillBtn.innerHTML = `<span>${region.name}</span> <span class="count-badge">${count}</span>`;
-      pillBtn.onclick = () => selectRegionFilter(region.id);
-      pillsContainer.appendChild(pillBtn);
 
       // Opción en Select
       const opt = document.createElement('option');
@@ -620,15 +540,6 @@
     function selectRegionFilter(regionId) {
       currentSelectedRegion = regionId;
       regionSelect.value = regionId;
-
-      // Actualizar estilo de píldoras
-      document.querySelectorAll('.region-pill-btn').forEach(btn => btn.classList.remove('active'));
-      const activePill = document.getElementById(regionId === 'all' ? 'pill-count-all' : `pill-${regionId}`);
-      if (activePill) {
-        (activePill.closest('.region-pill-btn') || activePill).classList.add('active');
-      } else if (regionId === 'all') {
-        document.querySelector('.region-pill-btn[data-region="all"]').classList.add('active');
-      }
 
       // Actualizar pines en mapa
       document.querySelectorAll('.custom-map-pin').forEach(p => p.classList.remove('active-pin'));
