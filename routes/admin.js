@@ -34,8 +34,8 @@ function slugify(text) {
 }
 
 // ─── Custom Web Login & Session Middleware ────────────────────────────────────
-const ADMIN_USER = process.env.ADMIN_USER || 'admin';
-const ADMIN_PASS = process.env.ADMIN_PASS || 'ciasa2026';
+const ADMIN_USER = process.env.ADMIN_USER || 'info@ciasard.com';
+const ADMIN_PASS = process.env.ADMIN_PASS || 'CiasaRD2026!';
 const AUTH_COOKIE = 'ciasa_admin_token';
 const VALID_TOKEN = 'ciasa_session_' + Buffer.from(ADMIN_USER + ':' + ADMIN_PASS).toString('base64');
 
@@ -61,10 +61,12 @@ router.get('/login', (req, res) => {
   res.render('admin/login', { error: null });
 });
 
-// 2. Procesar Login (POST)
+// 2. Procesar Login (POST) - Admite info@ciasard.com o info
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === ADMIN_USER && password === ADMIN_PASS) {
+  const cleanUser = (username || '').trim().toLowerCase();
+  
+  if ((cleanUser === ADMIN_USER.toLowerCase() || cleanUser === 'info' || cleanUser === 'info@ciasard.com') && password === ADMIN_PASS) {
     res.setHeader('Set-Cookie', `${AUTH_COOKIE}=${VALID_TOKEN}; Path=/; HttpOnly; SameSite=Lax; Max-Age=864000`);
     return res.redirect('/admin');
   }
