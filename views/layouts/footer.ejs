@@ -245,44 +245,61 @@
     </div>
   </footer>
 
-  <!-- AOS JS para animaciones de entrada fluidas -->
+  <!-- AOS JS para animaciones de entrada fluidas (Estilo Altnest Webflow) -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Inicializar AOS (animación suave de aparición sin frenar el scroll)
+      // 1. Inicializar AOS con animaciones escalonadas de entrada
       if (typeof AOS !== 'undefined') {
         AOS.init({
-          duration: 700,
+          duration: 800,
           easing: 'ease-out-cubic',
           once: true,
-          offset: 40
+          offset: 30
         });
       }
 
-      // 2. Contadores Numéricos Animados con IntersectionObserver (Rápidos e Instantáneos)
+      // 2. Contadores Numéricos Animados con Easing (Estilo Altnest home-three)
       const counters = document.querySelectorAll('.animate-number');
       if (counters.length > 0) {
+        // Inicializar texto en 0
+        counters.forEach(c => {
+          const suffix = c.getAttribute('data-suffix') || '';
+          c.innerText = '0' + suffix;
+        });
+
         const countObserver = new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              const target = +entry.target.getAttribute('data-target');
-              const suffix = entry.target.getAttribute('data-suffix') || '';
-              let count = 0;
-              const step = Math.max(1, Math.ceil(target / 25));
-              const timer = setInterval(() => {
-                count += step;
-                if (count >= target) {
-                  entry.target.innerText = target + suffix;
-                  clearInterval(timer);
+              const el = entry.target;
+              const target = +el.getAttribute('data-target');
+              const suffix = el.getAttribute('data-suffix') || '';
+              const duration = 1600; // ms
+              const startTime = performance.now();
+
+              function updateCount(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Función de aceleración suave (ease-out quad)
+                const easeProgress = 1 - (1 - progress) * (1 - progress);
+                const currentVal = Math.floor(easeProgress * target);
+
+                el.innerText = currentVal + suffix;
+
+                if (progress < 1) {
+                  requestAnimationFrame(updateCount);
                 } else {
-                  entry.target.innerText = count + suffix;
+                  el.innerText = target + suffix;
                 }
-              }, 25);
-              observer.unobserve(entry.target);
+              }
+
+              requestAnimationFrame(updateCount);
+              observer.unobserve(el);
             }
           });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
         counters.forEach(c => countObserver.observe(c));
       }
