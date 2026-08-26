@@ -1490,13 +1490,26 @@ window.setLang = function(lang) {
   });
 
   // Update lang switcher buttons
-  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+  document.querySelectorAll('.lang-btn, .lang-option').forEach(function(btn) {
     btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
   });
 
+  // Flag SVGs for triggers
+  var langFlags = {
+    es: '<svg class="lang-flag" viewBox="0 0 640 480" width="18" height="12" style="border-radius:2px;box-shadow:0 0 1px rgba(0,0,0,0.3);flex-shrink:0;display:block;"><path fill="#c60b1e" d="M0 0h640v480H0z"/><path fill="#ffc400" d="M0 120h640v240H0z"/></svg>',
+    en: '<svg class="lang-flag" viewBox="0 0 640 480" width="18" height="12" style="border-radius:2px;box-shadow:0 0 1px rgba(0,0,0,0.3);flex-shrink:0;display:block;"><path fill="#bd3d44" d="M0 0h640v480H0z"/><path stroke="#fff" stroke-width="37" d="M0 55h640M0 129h640M0 203h640M0 277h640M0 351h640M0 425h640"/><path fill="#192f5d" d="M0 0h260v260H0z"/><g fill="#fff"><circle cx="40" cy="40" r="10"/><circle cx="100" cy="40" r="10"/><circle cx="160" cy="40" r="10"/><circle cx="220" cy="40" r="10"/><circle cx="70" cy="75" r="10"/><circle cx="130" cy="75" r="10"/><circle cx="190" cy="75" r="10"/><circle cx="40" cy="110" r="10"/><circle cx="100" cy="110" r="10"/><circle cx="160" cy="110" r="10"/><circle cx="220" cy="110" r="10"/><circle cx="70" cy="145" r="10"/><circle cx="130" cy="145" r="10"/><circle cx="190" cy="145" r="10"/><circle cx="40" cy="180" r="10"/><circle cx="100" cy="180" r="10"/><circle cx="160" cy="180" r="10"/><circle cx="220" cy="180" r="10"/><circle cx="70" cy="215" r="10"/><circle cx="130" cy="215" r="10"/><circle cx="190" cy="215" r="10"/></g></svg>',
+    fr: '<svg class="lang-flag" viewBox="0 0 640 480" width="18" height="12" style="border-radius:2px;box-shadow:0 0 1px rgba(0,0,0,0.3);flex-shrink:0;display:block;"><path fill="#002654" d="M0 0h213.3v480H0z"/><path fill="#fff" d="M213.3 0h213.4v480H213.3z"/><path fill="#ce1126" d="M426.7 0H640v480H426.7z"/></svg>'
+  };
+
+  // Update lang dropdown trigger flag
+  document.querySelectorAll('#langCurrentFlag, .lang-current-flag').forEach(function(el) {
+    el.innerHTML = langFlags[lang] || langFlags.es;
+  });
+
   // Update lang dropdown trigger label
-  var langLabel = document.getElementById('langCurrentLabel');
-  if (langLabel) langLabel.textContent = lang.toUpperCase();
+  document.querySelectorAll('#langCurrentLabel, .lang-current-label').forEach(function(el) {
+    el.textContent = lang.toUpperCase();
+  });
 
   // Dispatch event for dynamic JS modules
   document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: lang } }));
