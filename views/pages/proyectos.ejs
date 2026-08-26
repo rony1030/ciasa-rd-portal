@@ -101,52 +101,63 @@
       gap: 4px;
     }
 
-    /* Projects Grid */
+    /* Projects Grid Altnest Minimalist Style */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+      gap: 32px;
       margin-bottom: 80px;
     }
 
     .project-card {
       background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 16px;
+      border: 1px solid #E2E8F0;
+      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 4px 20px rgba(10, 30, 54, 0.05);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
       text-decoration: none;
       color: inherit;
     }
     .project-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 36px rgba(0,0,0,0.12);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(10, 30, 54, 0.12);
+      border-color: #CBD5E1;
     }
 
     .project-card-media {
-      height: 220px;
+      height: 240px;
       position: relative;
       background-size: cover;
       background-position: center;
       background-color: #0A1E36;
+      overflow: hidden;
+    }
+    .project-card-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10, 30, 54, 0.45) 0%, transparent 60%);
+      pointer-events: none;
     }
     .card-badge-region {
       position: absolute;
       top: 14px;
       left: 14px;
       background: rgba(10, 30, 54, 0.85);
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(8px);
       color: #ffffff;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.74rem;
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.76rem;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+      z-index: 2;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
     .card-badge-confotur {
       position: absolute;
@@ -155,89 +166,109 @@
       background: #ECFDF5;
       color: #059669;
       border: 1px solid #A7F3D0;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.74rem;
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 0.76rem;
       font-weight: 800;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
+      z-index: 2;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
     }
 
     .project-card-body {
-      padding: 22px;
+      padding: 22px 24px;
       flex: 1;
       display: flex;
       flex-direction: column;
+      background: #ffffff;
     }
-    .project-card-code {
-      font-size: 0.76rem;
-      font-weight: 800;
-      color: #64748B;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 4px;
+    
+    /* Altnest Top Row: Title + Price Horizontal Alignment */
+    .project-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 8px;
     }
     .project-card-title {
-      font-size: 1.28rem;
+      font-size: 1.18rem;
       font-weight: 800;
-      color: var(--navy);
-      margin-bottom: 6px;
+      color: #0A1E36;
+      margin: 0;
       line-height: 1.25;
-      transition: color 0.2s;
+      text-transform: uppercase;
+      letter-spacing: -0.2px;
+      transition: color 0.2s ease;
+      flex: 1;
     }
     .project-card:hover .project-card-title {
       color: var(--green);
     }
-    .project-card-sub {
-      font-size: 0.86rem;
+    .project-card-price {
+      font-size: 1.28rem;
+      font-weight: 900;
+      color: #0A1E36;
+      white-space: nowrap;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+    .project-card-price small {
+      font-size: 0.72rem;
+      font-weight: 700;
       color: #64748B;
-      margin-bottom: 16px;
+      text-transform: uppercase;
     }
 
-    .project-specs-row {
+    /* Altnest Location Line */
+    .project-location-line {
+      font-size: 0.86rem;
+      color: #64748B;
       display: flex;
-      gap: 12px;
-      padding: 10px 0;
-      border-top: 1px solid #F1F5F9;
-      border-bottom: 1px solid #F1F5F9;
+      align-items: center;
+      gap: 6px;
       margin-bottom: 16px;
-      font-size: 0.84rem;
+      font-weight: 500;
+    }
+    .project-location-line i {
+      color: #94A3B8;
+      font-size: 0.88rem;
+    }
+
+    /* Altnest Specs Strip: Beds, Baths, Sqft/m² */
+    .project-specs-strip {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #F1F5F9;
+      margin-top: auto;
+      font-size: 0.82rem;
+      font-weight: 700;
       color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
     .spec-item {
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
-
-    .project-card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-top: auto;
-      padding-top: 6px;
-    }
-    .price-label {
-      font-size: 0.74rem;
+    .spec-item i {
       color: #64748B;
-      text-transform: uppercase;
-      font-weight: 700;
+      font-size: 0.95rem;
     }
-    .price-value {
-      font-size: 1.35rem;
-      font-weight: 900;
-      color: var(--green);
-      line-height: 1.1;
-    }
-    .roi-badge {
+    .roi-pill-altnest {
+      margin-left: auto;
       background: #EFF6FF;
       color: #2563EB;
-      font-size: 0.78rem;
+      border: 1px solid #DBEAFE;
+      font-size: 0.76rem;
       font-weight: 800;
-      padding: 5px 10px;
+      padding: 3px 8px;
       border-radius: 6px;
-      text-align: right;
     }
   </style>
 
@@ -309,21 +340,21 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
         <span style="font-size: 0.95rem; font-weight: 700; color: var(--navy);" id="resultsCount">
           Mostrando <%= projects.length %> proyectos disponibles
-        </span>
-      </div>
-
-      <!-- Grid de Proyectos Dinámico -->
+        </span>      <!-- Grid de Proyectos Dinámico (Estilo Altnest Webflow) -->
       <div class="projects-grid" id="projectsGrid">
         <% projects.forEach(p => { %>
           <% 
-            // Construir URL de portada desde el campo image del JSON
-            // El campo viene como: "assets/images/projects/marina-garden-2.jpg"
             let rawImg = (p.image || '').trim();
             let cardImgUrl = rawImg.startsWith('http') 
               ? rawImg 
               : '/' + rawImg.replace(/^\/+/, '');
+            let beds = p.bedrooms ? p.bedrooms : (p.rooms || '2');
+            let baths = p.bathrooms ? p.bathrooms : (p.baths || '2');
+            let size = p.sizeFrom ? (p.sizeFrom + ' M²') : '120 M²';
+            let priceFmt = p.priceFrom ? ('$' + p.priceFrom.toLocaleString('en-US')) : '$180,000';
           %>
-          <a href="/proyectos/<%= p.slug || p.id %>" class="project-card" 
+          <a href="/proyectos/<%= p.slug || p.id %>" class="project-card shine-effect interactive-card" 
+             data-aos="fade-up"
              data-region="<%= p.region %>" 
              data-type="<%= p.type %>" 
              data-price="<%= p.priceFrom || 0 %>" 
@@ -336,43 +367,43 @@
               </span>
               <% if (p.confotur) { %>
                 <span class="card-badge-confotur">
-                  <i class="fa-solid fa-shield-check"></i> CONFOTUR
+                  <i class="fa-solid fa-shield-halved"></i> CONFOTUR
                 </span>
               <% } %>
             </div>
 
             <div class="project-card-body">
-              <div class="project-card-code"><%= p.code || 'PROYECTO' %></div>
-              <h2 class="project-card-title"><%= p.name %></h2>
-              <div class="project-card-sub"><%= p.subLocation || p.region %> · <%= p.type %></div>
-
-              <div class="project-specs-row">
-                <% if (p.bedrooms) { %>
-                  <div class="spec-item"><i class="fa-solid fa-bed" style="color: #64748B;"></i> <%= p.bedrooms %> Hab</div>
-                <% } %>
-                <% if (p.bathrooms) { %>
-                  <div class="spec-item"><i class="fa-solid fa-bath" style="color: #64748B;"></i> <%= p.bathrooms %> Baños</div>
-                <% } %>
-                <% if (p.sizeFrom) { %>
-                  <div class="spec-item"><i class="fa-solid fa-ruler-combined" style="color: #64748B;"></i> <%= (p.sizeFrom === p.sizeTo || !p.sizeTo) ? p.sizeFrom + ' m²' : p.sizeFrom + ' - ' + p.sizeTo + ' m²' %></div>
-                <% } %>
+              <!-- Top Row: Name and Price aligned horizontally -->
+              <div class="project-header-row">
+                <h2 class="project-card-title"><%= p.name %></h2>
+                <div class="project-card-price"><%= priceFmt %></div>
               </div>
 
-              <div class="project-card-footer">
-                <div>
-                  <div class="price-label">PRECIO DESDE</div>
-                  <div class="price-value">$<%= p.priceFrom ? p.priceFrom.toLocaleString('en-US') : 'Consultar' %> <span style="font-size: 0.72rem; font-weight: 700; color: #64748B;">USD</span></div>
+              <!-- Location line with subtle pin -->
+              <div class="project-location-line">
+                <i class="fa-solid fa-location-dot"></i>
+                <span><%= p.subLocation ? p.subLocation + ', ' + p.region : p.region %>, República Dominicana</span>
+              </div>
+
+              <!-- Altnest Specs Strip -->
+              <div class="project-specs-strip">
+                <div class="spec-item">
+                  <i class="fa-solid fa-bed"></i> <%= beds %> BEDS
+                </div>
+                <div class="spec-item">
+                  <i class="fa-solid fa-bath"></i> <%= baths %> BATHS
+                </div>
+                <div class="spec-item">
+                  <i class="fa-solid fa-vector-square"></i> <%= size %>
                 </div>
                 <% if (p.roi) { %>
-                  <div class="roi-badge">
-                    <div style="font-size: 0.68rem; color: #64748B;">ROI ESTIMADO</div>
-                    <div><%= p.roi %></div>
-                  </div>
+                  <span class="roi-pill-altnest"><%= p.roi %></span>
                 <% } %>
               </div>
+
             </div>
           </a>
-        <% }) %>
+        <% }); %>
       </div>
 
     </div>

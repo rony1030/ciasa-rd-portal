@@ -237,86 +237,83 @@
     }
     .project-card-code {
       font-size: 0.75rem;
-      font-weight: 800;
-      color: #64748B;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 4px;
+    /* Altnest Card Styling */
+    .project-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 8px;
     }
     .project-card-title {
-      font-size: 1.28rem;
+      font-size: 1.18rem;
       font-weight: 800;
-      color: var(--navy);
-      margin-bottom: 6px;
+      color: #0A1E36;
+      margin: 0;
       line-height: 1.25;
-      transition: color 0.2s;
+      text-transform: uppercase;
+      letter-spacing: -0.2px;
+      transition: color 0.2s ease;
+      flex: 1;
     }
     .project-card:hover .project-card-title {
       color: var(--green);
     }
-    .project-card-sub {
+    .project-card-price {
+      font-size: 1.28rem;
+      font-weight: 900;
+      color: #0A1E36;
+      white-space: nowrap;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+    
+    .project-location-line {
       font-size: 0.86rem;
       color: #64748B;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       margin-bottom: 16px;
-      line-height: 1.45;
+      font-weight: 500;
+    }
+    .project-location-line i {
+      color: #94A3B8;
+      font-size: 0.88rem;
     }
 
-    /* Fila de Especificaciones (Habitaciones, Tamaño, Tipo) */
-    .project-specs-row {
+    /* Altnest Specs Strip */
+    .project-specs-strip {
       display: flex;
       align-items: center;
       gap: 16px;
-      padding: 12px 0;
+      padding-top: 14px;
       border-top: 1px solid #F1F5F9;
-      border-bottom: 1px solid #F1F5F9;
-      margin-bottom: 18px;
+      margin-top: auto;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
     .spec-item {
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 0.84rem;
-      font-weight: 700;
-      color: #334155;
     }
     .spec-item i {
-      color: #94A3B8;
+      color: #64748B;
       font-size: 0.95rem;
     }
-
-    .project-card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-top: auto;
-      padding-top: 6px;
-    }
-    .price-label {
-      font-size: 0.72rem;
-      color: #64748B;
-      text-transform: uppercase;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-    .price-value {
-      font-size: 1.35rem;
-      font-weight: 900;
-      color: var(--green);
-      line-height: 1.1;
-      letter-spacing: -0.5px;
-    }
-    .roi-badge {
+    .roi-pill-altnest {
+      margin-left: auto;
       background: #EFF6FF;
       color: #2563EB;
       border: 1px solid #DBEAFE;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 800;
-      padding: 5px 10px;
-      border-radius: 8px;
-      text-align: right;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
     }
 
     /* Custom Leaflet Marker Styling */
@@ -637,12 +634,13 @@
         card.id = `card-proj-${p.slug || p.id}`;
 
         const imgUrl = p.coverImage || p.image || '/assets/images/flyers/pictures/Coastal_development_at_202604231822_2.jpeg';
-        const priceFmt = p.priceFrom ? `$${p.priceFrom.toLocaleString('en-US')} USD` : 'Consultar';
+        const priceFmt = p.priceFrom ? `$${p.priceFrom.toLocaleString('en-US')}` : '$180,000';
         const cleanRegion = getCleanRegionName(p.region || p.location);
         
-        // Habitaciones y Metraje
-        const beds = p.bedrooms ? `${p.bedrooms} Hab` : '1 - 3 Hab';
-        const size = (p.sizeFrom === p.sizeTo || !p.sizeTo) ? (p.sizeFrom ? `${p.sizeFrom} m²` : '') : `${p.sizeFrom} - ${p.sizeTo} m²`;
+        // Habitaciones, Baños y Metraje (Estilo Altnest)
+        const beds = p.bedrooms ? p.bedrooms : (p.rooms || '2');
+        const baths = p.bathrooms ? p.bathrooms : (p.baths || '2');
+        const size = p.sizeFrom ? `${p.sizeFrom} M²` : '120 M²';
 
         card.innerHTML = `
           <div class="project-card-media" style="background-image: url('${imgUrl}');">
@@ -650,22 +648,21 @@
             ${p.confotur ? `<span class="card-badge-confotur"><i class="fa-solid fa-shield-halved"></i> CONFOTUR</span>` : ''}
           </div>
           <div class="project-card-body">
-            <div class="project-card-code">${p.code || ''}</div>
-            <h3 class="project-card-title">${p.name}</h3>
-            <p class="project-card-sub">${p.subLocation || p.tagline || p.summary || p.location || ''}</p>
-            
-            <div class="project-specs-row">
-              <div class="spec-item"><i class="fa-solid fa-bed"></i> ${beds}</div>
-              ${size ? `<div class="spec-item"><i class="fa-solid fa-ruler-combined"></i> ${size}</div>` : ''}
-              ${p.type ? `<div class="spec-item"><i class="fa-solid fa-house"></i> ${p.type.charAt(0).toUpperCase() + p.type.slice(1)}</div>` : ''}
+            <div class="project-header-row">
+              <h3 class="project-card-title">${p.name}</h3>
+              <div class="project-card-price">${priceFmt}</div>
             </div>
-
-            <div class="project-card-footer">
-              <div>
-                <div class="price-label">Desde</div>
-                <div class="price-value">${priceFmt}</div>
-              </div>
-              ${p.roi ? `<div class="roi-badge"><i class="fa-solid fa-chart-line"></i> ROI ${p.roi}</div>` : ''}
+            
+            <div class="project-location-line">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>${p.subLocation ? p.subLocation + ', ' + cleanRegion : cleanRegion}, República Dominicana</span>
+            </div>
+            
+            <div class="project-specs-strip">
+              <div class="spec-item"><i class="fa-solid fa-bed"></i> ${beds} BEDS</div>
+              <div class="spec-item"><i class="fa-solid fa-bath"></i> ${baths} BATHS</div>
+              <div class="spec-item"><i class="fa-solid fa-vector-square"></i> ${size}</div>
+              ${p.roi ? `<span class="roi-pill-altnest">${p.roi}</span>` : ''}
             </div>
           </div>
         `;
