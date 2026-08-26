@@ -21,10 +21,13 @@
       --primary:         #7DB33A;
       --primary-hover:   #6CA02F;
       --primary-active:  #5D8B28;
-      --primary-light:   #F3F9ED;
-      --primary-subtle:  #E2F0D3;
+      --primary-light:   #F0FDF4;
+      --primary-subtle:  #DCFCE7;
       --secondary:       #0A1E36;
-      --secondary-light: #F0F4F8;
+      --secondary-light: #F8FAFC;
+      
+      --accent-purple:   #6366F1;
+      --accent-purple-light: #EEF2FF;
       
       --body-bg:         #F8FAFC;
       --sidebar-bg:      #FFFFFF;
@@ -34,20 +37,22 @@
       --text-heading:    #0F172A;
       --text-body:       #334155;
       --text-muted:      #64748B;
+      --text-light:      #94A3B8;
       
       --border-color:    #E2E8F0;
       --border-subtle:   #F1F5F9;
       --border-focus:    #7DB33A;
       
-      --shadow-sm:       0 1px 2px rgba(15, 23, 42, 0.04);
-      --shadow-card:     0 1px 3px rgba(15, 23, 42, 0.04), 0 6px 16px -4px rgba(15, 23, 42, 0.04);
-      --shadow-hover:    0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 10px 24px -3px rgba(15, 23, 42, 0.08);
-      --shadow-dropdown: 0 10px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.06);
+      --shadow-sm:       0 1px 2px rgba(15, 23, 42, 0.03);
+      --shadow-card:     0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.03);
+      --shadow-hover:    0 4px 12px rgba(15, 23, 42, 0.06), 0 10px 24px rgba(15, 23, 42, 0.05);
+      --shadow-dropdown: 0 14px 35px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
       
       --radius-xs:       4px;
       --radius-sm:       8px;
       --radius-md:       12px;
       --radius-lg:       16px;
+      --radius-xl:       20px;
       --radius-pill:     9999px;
     }
 
@@ -63,9 +68,9 @@
       letter-spacing: -0.01em;
     }
 
-    /* SIDEBAR */
+    /* SIDEBAR SAAS TRACKFLOW STYLE */
     .admin-sidebar {
-      width: 260px;
+      width: 250px;
       min-height: 100vh;
       background: var(--sidebar-bg);
       border-right: 1px solid var(--border-color);
@@ -78,8 +83,8 @@
       transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .sidebar-logo {
-      padding: 18px 22px;
-      height: 72px;
+      padding: 16px 20px;
+      height: 68px;
       display: flex;
       align-items: center;
       border-bottom: 1px solid var(--border-subtle);
@@ -87,28 +92,40 @@
     .sidebar-brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none !important;
     }
-    .sidebar-brand img { height: 38px; width: auto; flex-shrink: 0; }
-    .sidebar-brand-title { font-size: 1.15rem; font-weight: 800; color: var(--text-heading); letter-spacing: -0.3px; line-height: 1; }
-    .sidebar-brand-tagline { font-size: 0.72rem; color: var(--primary); font-weight: 700; margin-top: 2px; }
-    .sidebar-nav { padding: 18px 12px; flex: 1; }
-    .sidebar-section-label { font-size: 0.68rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; padding: 16px 12px 6px; }
+    .sidebar-brand img { height: 36px; width: auto; flex-shrink: 0; }
+    .sidebar-brand-title { font-size: 1.12rem; font-weight: 800; color: var(--text-heading); letter-spacing: -0.3px; line-height: 1; }
+    .sidebar-brand-tagline { font-size: 0.70rem; color: var(--primary); font-weight: 700; margin-top: 2px; }
+    .sidebar-nav { padding: 16px 12px; flex: 1; }
+    .sidebar-section-label { font-size: 0.65rem; font-weight: 800; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.8px; padding: 14px 12px 6px; }
     .sidebar-section-label:first-child { padding-top: 0; }
-    .sidebar-link { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: var(--radius-md); margin-bottom: 3px; text-decoration: none; color: var(--text-body); font-size: 0.88rem; font-weight: 600; transition: all 0.15s ease; }
-    .sidebar-link i { width: 20px; text-align: center; font-size: 0.95rem; color: var(--text-muted); transition: color 0.15s ease; }
-    .sidebar-link:hover { background: var(--border-subtle); color: var(--text-heading); }
+    .sidebar-link { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      padding: 9px 12px; 
+      border-radius: var(--radius-md); 
+      margin-bottom: 3px; 
+      text-decoration: none; 
+      color: #475569; 
+      font-size: 0.86rem; 
+      font-weight: 600; 
+      transition: all 0.15s ease; 
+    }
+    .sidebar-link i { width: 20px; text-align: center; font-size: 0.95rem; color: #94A3B8; transition: color 0.15s ease; }
+    .sidebar-link:hover { background: #F8FAFC; color: var(--text-heading); }
     .sidebar-link:hover i { color: var(--primary); }
-    .sidebar-link.active { background: var(--primary-light); color: var(--primary); font-weight: 700; }
-    .sidebar-link.active i { color: var(--primary); }
-    .sidebar-badge { margin-left: auto; background: var(--primary); color: #FFFFFF; font-size: 0.65rem; font-weight: 800; padding: 2px 7px; border-radius: var(--radius-pill); }
-    .sidebar-badge.soon { background: var(--secondary-light); color: var(--text-muted); border: 1px solid var(--border-color); }
+    .sidebar-link.active { background: #F0FDF4; color: #166534; font-weight: 800; }
+    .sidebar-link.active i { color: #16A34A; }
+    .sidebar-badge { margin-left: auto; background: #2563EB; color: #FFFFFF; font-size: 0.65rem; font-weight: 800; padding: 2px 7px; border-radius: var(--radius-pill); }
+    .sidebar-badge.soon { background: #F1F5F9; color: #64748B; border: 1px solid #E2E8F0; }
     .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border-subtle); font-size: 0.76rem; color: var(--text-muted); }
 
-    /* MAIN CONTAINER & TOPBAR */
+    /* MAIN CONTAINER & TOPBAR TRACKFLOW STYLE */
     .admin-main {
-      margin-left: 260px;
+      margin-left: 250px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -118,28 +135,31 @@
     .admin-topbar {
       background: var(--header-bg);
       border-bottom: 1px solid var(--border-color);
-      padding: 0 28px;
-      height: 72px;
+      padding: 0 24px;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 50;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      backdrop-filter: blur(8px);
     }
-    .topbar-left { display: flex; align-items: center; gap: 16px; }
+    .topbar-left { display: flex; align-items: center; gap: 14px; }
     .topbar-search-box {
       position: relative;
-      width: 260px;
+      width: 280px;
     }
     .topbar-search-input {
       width: 100%;
-      background: var(--body-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-pill);
-      padding: 8px 16px 8px 36px;
+      height: 38px;
+      background: #F1F5F9;
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      padding: 0 14px 0 36px;
       font-size: 0.84rem;
+      font-family: inherit;
       color: var(--text-heading);
       outline: none;
       transition: all 0.2s;
@@ -441,13 +461,137 @@
     .btn-danger:hover { background: #DC2626; color: #FFFFFF !important; }
     .btn-sm { padding: 6px 12px; font-size: 0.78rem; }
 
-    /* FORMS */
-    .form-card { 
-      background: var(--card-bg); 
-      border: 1px solid var(--border-color); 
-      border-radius: var(--radius-md); 
-      padding: 24px 28px; 
-      box-shadow: var(--shadow-card); 
+    /* KANBAN BOARD DRAG & DROP ESTILO TRACKFLOW (MODERNO, ADAPTABLE, ELEGANTE) */
+    .kanban-container {
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 16px;
+    }
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(280px, 1fr));
+      gap: 16px;
+      align-items: flex-start;
+      min-width: 1200px;
+    }
+    .kanban-column {
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 480px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .kanban-column.drag-over {
+      background: #ECFDF5;
+      border-color: #86EFAC;
+      border-style: dashed;
+    }
+    .kanban-column-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px 4px 6px;
+    }
+    .kanban-column-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--text-heading);
+    }
+    .kanban-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .kanban-dot.nuevo { background: #EF4444; }
+    .kanban-dot.contactado { background: #8B5CF6; }
+    .kanban-dot.calificado { background: #3B82F6; }
+    .kanban-dot.negociacion { background: #10B981; }
+    .kanban-dot.cerrado { background: #F59E0B; }
+
+    .kanban-count {
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: #E2E8F0;
+      color: #475569;
+      padding: 2px 8px;
+      border-radius: 50px;
+    }
+    .kanban-cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 380px;
+    }
+    .kanban-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      cursor: grab;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      user-select: none;
+    }
+    .kanban-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+      border-color: #CBD5E1;
+    }
+    .kanban-card.dragging {
+      opacity: 0.4;
+      cursor: grabbing;
+      transform: scale(0.96);
+    }
+    .kanban-card-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .kanban-card-info-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.80rem;
+      color: #64748B;
+      margin-bottom: 6px;
+    }
+    .kanban-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      color: #334155;
+    }
+    .kanban-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #F1F5F9;
+      padding-top: 8px;
+      margin-top: 8px;
+      font-size: 0.78rem;
+    }
+    .kanban-price {
+      font-weight: 800;
+      color: #166534;
+      font-size: 0.88rem;
     }
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .form-grid.three { grid-template-columns: 1fr 1fr 1fr; }

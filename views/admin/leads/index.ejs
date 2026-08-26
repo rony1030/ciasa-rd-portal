@@ -3,9 +3,21 @@
 <div class="section-header">
   <div>
     <h2>Gestión de Prospectos & Leads <span style="color: var(--text-muted); font-weight: 500; font-size: 1rem;">(<%= totalLeads %> registros)</span></h2>
-    <p>Seguimiento comercial, asignación de asesores y trazabilidad de notas</p>
+    <p>Seguimiento comercial, pipeline de oportunidades y trazabilidad de notas</p>
   </div>
-  <a href="/admin/leads/nuevo" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Registrar Nuevo Lead</a>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <!-- Switch de Vista: Kanban vs Tabla -->
+    <div style="background: #E2E8F0; padding: 3px; border-radius: 10px; display: flex; align-items: center; gap: 2px;">
+      <button type="button" id="btnKanbanView" onclick="setLeadView('kanban')" style="border: none; background: #FFFFFF; color: var(--text-heading); font-size: 0.82rem; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
+        <i class="fa-solid fa-columns"></i> Pipeline (Deals)
+      </button>
+      <button type="button" id="btnTableView" onclick="setLeadView('table')" style="border: none; background: transparent; color: #64748B; font-size: 0.82rem; font-weight: 700; padding: 6px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+        <i class="fa-solid fa-table-list"></i> Lista / Tabla
+      </button>
+    </div>
+
+    <a href="/admin/leads/nuevo" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Registrar Lead</a>
+  </div>
 </div>
 
 <!-- BARRA DE FILTROS HANDO -->
@@ -13,7 +25,7 @@
   <form method="GET" action="/admin/leads" style="display: contents;">
     <div class="form-group" style="flex: 2;">
       <label class="form-label">Buscar Prospecto</label>
-      <input type="text" name="q" class="form-input" placeholder="Nombre, email, teléfono o país..." value="<%= filtros.q %>">
+      <input type="text" name="q" id="leadSearchBox" class="form-input" placeholder="Nombre, email, teléfono o país..." value="<%= filtros.q %>" oninput="filterKanbanCards(this.value)">
     </div>
     
     <!-- Dropdown Personalizado: Estado -->
@@ -112,8 +124,100 @@
   </form>
 </div>
 
-<!-- TABLA COMPLETA DE LEADS CON GESTOR 360° -->
-<div class="admin-table-wrap">
+<!-- 1. VISTA TABLERO KANBAN DRAG & DROP (ESTILO TRACKFLOW DEALS) -->
+<div id="kanbanView" class="kanban-container" style="display: block;">
+  <div class="kanban-board">
+    
+    <!-- Columna 1: Nuevo -->
+    <div class="kanban-column" data-status="nuevo" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'nuevo')">
+      <div class="kanban-column-header">
+        <div class="kanban-column-title">
+          <span class="kanban-dot nuevo"></span> Nuevo Lead
+        </div>
+        <span class="kanban-count" id="count-nuevo">
+          <%= leads.filter(l => (l.statusVentas || 'nuevo').toLowerCase() === 'nuevo').length %>
+        </span>
+      </div>
+      <div class="kanban-cards-list" id="list-nuevo">
+        <% leads.filter(l => (l.statusVentas || 'nuevo').toLowerCase() === 'nuevo').forEach(lead => { %>
+          <%- include('_kanban_card', { lead }) %>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- Columna 2: Contactado -->
+    <div class="kanban-column" data-status="contactado" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'contactado')">
+      <div class="kanban-column-header">
+        <div class="kanban-column-title">
+          <span class="kanban-dot contactado"></span> Contactado
+        </div>
+        <span class="kanban-count" id="count-contactado">
+          <%= leads.filter(l => (l.statusVentas || '').toLowerCase() === 'contactado').length %>
+        </span>
+      </div>
+      <div class="kanban-cards-list" id="list-contactado">
+        <% leads.filter(l => (l.statusVentas || '').toLowerCase() === 'contactado').forEach(lead => { %>
+          <%- include('_kanban_card', { lead }) %>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- Columna 3: Calificado -->
+    <div class="kanban-column" data-status="calificado" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'calificado')">
+      <div class="kanban-column-header">
+        <div class="kanban-column-title">
+          <span class="kanban-dot calificado"></span> Calificado
+        </div>
+        <span class="kanban-count" id="count-calificado">
+          <%= leads.filter(l => (l.statusVentas || '').toLowerCase() === 'calificado').length %>
+        </span>
+      </div>
+      <div class="kanban-cards-list" id="list-calificado">
+        <% leads.filter(l => (l.statusVentas || '').toLowerCase() === 'calificado').forEach(lead => { %>
+          <%- include('_kanban_card', { lead }) %>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- Columna 4: En Negociación -->
+    <div class="kanban-column" data-status="negociacion" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'negociacion')">
+      <div class="kanban-column-header">
+        <div class="kanban-column-title">
+          <span class="kanban-dot negociacion"></span> Negociación
+        </div>
+        <span class="kanban-count" id="count-negociacion">
+          <%= leads.filter(l => (l.statusVentas || '').toLowerCase() === 'negociacion').length %>
+        </span>
+      </div>
+      <div class="kanban-cards-list" id="list-negociacion">
+        <% leads.filter(l => (l.statusVentas || '').toLowerCase() === 'negociacion').forEach(lead => { %>
+          <%- include('_kanban_card', { lead }) %>
+        <% }) %>
+      </div>
+    </div>
+
+    <!-- Columna 5: Cierre Ganado -->
+    <div class="kanban-column" data-status="cerrado" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'cerrado')">
+      <div class="kanban-column-header">
+        <div class="kanban-column-title">
+          <span class="kanban-dot cerrado"></span> Cierre Ganado
+        </div>
+        <span class="kanban-count" id="count-cerrado">
+          <%= leads.filter(l => (l.statusVentas || '').toLowerCase() === 'cerrado').length %>
+        </span>
+      </div>
+      <div class="kanban-cards-list" id="list-cerrado">
+        <% leads.filter(l => (l.statusVentas || '').toLowerCase() === 'cerrado').forEach(lead => { %>
+          <%- include('_kanban_card', { lead }) %>
+        <% }) %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 2. VISTA TABLA / LISTA TRADICIONAL -->
+<div class="admin-table-wrap" id="tableView" style="display: none;">
   <table class="admin-table">
     <thead>
       <tr>
@@ -198,5 +302,113 @@
   <div>Mostrando <%= leads.length %> de <%= totalLeads %> prospectos registrados</div>
   <div><a href="/admin/npi" style="color: var(--primary); font-weight: 700; text-decoration: none;"><i class="fa-solid fa-file-excel"></i> Módulo de Segmentación & Exportación NPI</a></div>
 </div>
+
+<script>
+  // Control de Switch entre Vista Kanban y Vista Tabla
+  function setLeadView(view) {
+    const kanban = document.getElementById('kanbanView');
+    const table = document.getElementById('tableView');
+    const btnK = document.getElementById('btnKanbanView');
+    const btnT = document.getElementById('btnTableView');
+
+    if (view === 'table') {
+      kanban.style.display = 'none';
+      table.style.display = 'block';
+      btnK.style.background = 'transparent';
+      btnK.style.color = '#64748B';
+      btnK.style.boxShadow = 'none';
+      btnT.style.background = '#FFFFFF';
+      btnT.style.color = 'var(--text-heading)';
+      btnT.style.boxShadow = '0 1px 3px rgba(0,0,0,0.06)';
+    } else {
+      table.style.display = 'none';
+      kanban.style.display = 'block';
+      btnT.style.background = 'transparent';
+      btnT.style.color = '#64748B';
+      btnT.style.boxShadow = 'none';
+      btnK.style.background = '#FFFFFF';
+      btnK.style.color = 'var(--text-heading)';
+      btnK.style.boxShadow = '0 1px 3px rgba(0,0,0,0.06)';
+    }
+  }
+
+  // Filtrado en vivo de tarjetas en el Kanban
+  function filterKanbanCards(query) {
+    const q = (query || '').toLowerCase().trim();
+    document.querySelectorAll('.kanban-card').forEach(card => {
+      const text = card.getAttribute('data-search') || '';
+      card.style.display = (!q || text.includes(q)) ? 'block' : 'none';
+    });
+  }
+
+  // Lógica Drag and Drop HTML5 Nativo
+  let draggedLeadId = null;
+
+  function handleDragStart(e, leadId) {
+    draggedLeadId = leadId;
+    e.target.classList.add('dragging');
+    e.dataTransfer.setData('text/plain', leadId);
+    e.dataTransfer.effectAllowed = 'move';
+  }
+
+  function handleDragEnd(e) {
+    e.target.classList.remove('dragging');
+    document.querySelectorAll('.kanban-column').forEach(col => col.classList.remove('drag-over'));
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const col = e.currentTarget;
+    if (!col.classList.contains('drag-over')) {
+      col.classList.add('drag-over');
+    }
+  }
+
+  function handleDragLeave(e) {
+    e.currentTarget.classList.remove('drag-over');
+  }
+
+  async function handleDrop(e, newStatus) {
+    e.preventDefault();
+    const col = e.currentTarget;
+    col.classList.remove('drag-over');
+    
+    if (!draggedLeadId) return;
+    
+    const cardEl = document.getElementById(`kanban-card-${draggedLeadId}`);
+    if (!cardEl) return;
+
+    // Mover visualmente la tarjeta de inmediato (Optimistic UI)
+    const targetList = document.getElementById(`list-${newStatus}`);
+    if (targetList) {
+      targetList.appendChild(cardEl);
+      updateKanbanCounters();
+    }
+
+    // Actualizar en el servidor vía AJAX
+    try {
+      const res = await fetch(`/admin/leads/${draggedLeadId}/status-ajax`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ statusVentas: newStatus })
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error || 'Error al actualizar');
+    } catch(err) {
+      console.error('Error al sincronizar estado:', err);
+    }
+  }
+
+  function updateKanbanCounters() {
+    ['nuevo', 'contactado', 'calificado', 'negociacion', 'cerrado'].forEach(st => {
+      const countEl = document.getElementById(`count-${st}`);
+      const listEl = document.getElementById(`list-${st}`);
+      if (countEl && listEl) {
+        countEl.innerText = listEl.children.length;
+      }
+    });
+  }
+</script>
 
 <%- include('../layout-end') %>

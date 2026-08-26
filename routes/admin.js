@@ -221,6 +221,19 @@ router.post('/leads/:id/status', (req, res) => {
   res.redirect(`/admin/leads/${req.params.id}`);
 });
 
+// Endpoint AJAX para Drag & Drop instantáneo en Tablero Kanban
+router.post('/leads/:id/status-ajax', (req, res) => {
+  const leads = readJSON(LEADS_FILE);
+  const lead = leads.find(l => l._id === req.params.id || l.id === req.params.id);
+  if (lead) {
+    lead.statusVentas = req.body.statusVentas;
+    lead.updatedAt = new Date().toISOString();
+    writeJSON(LEADS_FILE, leads);
+    return res.json({ ok: true, status: lead.statusVentas });
+  }
+  res.status(404).json({ ok: false, error: 'Lead no encontrado' });
+});
+
 // Agregar Nota a Bitácora
 router.post('/leads/:id/notas', (req, res) => {
   const leads = readJSON(LEADS_FILE);
