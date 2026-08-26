@@ -1,14 +1,19 @@
 <%
   const leadId = lead._id || lead.id || 'lead_' + Math.random().toString(36).substr(2, 9);
   const searchStr = `${lead.nombre || ''} ${lead.email || ''} ${lead.telefono || ''} ${lead.proyectoInteres || ''} ${lead.ciudad || ''} ${lead.pais || ''}`.toLowerCase();
-  const monto = lead.montoInversion ? ('$' + parseInt(lead.montoInversion).toLocaleString('en-US')) : '$180,000';
+  
+  let montoNum = Number(String(lead.montoInversion || '').replace(/[^0-9.]/g, ''));
+  if (isNaN(montoNum) || montoNum <= 0) montoNum = 185000;
+  const monto = '$' + montoNum.toLocaleString('en-US') + ' USD';
   const fecha = lead.createdAt ? new Date(lead.createdAt).toLocaleDateString('es-DO', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Hoy';
+  const asesor = lead.asesorAsignado || 'Paola Caram';
+  const etapa = (lead.statusVentas || 'nuevo').toLowerCase();
 %>
-<div class="kanban-card" id="kanban-card-<%= leadId %>" draggable="true" ondragstart="handleDragStart(event, '<%= leadId %>')" ondragend="handleDragEnd(event)" data-search="<%= searchStr %>">
+<div class="kanban-card" id="kanban-card-<%= leadId %>" draggable="true" ondragstart="handleDragStart(event, '<%= leadId %>')" ondragend="handleDragEnd(event)" data-search="<%= searchStr %>" onclick="openDealPreviewModal('<%= leadId %>', '<%= (lead.nombre || 'Inversionista').replace(/'/g, "\\'") %>', '<%= (lead.proyectoInteres || 'CONFOTUR').replace(/'/g, "\\'") %>', '<%= monto %>', '<%= asesor %>', '<%= etapa %>')">
   
   <div class="kanban-card-title">
-    <span><i class="fa-solid fa-cube" style="font-size: 0.76rem; color: #6366F1; margin-right: 6px;"></i> <%= lead.nombre || 'Prospecto' %></span>
-    <a href="/admin/leads/<%= leadId %>" style="color: #94A3B8; font-size: 0.8rem;" title="Abrir Ficha"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+    <span style="display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-cube" style="font-size: 0.80rem; color: #6366F1;"></i> <%= lead.nombre || 'Prospecto' %></span>
+    <a href="/admin/leads/<%= leadId %>" style="color: #94A3B8; font-size: 0.8rem;" title="Abrir Ficha 360°" onclick="event.stopPropagation();"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
   </div>
 
   <div class="kanban-card-info-row">
@@ -21,7 +26,7 @@
       <i class="fa-solid fa-briefcase" style="font-size: 0.68rem;"></i> <%= lead.proyectoInteres || 'CONFOTUR' %>
     </span>
     <% if (lead.telefono) { %>
-      <a href="https://wa.me/<%= lead.telefono.replace(/[^0-9]/g, '') %>?text=Hola%20<%= encodeURIComponent(lead.nombre || '') %>,%20le%20escribimos%20de%20CIASA%20Bolsa%20Inmobiliaria." target="_blank" class="kanban-pill" style="background: #ECFDF5; color: #047857; border-color: #A7F3D0; text-decoration: none;">
+      <a href="https://wa.me/<%= lead.telefono.replace(/[^0-9]/g, '') %>?text=Hola%20<%= encodeURIComponent(lead.nombre || '') %>,%20le%20escribimos%20de%20CIASA%20Bolsa%20Inmobiliaria." target="_blank" class="kanban-pill" style="background: #ECFDF5; color: #047857; border-color: #A7F3D0; text-decoration: none;" onclick="event.stopPropagation();">
         <i class="fa-brands fa-whatsapp"></i> Chat
       </a>
     <% } %>
@@ -29,7 +34,7 @@
 
   <div class="kanban-card-footer">
     <div class="kanban-price">
-      <i class="fa-solid fa-dollar-sign" style="font-size: 0.78rem;"></i> <%= monto %>
+      <%= monto %>
     </div>
     <div style="color: #94A3B8; font-size: 0.74rem; font-weight: 600;">
       <i class="fa-regular fa-calendar" style="margin-right: 2px;"></i> <%= fecha %>

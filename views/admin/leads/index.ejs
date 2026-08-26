@@ -400,14 +400,182 @@
     }
   }
 
-  function updateKanbanCounters() {
-    ['nuevo', 'contactado', 'calificado', 'negociacion', 'cerrado'].forEach(st => {
-      const countEl = document.getElementById(`count-${st}`);
-      const listEl = document.getElementById(`list-${st}`);
-      if (countEl && listEl) {
-        countEl.innerText = listEl.children.length;
-      }
-    });
+<!-- 3. MODAL ESPECIAL DE NEGOCIACIÓN / DEAL 360° (PROXIMA FASE 3 INTEGRADA) -->
+<div class="modal-backdrop" id="dealPreviewModal" style="display: none;">
+  <div class="modal-dialog" style="max-width: 840px; border-radius: 18px;">
+    
+    <div class="modal-header" style="background: #FAFAFC; padding: 18px 24px; border-bottom: 1px solid var(--border-color);">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 42px; height: 42px; border-radius: 12px; background: #EEF2FF; color: #4F46E5; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+          <i class="fa-solid fa-handshake"></i>
+        </div>
+        <div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: var(--text-heading);" id="dealModalLeadName">Negociación Inmobiliaria</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px;">
+            <span id="dealModalProjectName" style="color: #4F46E5; font-weight: 700;">Marina Garden 2</span> · 
+            <span id="dealModalMonto" style="color: #166534; font-weight: 800;">$185,000 USD</span>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="badge badge-purple" style="font-size: 0.74rem;"><i class="fa-solid fa-layer-group"></i> Negociaciones Fase 3</span>
+        <button class="modal-close" onclick="closeDealPreviewModal()" style="font-size: 1.5rem; line-height: 1; cursor: pointer;">&times;</button>
+      </div>
+    </div>
+
+    <div class="modal-body" style="padding: 24px;">
+      
+      <!-- Barra Superior de Etapas de la Negociación -->
+      <div style="display: flex; gap: 6px; background: #F1F5F9; padding: 4px; border-radius: 10px; margin-bottom: 20px; overflow-x: auto;">
+        <div class="deal-step-pill active" id="dealStep-nuevo"><i class="fa-solid fa-circle" style="font-size: 0.45rem;"></i> 1. Oportunidad</div>
+        <div class="deal-step-pill" id="dealStep-contactado"><i class="fa-solid fa-circle" style="font-size: 0.45rem;"></i> 2. Propuesta Enviada</div>
+        <div class="deal-step-pill" id="dealStep-calificado"><i class="fa-solid fa-circle" style="font-size: 0.45rem;"></i> 3. Reserva / Depósito</div>
+        <div class="deal-step-pill" id="dealStep-negociacion"><i class="fa-solid fa-circle" style="font-size: 0.45rem;"></i> 4. Contrato & Promesa</div>
+        <div class="deal-step-pill" id="dealStep-cerrado"><i class="fa-solid fa-circle" style="font-size: 0.45rem;"></i> 5. Cierre Ganado</div>
+      </div>
+
+      <!-- Cuadrícula Principal de Negociación Especial -->
+      <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px;">
+        
+        <!-- Columna Izquierda: Documentos y Expediente de la Negociación -->
+        <div>
+          <!-- Documentos de Esta Negociación Específica -->
+          <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 14px; padding: 16px; margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <strong style="font-size: 0.88rem; color: var(--text-heading);"><i class="fa-solid fa-file-contract" style="color: #2563EB; margin-right: 6px;"></i> Expediente & Documentos del Cierre</strong>
+              <span style="font-size: 0.72rem; color: #64748B;">No mezclado con el perfil general</span>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem;">
+                  <i class="fa-solid fa-file-pdf" style="color: #DC2626; font-size: 1rem;"></i>
+                  <span>Cotización_Oficial_CONFOTUR.pdf</span>
+                </div>
+                <span style="font-size: 0.72rem; color: #166534; font-weight: 700;">Verificado</span>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem;">
+                  <i class="fa-solid fa-file-signature" style="color: #4F46E5; font-size: 1rem;"></i>
+                  <span>Acuerdo_Reserva_Firmado.pdf</span>
+                </div>
+                <span style="font-size: 0.72rem; color: #D97706; font-weight: 700;">Pendiente Firma</span>
+              </div>
+            </div>
+
+            <!-- Botón de Cargar Documento al Deal -->
+            <button type="button" class="btn btn-secondary btn-sm" style="width: 100%; margin-top: 10px; border-style: dashed; justify-content: center;" onclick="alert('Módulo de Carga Segura de Expedientes para Vendedores disponible en la Fase de Equipos.');">
+              <i class="fa-solid fa-cloud-arrow-up"></i> Adjuntar Documento a este Cierre
+            </button>
+          </div>
+
+          <!-- Historial de Acciones & Bitácora de la Negociación -->
+          <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 14px; padding: 16px;">
+            <strong style="font-size: 0.88rem; color: var(--text-heading); display: block; margin-bottom: 10px;">
+              <i class="fa-solid fa-timeline" style="color: #10B981; margin-right: 6px;"></i> Histórico de la Negociación
+            </strong>
+            <div style="font-size: 0.80rem; color: #475569; display: flex; flex-direction: column; gap: 8px; border-left: 2px solid #E2E8F0; padding-left: 12px; margin-left: 6px;">
+              <div>
+                <strong style="color: #0F172A;">Etapa actualizada a Negociación</strong>
+                <div style="font-size: 0.72rem; color: #94A3B8;">Por Paola Caram · Hoy a las 7:40 PM</div>
+              </div>
+              <div>
+                <strong style="color: #0F172A;">Propuesta CONFOTUR enviada vía WhatsApp</strong>
+                <div style="font-size: 0.72rem; color: #94A3B8;">Por Paola Caram · Hace 2 días</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Configuración del Deal & Asignación Comercial -->
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          
+          <div style="background: #F8FAFC; border: 1px solid var(--border-color); border-radius: 14px; padding: 16px;">
+            <strong style="font-size: 0.84rem; color: var(--text-heading); display: block; margin-bottom: 12px;">
+              <i class="fa-solid fa-user-tie" style="color: #2563EB; margin-right: 6px;"></i> Asesor Comercial Responsable
+            </strong>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+              <img src="/assets/images/team/paola-caram.jpg" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;" onerror="this.src='/favicon.png';">
+              <div>
+                <div style="font-size: 0.86rem; font-weight: 800; color: #0F172A;" id="dealModalAsesor">Paola Caram</div>
+                <div style="font-size: 0.72rem; color: #64748B;">Directora Comercial (CIASA Core)</div>
+              </div>
+            </div>
+            <div style="font-size: 0.74rem; color: #94A3B8; line-height: 1.4;">
+              En la Fase de Vendedores podrás reasignar negociaciones entre el equipo comercial y ver comisiones por cierre.
+            </div>
+          </div>
+
+          <div style="background: #F8FAFC; border: 1px solid var(--border-color); border-radius: 14px; padding: 16px;">
+            <strong style="font-size: 0.84rem; color: var(--text-heading); display: block; margin-bottom: 8px;">
+              <i class="fa-solid fa-building" style="color: #D97706; margin-right: 6px;"></i> Proyecto(s) en Negociación
+            </strong>
+            <span class="badge badge-blue" id="dealModalProjectBadge" style="font-size: 0.78rem; padding: 4px 10px;">Marina Garden 2</span>
+            <div style="font-size: 0.74rem; color: #64748B; margin-top: 8px;">
+              Soporte para negociaciones múltiples por cliente en un solo histórico.
+            </div>
+          </div>
+
+          <!-- Botón directo a la Ficha 360° del Prospecto -->
+          <a id="dealModalOpenLeadLink" href="/admin/leads" class="btn btn-primary" style="width: 100%; justify-content: center; font-weight: 800;">
+            <i class="fa-solid fa-folder-open"></i> Abrir Ficha 360° del Lead
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer" style="background: #FAFAFC; padding: 14px 24px; border-top: 1px solid var(--border-color); justify-content: space-between;">
+      <span style="font-size: 0.76rem; color: #94A3B8;">Estructura de Negociaciones Independientes lista para escalabilidad multisede</span>
+      <button class="btn btn-secondary btn-sm" onclick="closeDealPreviewModal()">Cerrar</button>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .deal-step-pill {
+    padding: 6px 12px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #64748B;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s ease;
+  }
+  .deal-step-pill.active {
+    background: #4F46E5;
+    color: #FFFFFF;
+    border-color: #4F46E5;
+  }
+</style>
+
+<script>
+  // Abrir Modal Especial de Negociación / Deal
+  function openDealPreviewModal(leadId, leadName, projectName, monto, asesor, etapa) {
+    document.getElementById('dealModalLeadName').textContent = leadName || 'Negociación Inmobiliaria';
+    document.getElementById('dealModalProjectName').textContent = projectName || 'Proyecto CONFOTUR';
+    document.getElementById('dealModalMonto').textContent = monto || '$185,000 USD';
+    document.getElementById('dealModalAsesor').textContent = asesor || 'Paola Caram';
+    document.getElementById('dealModalProjectBadge').textContent = projectName || 'CONFOTUR';
+    document.getElementById('dealModalOpenLeadLink').href = `/admin/leads/${leadId}`;
+
+    // Actualizar paso activo
+    document.querySelectorAll('.deal-step-pill').forEach(el => el.classList.remove('active'));
+    const stepEl = document.getElementById(`dealStep-${etapa}`) || document.getElementById('dealStep-nuevo');
+    if (stepEl) stepEl.classList.add('active');
+
+    document.getElementById('dealPreviewModal').style.display = 'flex';
+  }
+
+  function closeDealPreviewModal() {
+    document.getElementById('dealPreviewModal').style.display = 'none';
   }
 </script>
 
