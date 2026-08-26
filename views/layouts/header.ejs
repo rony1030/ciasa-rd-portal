@@ -69,48 +69,83 @@
       }
     }
 
-    /* Global Button Utilities */
+    /* Global Button Utilities con Micro-animaciones al Hover */
     .btn-cta, .btn-primary {
       background: var(--green);
-      color: #ffffff;
+      color: #ffffff !important;
       font-weight: 700;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
+      padding: 12px 26px;
+      border-radius: 10px;
+      text-decoration: none !important;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: all 0.2s ease;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
       border: none;
       cursor: pointer;
       font-size: 0.95rem;
-      box-shadow: 0 4px 14px rgba(125, 179, 58, 0.25);
+      box-shadow: 0 4px 14px rgba(125, 179, 58, 0.3);
+      position: relative;
+      overflow: hidden;
     }
     .btn-cta:hover, .btn-primary:hover {
-      background: var(--green-hover);
-      color: #ffffff;
-      transform: translateY(-2px);
+      background: #6CA02E;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 24px rgba(125, 179, 58, 0.45);
     }
+    .btn-cta:active, .btn-primary:active {
+      transform: translateY(-1px) scale(0.99);
+    }
+
     .btn-blue {
-      background: #2563EB;
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+      background: #2563EB !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+      border-radius: 10px;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .btn-blue:hover {
-      background: #1D4ED8;
-      color: #ffffff;
+      background: #1D4ED8 !important;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.45);
     }
+
     .btn-outline-dark {
       background: #ffffff;
       color: var(--navy) !important;
       border: 1.5px solid #CBD5E1;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border-radius: 10px;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .btn-outline-dark:hover {
-      background: #F1F5F9;
+      background: #F8FAFC;
       color: var(--navy) !important;
-      border-color: #94A3B8;
+      border-color: #0A1E36;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(10, 30, 54, 0.1);
+    }
+
+    /* Animación Hover en Botón WhatsApp Header */
+    .btn-wa-action {
+      background: #22C55E;
+      color: #ffffff !important;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 9px 18px;
+      border-radius: 50px;
+      text-decoration: none !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-wa-action:hover {
+      background: #16A34A;
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 8px 22px rgba(34, 197, 94, 0.5);
     }
 
     /* 1. Header & Navigation (Fixed Permanently on Top for Desktop & Mobile) */
