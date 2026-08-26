@@ -12,7 +12,7 @@
     document.getElementById('sidebarOverlay').classList.remove('open');
   }
 
-  // 2. Dropdowns Hando (Notifications / User Profile)
+  // 2. Dropdowns Hando & Custom Form Dropdowns
   function toggleDropdown(id) {
     const el = document.getElementById(id);
     const wasOpen = el.classList.contains('show');
@@ -20,9 +20,39 @@
     if (!wasOpen) el.classList.add('show');
   }
 
+  function toggleAdminDropdown(wrapId) {
+    const wrap = document.getElementById(wrapId);
+    const isOpen = wrap.classList.contains('active');
+    document.querySelectorAll('.custom-dropdown-wrap').forEach(w => w.classList.remove('active'));
+    if (!isOpen) wrap.classList.add('active');
+  }
+
+  function selectAdminOption(inputId, val, label, labelId, wrapId) {
+    const input = document.getElementById(inputId);
+    if (input) input.value = val;
+    const labelEl = document.getElementById(labelId);
+    if (labelEl) labelEl.innerText = label;
+    const wrap = document.getElementById(wrapId);
+    if (wrap) {
+      wrap.classList.remove('active');
+      wrap.querySelectorAll('.custom-dropdown-item').forEach(item => {
+        item.classList.toggle('selected', item.innerText.trim() === label.trim());
+      });
+    }
+  }
+
+  function selectAdminOptionSubmit(inputId, val, label, labelId, wrapId) {
+    selectAdminOption(inputId, val, label, labelId, wrapId);
+    const input = document.getElementById(inputId);
+    if (input && input.form) input.form.submit();
+  }
+
   window.addEventListener('click', function(e) {
     if (!e.target.closest('.icon-btn') && !e.target.closest('.user-pill') && !e.target.closest('.dropdown-menu-hando')) {
       document.querySelectorAll('.dropdown-menu-hando').forEach(d => d.classList.remove('show'));
+    }
+    if (!e.target.closest('.custom-dropdown-wrap')) {
+      document.querySelectorAll('.custom-dropdown-wrap').forEach(w => w.classList.remove('active'));
     }
   });
 

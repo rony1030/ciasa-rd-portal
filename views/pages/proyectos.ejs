@@ -74,7 +74,7 @@
       letter-spacing: 0.5px;
       margin-bottom: 6px;
     }
-    .form-control-select, .form-control-input {
+    .form-control-input {
       width: 100%;
       height: 46px;
       padding: 0 14px;
@@ -88,41 +88,120 @@
       transition: all 0.2s ease;
       box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
-    .form-control-select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748B' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      background-size: 16px;
-      padding-right: 38px;
-      cursor: pointer;
-    }
-    .form-control-select:hover {
-      border-color: #CBD5E1;
-      background-color: #F8FAFC;
-    }
-    .form-control-select:focus, .form-control-input:focus {
+    .form-control-input:focus {
       outline: none;
       border-color: var(--green);
       background-color: #FFFFFF;
       box-shadow: 0 0 0 4px rgba(125, 179, 58, 0.15);
     }
-    .form-control-select option {
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: #0A1E36;
+
+    /* Custom Modern UI Dropdowns (Redondeados, elegantes, sin estilo tosco de SO) */
+    .custom-dropdown-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .custom-dropdown-trigger {
+      width: 100%;
+      height: 46px;
+      padding: 0 14px;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 12px;
       background: #FFFFFF;
-      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-size: 0.90rem;
+      font-weight: 700;
+      color: #0A1E36;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      user-select: none;
+    }
+    .custom-dropdown-trigger:hover {
+      border-color: #CBD5E1;
+      background: #F8FAFC;
+    }
+    .custom-dropdown-wrap.active .custom-dropdown-trigger {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(125, 179, 58, 0.15);
+      background: #FFFFFF;
+    }
+    .custom-dropdown-trigger i.chevron-icon {
+      font-size: 0.80rem;
+      color: #94A3B8;
+      transition: transform 0.22s ease;
+    }
+    .custom-dropdown-wrap.active .custom-dropdown-trigger i.chevron-icon {
+      transform: rotate(180deg);
+      color: var(--green);
+    }
+
+    .custom-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      box-shadow: 0 16px 36px -8px rgba(10, 30, 54, 0.18), 0 0 0 1px rgba(0,0,0,0.03);
+      padding: 6px;
+      z-index: 1000;
+      max-height: 270px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      animation: dropMenuFade 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .custom-dropdown-wrap.active .custom-dropdown-menu {
+      display: block;
+    }
+
+    @keyframes dropMenuFade {
+      from { opacity: 0; transform: translateY(-5px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .custom-dropdown-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .custom-dropdown-item:hover {
+      background: #F1F5F9;
+      color: var(--navy);
+      transform: translateX(2px);
+    }
+    .custom-dropdown-item.selected {
+      background: #ECFDF5;
+      color: #065F46;
+      font-weight: 800;
     }
 
     .confotur-toggle-wrap {
       display: flex;
       align-items: center;
       gap: 8px;
-      height: 42px;
+      height: 46px;
+      padding: 0 14px;
+      background: #F0FDF4;
+      border: 1.5px solid #BBF7D0;
+      border-radius: 12px;
       cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .confotur-toggle-wrap:hover {
+      background: #DCFCE7;
+      border-color: #86EFAC;
     }
     .confotur-toggle-wrap input {
       accent-color: var(--green);
@@ -131,13 +210,13 @@
       cursor: pointer;
     }
     .confotur-toggle-label {
-      font-size: 0.88rem;
-      font-weight: 700;
+      font-size: 0.86rem;
+      font-weight: 800;
       color: #065F46;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
     }
 
     /* Projects Grid Altnest Minimalist Style (Centrado y balanceado) */
@@ -372,40 +451,100 @@
             <input type="text" id="filterSearch" class="form-control-input" placeholder="Nombre o código (ej. Marina, CIASA-001)..." oninput="applyFilters()">
           </div>
 
+          <!-- Dropdown Personalizado: Región -->
           <div class="form-group">
             <label>Región</label>
-            <select id="filterRegion" class="form-control-select" onchange="applyFilters()">
-              <option value="all">Todas las Regiones</option>
-              <option value="Punta Cana">Punta Cana & Cap Cana</option>
-              <option value="Bayahíbe">Bayahíbe & Dominicus</option>
-              <option value="Juan Dolio">Juan Dolio & Guayacanes</option>
-              <option value="Santo Domingo">Santo Domingo & DN</option>
-              <option value="Baní">Baní / Peravia</option>
-              <option value="Miches">Miches & Costa Esmeralda</option>
-              <option value="Samaná">Las Terrenas / Samaná</option>
-            </select>
+            <div class="custom-dropdown-wrap" id="projRegionWrap">
+              <div class="custom-dropdown-trigger" onclick="toggleProjDropdown('projRegionWrap')">
+                <span id="projRegionLabel">Todas las Regiones</span>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+              </div>
+              <div class="custom-dropdown-menu">
+                <div class="custom-dropdown-item selected" onclick="selectProjOption('filterRegion', 'all', 'Todas las Regiones', 'projRegionLabel', 'projRegionWrap')">
+                  <span>Todas las Regiones</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterRegion', 'Punta Cana', 'Punta Cana & Cap Cana', 'projRegionLabel', 'projRegionWrap')">
+                  <span>Punta Cana & Cap Cana</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterRegion', 'Bayahíbe', 'Bayahíbe & Dominicus', 'projRegionLabel', 'projRegionWrap')">
+                  <span>Bayahíbe & Dominicus</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterRegion', 'Juan Dolio', 'Juan Dolio & Guayacanes', 'projRegionLabel', 'projRegionWrap')">
+                  <span>Juan Dolio & Guayacanes</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterRegion', 'Santo Domingo', 'Santo Domingo & DN', 'projRegionLabel', 'projRegionWrap')">
+                  <span>Santo Domingo & DN</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterRegion', 'Baní', 'Baní / Peravia', 'projRegionLabel', 'projRegionWrap')">
+                  <span>Baní / Peravia</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterRegion', 'Miches', 'Miches & Costa Esmeralda', 'projRegionLabel', 'projRegionWrap')">
+                  <span>Miches & Costa Esmeralda</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterRegion', 'Samaná', 'Las Terrenas / Samaná', 'projRegionLabel', 'projRegionWrap')">
+                  <span>Las Terrenas / Samaná</span>
+                </div>
+              </div>
+              <input type="hidden" id="filterRegion" value="all">
+            </div>
           </div>
 
+          <!-- Dropdown Personalizado: Tipo de Inmueble -->
           <div class="form-group">
             <label>Tipo de Inmueble</label>
-            <select id="filterType" class="form-control-select" onchange="applyFilters()">
-              <option value="all">Todos los Tipos</option>
-              <option value="Apartamentos">Apartamento</option>
-              <option value="Villas">Villa / Casa</option>
-              <option value="Townhouses">Townhouse</option>
-              <option value="Terrenos">Terreno / Lote</option>
-            </select>
+            <div class="custom-dropdown-wrap" id="projTypeWrap">
+              <div class="custom-dropdown-trigger" onclick="toggleProjDropdown('projTypeWrap')">
+                <span id="projTypeLabel">Todos los Tipos</span>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+              </div>
+              <div class="custom-dropdown-menu">
+                <div class="custom-dropdown-item selected" onclick="selectProjOption('filterType', 'all', 'Todos los Tipos', 'projTypeLabel', 'projTypeWrap')">
+                  <span>Todos los Tipos</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterType', 'Apartamentos', 'Apartamento', 'projTypeLabel', 'projTypeWrap')">
+                  <span>Apartamento</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterType', 'Villas', 'Villa / Casa', 'projTypeLabel', 'projTypeWrap')">
+                  <span>Villa / Casa</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterType', 'Townhouses', 'Townhouse', 'projTypeLabel', 'projTypeWrap')">
+                  <span>Townhouse</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterType', 'Terrenos', 'Terreno / Lote', 'projTypeLabel', 'projTypeWrap')">
+                  <span>Terreno / Lote</span>
+                </div>
+              </div>
+              <input type="hidden" id="filterType" value="all">
+            </div>
           </div>
 
+          <!-- Dropdown Personalizado: Presupuesto Máximo -->
           <div class="form-group">
             <label>Presupuesto Máximo</label>
-            <select id="filterPrice" class="form-control-select" onchange="applyFilters()">
-              <option value="0">Sin Límite</option>
-              <option value="150000">Hasta $150,000 USD</option>
-              <option value="250000">Hasta $250,000 USD</option>
-              <option value="400000">Hasta $400,000 USD</option>
-              <option value="600000">Hasta $600,000 USD</option>
-            </select>
+            <div class="custom-dropdown-wrap" id="projPriceWrap">
+              <div class="custom-dropdown-trigger" onclick="toggleProjDropdown('projPriceWrap')">
+                <span id="projPriceLabel">Sin Límite</span>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+              </div>
+              <div class="custom-dropdown-menu">
+                <div class="custom-dropdown-item selected" onclick="selectProjOption('filterPrice', '0', 'Sin Límite', 'projPriceLabel', 'projPriceWrap')">
+                  <span>Sin Límite</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterPrice', '150000', 'Hasta $150,000 USD', 'projPriceLabel', 'projPriceWrap')">
+                  <span>Hasta $150,000 USD</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterPrice', '250000', 'Hasta $250,000 USD', 'projPriceLabel', 'projPriceWrap')">
+                  <span>Hasta $250,000 USD</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterPrice', '400000', 'Hasta $400,000 USD', 'projPriceLabel', 'projPriceWrap')">
+                  <span>Hasta $400,000 USD</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectProjOption('filterPrice', '600000', 'Hasta $600,000 USD', 'projPriceLabel', 'projPriceWrap')">
+                  <span>Hasta $600,000 USD</span>
+                </div>
+              </div>
+              <input type="hidden" id="filterPrice" value="0">
+            </div>
           </div>
 
           <div class="confotur-toggle-wrap">
@@ -494,6 +633,40 @@
   </main>
 
   <script>
+    // Control de Dropdowns Modernos Personalizados
+    function toggleProjDropdown(wrapId) {
+      const wrap = document.getElementById(wrapId);
+      const isOpen = wrap.classList.contains('active');
+      closeAllProjDropdowns();
+      if (!isOpen) {
+        wrap.classList.add('active');
+      }
+    }
+
+    function closeAllProjDropdowns() {
+      document.querySelectorAll('.custom-dropdown-wrap').forEach(w => w.classList.remove('active'));
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.custom-dropdown-wrap')) {
+        closeAllProjDropdowns();
+      }
+    });
+
+    function selectProjOption(inputId, val, label, labelId, wrapId) {
+      document.getElementById(inputId).value = val;
+      document.getElementById(labelId).innerText = label;
+      
+      const wrap = document.getElementById(wrapId);
+      if (wrap) {
+        wrap.querySelectorAll('.custom-dropdown-item').forEach(item => {
+          item.classList.toggle('selected', item.innerText.trim() === label.trim());
+        });
+      }
+      closeAllProjDropdowns();
+      applyFilters();
+    }
+
     function applyFilters() {
       const search = document.getElementById('filterSearch').value.toLowerCase().trim();
       const region = document.getElementById('filterRegion').value;

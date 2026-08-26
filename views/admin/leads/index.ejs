@@ -16,37 +16,87 @@
       <input type="text" name="q" class="form-input" placeholder="Nombre, email, teléfono o país..." value="<%= filtros.q %>">
     </div>
     
+    <!-- Dropdown Personalizado: Estado -->
     <div class="form-group">
       <label class="form-label">Estado</label>
-      <select name="estado" class="form-input">
-        <option value="all" <%= filtros.estado === 'all' ? 'selected' : '' %>>Todos los estados</option>
-        <option value="nuevo" <%= filtros.estado === 'nuevo' ? 'selected' : '' %>>Nuevo</option>
-        <option value="contactado" <%= filtros.estado === 'contactado' ? 'selected' : '' %>>Contactado</option>
-        <option value="calificado" <%= filtros.estado === 'calificado' ? 'selected' : '' %>>Calificado</option>
-        <option value="negociacion" <%= filtros.estado === 'negociacion' ? 'selected' : '' %>>En Negociación</option>
-        <option value="cerrado" <%= filtros.estado === 'cerrado' ? 'selected' : '' %>>Cierre Ganado</option>
-      </select>
+      <div class="custom-dropdown-wrap" id="estadoDropdownWrap">
+        <div class="custom-dropdown-trigger" onclick="toggleAdminDropdown('estadoDropdownWrap')">
+          <span id="estadoSelectedLabel"><%= filtros.estado === 'all' ? 'Todos los estados' : (filtros.estado === 'nuevo' ? 'Nuevo' : (filtros.estado === 'contactado' ? 'Contactado' : (filtros.estado === 'calificado' ? 'Calificado' : (filtros.estado === 'negociacion' ? 'En Negociación' : 'Cierre Ganado')))) %></span>
+          <i class="fa-solid fa-chevron-down chevron-icon"></i>
+        </div>
+        <div class="custom-dropdown-menu">
+          <div class="custom-dropdown-item <%= filtros.estado === 'all' ? 'selected' : '' %>" onclick="selectAdminOption('estadoInput', 'all', 'Todos los estados', 'estadoSelectedLabel', 'estadoDropdownWrap')">
+            <span>Todos los estados</span>
+          </div>
+          <div class="custom-dropdown-item <%= filtros.estado === 'nuevo' ? 'selected' : '' %>" onclick="selectAdminOption('estadoInput', 'nuevo', 'Nuevo', 'estadoSelectedLabel', 'estadoDropdownWrap')">
+            <span>Nuevo</span>
+          </div>
+          <div class="custom-dropdown-item <%= filtros.estado === 'contactado' ? 'selected' : '' %>" onclick="selectAdminOption('estadoInput', 'contactado', 'Contactado', 'estadoSelectedLabel', 'estadoDropdownWrap')">
+            <span>Contactado</span>
+          </div>
+          <div class="custom-dropdown-item <%= filtros.estado === 'calificado' ? 'selected' : '' %>" onclick="selectAdminOption('estadoInput', 'calificado', 'Calificado', 'estadoSelectedLabel', 'estadoDropdownWrap')">
+            <span>Calificado</span>
+          </div>
+          <div class="custom-dropdown-item <%= filtros.estado === 'negociacion' ? 'selected' : '' %>" onclick="selectAdminOption('estadoInput', 'negociacion', 'En Negociación', 'estadoSelectedLabel', 'estadoDropdownWrap')">
+            <span>En Negociación</span>
+          </div>
+          <div class="custom-dropdown-item <%= filtros.estado === 'cerrado' ? 'selected' : '' %>" onclick="selectAdminOption('estadoInput', 'cerrado', 'Cierre Ganado', 'estadoSelectedLabel', 'estadoDropdownWrap')">
+            <span>Cierre Ganado</span>
+          </div>
+        </div>
+        <input type="hidden" name="estado" id="estadoInput" value="<%= filtros.estado %>">
+      </div>
     </div>
 
+    <!-- Dropdown Personalizado: Proyecto -->
     <div class="form-group">
       <label class="form-label">Proyecto</label>
-      <select name="proyecto" class="form-input">
-        <option value="all">Todos los proyectos</option>
-        <% projects.forEach(p => { %>
-        <option value="<%= p %>" <%= filtros.proyecto === p ? 'selected' : '' %>><%= p %></option>
-        <% }) %>
-      </select>
+      <div class="custom-dropdown-wrap" id="proyectoDropdownWrap">
+        <div class="custom-dropdown-trigger" onclick="toggleAdminDropdown('proyectoDropdownWrap')">
+          <span id="proyectoSelectedLabel"><%= filtros.proyecto === 'all' ? 'Todos los proyectos' : filtros.proyecto %></span>
+          <i class="fa-solid fa-chevron-down chevron-icon"></i>
+        </div>
+        <div class="custom-dropdown-menu">
+          <div class="custom-dropdown-item <%= filtros.proyecto === 'all' ? 'selected' : '' %>" onclick="selectAdminOption('proyectoInput', 'all', 'Todos los proyectos', 'proyectoSelectedLabel', 'proyectoDropdownWrap')">
+            <span>Todos los proyectos</span>
+          </div>
+          <% projects.forEach(p => { %>
+            <div class="custom-dropdown-item <%= filtros.proyecto === p ? 'selected' : '' %>" onclick="selectAdminOption('proyectoInput', '<%= p %>', '<%= p %>', 'proyectoSelectedLabel', 'proyectoDropdownWrap')">
+              <span><%= p %></span>
+            </div>
+          <% }) %>
+        </div>
+        <input type="hidden" name="proyecto" id="proyectoInput" value="<%= filtros.proyecto %>">
+      </div>
     </div>
 
-    <div class="form-group" style="min-width: 130px;">
+    <!-- Dropdown Personalizado: Mostrar Registros -->
+    <div class="form-group" style="min-width: 140px;">
       <label class="form-label">Mostrar Registros</label>
-      <select name="limit" class="form-input" onchange="this.form.submit()">
-        <option value="50" <%= limit === 50 ? 'selected' : '' %>>50 leads</option>
-        <option value="100" <%= limit === 100 ? 'selected' : '' %>>100 leads (Por defecto)</option>
-        <option value="200" <%= limit === 200 ? 'selected' : '' %>>200 leads</option>
-        <option value="500" <%= limit === 500 ? 'selected' : '' %>>500 leads</option>
-        <option value="-1" <%= limit === -1 ? 'selected' : '' %>>Todos los leads</option>
-      </select>
+      <div class="custom-dropdown-wrap" id="limitDropdownWrap">
+        <div class="custom-dropdown-trigger" onclick="toggleAdminDropdown('limitDropdownWrap')">
+          <span id="limitSelectedLabel"><%= limit === -1 ? 'Todos los leads' : `${limit} leads` %></span>
+          <i class="fa-solid fa-chevron-down chevron-icon"></i>
+        </div>
+        <div class="custom-dropdown-menu">
+          <div class="custom-dropdown-item <%= limit === 50 ? 'selected' : '' %>" onclick="selectAdminOptionSubmit('limitInput', '50', '50 leads', 'limitSelectedLabel', 'limitDropdownWrap')">
+            <span>50 leads</span>
+          </div>
+          <div class="custom-dropdown-item <%= limit === 100 ? 'selected' : '' %>" onclick="selectAdminOptionSubmit('limitInput', '100', '100 leads', 'limitSelectedLabel', 'limitDropdownWrap')">
+            <span>100 leads</span>
+          </div>
+          <div class="custom-dropdown-item <%= limit === 200 ? 'selected' : '' %>" onclick="selectAdminOptionSubmit('limitInput', '200', '200 leads', 'limitSelectedLabel', 'limitDropdownWrap')">
+            <span>200 leads</span>
+          </div>
+          <div class="custom-dropdown-item <%= limit === 500 ? 'selected' : '' %>" onclick="selectAdminOptionSubmit('limitInput', '500', '500 leads', 'limitSelectedLabel', 'limitDropdownWrap')">
+            <span>500 leads</span>
+          </div>
+          <div class="custom-dropdown-item <%= limit === -1 ? 'selected' : '' %>" onclick="selectAdminOptionSubmit('limitInput', '-1', 'Todos los leads', 'limitSelectedLabel', 'limitDropdownWrap')">
+            <span>Todos los leads</span>
+          </div>
+        </div>
+        <input type="hidden" name="limit" id="limitInput" value="<%= limit %>">
+      </div>
     </div>
 
     <div class="form-group" style="min-width: auto; flex: 0;">
