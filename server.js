@@ -1,6 +1,12 @@
 // CIASA RD — Servidor de Producción Node.js (Express & EJS MVC)
 // Clean URLs, Master Layouts, Video Streaming HTTP 206, Security Headers y Proxy CRM
 
+try {
+  require('dotenv').config();
+} catch (e) {
+  // dotenv opcional si las variables vienen del entorno de Hostinger
+}
+
 const express = require('express');
 const http = require('http');
 const path = require('path');
