@@ -245,7 +245,49 @@
     </div>
   </footer>
 
+  <!-- AOS JS para animaciones de entrada fluidas -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Inicializar AOS (animación suave de aparición sin frenar el scroll)
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 700,
+          easing: 'ease-out-cubic',
+          once: true,
+          offset: 40
+        });
+      }
+
+      // 2. Contadores Numéricos Animados con IntersectionObserver (Rápidos e Instantáneos)
+      const counters = document.querySelectorAll('.animate-number');
+      if (counters.length > 0) {
+        const countObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const target = +entry.target.getAttribute('data-target');
+              const suffix = entry.target.getAttribute('data-suffix') || '';
+              let count = 0;
+              const step = Math.max(1, Math.ceil(target / 25));
+              const timer = setInterval(() => {
+                count += step;
+                if (count >= target) {
+                  entry.target.innerText = target + suffix;
+                  clearInterval(timer);
+                } else {
+                  entry.target.innerText = count + suffix;
+                }
+              }, 25);
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2 });
+
+        counters.forEach(c => countObserver.observe(c));
+      }
+    });
+
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
     if (navToggle && navLinks) {
