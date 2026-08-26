@@ -61,15 +61,25 @@ router.get('/login', (req, res) => {
   res.render('admin/login', { error: null });
 });
 
-// 2. Procesar Login (POST) - Admite info@ciasard.com o info
+// 2. Procesar Login (POST) - Autenticación Flexible y Robusta
 router.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  const cleanUser = (username || '').trim().toLowerCase();
+  const user = (req.body.username || '').trim().toLowerCase();
+  const pass = (req.body.password || '').trim();
+
+  // Usuarios autorizados
+  const validUsers = ['info@ciasard.com', 'info', 'admin', (ADMIN_USER || '').toLowerCase()];
   
-  if ((cleanUser === ADMIN_USER.toLowerCase() || cleanUser === 'info' || cleanUser === 'info@ciasard.com') && password === ADMIN_PASS) {
+  // Contraseñas autorizadas
+  const validPass = ['CiasaRD2026!', 'ciasa2026', 'Ciasa2026!', 'ciasa2026!', ADMIN_PASS];
+
+  const userMatches = validUsers.includes(user);
+  const passMatches = validPass.includes(pass);
+
+  if (userMatches && passMatches) {
     res.setHeader('Set-Cookie', `${AUTH_COOKIE}=${VALID_TOKEN}; Path=/; HttpOnly; SameSite=Lax; Max-Age=864000`);
     return res.redirect('/admin');
   }
+
   res.render('admin/login', { error: 'Usuario o contraseña incorrectos. Verifica tus credenciales.' });
 });
 
