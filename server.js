@@ -99,6 +99,56 @@ app.get(['/api/npi.php', '/api/npi/states', '/api/npi/search', '/api/npi'], (req
   });
 });
 
+// 3.1 Endpoint de Sincronización Segura de Redes Sociales (Importación Inteligente CSV)
+app.post('/api/npi/sync_socials', (req, res) => {
+  const { updates } = req.body;
+  if (!Array.isArray(updates) || updates.length === 0) {
+    return res.status(400).json({ ok: false, error: 'Lista de actualizaciones vacía' });
+  }
+
+  const filePath = path.join(SITIO_DIR, 'js', 'curated_npi_data.js');
+  const pubFilePath = path.join(PUBLIC_DIR, 'js', 'curated_npi_data.js');
+
+  try {
+    let leadsData = [];
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, 'utf8');
+      const jsonStr = raw.replace(/^window\.CURATED_NPI_LEADS\s*=\s*/, '').replace(/;\s*$/, '');
+      leadsData = JSON.parse(jsonStr);
+    }
+
+    let updatedCount = 0;
+    const updateMap = new Map();
+    updates.forEach(u => {
+      if (u.npi) updateMap.set(String(u.npi).trim(), u);
+    });
+
+    leadsData.forEach(lead => {
+      const u = updateMap.get(String(lead.npi).trim());
+      if (u) {
+        let changed = false;
+        if (u.linkedin_url && u.linkedin_url.trim()) { lead.linkedin_url = u.linkedin_url.trim(); changed = true; }
+        if (u.facebook_url && u.facebook_url.trim()) { lead.facebook_url = u.facebook_url.trim(); changed = true; }
+        if (u.instagram_url && u.instagram_url.trim()) { lead.instagram_url = u.instagram_url.trim(); changed = true; }
+        if (u.twitter_url && u.twitter_url.trim()) { lead.twitter_url = u.twitter_url.trim(); changed = true; }
+        if (u.website_url && u.website_url.trim()) { lead.website_url = u.website_url.trim(); changed = true; }
+        if (changed) updatedCount++;
+      }
+    });
+
+    const newContent = `window.CURATED_NPI_LEADS = ${JSON.stringify(leadsData, null, 2)};\n`;
+    fs.writeFileSync(filePath, newContent, 'utf8');
+    if (fs.existsSync(pubFilePath)) {
+      fs.writeFileSync(pubFilePath, newContent, 'utf8');
+    }
+
+    res.json({ ok: true, updatedCount, totalInDB: leadsData.length });
+  } catch (err) {
+    console.error('Error al sincronizar redes sociales:', err);
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
 // 4. Archivos Estáticos (Assets, Videos, Branding, CSS)
 // Prioridad 1: imágenes de proyectos desde sitio-web (fuente principal de la BD)
 app.use('/assets/images/projects', express.static(path.join(SITIO_DIR, 'assets', 'images', 'projects'), { maxAge: '1d' }));
