@@ -365,7 +365,7 @@ router.get('/propiedades/:id/editar', (req, res) => {
 router.post('/propiedades/nueva', (req, res) => {
   const projects = readJSON(PROPS_FILE);
   let { name, code, region, subLocation, type, priceFrom, priceTo, sizeFrom, sizeTo,
-        bedrooms, bathrooms, roi, reserveAmount, description, delivery, confotur, airbnbFriendly,
+        bedrooms, bathrooms, parking, levels, paymentPlan, roi, reserveAmount, description, delivery, confotur, airbnbFriendly,
         available, featured, image, gallery, amenities, investmentProfile, lat, lng } = req.body;
 
   if (!name || !region) {
@@ -387,10 +387,6 @@ router.post('/propiedades/nueva', (req, res) => {
   } else if (!Array.isArray(investmentProfile)) {
     investmentProfile = ['renta-corta', 'plusvalia'];
   }
-
-  const { name, code, region, subLocation, type, priceFrom, priceTo, sizeFrom, sizeTo,
-          bedrooms, bathrooms, parking, levels, paymentPlan, roi, reserveAmount, description, delivery, confotur, airbnbFriendly,
-          available, featured, image, gallery, lat, lng } = req.body;
 
   const newProject = {
     id: slugify(name + '-' + Date.now().toString(36)),
