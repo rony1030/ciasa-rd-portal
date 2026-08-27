@@ -179,13 +179,13 @@
       pointer-events: none;
     }
 
-    /* TOPBAR RIGHT ICONS (TRACKFLOW SAAS STYLE) */
+    /* TOPBAR TOGGLE BUTTON (OCULTO EN DESKTOP, VISIBLE EN MÓVIL) */
     .sidebar-toggle-btn {
-      display: none; /* En desktop el sidebar siempre está visible */
+      display: none !important; /* En desktop NUNCA debe aparecer */
     }
     @media (max-width: 1024px) {
       .sidebar-toggle-btn {
-        display: inline-flex !important;
+        display: inline-flex !important; /* Solo en móvil y tablet */
       }
     }
     .topbar-right {
