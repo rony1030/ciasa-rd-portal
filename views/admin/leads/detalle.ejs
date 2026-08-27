@@ -602,23 +602,43 @@
           <div style="font-size: 0.76rem; color: var(--text-muted);">Sin planes de pagos activos</div>
         </div>
 
-        <div style="border-top: 1px solid var(--border-color); padding-top: 10px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <span style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-heading);">Negociaciones</span>
-            <span style="font-size: 0.7rem; color: var(--primary); font-weight: 700; cursor: pointer;">+ INICIAR</span>
+        <!-- Historial de Negociaciones (Abiertas & Finalizadas) -->
+        <div style="border-top: 1px solid var(--border-color); padding-top: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--text-heading);">
+              <i class="fa-solid fa-handshake" style="color: #4F46E5;"></i> Negociaciones del Lead
+            </span>
+            <span class="badge badge-blue" style="font-size: 0.65rem;">1 Activa</span>
           </div>
-          <div style="font-size: 0.78rem; color: var(--text-heading); font-weight: 600;">
-            <%= lead.proyectoInteres || 'Proyecto en evaluación' %>
+
+          <!-- Tarjeta de Negociación Actual -->
+          <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
+              <strong style="color: var(--text-heading); font-size: 0.82rem;"><%= lead.proyectoInteres || 'Proyecto CONFOTUR' %></strong>
+              <span class="badge badge-purple" style="font-size: 0.65rem;"><%= (lead.statusVentas || 'nuevo').toUpperCase() %></span>
+            </div>
+            <div style="font-size: 0.74rem; color: #166534; font-weight: 800; margin-bottom: 6px;">
+              $<%= lead.montoInversion ? parseInt(lead.montoInversion).toLocaleString('en-US') : '240,000' %> USD
+            </div>
+            <div style="font-size: 0.70rem; color: #64748B; border-top: 1px solid #E2E8F0; padding-top: 6px; display: flex; justify-content: space-between; align-items: center;">
+              <span><i class="fa-solid fa-file-contract"></i> 2 docs de cierre</span>
+              <a href="/admin/leads" style="color: #4F46E5; font-weight: 700; text-decoration: none;">Ver en Pipeline ➔</a>
+            </div>
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Carpeta Digital (KYC) -->
+    <!-- Carpeta Digital (Documentos KYC Generales del Perfil) -->
     <div class="card-panel">
       <div class="card-panel-header">
-        <h3><i class="fa-solid fa-folder-closed" style="color: var(--primary);"></i> Carpeta Digital (KYC)</h3>
+        <div>
+          <h3 style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; color: var(--text-heading); margin: 0;">
+            <i class="fa-solid fa-folder-closed" style="color: var(--primary);"></i> Carpeta Digital (KYC General)
+          </h3>
+          <div style="font-size: 0.68rem; color: var(--text-muted);">Cédula, Pasaporte y datos personales</div>
+        </div>
         <button type="button" class="btn btn-secondary btn-sm" onclick="document.getElementById('docUploadModal').style.display='flex'" style="padding: 3px 8px; font-size: 0.72rem;">
           <i class="fa-solid fa-upload"></i> Subir
         </button>
@@ -639,7 +659,7 @@
           <% }) %>
         <% } else { %>
           <div style="text-align: center; padding: 12px; color: var(--text-muted); font-size: 0.76rem;">
-            Sin documentos subidos
+            Sin documentos personales subidos
           </div>
         <% } %>
       </div>
