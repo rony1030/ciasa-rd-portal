@@ -149,15 +149,9 @@ app.get('/videos/:filename', (req, res) => {
   }
 });
 
-// 5. Soporte para módulo interno CRM NPI
-app.get('/admin/npi-content', (req, res) => {
-  res.sendFile(path.join(SITIO_DIR, 'crm-npi.html'));
-});
-app.get('/crm-npi', (req, res) => {
+// 5. Redirecciones limpias para módulo CRM NPI
+app.get(['/admin/npi-content', '/crm-npi', '/crm-npi.html'], (req, res) => {
   res.redirect(301, '/admin/npi');
-});
-app.get('/crm-npi.html', (req, res) => {
-  res.sendFile(path.join(SITIO_DIR, 'crm-npi.html'));
 });
 
 // 6. CRM Admin Panel (Solo Admin/Dev)

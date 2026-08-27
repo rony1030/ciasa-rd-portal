@@ -1,15 +1,969 @@
 <%- include('layout', { pageTitle: 'Marketing & Proveedores NPI — CIASA Admin', activePage: 'npi' }) %>
 
+<style>
+  /* ==========================================================================
+     MÓDULO NPI INTEGRADO 100% NATIVO EN CRM (SAAS TRACKFLOW STYLE)
+     ========================================================================== */
+  .npi-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+  /* KPI Ribbon */
+  .npi-kpi-ribbon {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 14px 20px;
+    gap: 16px;
+    box-shadow: var(--shadow-card);
+  }
+  .npi-kpi-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-right: 1px solid var(--border-color);
+    padding-right: 16px;
+  }
+  .npi-kpi-item:last-child {
+    border-right: none;
+    padding-right: 0;
+  }
+  .npi-kpi-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .npi-kpi-label {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    line-height: 1.2;
+  }
+  .npi-kpi-val {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-heading);
+    line-height: 1.1;
+    margin-top: 2px;
+  }
+  .npi-kpi-btn {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    border: 1px solid transparent;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+  .npi-kpi-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  }
+
+  /* Filter Card */
+  .npi-filter-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .npi-filter-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1.2fr 1.3fr 0.9fr 1.4fr;
+    gap: 12px;
+  }
+  .npi-filter-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-top: 1px solid #F1F5F9;
+    padding-top: 10px;
+  }
+  .npi-checkboxes {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .npi-custom-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.80rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    cursor: pointer;
+    user-select: none;
+  }
+  .npi-custom-check input {
+    accent-color: #2563EB;
+    width: 15px;
+    height: 15px;
+  }
+  .npi-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* Data Table & Cards */
+  .npi-data-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .npi-data-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FAFCFF;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .npi-data-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-heading);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .npi-table-wrap {
+    overflow-x: auto;
+    width: 100%;
+    min-height: 380px;
+  }
+  table.npi-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.84rem;
+  }
+  table.npi-table th {
+    background: #F8FAFC;
+    color: #64748B;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  table.npi-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #F1F5F9;
+    color: var(--text-heading);
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  table.npi-table tr:hover td {
+    background: #F8FBFF;
+  }
+
+  .badge-latino {
+    background: #FEF3C7;
+    color: #B45309;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+  }
+  .badge-quintile {
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .q5 { background: #DCFCE7; color: #15803D; }
+  .q4 { background: #E0E7FF; color: #4338CA; }
+  .q3 { background: #F1F5F9; color: #475569; }
+  .q2 { background: #FEF2F2; color: #991B1B; }
+  .q1 { background: #F5F5F5; color: #737373; }
+
+  /* Mobile Cards Grid */
+  .npi-mobile-cards-grid {
+    display: none;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 14px;
+  }
+  .npi-lead-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Responsive Rules */
+  @media (max-width: 1024px) {
+    .npi-kpi-ribbon {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .npi-kpi-item:nth-child(2) {
+      border-right: none;
+      padding-right: 0;
+    }
+    .npi-filter-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 768px) {
+    .npi-filter-grid {
+      grid-template-columns: 1fr;
+    }
+    .npi-table-wrap { display: none; }
+    .npi-mobile-cards-grid { display: grid; }
+    .npi-actions { width: 100%; }
+    .npi-actions .btn { flex: 1; justify-content: center; }
+  }
+  @media (max-width: 480px) {
+    .npi-kpi-ribbon {
+      grid-template-columns: 1fr;
+    }
+    .npi-kpi-item {
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+    .npi-kpi-item:last-child {
+      border-bottom: none;
+    }
+  }
+</style>
+
+<!-- ENCABEZADO DE SECCIÓN -->
 <div class="section-header">
   <div>
     <h2>Marketing & Base de Datos Médicos NPI <span style="color: var(--text-muted); font-weight: 500; font-size: 1rem;">(Segmentación en EE.UU.)</span></h2>
     <p>Campañas hiper-segmentadas para médicos e inversionistas en Florida, Nueva York y California</p>
   </div>
-  <a href="/admin/leads" class="btn btn-primary"><i class="fa-solid fa-users"></i> Ver Leads Registrados</a>
+  <div style="display: flex; gap: 8px;">
+    <a href="/admin/leads" class="btn btn-primary"><i class="fa-solid fa-users"></i> Ver Pipeline de Leads</a>
+  </div>
 </div>
 
-<div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid var(--border-color); overflow: hidden; box-shadow: var(--shadow-card); height: calc(100vh - 190px); min-height: 600px;">
-  <iframe src="/admin/npi-content" style="width: 100%; height: 100%; border: none; display: block;" title="CRM NPI Module"></iframe>
+<div class="npi-wrapper">
+
+  <!-- =========================================================================
+       1. RIBBON DE MÉTRICAS GLOBALES NPI (LIVE SAAS STATS)
+       ========================================================================= -->
+  <div class="npi-kpi-ribbon">
+    
+    <!-- Total Proveedores -->
+    <div class="npi-kpi-item">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="npi-kpi-icon" style="background: #EFF6FF; color: #2563EB;">
+          <i class="fa-solid fa-user-doctor"></i>
+        </div>
+        <div>
+          <div class="npi-kpi-label">Total Proveedores</div>
+          <div class="npi-kpi-val" id="kpiTotalProviders">8,880,716</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Médicos Latinos -->
+    <div class="npi-kpi-item">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="npi-kpi-icon" style="background: #FEF3C7; color: #D97706;">
+          <i class="fa-solid fa-flag"></i>
+        </div>
+        <div>
+          <div class="npi-kpi-label" style="color: #D97706;">Médicos Latinos</div>
+          <div class="npi-kpi-val" style="color: #B45309;" id="kpiTotalLatinos">1,420,500</div>
+        </div>
+      </div>
+      <button id="btnToggleLatinoKpi" class="npi-kpi-btn" style="background: #FEF3C7; border-color: #FDE68A; color: #B45309;" onclick="toggleLatinoFilter()">
+        <i class="fa-solid fa-filter"></i> Latinos
+      </button>
+    </div>
+
+    <!-- Email Directo -->
+    <div class="npi-kpi-item">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="npi-kpi-icon" style="background: #F0FDF4; color: #16A34A;">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <div>
+          <div class="npi-kpi-label" style="color: #16A34A;">Email Directo</div>
+          <div class="npi-kpi-val" style="color: #15803D;" id="kpiTotalEmails">2,150,000</div>
+        </div>
+      </div>
+      <button class="npi-kpi-btn" style="background: #F0FDF4; border-color: #BBF7D0; color: #15803D;" onclick="openEmailModal()">
+        <i class="fa-solid fa-paper-plane"></i> Email
+      </button>
+    </div>
+
+    <!-- Teléfono / WA -->
+    <div class="npi-kpi-item">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="npi-kpi-icon" style="background: #FAF5FF; color: #9333EA;">
+          <i class="fa-solid fa-phone"></i>
+        </div>
+        <div>
+          <div class="npi-kpi-label" style="color: #9333EA;">Teléfono / WA</div>
+          <div class="npi-kpi-val" style="color: #7E22CE;" id="kpiTotalPhones">3,890,000</div>
+        </div>
+      </div>
+      <button class="npi-kpi-btn" style="background: #FAF5FF; border-color: #E9D5FF; color: #7E22CE;" onclick="openSocialAdsModal()">
+        <i class="fa-solid fa-share-nodes"></i> Pauta
+      </button>
+    </div>
+
+  </div>
+
+  <!-- =========================================================================
+       2. PANEL DE FILTROS INTELIGENTES & BÚSQUEDA
+       ========================================================================= -->
+  <div class="npi-filter-card">
+    <div class="npi-filter-grid">
+      
+      <!-- Estado -->
+      <div class="form-group">
+        <label class="form-label">Estado de EE.UU.</label>
+        <select id="stateSelect" class="form-input" onchange="onFilterChange()">
+          <option value="FL" selected>Florida (FL)</option>
+          <option value="NY">Nueva York (NY)</option>
+          <option value="CA">California (CA)</option>
+          <option value="TX">Texas (TX)</option>
+          <option value="NJ">New Jersey (NJ)</option>
+          <option value="ALL">Todos los Estados</option>
+        </select>
+      </div>
+
+      <!-- Preset Rápido -->
+      <div class="form-group">
+        <label class="form-label">Segmento / Filtro Rápido</label>
+        <select id="presetSelect" class="form-input" onchange="onPresetDropdownChange(this)">
+          <option value="FL_LATINO" selected>FL Latinos (Florida)</option>
+          <option value="NY_LATINO">NY Latinos (Nueva York)</option>
+          <option value="CA_LATINO">CA Latinos (California)</option>
+          <option value="TX_LATINO">TX Latinos (Texas)</option>
+          <option value="Q5_ALL">Quintil 5 (Alto Patrimonio)</option>
+          <option value="DENTISTAS">Odontólogos / Dentistas</option>
+          <option value="TODOS">Todos los Médicos / Base Completa</option>
+        </select>
+      </div>
+
+      <!-- Especialidad -->
+      <div class="form-group">
+        <label class="form-label">Especialidad Médica</label>
+        <select id="specialtySelect" class="form-input" onchange="onFilterChange()">
+          <option value="ALL">Todas las especialidades</option>
+          <option value="Medicina Familiar">Medicina Familiar</option>
+          <option value="Medicina Interna">Medicina Interna</option>
+          <option value="Odontología / Dentista">Odontología / Dentistas</option>
+          <option value="Cirugía Ortopédica">Cirugía Ortopédica</option>
+          <option value="Pediatría">Pediatría</option>
+          <option value="Cardiología">Cardiología</option>
+          <option value="Obstetricia y Ginecología">Ginecología y Obstetricia</option>
+          <option value="Dermatología">Dermatología</option>
+          <option value="Psiquiatría">Psiquiatría / Salud Mental</option>
+        </select>
+      </div>
+
+      <!-- Nivel de Inversión (Quintil) -->
+      <div class="form-group">
+        <label class="form-label">Nivel Inversión</label>
+        <select id="quintileSelect" class="form-input" onchange="onFilterChange()">
+          <option value="ALL">Todos los quintiles</option>
+          <option value="5">Quintil 5 (Mayor Poder)</option>
+          <option value="4">Quintil 4 (Medio-Alto)</option>
+          <option value="3">Quintil 3 (Medio)</option>
+        </select>
+      </div>
+
+      <!-- Búsqueda Rápida -->
+      <div class="form-group">
+        <label class="form-label">Búsqueda Rápida</label>
+        <div style="position: relative;">
+          <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 0.85rem; pointer-events: none;"></i>
+          <input type="text" id="searchInput" class="form-input" style="padding-left: 36px;" placeholder="Nombre, apellido, ciudad..." oninput="onSearchInput()">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Barra Inferior de Checkboxes y Acciones de Exportación -->
+    <div class="npi-filter-bottom">
+      <div class="npi-checkboxes">
+        <label class="npi-custom-check">
+          <input type="checkbox" id="checkLatino" checked onchange="onFilterChange()">
+          <span>Solo Hispanos / Latinos</span>
+        </label>
+        <label class="npi-custom-check">
+          <input type="checkbox" id="checkPhone" onchange="onFilterChange()">
+          <span>Con Teléfono</span>
+        </label>
+        <label class="npi-custom-check">
+          <input type="checkbox" id="checkEmail" onchange="onFilterChange()">
+          <span>Con Email</span>
+        </label>
+        <label class="npi-custom-check">
+          <input type="checkbox" id="checkSocial" onchange="onFilterChange()">
+          <span style="color: #0D9488; font-weight: 700;">Con Redes Sociales</span>
+        </label>
+      </div>
+
+      <div class="npi-actions">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="resetFilters()">
+          <i class="fa-solid fa-rotate-left"></i> Limpiar
+        </button>
+        <button type="button" class="btn btn-sm" style="background: #4F46E5; color: #FFFFFF;" onclick="openSocialAdsModal()">
+          <i class="fa-solid fa-bullhorn"></i> Redes & Pauta
+        </button>
+        <button type="button" class="btn btn-sm" style="background: #2563EB; color: #FFFFFF;" onclick="openEmailModal()">
+          <i class="fa-solid fa-envelope"></i> Campaña Email
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="openExportModal()">
+          <i class="fa-solid fa-download"></i> Exportar CSV
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       3. TABLA NATIVA DE PROSPECTOS MÉDICOS
+       ========================================================================= -->
+  <div class="npi-data-card">
+    <div class="npi-data-header">
+      <div class="npi-data-title">
+        <i class="fa-solid fa-table-list" style="color: var(--primary);"></i> Prospectos Seleccionados
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div id="dataCounts" style="font-size: 0.84rem; font-weight: 700; color: #64748B;">Cargando...</div>
+        <div style="display: flex; gap: 4px; background: #F1F5F9; padding: 2px; border-radius: 6px;">
+          <button id="btnViewTable" class="btn btn-sm active" style="padding: 3px 8px; font-size: 0.74rem;" onclick="switchView('table')"><i class="fa-solid fa-table"></i> Tabla</button>
+          <button id="btnViewCards" class="btn btn-secondary btn-sm" style="padding: 3px 8px; font-size: 0.74rem;" onclick="switchView('cards')"><i class="fa-solid fa-grip"></i> Tarjetas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vista Tabla Desktop -->
+    <div class="npi-table-wrap" id="tableContainer">
+      <table class="npi-table">
+        <thead>
+          <tr>
+            <th style="width: 40px; text-align: center;"><input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)"></th>
+            <th>NPI</th>
+            <th>Nombre del Proveedor</th>
+            <th>Especialidad</th>
+            <th>Cred.</th>
+            <th>Ciudad / Estado</th>
+            <th>Teléfono</th>
+            <th>Email</th>
+            <th>Quintil</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Filas dinámicas -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Vista Tarjetas Móviles -->
+    <div class="npi-mobile-cards-grid" id="mobileCardsGrid">
+      <!-- Tarjetas dinámicas -->
+    </div>
+
+    <!-- Paginación -->
+    <div style="padding: 12px 20px; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; background: #FAFCFF; flex-wrap: wrap; gap: 10px;">
+      <div id="paginationInfo" style="font-size: 0.82rem; color: #64748B; font-weight: 600;">Página 1 de 1</div>
+      <div style="display: flex; gap: 6px;">
+        <button id="btnPrevPage" class="btn btn-secondary btn-sm" onclick="changePage(-1)" disabled><i class="fa-solid fa-chevron-left"></i> Anterior</button>
+        <button id="btnNextPage" class="btn btn-secondary btn-sm" onclick="changePage(1)" disabled>Siguiente <i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+<!-- =========================================================================
+     MODALES FLOTANTES DE NPI (REDES, EMAIL, EXPORTAR)
+     ========================================================================= -->
+
+<!-- Modal 1: Redes Sociales -->
+<div class="modal-backdrop" id="socialAdsModal" style="display: none;">
+  <div class="modal-dialog" style="max-width: 680px;">
+    <div class="modal-header">
+      <strong style="font-size: 1.05rem; color: var(--text-heading); display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-bullhorn" style="color: #4F46E5;"></i> Exportar Audiencias para Redes Sociales
+      </strong>
+      <button class="modal-close" onclick="closeSocialAdsModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size: 0.84rem; color: #64748B;">Selecciona la plataforma publicitaria donde deseas importar este lote de prospectos médicos:</p>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+        <button class="btn btn-secondary btn-sm social-tab-btn active" onclick="switchSocialTab('meta', this)"><i class="fa-brands fa-meta" style="color: #1877F2;"></i> Meta Ads</button>
+        <button class="btn btn-secondary btn-sm social-tab-btn" onclick="switchSocialTab('google', this)"><i class="fa-brands fa-google" style="color: #EA4335;"></i> Google</button>
+        <button class="btn btn-secondary btn-sm social-tab-btn" onclick="switchSocialTab('linkedin', this)"><i class="fa-brands fa-linkedin" style="color: #0A66C2;"></i> LinkedIn</button>
+        <button class="btn btn-secondary btn-sm social-tab-btn" onclick="switchSocialTab('whatsapp', this)"><i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> WhatsApp</button>
+      </div>
+      <div id="socialPlatformInfo" style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 14px; font-size: 0.82rem; line-height: 1.5; color: #334155;">
+        <!-- Contenido dinámico -->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary btn-sm" onclick="closeSocialAdsModal()">Cancelar</button>
+      <button class="btn btn-primary btn-sm" onclick="downloadSocialAudience()"><i class="fa-solid fa-download"></i> Descargar Audiencia CSV</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2: Campaña Email -->
+<div class="modal-backdrop" id="emailCampaignModal" style="display: none;">
+  <div class="modal-dialog" style="max-width: 620px;">
+    <div class="modal-header">
+      <strong style="font-size: 1.05rem; color: var(--text-heading); display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-envelope-open-text" style="color: #2563EB;"></i> Campaña de Email Marketing
+      </strong>
+      <button class="modal-close" onclick="closeEmailModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <label class="form-label">Plataforma de Envío:</label>
+      <select id="emailPlatformSelect" class="form-input">
+        <option value="hostinger">Hostinger Reach (Recomendado)</option>
+        <option value="mailchimp">Mailchimp / Brevo</option>
+      </select>
+      <label class="form-label" style="margin-top: 8px;">Plantilla de Alta Conversión CONFOTUR:</label>
+      <textarea id="emailTemplateText" class="form-input" style="height: 140px; font-family: inherit; font-size: 0.82rem; resize: none;" readonly>Estimado(a) {{NAME}},
+
+Como profesional médico en {{CITY}}, {{STATE}}, le presentamos una oportunidad exclusiva de inversión patrimonial en República Dominicana.
+
+Invierta en proyectos turísticos respaldados por la Ley CONFOTUR (15 años exención total de impuestos) con retornos en USD del 8% al 14% anual.
+
+Equipo CIASA Marketing · Bolsa Inmobiliaria RD
+WhatsApp Directo: +1 (809) 299-5233</textarea>
+      <button type="button" class="btn btn-secondary btn-sm" style="align-self: flex-start;" onclick="copyEmailTemplate()"><i class="fa-regular fa-copy"></i> Copiar Plantilla</button>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary btn-sm" onclick="closeEmailModal()">Cerrar</button>
+      <button class="btn btn-primary btn-sm" onclick="downloadEmailBatch()"><i class="fa-solid fa-download"></i> Descargar Lote (150 Leads)</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 3: Exportador General -->
+<div class="modal-backdrop" id="exportModal" style="display: none;">
+  <div class="modal-dialog" style="max-width: 520px;">
+    <div class="modal-header">
+      <strong style="font-size: 1.05rem; color: var(--text-heading); display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-file-export" style="color: var(--primary);"></i> Exportar Base de Datos NPI
+      </strong>
+      <button class="modal-close" onclick="closeExportModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <label class="form-label">Formato de Exportación:</label>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.86rem; cursor: pointer;">
+          <input type="radio" name="exportOption" value="csv" checked> Descargar CSV con todos los filtros actuales
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.86rem; cursor: pointer;">
+          <input type="radio" name="exportOption" value="selected"> Descargar solo registros seleccionados manualmente
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary btn-sm" onclick="closeExportModal()">Cancelar</button>
+      <button class="btn btn-primary btn-sm" onclick="executeStandardExport()"><i class="fa-solid fa-download"></i> Descargar Archivo</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPTS NATIVOS DE CARGA & CONSULTA -->
+<script src="/js/curated_npi_data.js"></script>
+<script>
+  const API_BASE = '/api/npi';
+  let currentPage = 1;
+  const pageLimit = 100;
+  let totalPages = 1;
+  let totalMatching = 0;
+  let selectedNpis = new Set();
+  let currentRows = [];
+  let currentSocialTab = 'meta';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadStatesAndGlobalMetrics();
+    document.getElementById('stateSelect').value = 'FL';
+    fetchLeads();
+    switchSocialTab('meta');
+  });
+
+  async function loadStatesAndGlobalMetrics() {
+    try {
+      const res = await fetch(`${API_BASE}/states`);
+      if (!res.ok) throw new Error('API offline');
+      const data = await res.json();
+      document.getElementById('kpiTotalProviders').textContent = Number(data.total_providers || 8880716).toLocaleString();
+      document.getElementById('kpiTotalLatinos').textContent = Number(data.total_latinos || 1420500).toLocaleString();
+      document.getElementById('kpiTotalEmails').textContent = Number(data.total_emails || 2150000).toLocaleString();
+      document.getElementById('kpiTotalPhones').textContent = Number(data.total_phones || 3890000).toLocaleString();
+    } catch (err) {
+      document.getElementById('kpiTotalProviders').textContent = '8,880,716';
+      document.getElementById('kpiTotalLatinos').textContent = '1,420,500';
+      document.getElementById('kpiTotalEmails').textContent = '2,150,000';
+      document.getElementById('kpiTotalPhones').textContent = '3,890,000';
+    }
+  }
+
+  function toggleLatinoFilter() {
+    const chk = document.getElementById('checkLatino');
+    chk.checked = !chk.checked;
+    onFilterChange();
+  }
+
+  function onPresetDropdownChange(selectEl) {
+    applyPreset(selectEl.value);
+  }
+
+  function applyPreset(presetType) {
+    const stateSelect = document.getElementById('stateSelect');
+    const specSelect = document.getElementById('specialtySelect');
+    const quintSelect = document.getElementById('quintileSelect');
+    const checkLatino = document.getElementById('checkLatino');
+    const checkPhone = document.getElementById('checkPhone');
+    const checkEmail = document.getElementById('checkEmail');
+
+    checkPhone.checked = false;
+    checkEmail.checked = false;
+    specSelect.value = 'ALL';
+    quintSelect.value = 'ALL';
+
+    if (presetType === 'FL_LATINO') { stateSelect.value = 'FL'; checkLatino.checked = true; }
+    else if (presetType === 'NY_LATINO') { stateSelect.value = 'NY'; checkLatino.checked = true; }
+    else if (presetType === 'CA_LATINO') { stateSelect.value = 'CA'; checkLatino.checked = true; }
+    else if (presetType === 'TX_LATINO') { stateSelect.value = 'TX'; checkLatino.checked = true; }
+    else if (presetType === 'Q5_ALL') { stateSelect.value = 'ALL'; quintSelect.value = '5'; checkLatino.checked = false; }
+    else if (presetType === 'DENTISTAS') { stateSelect.value = 'ALL'; specSelect.value = 'Odontología / Dentista'; checkLatino.checked = false; }
+    else { stateSelect.value = 'ALL'; checkLatino.checked = false; }
+
+    onFilterChange();
+  }
+
+  function resetFilters() {
+    document.getElementById('stateSelect').value = 'FL';
+    document.getElementById('specialtySelect').value = 'ALL';
+    document.getElementById('quintileSelect').value = 'ALL';
+    document.getElementById('checkLatino').checked = true;
+    document.getElementById('checkPhone').checked = false;
+    document.getElementById('checkEmail').checked = false;
+    document.getElementById('checkSocial').checked = false;
+    document.getElementById('searchInput').value = '';
+    selectedNpis.clear();
+    onFilterChange();
+  }
+
+  function onFilterChange() {
+    currentPage = 1;
+    fetchLeads();
+  }
+
+  let searchTimer = null;
+  function onSearchInput() {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      currentPage = 1;
+      fetchLeads();
+    }, 350);
+  }
+
+  async function fetchLeads() {
+    const state = document.getElementById('stateSelect').value;
+    const specialty = document.getElementById('specialtySelect').value;
+    const quintile = document.getElementById('quintileSelect').value;
+    const latinoOnly = document.getElementById('checkLatino').checked ? '1' : '0';
+    const hasPhone = document.getElementById('checkPhone').checked ? '1' : '0';
+    const hasEmail = document.getElementById('checkEmail').checked ? '1' : '0';
+    const hasSocial = document.getElementById('checkSocial').checked ? '1' : '0';
+    const q = document.getElementById('searchInput').value.trim();
+
+    const tbody = document.getElementById('tableBody');
+    const cardsGrid = document.getElementById('mobileCardsGrid');
+    const dataCounts = document.getElementById('dataCounts');
+
+    dataCounts.innerHTML = '<span style="color:#2563EB;"><i class="fa-solid fa-spinner fa-spin"></i> Consultando...</span>';
+
+    const params = new URLSearchParams({
+      state, specialty, quintile, latino_only: latinoOnly, has_phone: hasPhone, has_email: hasEmail, has_social: hasSocial, q, page: currentPage, limit: pageLimit
+    });
+
+    try {
+      const res = await fetch(`${API_BASE}/search?${params.toString()}`);
+      if (!res.ok) throw new Error('API offline');
+      const data = await res.json();
+      currentRows = data.providers || [];
+      totalMatching = data.total_matching || 0;
+      totalPages = data.total_pages || 1;
+      renderData(currentRows);
+      updatePagination();
+    } catch (err) {
+      // Fallback local dataset en memoria
+      const all = window.CURATED_NPI_LEADS || [];
+      const filtered = all.filter(p => {
+        if (state && state !== 'ALL' && p.state !== state) return false;
+        if (specialty && specialty !== 'ALL' && !p.specialty.toLowerCase().includes(specialty.toLowerCase())) return false;
+        if (quintile && quintile !== 'ALL' && String(p.income_quintile) !== String(quintile)) return false;
+        if (latinoOnly === '1' && !p.is_latino) return false;
+        if (hasPhone === '1' && !p.phone) return false;
+        if (hasEmail === '1' && !p.email) return false;
+        if (hasSocial === '1' && !(p.linkedin_url || p.facebook_url || p.instagram_url)) return false;
+        if (q) {
+          const query = q.toLowerCase();
+          if (!(p.name || '').toLowerCase().includes(query) && !(p.city || '').toLowerCase().includes(query)) return false;
+        }
+        return true;
+      });
+      currentRows = filtered.slice((currentPage - 1) * pageLimit, currentPage * pageLimit);
+      totalMatching = filtered.length;
+      totalPages = Math.ceil(filtered.length / pageLimit) || 1;
+      renderData(currentRows);
+      updatePagination();
+    }
+  }
+
+  function renderData(rows) {
+    const tbody = document.getElementById('tableBody');
+    const cardsGrid = document.getElementById('mobileCardsGrid');
+    const dataCounts = document.getElementById('dataCounts');
+
+    if (!rows || rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:40px; color:#94A3B8;">No se encontraron prospectos con los filtros seleccionados</td></tr>';
+      cardsGrid.innerHTML = '<div style="text-align:center; padding:40px; color:#94A3B8;">No se encontraron prospectos</div>';
+      dataCounts.textContent = '0 prospectos';
+      return;
+    }
+
+    const startIdx = (currentPage - 1) * pageLimit + 1;
+    const endIdx = Math.min(startIdx + rows.length - 1, totalMatching);
+    dataCounts.innerHTML = `<span><strong>${startIdx.toLocaleString()}-${endIdx.toLocaleString()}</strong> de <strong>${totalMatching.toLocaleString()}</strong></span>`;
+
+    let tableHtml = '';
+    rows.forEach(p => {
+      const isChecked = selectedNpis.has(p.npi) ? 'checked' : '';
+      const latinoBadge = p.is_latino ? '<span class="badge-latino">Latino</span>' : '';
+      const phoneClean = (p.phone || '').replace(/[^0-9]/g, '');
+      const waUrl = phoneClean ? `https://wa.me/1${phoneClean}?text=${encodeURIComponent('Hola Dr(a). ' + (p.name || '') + ', le saludamos de Bolsa Inmobiliaria RD.')}` : '#';
+      const linkedinUrl = p.linkedin_url ? p.linkedin_url : `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent('Dr. ' + (p.name || '') + ' ' + (p.city || '') + ' ' + (p.state || ''))}`;
+      const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent('Dr. ' + (p.name || '') + ' ' + (p.specialty || '') + ' ' + (p.city || '') + ' ' + (p.state || ''))}`;
+
+      tableHtml += `
+        <tr>
+          <td style="text-align: center;"><input type="checkbox" ${isChecked} onchange="toggleSelectLead('${p.npi}', this.checked)"></td>
+          <td style="font-family: monospace; font-weight: 700; color: #475569;">${p.npi}</td>
+          <td style="font-weight: 700; color: #0F172A;">${p.name || 'N/A'} ${latinoBadge}</td>
+          <td style="color: #475569; font-size: 0.82rem;">${p.specialty || 'General'}</td>
+          <td><span style="background: #F1F5F9; padding: 2px 6px; border-radius: 4px; font-size: 0.72rem; font-weight: 700;">${p.credentials || 'MD'}</span></td>
+          <td>${p.city || ''}, ${p.state || ''}</td>
+          <td>${p.phone ? `<a href="tel:${p.phone}" style="color:#0F172A; text-decoration:none; font-weight:600;">${p.phone}</a>` : '—'}</td>
+          <td>${p.email ? `<a href="mailto:${p.email}" style="color:#2563EB; text-decoration:none; font-weight:600;">${p.email}</a>` : '—'}</td>
+          <td><span class="badge-quintile q${p.income_quintile || 3}">Q${p.income_quintile || 3}</span></td>
+          <td>
+            <div style="display:flex; align-items:center; gap:8px;">
+              ${p.phone ? `<a href="${waUrl}" target="_blank" style="color: #16A34A; font-size: 1rem;" title="Abrir WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>` : ''}
+              ${p.email ? `<a href="mailto:${p.email}" style="color: #2563EB; font-size: 0.95rem;" title="Enviar Email"><i class="fa-regular fa-envelope"></i></a>` : ''}
+              <a href="${linkedinUrl}" target="_blank" style="color: #0A66C2; font-size: 0.95rem;" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="${googleSearchUrl}" target="_blank" style="color: #EA4335; font-size: 0.95rem;" title="Buscar en Google"><i class="fa-brands fa-google"></i></a>
+            </div>
+          </td>
+        </tr>
+      `;
+    });
+    tbody.innerHTML = tableHtml;
+
+    let cardsHtml = '';
+    rows.forEach(p => {
+      const latinoBadge = p.is_latino ? '<span class="badge-latino">Latino</span>' : '';
+      const phoneClean = (p.phone || '').replace(/[^0-9]/g, '');
+      const waUrl = phoneClean ? `https://wa.me/1${phoneClean}?text=${encodeURIComponent('Hola Dr(a). ' + (p.name || '') + ', le saludamos de Bolsa Inmobiliaria RD.')}` : '#';
+      const linkedinUrl = p.linkedin_url ? p.linkedin_url : `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent('Dr. ' + (p.name || '') + ' ' + (p.city || '') + ' ' + (p.state || ''))}`;
+
+      cardsHtml += `
+        <div class="npi-lead-card">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+              <strong style="color: #0F172A; font-size: 0.92rem;">${p.name || 'N/A'} ${latinoBadge}</strong>
+              <div style="font-size: 0.78rem; color: #64748B;">${p.specialty || 'Medicina General'} · ${p.credentials || 'MD'}</div>
+            </div>
+            <span class="badge-quintile q${p.income_quintile || 3}">Q${p.income_quintile || 3}</span>
+          </div>
+          <div style="font-size: 0.76rem; color: #64748B;"><i class="fa-solid fa-location-dot"></i> ${p.city || ''}, ${p.state || ''}</div>
+          <div style="display: flex; gap: 8px; margin-top: 6px; border-top: 1px solid #F1F5F9; padding-top: 8px;">
+            ${p.phone ? `<a href="tel:${p.phone}" class="btn btn-secondary btn-sm" style="flex:1; justify-content:center;"><i class="fa-solid fa-phone"></i> Llamar</a>` : ''}
+            ${p.phone ? `<a href="${waUrl}" target="_blank" class="btn btn-sm" style="background:#25D366; color:#FFFFFF; flex:1; justify-content:center;"><i class="fa-brands fa-whatsapp"></i> Chat</a>` : ''}
+            <a href="${linkedinUrl}" target="_blank" class="btn btn-secondary btn-sm" style="color:#0A66C2;"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+      `;
+    });
+    cardsGrid.innerHTML = cardsHtml;
+  }
+
+  function switchView(view) {
+    const table = document.getElementById('tableContainer');
+    const cards = document.getElementById('mobileCardsGrid');
+    const btnT = document.getElementById('btnViewTable');
+    const btnC = document.getElementById('btnViewCards');
+
+    if (view === 'cards') {
+      table.style.display = 'none';
+      cards.style.display = 'grid';
+      btnT.classList.remove('active');
+      btnC.classList.add('active');
+    } else {
+      table.style.display = 'block';
+      cards.style.display = 'none';
+      btnC.classList.remove('active');
+      btnT.classList.add('active');
+    }
+  }
+
+  function toggleSelectLead(npi, isSelected) {
+    if (isSelected) selectedNpis.add(npi);
+    else selectedNpis.delete(npi);
+  }
+
+  function toggleSelectAll(masterCheckbox) {
+    const checkboxes = document.querySelectorAll('#tableBody input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+      cb.checked = masterCheckbox.checked;
+      const npi = cb.getAttribute('onchange').match(/'(\d+)'/)?.[1];
+      if (npi) {
+        if (masterCheckbox.checked) selectedNpis.add(npi);
+        else selectedNpis.delete(npi);
+      }
+    });
+  }
+
+  function updatePagination() {
+    document.getElementById('paginationInfo').textContent = `Página ${currentPage} de ${totalPages}`;
+    document.getElementById('btnPrevPage').disabled = (currentPage <= 1);
+    document.getElementById('btnNextPage').disabled = (currentPage >= totalPages);
+  }
+  function changePage(delta) {
+    currentPage += delta;
+    fetchLeads();
+  }
+
+  /* Modales */
+  function openSocialAdsModal() { document.getElementById('socialAdsModal').style.display = 'flex'; }
+  function closeSocialAdsModal() { document.getElementById('socialAdsModal').style.display = 'none'; }
+  
+  const SOCIAL_INFO = {
+    meta: { title: 'Meta Custom Audiences (Facebook & Instagram)', desc: 'Genera un archivo CSV listo para subir en Meta Ads Manager -> Públicos Personalizados -> Lista de Clientes.' },
+    google: { title: 'Google Ads (Customer Match)', desc: 'Genera un archivo CSV compatible con Google Ads (Search, Display y YouTube Ads).' },
+    linkedin: { title: 'LinkedIn Matched Audiences', desc: 'Exporta la lista para campañas B2B hiper-segmentadas a médicos en LinkedIn Campaign Manager.' },
+    whatsapp: { title: 'WhatsApp Business & Mensajería Directa', desc: 'Genera listado con números internacionales (+1) para prospección comercial 1 a 1.' }
+  };
+
+  function switchSocialTab(platform, btnElement) {
+    currentSocialTab = platform;
+    document.querySelectorAll('.social-tab-btn').forEach(b => b.classList.remove('active'));
+    if (btnElement) btnElement.classList.add('active');
+    const info = SOCIAL_INFO[platform];
+    document.getElementById('socialPlatformInfo').innerHTML = `<strong>${info.title}</strong><p style="margin-top:4px; font-size:0.80rem; color:#64748B;">${info.desc}</p>`;
+  }
+
+  function downloadSocialAudience() {
+    const data = (selectedNpis.size > 0) ? currentRows.filter(p => selectedNpis.has(p.npi)) : currentRows;
+    let csv = '';
+    let filename = '';
+    if (currentSocialTab === 'meta') {
+      csv = 'email,phone,fn,ln,ct,st,zip,country\n';
+      data.forEach(p => {
+        csv += `"${p.email || ''}","${(p.phone||'').replace(/[^0-9]/g,'')}","${p.first_name||''}","${p.last_name||''}","${p.city||''}","${p.state||''}","${p.zip||''}","US"\n`;
+      });
+      filename = `audiencia_meta_ads_${data.length}leads.csv`;
+    } else {
+      csv = 'Nombre,Telefono,WhatsApp_Link,Especialidad,Ciudad,Estado\n';
+      data.forEach(p => {
+        const ph = (p.phone||'').replace(/[^0-9]/g,'');
+        csv += `"${p.name||''}","+1${ph}","https://wa.me/1${ph}","${p.specialty||''}","${p.city||''}","${p.state||''}"\n`;
+      });
+      filename = `audiencia_social_${data.length}leads.csv`;
+    }
+    triggerDownload(new Blob([csv], {type:'text/csv;charset=utf-8;'}), filename);
+    closeSocialAdsModal();
+  }
+
+  function openEmailModal() { document.getElementById('emailCampaignModal').style.display = 'flex'; }
+  function closeEmailModal() { document.getElementById('emailCampaignModal').style.display = 'none'; }
+  function copyEmailTemplate() {
+    navigator.clipboard.writeText(document.getElementById('emailTemplateText').value);
+    alert('¡Plantilla comercial copiada al portapapeles!');
+  }
+  function downloadEmailBatch() {
+    const data = currentRows.slice(0, 150);
+    let csv = 'email,name,specialty,city,state,quintile\n';
+    data.forEach(p => {
+      csv += `"${p.email || ''}","${p.name||''}","${p.specialty||''}","${p.city||''}","${p.state||''}","Q${p.income_quintile||3}"\n`;
+    });
+    triggerDownload(new Blob([csv], {type:'text/csv;charset=utf-8;'}), `lote_email_marketing_150leads.csv`);
+    closeEmailModal();
+  }
+
+  function openExportModal() { document.getElementById('exportModal').style.display = 'flex'; }
+  function closeExportModal() { document.getElementById('exportModal').style.display = 'none'; }
+  function executeStandardExport() {
+    const opt = document.querySelector('input[name="exportOption"]:checked').value;
+    const data = (opt === 'selected' && selectedNpis.size > 0) ? currentRows.filter(p => selectedNpis.has(p.npi)) : currentRows;
+    let csv = 'NPI,Nombre,Especialidad,Credenciales,Ciudad,Estado,ZIP,Telefono,Email,Quintil,Es_Latino\n';
+    data.forEach(p => {
+      csv += `"${p.npi}","${p.name}","${p.specialty}","${p.credentials||''}","${p.city||''}","${p.state||''}","${p.zip||''}","${p.phone||''}","${p.email||''}","Q${p.income_quintile||3}","${p.is_latino?'Si':'No'}"\n`;
+    });
+    triggerDownload(new Blob([csv], {type:'text/csv;charset=utf-8;'}), `export_leads_ciasa_${data.length}.csv`);
+    closeExportModal();
+  }
+
+  function triggerDownload(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+</script>
 
 <%- include('layout-end') %>
