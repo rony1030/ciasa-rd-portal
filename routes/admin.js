@@ -388,6 +388,10 @@ router.post('/propiedades/nueva', (req, res) => {
     investmentProfile = ['renta-corta', 'plusvalia'];
   }
 
+  const { name, code, region, subLocation, type, priceFrom, priceTo, sizeFrom, sizeTo,
+          bedrooms, bathrooms, parking, levels, paymentPlan, roi, reserveAmount, description, delivery, confotur, airbnbFriendly,
+          available, featured, image, gallery, lat, lng } = req.body;
+
   const newProject = {
     id: slugify(name + '-' + Date.now().toString(36)),
     slug: slugify(name),
@@ -400,6 +404,9 @@ router.post('/propiedades/nueva', (req, res) => {
     sizeTo: parseFloat(sizeTo) || parseFloat(sizeFrom) || 0,
     bedrooms: bedrooms || '',
     bathrooms: bathrooms || '',
+    parking: parking || '',
+    levels: levels || '',
+    paymentPlan: paymentPlan || '',
     reserveAmount: parseFloat(reserveAmount) || 5000,
     roi: roi || '',
     delivery: delivery || '',
@@ -430,7 +437,7 @@ router.post('/propiedades/:id/editar', (req, res) => {
   if (idx === -1) return res.redirect('/admin/propiedades');
 
   let { name, code, region, subLocation, type, priceFrom, priceTo, sizeFrom, sizeTo,
-        bedrooms, bathrooms, roi, reserveAmount, description, delivery, confotur, airbnbFriendly,
+        bedrooms, bathrooms, parking, levels, paymentPlan, roi, reserveAmount, description, delivery, confotur, airbnbFriendly,
         available, featured, image, gallery, amenities, investmentProfile, lat, lng } = req.body;
 
   // Parse amenities & investment profiles
@@ -460,6 +467,9 @@ router.post('/propiedades/:id/editar', (req, res) => {
     sizeTo: parseFloat(sizeTo) || projects[idx].sizeTo,
     bedrooms: bedrooms || projects[idx].bedrooms,
     bathrooms: bathrooms || projects[idx].bathrooms,
+    parking: parking || projects[idx].parking,
+    levels: levels || projects[idx].levels,
+    paymentPlan: paymentPlan || projects[idx].paymentPlan,
     reserveAmount: parseFloat(reserveAmount) || projects[idx].reserveAmount || 5000,
     roi: roi || projects[idx].roi,
     delivery: delivery || projects[idx].delivery,

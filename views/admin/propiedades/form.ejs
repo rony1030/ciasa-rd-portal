@@ -393,71 +393,96 @@
       </div>
     </div>
 
-    <!-- 3. PRECIOS, ROI & DIMENSIONES -->
+    <!-- 3. PRECIOS, DIMENSIONES & ESPECIFICACIONES -->
     <div class="form-section-card">
       <div class="form-section-header">
         <div class="form-section-icon" style="background: #F0FDF4; color: #16A34A;"><i class="fa-solid fa-sack-dollar"></i></div>
         <div>
-          <div class="form-section-title">3. Estructura Financiera, Precios & Metros</div>
-          <div class="form-section-subtitle">Rango de precios en USD, retorno estimado anual (ROI), separación y metraje</div>
+          <div class="form-section-title">3. Estructura Financiera, Dimensiones & Distribución</div>
+          <div class="form-section-subtitle">Precios en USD, retorno estimado (ROI), separación, metraje, habitaciones, baños y parqueos</div>
         </div>
       </div>
 
       <div class="form-section-body">
         <div class="form-grid">
+          
+          <!-- Precios Numéricos Estrictos -->
           <div class="form-group">
-            <label class="form-label">Precio Desde (USD) *</label>
+            <label class="form-label">Precio Desde (USD) * <span style="color: var(--text-muted); font-size: 0.72rem;">(Solo números)</span></label>
             <div class="input-currency-wrap">
               <span class="input-currency-prefix">$</span>
-              <input type="number" name="priceFrom" class="form-input" value="<%= project ? project.priceFrom || '' : '' %>" placeholder="Precio inicial" min="0" step="1000" required>
+              <input type="number" name="priceFrom" class="form-input" value="<%= project ? project.priceFrom || '' : '' %>" min="0" step="1000" required>
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Precio Hasta (USD)</label>
+            <label class="form-label">Precio Hasta (USD) <span style="color: var(--text-muted); font-size: 0.72rem;">(Solo números)</span></label>
             <div class="input-currency-wrap">
               <span class="input-currency-prefix">$</span>
-              <input type="number" name="priceTo" class="form-input" value="<%= project ? project.priceTo || '' : '' %>" placeholder="Precio máximo" min="0" step="1000">
+              <input type="number" name="priceTo" class="form-input" value="<%= project ? project.priceTo || '' : '' %>" min="0" step="1000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Monto de Separación (USD) <span style="color: var(--text-muted); font-size: 0.72rem;">(Solo números)</span></label>
+            <div class="input-currency-wrap">
+              <span class="input-currency-prefix">$</span>
+              <input type="number" name="reserveAmount" class="form-input" value="<%= project ? project.reserveAmount || 5000 : 5000 %>" min="0" step="500">
             </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">ROI Estimado Anual</label>
-            <input type="text" name="roi" class="form-input" value="<%= project ? project.roi || '' : '' %>" placeholder="Porcentaje estimado (ej. 8.5%)">
+            <input type="text" name="roi" class="form-input" value="<%= project ? project.roi || '' : '' %>" placeholder="Ej. 8.5% - 12% anual">
+          </div>
+
+          <!-- Metros Cuadrados Numéricos Estrictos -->
+          <div class="form-group">
+            <label class="form-label">Área Construcción Desde (m²) <span style="color: var(--text-muted); font-size: 0.72rem;">(Solo números)</span></label>
+            <input type="number" name="sizeFrom" class="form-input" value="<%= project ? project.sizeFrom || '' : '' %>" min="0" step="0.5">
           </div>
 
           <div class="form-group">
-            <label class="form-label">Monto de Separación (USD)</label>
-            <div class="input-currency-wrap">
-              <span class="input-currency-prefix">$</span>
-              <input type="number" name="reserveAmount" class="form-input" value="<%= project ? project.reserveAmount || 5000 : 5000 %>" placeholder="5000" min="0" step="500">
-            </div>
+            <label class="form-label">Área Construcción Hasta (m²) <span style="color: var(--text-muted); font-size: 0.72rem;">(Solo números)</span></label>
+            <input type="number" name="sizeTo" class="form-input" value="<%= project ? project.sizeTo || '' : '' %>" min="0" step="0.5">
           </div>
 
+          <!-- Habitaciones (Permite Texto y Números) -->
           <div class="form-group">
-            <label class="form-label">Área Construcción Desde (m²)</label>
-            <input type="number" name="sizeFrom" class="form-input" value="<%= project ? project.sizeFrom || '' : '' %>" placeholder="Metros mínimos" min="0" step="0.5">
+            <label class="form-label">Habitaciones / Tipología <span style="color: #4F46E5; font-size: 0.72rem;">(Texto y números)</span></label>
+            <input type="text" name="bedrooms" class="form-input" value="<%= project ? project.bedrooms || '' : '' %>" placeholder="Ej. 1, 2 y 3 Habs / Estudios">
           </div>
 
+          <!-- Baños (Permite Texto y Números) -->
           <div class="form-group">
-            <label class="form-label">Área Construcción Hasta (m²)</label>
-            <input type="number" name="sizeTo" class="form-input" value="<%= project ? project.sizeTo || '' : '' %>" placeholder="Metros máximos" min="0" step="0.5">
+            <label class="form-label">Baños <span style="color: #4F46E5; font-size: 0.72rem;">(Texto y números)</span></label>
+            <input type="text" name="bathrooms" class="form-input" value="<%= project ? project.bathrooms || '' : '' %>" placeholder="Ej. 2.5 baños / 1 a 3 baños">
           </div>
 
+          <!-- Parqueos / Estacionamientos -->
           <div class="form-group">
-            <label class="form-label">Habitaciones</label>
-            <select name="bedrooms" class="form-input">
-              <option value="">No especificado</option>
-              <% ['Estudio / 1 Hab','2 Habitaciones','3 Habitaciones','4 Habitaciones','5+ Habitaciones'].forEach(b => { %>
-              <option value="<%= b %>" <%= project && (project.bedrooms == b || project.bedrooms == b.charAt(0)) ? 'selected' : '' %>><%= b %></option>
-              <% }) %>
-            </select>
+            <label class="form-label">Parqueos / Estacionamientos <span style="color: #4F46E5; font-size: 0.72rem;">(Texto y números)</span></label>
+            <input type="text" name="parking" class="form-input" value="<%= project ? project.parking || '' : '' %>" placeholder="Ej. 1 o 2 parqueos techados">
           </div>
 
+          <!-- Fecha Estimada de Entrega (Permite Texto y Números) -->
           <div class="form-group">
-            <label class="form-label">Fecha Estimada de Entrega</label>
-            <input type="text" name="delivery" class="form-input" value="<%= project ? project.delivery || '' : '' %>" placeholder="Fecha o trimestre de entrega">
+            <label class="form-label">Fecha Estimada de Entrega <span style="color: #4F46E5; font-size: 0.72rem;">(Texto y números)</span></label>
+            <input type="text" name="delivery" class="form-input" value="<%= project ? project.delivery || '' : '' %>" placeholder="Ej. Diciembre 2026 / Verano 2027">
           </div>
+
+          <!-- Niveles / Pisos -->
+          <div class="form-group">
+            <label class="form-label">Niveles / Pisos del Edificio</label>
+            <input type="text" name="levels" class="form-input" value="<%= project ? project.levels || '' : '' %>" placeholder="Ej. Torre de 6 niveles con ascensor">
+          </div>
+
+          <!-- Modalidad de Pago / Facilidades -->
+          <div class="form-group">
+            <label class="form-label">Plan de Pago Sugerido</label>
+            <input type="text" name="paymentPlan" class="form-input" value="<%= project ? project.paymentPlan || '' : '' %>" placeholder="Ej. 10% Reserva, 40% Durante Construcción, 50% Contra Entrega">
+          </div>
+
         </div>
       </div>
     </div>
