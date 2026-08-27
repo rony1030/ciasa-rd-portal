@@ -11,7 +11,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (343) 954-2679",
-    "email": "dr.ana.rodriguez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 2,
     "entity_type": "1"
@@ -28,7 +28,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (439) 717-1434",
-    "email": "dr.lucia.perez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -45,7 +45,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33101",
     "phone": "+1 (364) 914-7924",
-    "email": "dr.fernando.bello@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -62,7 +62,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33012",
     "phone": "+1 (300) 567-6635",
-    "email": "dr.ramon.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -79,7 +79,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "34741",
     "phone": "+1 (501) 843-6925",
-    "email": "dr.patricia.martinez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -96,7 +96,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (304) 589-5554",
-    "email": "dr.paola.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -113,7 +113,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33601",
     "phone": "+1 (919) 899-2169",
-    "email": "dr.rosa.jimenez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -130,7 +130,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33012",
     "phone": "+1 (477) 855-4598",
-    "email": "dr.giordana.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -147,7 +147,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33601",
     "phone": "+1 (268) 416-6155",
-    "email": "dr.alejandro.perez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -164,7 +164,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (453) 962-9830",
-    "email": "dr.osvaldo.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -181,7 +181,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "34741",
     "phone": "+1 (706) 293-1771",
-    "email": "dr.rafael.jimenez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -198,7 +198,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33101",
     "phone": "+1 (595) 590-8668",
-    "email": "dr.carmen.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -215,7 +215,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33601",
     "phone": "+1 (857) 548-2827",
-    "email": "dr.giordana.martinez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -232,7 +232,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (720) 308-5889",
-    "email": "dr.carlos.rosario@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -249,7 +249,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "34741",
     "phone": "+1 (201) 813-6310",
-    "email": "dr.rosa.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -283,7 +283,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33401",
     "phone": "+1 (687) 762-3705",
-    "email": "dr.ramon.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -300,7 +300,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33601",
     "phone": "+1 (609) 887-7118",
-    "email": "dr.patricia.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -317,7 +317,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33101",
     "phone": "+1 (803) 767-4770",
-    "email": "dr.elena.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -334,7 +334,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33101",
     "phone": "+1 (233) 538-2160",
-    "email": "dr.angeline.pimentel@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -351,7 +351,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33401",
     "phone": "+1 (785) 790-8744",
-    "email": "dr.isabel.diaz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -368,7 +368,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33012",
     "phone": "+1 (563) 633-7735",
-    "email": "dr.juan.martinez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -385,7 +385,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33012",
     "phone": "+1 (946) 547-2790",
-    "email": "dr.osvaldo.pimentel@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -402,7 +402,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33601",
     "phone": "+1 (674) 455-2235",
-    "email": "dr.fernando.garcia@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -419,7 +419,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (371) 616-8956",
-    "email": "dr.osvaldo.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -436,7 +436,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33601",
     "phone": "+1 (666) 492-7930",
-    "email": "dr.carmen.alvarez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -453,7 +453,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "34741",
     "phone": "+1 (954) 755-1998",
-    "email": "dr.juan.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -487,7 +487,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33101",
     "phone": "+1 (784) 452-1651",
-    "email": "dr.teresa.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -504,7 +504,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33601",
     "phone": "+1 (410) 885-6147",
-    "email": "dr.alberto.bello@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -521,7 +521,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33601",
     "phone": "+1 (275) 209-8508",
-    "email": "dr.paola.pimentel@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 2,
     "entity_type": "1"
@@ -538,7 +538,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (558) 270-5002",
-    "email": "dr.patricia.diaz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -555,7 +555,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33401",
     "phone": "+1 (742) 208-5905",
-    "email": "dr.alejandro.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 2,
     "entity_type": "1"
@@ -572,7 +572,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "34741",
     "phone": "+1 (360) 478-5616",
-    "email": "dr.pedro.martinez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -589,7 +589,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33012",
     "phone": "+1 (458) 252-2512",
-    "email": "dr.paola.pimentel@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -606,7 +606,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33601",
     "phone": "+1 (366) 959-8239",
-    "email": "dr.carlos.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -623,7 +623,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (759) 236-7049",
-    "email": "dr.carlos.martinez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -640,7 +640,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33101",
     "phone": "+1 (567) 415-5088",
-    "email": "dr.luis.perez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -657,7 +657,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (443) 366-3900",
-    "email": "dr.yolanda.torres@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -674,7 +674,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33401",
     "phone": "+1 (953) 454-5371",
-    "email": "dr.giordana.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -691,7 +691,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (672) 558-6000",
-    "email": "dr.yolanda.perez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -708,7 +708,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33601",
     "phone": "+1 (486) 271-5573",
-    "email": "dr.carlos.moscoso@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -742,7 +742,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "34741",
     "phone": "+1 (724) 318-7311",
-    "email": "dr.giordana.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -759,7 +759,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "34741",
     "phone": "+1 (752) 903-4228",
-    "email": "dr.maria.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -776,7 +776,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33101",
     "phone": "+1 (938) 507-9308",
-    "email": "dr.manuel.caram@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -793,7 +793,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (397) 630-7211",
-    "email": "dr.rafael.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -810,7 +810,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33101",
     "phone": "+1 (512) 493-4443",
-    "email": "dr.alberto.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -827,7 +827,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33012",
     "phone": "+1 (954) 373-2389",
-    "email": "dr.fernando.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -861,7 +861,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33012",
     "phone": "+1 (845) 789-4185",
-    "email": "dr.teresa.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -878,7 +878,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33401",
     "phone": "+1 (206) 968-2746",
-    "email": "dr.rafael.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -895,7 +895,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33101",
     "phone": "+1 (771) 455-2988",
-    "email": "dr.mercedes.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -912,7 +912,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33012",
     "phone": "+1 (828) 936-9270",
-    "email": "dr.hector.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -929,7 +929,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (853) 483-9540",
-    "email": "dr.giordana.ortiz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -963,7 +963,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "32801",
     "phone": "+1 (266) 624-7678",
-    "email": "dr.rafael.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -980,7 +980,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "34741",
     "phone": "+1 (913) 220-7232",
-    "email": "dr.maria.diaz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -997,7 +997,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33401",
     "phone": "+1 (953) 759-4613",
-    "email": "dr.ramon.alvarez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1014,7 +1014,7 @@ window.CURATED_NPI_LEADS = [
     "state": "FL",
     "zip": "33401",
     "phone": "+1 (896) 614-3704",
-    "email": "dr.isabel.rodriguez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1031,7 +1031,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10701",
     "phone": "+1 (879) 227-2375",
-    "email": "dr.patricia.rodriguez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1048,7 +1048,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10451",
     "phone": "+1 (417) 665-6355",
-    "email": "dr.carmen.perez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -1082,7 +1082,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11201",
     "phone": "+1 (405) 220-3496",
-    "email": "dr.osvaldo.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1099,7 +1099,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10601",
     "phone": "+1 (463) 985-7043",
-    "email": "dr.ana.bello@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -1116,7 +1116,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10451",
     "phone": "+1 (790) 893-7149",
-    "email": "dr.sofia.martinez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1133,7 +1133,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10601",
     "phone": "+1 (509) 900-2983",
-    "email": "dr.alberto.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -1150,7 +1150,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10701",
     "phone": "+1 (864) 549-1207",
-    "email": "dr.patricia.torres@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1167,7 +1167,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11201",
     "phone": "+1 (646) 380-9548",
-    "email": "dr.lucia.jimenez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1184,7 +1184,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11375",
     "phone": "+1 (949) 806-5397",
-    "email": "dr.mercedes.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1201,7 +1201,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10701",
     "phone": "+1 (825) 884-7209",
-    "email": "dr.pedro.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1218,7 +1218,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10451",
     "phone": "+1 (549) 486-5526",
-    "email": "dr.carmen.ortiz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1235,7 +1235,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10701",
     "phone": "+1 (447) 907-8800",
-    "email": "dr.elena.rosario@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1252,7 +1252,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11201",
     "phone": "+1 (615) 908-4986",
-    "email": "dr.mercedes.rodriguez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -1269,7 +1269,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10601",
     "phone": "+1 (764) 538-6764",
-    "email": "dr.patricia.gutierrez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1286,7 +1286,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11201",
     "phone": "+1 (524) 322-9779",
-    "email": "dr.pedro.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -1303,7 +1303,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10601",
     "phone": "+1 (804) 978-9595",
-    "email": "dr.juan.rosario@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -1337,7 +1337,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11375",
     "phone": "+1 (306) 212-5658",
-    "email": "dr.patricia.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1371,7 +1371,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10001",
     "phone": "+1 (455) 321-7818",
-    "email": "dr.luis.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1388,7 +1388,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10701",
     "phone": "+1 (640) 512-1986",
-    "email": "dr.rafael.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -1405,7 +1405,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10001",
     "phone": "+1 (361) 445-3847",
-    "email": "dr.osvaldo.diaz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -1422,7 +1422,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10451",
     "phone": "+1 (234) 437-5720",
-    "email": "dr.lucia.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1456,7 +1456,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10001",
     "phone": "+1 (370) 514-5728",
-    "email": "dr.luis.reyes@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1490,7 +1490,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10001",
     "phone": "+1 (294) 434-1339",
-    "email": "dr.giordana.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1507,7 +1507,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10701",
     "phone": "+1 (868) 652-5557",
-    "email": "dr.maria.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1524,7 +1524,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10451",
     "phone": "+1 (619) 541-6260",
-    "email": "dr.alejandro.ortiz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -1541,7 +1541,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10601",
     "phone": "+1 (611) 978-1601",
-    "email": "dr.lucia.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1558,7 +1558,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10001",
     "phone": "+1 (874) 755-8569",
-    "email": "dr.manuel.martinez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1575,7 +1575,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11375",
     "phone": "+1 (253) 408-5375",
-    "email": "dr.rosa.caram@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1592,7 +1592,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10601",
     "phone": "+1 (824) 445-3594",
-    "email": "dr.angeline.ortiz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -1609,7 +1609,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11375",
     "phone": "+1 (321) 863-3522",
-    "email": "dr.lucia.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1626,7 +1626,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11375",
     "phone": "+1 (450) 667-3369",
-    "email": "dr.angeline.reyes@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1643,7 +1643,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10701",
     "phone": "+1 (474) 202-5634",
-    "email": "dr.pedro.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1660,7 +1660,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10451",
     "phone": "+1 (766) 981-9903",
-    "email": "dr.fernando.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1677,7 +1677,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11201",
     "phone": "+1 (621) 244-6213",
-    "email": "dr.angeline.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1694,7 +1694,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10001",
     "phone": "+1 (330) 714-6439",
-    "email": "dr.paola.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1728,7 +1728,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10001",
     "phone": "+1 (537) 890-9742",
-    "email": "dr.teresa.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1745,7 +1745,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10001",
     "phone": "+1 (833) 270-4846",
-    "email": "dr.angeline.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1762,7 +1762,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10601",
     "phone": "+1 (921) 302-8269",
-    "email": "dr.giordana.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1779,7 +1779,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10451",
     "phone": "+1 (584) 641-3385",
-    "email": "dr.maria.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1796,7 +1796,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11201",
     "phone": "+1 (281) 824-7267",
-    "email": "dr.paola.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1813,7 +1813,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10601",
     "phone": "+1 (461) 670-5183",
-    "email": "dr.alberto.garcia@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1830,7 +1830,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11375",
     "phone": "+1 (554) 801-5901",
-    "email": "dr.paola.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1847,7 +1847,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11375",
     "phone": "+1 (695) 309-4886",
-    "email": "dr.pedro.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -1864,7 +1864,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10601",
     "phone": "+1 (606) 481-1132",
-    "email": "dr.sofia.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 2,
     "entity_type": "1"
@@ -1881,7 +1881,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10701",
     "phone": "+1 (561) 424-4115",
-    "email": "dr.giordana.ortiz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -1898,7 +1898,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11375",
     "phone": "+1 (235) 793-6977",
-    "email": "dr.ana.pimentel@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -1915,7 +1915,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11201",
     "phone": "+1 (336) 752-6994",
-    "email": "dr.manuel.rosario@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -1949,7 +1949,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10451",
     "phone": "+1 (293) 604-1228",
-    "email": "dr.giordana.moscoso@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -1966,7 +1966,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11375",
     "phone": "+1 (854) 580-2775",
-    "email": "dr.rosa.moscoso@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -1983,7 +1983,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "11201",
     "phone": "+1 (864) 264-8606",
-    "email": "dr.teresa.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2017,7 +2017,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10701",
     "phone": "+1 (945) 358-7797",
-    "email": "dr.fernando.jimenez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2034,7 +2034,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NY",
     "zip": "10451",
     "phone": "+1 (423) 654-8285",
-    "email": "dr.lucia.reyes@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2051,7 +2051,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78201",
     "phone": "+1 (263) 607-5520",
-    "email": "dr.paola.jimenez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -2068,7 +2068,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "79901",
     "phone": "+1 (222) 251-6464",
-    "email": "dr.jose.moscoso@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2085,7 +2085,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "79901",
     "phone": "+1 (422) 438-6383",
-    "email": "dr.juan.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -2119,7 +2119,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78201",
     "phone": "+1 (254) 329-7897",
-    "email": "dr.alberto.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -2136,7 +2136,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "79901",
     "phone": "+1 (312) 662-9254",
-    "email": "dr.fernando.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2153,7 +2153,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "77001",
     "phone": "+1 (263) 690-7580",
-    "email": "dr.hector.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2187,7 +2187,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "79901",
     "phone": "+1 (820) 640-2624",
-    "email": "dr.teresa.gutierrez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 2,
     "entity_type": "1"
@@ -2204,7 +2204,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "75201",
     "phone": "+1 (641) 662-4743",
-    "email": "dr.osvaldo.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2221,7 +2221,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78701",
     "phone": "+1 (521) 881-5176",
-    "email": "dr.lucia.rosario@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2238,7 +2238,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "77001",
     "phone": "+1 (643) 298-7105",
-    "email": "dr.isabel.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -2255,7 +2255,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "77001",
     "phone": "+1 (621) 562-7929",
-    "email": "dr.patricia.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2272,7 +2272,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "79901",
     "phone": "+1 (720) 417-3535",
-    "email": "dr.teresa.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2289,7 +2289,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78201",
     "phone": "+1 (788) 431-8030",
-    "email": "dr.rosa.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2306,7 +2306,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "75201",
     "phone": "+1 (480) 919-6062",
-    "email": "dr.paola.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -2340,7 +2340,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78201",
     "phone": "+1 (520) 938-6314",
-    "email": "dr.lucia.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2357,7 +2357,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "77001",
     "phone": "+1 (479) 653-7947",
-    "email": "dr.luis.gomez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2374,7 +2374,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78201",
     "phone": "+1 (641) 313-5640",
-    "email": "dr.pedro.diaz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2391,7 +2391,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78701",
     "phone": "+1 (814) 256-1125",
-    "email": "dr.paola.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2408,7 +2408,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "77001",
     "phone": "+1 (208) 709-8055",
-    "email": "dr.ramon.reyes@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2425,7 +2425,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78201",
     "phone": "+1 (274) 606-1693",
-    "email": "dr.angeline.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2442,7 +2442,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "79901",
     "phone": "+1 (615) 926-7843",
-    "email": "dr.yolanda.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2459,7 +2459,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78201",
     "phone": "+1 (291) 647-2734",
-    "email": "dr.manuel.gomez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2493,7 +2493,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "75201",
     "phone": "+1 (442) 305-3399",
-    "email": "dr.hector.diaz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2510,7 +2510,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78701",
     "phone": "+1 (676) 972-8354",
-    "email": "dr.luis.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2527,7 +2527,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78701",
     "phone": "+1 (653) 846-5961",
-    "email": "dr.manuel.garcia@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2544,7 +2544,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78701",
     "phone": "+1 (239) 258-7041",
-    "email": "dr.hector.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 2,
     "entity_type": "1"
@@ -2561,7 +2561,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "79901",
     "phone": "+1 (594) 673-1672",
-    "email": "dr.yolanda.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2578,7 +2578,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "77001",
     "phone": "+1 (662) 305-6626",
-    "email": "dr.teresa.ortiz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -2595,7 +2595,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78701",
     "phone": "+1 (650) 736-9564",
-    "email": "dr.osvaldo.gomez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2629,7 +2629,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "79901",
     "phone": "+1 (354) 541-2335",
-    "email": "dr.paola.alvarez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -2646,7 +2646,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "79901",
     "phone": "+1 (926) 286-6072",
-    "email": "dr.sofia.pimentel@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2663,7 +2663,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78701",
     "phone": "+1 (721) 570-1298",
-    "email": "dr.paola.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2680,7 +2680,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "75201",
     "phone": "+1 (341) 358-2264",
-    "email": "dr.manuel.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2697,7 +2697,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78201",
     "phone": "+1 (833) 334-7172",
-    "email": "dr.ramon.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2714,7 +2714,7 @@ window.CURATED_NPI_LEADS = [
     "state": "TX",
     "zip": "78701",
     "phone": "+1 (245) 620-6968",
-    "email": "dr.ramon.caram@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2731,7 +2731,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "93701",
     "phone": "+1 (445) 516-8684",
-    "email": "dr.teresa.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2748,7 +2748,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "95101",
     "phone": "+1 (592) 714-9641",
-    "email": "dr.paola.bello@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2765,7 +2765,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "90001",
     "phone": "+1 (857) 692-7081",
-    "email": "dr.mercedes.caram@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2799,7 +2799,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "94101",
     "phone": "+1 (255) 605-9224",
-    "email": "dr.elena.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2816,7 +2816,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "90001",
     "phone": "+1 (932) 865-6493",
-    "email": "dr.rosa.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2850,7 +2850,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "94101",
     "phone": "+1 (314) 994-5720",
-    "email": "dr.patricia.rosario@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2884,7 +2884,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "95101",
     "phone": "+1 (447) 784-7825",
-    "email": "dr.sofia.torres@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -2901,7 +2901,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "93701",
     "phone": "+1 (720) 767-1333",
-    "email": "dr.rosa.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2918,7 +2918,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "90001",
     "phone": "+1 (566) 269-6649",
-    "email": "dr.osvaldo.alvarez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -2935,7 +2935,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "90001",
     "phone": "+1 (561) 759-6546",
-    "email": "dr.giordana.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -2969,7 +2969,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "95101",
     "phone": "+1 (728) 607-9897",
-    "email": "dr.mercedes.diaz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -2986,7 +2986,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "95101",
     "phone": "+1 (480) 327-7029",
-    "email": "dr.juan.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3003,7 +3003,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "94101",
     "phone": "+1 (577) 731-5369",
-    "email": "dr.rafael.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3020,7 +3020,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "95101",
     "phone": "+1 (529) 305-2311",
-    "email": "dr.lucia.caram@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3037,7 +3037,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "94101",
     "phone": "+1 (560) 657-1693",
-    "email": "dr.fernando.caram@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3054,7 +3054,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "94101",
     "phone": "+1 (573) 725-3621",
-    "email": "dr.lucia.reyes@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3071,7 +3071,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "92101",
     "phone": "+1 (269) 441-7001",
-    "email": "dr.paola.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3088,7 +3088,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "95101",
     "phone": "+1 (655) 981-2259",
-    "email": "dr.luis.moscoso@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3105,7 +3105,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "90001",
     "phone": "+1 (227) 953-4048",
-    "email": "dr.manuel.pimentel@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3122,7 +3122,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "92101",
     "phone": "+1 (827) 492-9047",
-    "email": "dr.ana.reyes@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3139,7 +3139,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "95101",
     "phone": "+1 (884) 555-2063",
-    "email": "dr.fernando.gomez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3156,7 +3156,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "93701",
     "phone": "+1 (430) 324-4292",
-    "email": "dr.yolanda.gomez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3173,7 +3173,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "95101",
     "phone": "+1 (679) 764-3126",
-    "email": "dr.carlos.jimenez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3207,7 +3207,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "95101",
     "phone": "+1 (332) 998-3981",
-    "email": "dr.jose.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3224,7 +3224,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "92101",
     "phone": "+1 (512) 368-3653",
-    "email": "dr.hector.perez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3258,7 +3258,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "93701",
     "phone": "+1 (795) 357-3804",
-    "email": "dr.patricia.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3275,7 +3275,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "93701",
     "phone": "+1 (472) 866-4453",
-    "email": "dr.maria.rodriguez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3292,7 +3292,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "95101",
     "phone": "+1 (858) 509-8912",
-    "email": "dr.osvaldo.rodriguez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3309,7 +3309,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "94101",
     "phone": "+1 (626) 695-8609",
-    "email": "dr.fernando.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3326,7 +3326,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "94101",
     "phone": "+1 (334) 978-7070",
-    "email": "dr.yolanda.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3360,7 +3360,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "93701",
     "phone": "+1 (939) 520-4110",
-    "email": "dr.lucia.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3377,7 +3377,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "90001",
     "phone": "+1 (293) 602-9281",
-    "email": "dr.fernando.ortiz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3394,7 +3394,7 @@ window.CURATED_NPI_LEADS = [
     "state": "CA",
     "zip": "95101",
     "phone": "+1 (707) 811-8710",
-    "email": "dr.alberto.jimenez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3428,7 +3428,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (662) 982-5582",
-    "email": "dr.patricia.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3445,7 +3445,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (575) 973-3363",
-    "email": "dr.ana.alvarez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3479,7 +3479,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (507) 807-6511",
-    "email": "dr.teresa.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3496,7 +3496,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07501",
     "phone": "+1 (890) 312-7824",
-    "email": "dr.sofia.ortiz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3513,7 +3513,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07302",
     "phone": "+1 (939) 252-8871",
-    "email": "dr.isabel.reyes@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3547,7 +3547,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (827) 682-2020",
-    "email": "dr.luis.torres@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3564,7 +3564,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07201",
     "phone": "+1 (522) 377-8531",
-    "email": "dr.manuel.moscoso@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3581,7 +3581,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07201",
     "phone": "+1 (397) 452-5571",
-    "email": "dr.rosa.moscoso@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3598,7 +3598,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07501",
     "phone": "+1 (692) 557-5480",
-    "email": "dr.ramon.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3615,7 +3615,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07101",
     "phone": "+1 (495) 931-2294",
-    "email": "dr.alejandro.jimenez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3649,7 +3649,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07302",
     "phone": "+1 (254) 302-7771",
-    "email": "dr.maria.moscoso@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3666,7 +3666,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (362) 616-8793",
-    "email": "dr.paola.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3683,7 +3683,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (438) 747-1611",
-    "email": "dr.manuel.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3700,7 +3700,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07201",
     "phone": "+1 (391) 966-5742",
-    "email": "dr.alejandro.gomez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3717,7 +3717,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07501",
     "phone": "+1 (666) 856-9901",
-    "email": "dr.alberto.caram@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3734,7 +3734,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07501",
     "phone": "+1 (367) 948-8518",
-    "email": "dr.fernando.reyes@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3751,7 +3751,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07302",
     "phone": "+1 (380) 825-7643",
-    "email": "dr.giordana.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3785,7 +3785,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07501",
     "phone": "+1 (797) 940-1187",
-    "email": "dr.fernando.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3802,7 +3802,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07501",
     "phone": "+1 (364) 615-9233",
-    "email": "dr.elena.perez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3819,7 +3819,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (427) 424-3188",
-    "email": "dr.ana.pimentel@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3836,7 +3836,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (881) 423-5054",
-    "email": "dr.rosa.torres@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3853,7 +3853,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (315) 263-9972",
-    "email": "dr.fernando.gutierrez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3870,7 +3870,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (653) 319-4365",
-    "email": "dr.patricia.garcia@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3887,7 +3887,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07302",
     "phone": "+1 (726) 625-8484",
-    "email": "dr.hector.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -3904,7 +3904,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07501",
     "phone": "+1 (204) 963-4570",
-    "email": "dr.mercedes.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3921,7 +3921,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07101",
     "phone": "+1 (271) 683-1519",
-    "email": "dr.rosa.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3955,7 +3955,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (603) 741-3086",
-    "email": "dr.yolanda.jimenez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -3972,7 +3972,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07087",
     "phone": "+1 (635) 744-7214",
-    "email": "dr.ramon.rodriguez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -3989,7 +3989,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07101",
     "phone": "+1 (233) 876-7868",
-    "email": "dr.rosa.garcia@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 2,
     "entity_type": "1"
@@ -4006,7 +4006,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07101",
     "phone": "+1 (658) 812-1797",
-    "email": "dr.juan.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -4023,7 +4023,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07101",
     "phone": "+1 (344) 715-5739",
-    "email": "dr.fernando.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -4040,7 +4040,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07501",
     "phone": "+1 (347) 876-9540",
-    "email": "dr.teresa.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4057,7 +4057,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07201",
     "phone": "+1 (770) 707-1768",
-    "email": "dr.maria.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4074,7 +4074,7 @@ window.CURATED_NPI_LEADS = [
     "state": "NJ",
     "zip": "07302",
     "phone": "+1 (508) 585-4012",
-    "email": "dr.manuel.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4091,7 +4091,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01601",
     "phone": "+1 (260) 775-7761",
-    "email": "dr.yolanda.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -4108,7 +4108,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (661) 579-2514",
-    "email": "dr.elena.reyes@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4125,7 +4125,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (275) 392-4555",
-    "email": "dr.pedro.alvarez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4142,7 +4142,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01601",
     "phone": "+1 (449) 912-4350",
-    "email": "dr.carlos.diaz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4159,7 +4159,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01601",
     "phone": "+1 (747) 864-6886",
-    "email": "dr.manuel.mendoza@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -4176,7 +4176,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01901",
     "phone": "+1 (409) 579-6126",
-    "email": "dr.isabel.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -4193,7 +4193,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01601",
     "phone": "+1 (503) 356-4214",
-    "email": "dr.carlos.reyes@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4210,7 +4210,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01901",
     "phone": "+1 (464) 981-9005",
-    "email": "dr.alejandro.vasquez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4227,7 +4227,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01840",
     "phone": "+1 (938) 759-9000",
-    "email": "dr.carmen.rosario@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -4261,7 +4261,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (833) 853-8916",
-    "email": "dr.juan.gutierrez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -4278,7 +4278,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (743) 939-5501",
-    "email": "dr.patricia.ramirez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4295,7 +4295,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (299) 736-3439",
-    "email": "dr.hector.santos@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4312,7 +4312,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01901",
     "phone": "+1 (616) 670-4984",
-    "email": "dr.pedro.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4346,7 +4346,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (741) 243-4764",
-    "email": "dr.jose.ortiz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4363,7 +4363,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (384) 522-1256",
-    "email": "dr.maria.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -4380,7 +4380,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01840",
     "phone": "+1 (781) 598-9856",
-    "email": "dr.jose.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4397,7 +4397,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (301) 647-4803",
-    "email": "dr.giordana.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -4414,7 +4414,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01901",
     "phone": "+1 (231) 849-5478",
-    "email": "dr.ramon.caram@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4448,7 +4448,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01840",
     "phone": "+1 (590) 928-3527",
-    "email": "dr.angeline.hernandez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -4482,7 +4482,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01601",
     "phone": "+1 (306) 226-2468",
-    "email": "dr.lucia.morales@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -4499,7 +4499,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (499) 623-7353",
-    "email": "dr.teresa.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4516,7 +4516,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01840",
     "phone": "+1 (476) 508-5397",
-    "email": "dr.hector.gomez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -4533,7 +4533,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01601",
     "phone": "+1 (279) 569-5123",
-    "email": "dr.lucia.reyes@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4550,7 +4550,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01840",
     "phone": "+1 (512) 206-7483",
-    "email": "dr.teresa.diaz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4567,7 +4567,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01840",
     "phone": "+1 (508) 528-4290",
-    "email": "dr.fernando.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4584,7 +4584,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01840",
     "phone": "+1 (534) 585-5592",
-    "email": "dr.manuel.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4601,7 +4601,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01840",
     "phone": "+1 (899) 986-1440",
-    "email": "dr.ana.bello@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4618,7 +4618,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01601",
     "phone": "+1 (890) 711-3280",
-    "email": "dr.fernando.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 3,
     "entity_type": "1"
@@ -4635,7 +4635,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (660) 812-8851",
-    "email": "dr.paola.garcia@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4652,7 +4652,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (312) 987-5067",
-    "email": "dr.maria.castillo@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4686,7 +4686,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01840",
     "phone": "+1 (657) 583-7408",
-    "email": "dr.hector.rosario@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -4703,7 +4703,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01601",
     "phone": "+1 (288) 318-3321",
-    "email": "dr.carlos.ortiz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -4720,7 +4720,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01901",
     "phone": "+1 (688) 299-8178",
-    "email": "dr.mercedes.diaz@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"
@@ -4737,7 +4737,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "02101",
     "phone": "+1 (552) 863-2791",
-    "email": "dr.jose.sanchez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 4,
     "entity_type": "1"
@@ -4754,7 +4754,7 @@ window.CURATED_NPI_LEADS = [
     "state": "MA",
     "zip": "01901",
     "phone": "+1 (774) 636-8570",
-    "email": "dr.hector.gomez@ciasaleads-dr.com",
+    "email": "",
     "is_latino": 1,
     "income_quintile": 5,
     "entity_type": "1"

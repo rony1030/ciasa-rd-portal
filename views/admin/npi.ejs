@@ -1154,6 +1154,7 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
         else if (h.includes('nombre') || h.includes('provider') || h.includes('name')) row.name = val;
         else if (h.includes('first_name') || h === 'fn') row.first_name = val;
         else if (h.includes('last_name') || h === 'ln') row.last_name = val;
+        else if (h.includes('mail') || h.includes('correo') || h === 'email') row.email = val;
         else if (h.includes('linkedin') || h.includes('li_url')) row.linkedin_url = val;
         else if (h.includes('facebook') || h.includes('fb_url')) row.facebook_url = val;
         else if (h.includes('instagram') || h.includes('ig_url')) row.instagram_url = val;
@@ -1162,8 +1163,8 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
         else if (h.includes('city') || h.includes('ciudad')) row.city = val;
       });
 
-      // Solo procesar si tiene alguna red social para aportar
-      const hasSocialInfo = row.linkedin_url || row.facebook_url || row.instagram_url || row.twitter_url || row.website_url;
+      // Solo procesar si tiene alguna red social o correo real verificado para aportar
+      const hasSocialInfo = row.linkedin_url || row.facebook_url || row.instagram_url || row.twitter_url || row.website_url || row.email;
       if (!hasSocialInfo) continue;
 
       let matchedLead = null;

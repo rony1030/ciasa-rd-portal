@@ -127,6 +127,7 @@ app.post('/api/npi/sync_socials', (req, res) => {
       const u = updateMap.get(String(lead.npi).trim());
       if (u) {
         let changed = false;
+        if (u.email && u.email.trim() && !u.email.includes('@ciasaleads-dr.com')) { lead.email = u.email.trim(); changed = true; }
         if (u.linkedin_url && u.linkedin_url.trim()) { lead.linkedin_url = u.linkedin_url.trim(); changed = true; }
         if (u.facebook_url && u.facebook_url.trim()) { lead.facebook_url = u.facebook_url.trim(); changed = true; }
         if (u.instagram_url && u.instagram_url.trim()) { lead.instagram_url = u.instagram_url.trim(); changed = true; }
