@@ -451,62 +451,127 @@
 
   <main>
     <div class="container">
-      
-      <!-- 7 Stat Cards Grid (Modernizadas y Elegantes) -->
-      <div class="project-stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 14px; margin: -35px auto 40px; position: relative; z-index: 10;">
-        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
-          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
-            <i class="fa-solid fa-tag" style="color: var(--green);"></i> Precio
+      <!-- Luxury Specs Ribbon (Diseño Continuo, Elegante y de Alto Impacto Arquitectónico) -->
+      <div class="luxury-specs-ribbon" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 20px; box-shadow: 0 14px 35px -8px rgba(10, 30, 54, 0.10), 0 0 0 1px rgba(0,0,0,0.02); margin: -40px auto 45px; position: relative; z-index: 20; padding: 22px 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; align-items: center;">
+        
+        <!-- 1. Precio de Entrada -->
+        <div class="spec-segment">
+          <div style="font-size: 0.72rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-tag" style="color: var(--green); font-size: 0.76rem;"></i> Precio Desde
           </div>
-          <div style="font-size: 1.35rem; font-weight: 900; color: #0A1E36; letter-spacing: -0.5px;"><%= project.priceFrom ? '$' + (project.priceFrom >= 1000 ? Math.round(project.priceFrom / 1000) + 'K' : project.priceFrom) : 'Consultar' %></div>
-          <div style="font-size: 0.72rem; color: #94A3B8; margin-top: 3px; font-weight: 600;">a partir de</div>
+          <div style="font-size: 1.55rem; font-weight: 900; color: #0A1E36; letter-spacing: -0.6px; line-height: 1.1;">
+            <%= project.priceFrom ? '$' + (project.priceFrom >= 1000 ? Math.round(project.priceFrom / 1000) + 'K' : project.priceFrom) : 'Consultar' %>
+            <span style="font-size: 0.78rem; font-weight: 700; color: #64748B;">USD</span>
+          </div>
+          <div style="font-size: 0.72rem; color: #64748B; margin-top: 2px;">Separación $<%= project.reserveAmount ? project.reserveAmount.toLocaleString('en-US') : '5,000' %></div>
         </div>
 
-        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
-          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
-            <i class="fa-solid fa-ruler-combined" style="color: #2563EB;"></i> Tamaño
+        <!-- Divisor Vertical Sutil -->
+        <div class="spec-divider"></div>
+
+        <!-- 2. Área / Metros -->
+        <div class="spec-segment">
+          <div style="font-size: 0.72rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-ruler-combined" style="color: #2563EB; font-size: 0.76rem;"></i> Dimensión
           </div>
-          <div style="font-size: 1.22rem; font-weight: 800; color: #0A1E36;">
+          <div style="font-size: 1.35rem; font-weight: 800; color: #0A1E36; letter-spacing: -0.3px; line-height: 1.1;">
             <%= (project.sizeFrom === project.sizeTo || !project.sizeTo) ? (project.sizeFrom ? project.sizeFrom + ' m²' : 'Consultar') : (project.sizeFrom + ' - ' + project.sizeTo + ' m²') %>
           </div>
+          <div style="font-size: 0.72rem; color: #64748B; margin-top: 2px;"><%= project.type || 'Apartamento' %></div>
         </div>
 
-        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
-          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
-            <i class="fa-solid fa-bed" style="color: #6366F1;"></i> Habitaciones
+        <!-- Divisor Vertical Sutil -->
+        <div class="spec-divider"></div>
+
+        <!-- 3. Tipología / Distribución -->
+        <div class="spec-segment">
+          <div style="font-size: 0.72rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-bed" style="color: #6366F1; font-size: 0.76rem;"></i> Distribución
           </div>
-          <div style="font-size: 1.35rem; font-weight: 800; color: #0A1E36;"><%= project.bedrooms || 1 %></div>
+          <div style="font-size: 1.35rem; font-weight: 800; color: #0A1E36; letter-spacing: -0.3px; line-height: 1.1;">
+            <%= project.bedrooms || '1 y 2 Habs' %>
+          </div>
+          <div style="font-size: 0.72rem; color: #64748B; margin-top: 2px;"><%= project.bathrooms || 'Baños equipados' %></div>
         </div>
 
-        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
-          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
-            <i class="fa-solid fa-receipt" style="color: #0891B2;"></i> Reserva
+        <!-- Divisor Vertical Sutil -->
+        <div class="spec-divider"></div>
+
+        <!-- 4. Retorno de Inversión (ROI) -->
+        <div class="spec-segment">
+          <div style="font-size: 0.72rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-chart-line" style="color: #059669; font-size: 0.76rem;"></i> Retorno Anual
           </div>
-          <div style="font-size: 1.35rem; font-weight: 800; color: #0A1E36;">$<%= project.reserveAmount ? project.reserveAmount.toLocaleString('en-US') : '1,000' %></div>
+          <div style="font-size: 1.55rem; font-weight: 900; color: #059669; letter-spacing: -0.5px; line-height: 1.1;">
+            <%= project.roi || '8.5% - 12%' %>
+          </div>
+          <div style="font-size: 0.72rem; color: #64748B; margin-top: 2px;">Proyectado en USD</div>
         </div>
 
-        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
-          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
-            <i class="fa-solid fa-chart-line" style="color: #2563EB;"></i> ROI Estimado
+        <!-- Divisor Vertical Sutil -->
+        <div class="spec-divider"></div>
+
+        <!-- 5. Fecha Estimada de Entrega -->
+        <div class="spec-segment">
+          <div style="font-size: 0.72rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-calendar-check" style="color: #D97706; font-size: 0.76rem;"></i> Entrega
           </div>
-          <div style="font-size: 1.35rem; font-weight: 900; color: #2563EB;"><%= project.roi || '8.5%' %></div>
-          <div style="font-size: 0.72rem; color: #94A3B8; margin-top: 3px; font-weight: 600;">a partir de</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #0A1E36; letter-spacing: -0.3px; line-height: 1.1;">
+            <%= project.delivery || 'En desarrollo' %>
+          </div>
+          <div style="font-size: 0.72rem; color: #64748B; margin-top: 2px;">Construcción activa</div>
         </div>
 
-        <div class="project-stat-card" style="background: #ffffff; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid #E2E8F0; transition: transform 0.2s ease;">
-          <div style="font-size: 0.74rem; color: #64748B; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
-            <i class="fa-solid fa-calendar-check" style="color: #F59E0B;"></i> Entrega
+        <!-- Divisor Vertical Sutil -->
+        <div class="spec-divider"></div>
+
+        <!-- 6. Régimen Fiscal CONFOTUR -->
+        <div class="spec-segment" style="text-align: left;">
+          <div style="font-size: 0.72rem; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-shield-halved" style="color: #10B981; font-size: 0.76rem;"></i> Ley CONFOTUR
           </div>
-          <div style="font-size: 1.10rem; font-weight: 800; color: #0A1E36;"><%= project.delivery || 'En desarrollo' %></div>
+          <% if (project.confotur) { %>
+            <div style="display: inline-flex; align-items: center; gap: 6px; background: #ECFDF5; border: 1px solid #A7F3D0; color: #047857; font-size: 0.84rem; font-weight: 800; padding: 4px 10px; border-radius: 8px;">
+              <i class="fa-solid fa-circle-check"></i> Exento 15 Años
+            </div>
+            <div style="font-size: 0.70rem; color: #059669; font-weight: 600; margin-top: 2px;">0% Transferencia + 0% IPI</div>
+          <% } else { %>
+            <div style="color: #64748B; font-weight: 700; font-size: 0.95rem;">Régimen Ordinario</div>
+            <div style="font-size: 0.70rem; color: #94A3B8; margin-top: 2px;">Impuestos estándar</div>
+          <% } %>
         </div>
 
-        <div class="project-stat-card" style="background: <%= project.confotur ? '#ECFDF5' : '#ffffff' %>; padding: 18px 14px; border-radius: 16px; text-align: center; box-shadow: 0 10px 25px rgba(10,30,54,0.08); border: 1px solid <%= project.confotur ? '#A7F3D0' : '#E2E8F0' %>; transition: transform 0.2s ease;">
-          <div style="font-size: 0.74rem; color: <%= project.confotur ? '#065F46' : '#64748B' %>; margin-bottom: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: center; gap: 4px;">
-            <i class="fa-solid fa-shield-halved" style="color: <%= project.confotur ? '#10B981' : '#94A3B8' %>;"></i> CONFOTUR
-          </div>
-          <div style="font-size: 1.35rem; font-weight: 900; color: <%= project.confotur ? '#059669' : '#64748B' %>;"><%= project.confotur ? 'Sí' : 'No' %></div>
-        </div>
       </div>
+
+      <style>
+        .spec-segment {
+          padding: 4px 8px;
+        }
+        .spec-divider {
+          width: 1px;
+          height: 52px;
+          background: #F1F5F9;
+          display: block;
+        }
+        @media (max-width: 991px) {
+          .luxury-specs-ribbon {
+            grid-template-columns: 1fr 1fr;
+            padding: 20px;
+            gap: 20px;
+          }
+          .spec-divider {
+            display: none;
+          }
+        }
+        @media (max-width: 580px) {
+          .luxury-specs-ribbon {
+            grid-template-columns: 1fr;
+            padding: 16px;
+            gap: 16px;
+            margin-top: -25px;
+          }
+        }
+      </style>
 
       <!-- Main Content Grid -->
       <div class="project-content-grid">
