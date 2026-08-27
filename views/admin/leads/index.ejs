@@ -343,9 +343,11 @@
 
   // Lógica Drag and Drop HTML5 Nativo
   let draggedLeadId = null;
+  let isDraggingActive = false;
 
   function handleDragStart(e, leadId) {
     draggedLeadId = leadId;
+    isDraggingActive = true;
     e.target.classList.add('dragging');
     e.dataTransfer.setData('text/plain', leadId);
     e.dataTransfer.effectAllowed = 'move';
@@ -354,6 +356,10 @@
   function handleDragEnd(e) {
     e.target.classList.remove('dragging');
     document.querySelectorAll('.kanban-column').forEach(col => col.classList.remove('drag-over'));
+    setTimeout(() => {
+      isDraggingActive = false;
+      draggedLeadId = null;
+    }, 150);
   }
 
   function handleDragOver(e) {
@@ -374,12 +380,13 @@
     const col = e.currentTarget;
     col.classList.remove('drag-over');
     
-    if (!draggedLeadId) return;
+    const leadId = draggedLeadId || e.dataTransfer.getData('text/plain');
+    if (!leadId) return;
     
-    const cardEl = document.getElementById(`kanban-card-${draggedLeadId}`);
+    const cardEl = document.getElementById(`kanban-card-${leadId}`);
     if (!cardEl) return;
 
-    // Mover visualmente la tarjeta de inmediato (Optimistic UI)
+    // Mover visualmente la tarjeta de inmediato a la columna destino
     const targetList = document.getElementById(`list-${newStatus}`);
     if (targetList) {
       targetList.appendChild(cardEl);
@@ -388,7 +395,7 @@
 
     // Actualizar en el servidor vía AJAX
     try {
-      const res = await fetch(`/admin/leads/${draggedLeadId}/status-ajax`, {
+      const res = await fetch(`/admin/leads/${leadId}/status-ajax`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ statusVentas: newStatus })
@@ -399,6 +406,22 @@
       console.error('Error al sincronizar estado:', err);
     }
   }
+
+  function updateKanbanCounters() {
+    ['nuevo', 'contactado', 'calificado', 'negociacion', 'cerrado'].forEach(st => {
+      const countEl = document.getElementById(`count-${st}`);
+      const listEl = document.getElementById(`list-${st}`);
+      if (countEl && listEl) {
+        countEl.innerText = listEl.children.length;
+      }
+    });
+  }
+
+  function handleCardClick(e, leadId, leadName, projectName, monto, asesor, etapa) {
+    if (isDraggingActive) return; // Si fue una acción de arrastre, no abrir el modal
+    openDealPreviewModal(leadId, leadName, projectName, monto, asesor, etapa);
+  }
+</script>
 
 <!-- 3. MODAL ESPECIAL DE NEGOCIACIÓN / DEAL 360° (PROXIMA FASE 3 INTEGRADA) -->
 <div class="modal-backdrop" id="dealPreviewModal" style="display: none;">

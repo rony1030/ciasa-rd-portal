@@ -9,7 +9,7 @@
   const asesor = lead.asesorAsignado || 'Paola Caram';
   const etapa = (lead.statusVentas || 'nuevo').toLowerCase();
 %>
-<div class="kanban-card" id="kanban-card-<%= leadId %>" draggable="true" ondragstart="handleDragStart(event, '<%= leadId %>')" ondragend="handleDragEnd(event)" data-search="<%= searchStr %>" onclick="openDealPreviewModal('<%= leadId %>', '<%= (lead.nombre || 'Inversionista').replace(/'/g, "\\'") %>', '<%= (lead.proyectoInteres || 'CONFOTUR').replace(/'/g, "\\'") %>', '<%= monto %>', '<%= asesor %>', '<%= etapa %>')">
+<div class="kanban-card" id="kanban-card-<%= leadId %>" draggable="true" ondragstart="handleDragStart(event, '<%= leadId %>')" ondragend="handleDragEnd(event)" data-search="<%= searchStr %>" onclick="handleCardClick(event, '<%= leadId %>', '<%= (lead.nombre || 'Inversionista').replace(/'/g, "\\'") %>', '<%= (lead.proyectoInteres || 'CONFOTUR').replace(/'/g, "\\'") %>', '<%= monto %>', '<%= asesor %>', '<%= etapa %>')">
   
   <div class="kanban-card-title">
     <span style="display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-cube" style="font-size: 0.80rem; color: #6366F1;"></i> <%= lead.nombre || 'Prospecto' %></span>
