@@ -269,6 +269,39 @@
             </div>
           </div>
 
+          <!-- Campo Requerimiento de Financiamiento & Disclaimer Bancario -->
+          <div class="form-group">
+            <label class="form-label">¿Requiere Financiamiento Bancario?</label>
+            <div class="custom-dropdown-wrap" id="financiaDropdownWrap">
+              <div class="custom-dropdown-trigger" onclick="toggleAdminDropdown('financiaDropdownWrap')">
+                <span id="financiaSelectedLabel">No (Pago Directo / Fondos Propios)</span>
+                <i class="fa-solid fa-chevron-down chevron-icon"></i>
+              </div>
+              <div class="custom-dropdown-menu">
+                <div class="custom-dropdown-item selected" onclick="selectAdminOption('financiaInput', 'No', 'No (Pago Directo / Fondos Propios)', 'financiaSelectedLabel', 'financiaDropdownWrap'); document.getElementById('bancoDisclaimerBox').style.display='none';">
+                  <span>No (Pago Directo / Fondos Propios)</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('financiaInput', 'Sí - Banreservas / BHD / Popular', 'Sí (Precalificación Bancaria RD)', 'financiaSelectedLabel', 'financiaDropdownWrap'); document.getElementById('bancoDisclaimerBox').style.display='block';">
+                  <span>Sí (Precalificación Bancaria RD)</span>
+                </div>
+                <div class="custom-dropdown-item" onclick="selectAdminOption('financiaInput', 'En Evaluación', 'En Evaluación / Asesoría Hipotecaria', 'financiaSelectedLabel', 'financiaDropdownWrap'); document.getElementById('bancoDisclaimerBox').style.display='block';">
+                  <span>En Evaluación / Asesoría Hipotecaria</span>
+                </div>
+              </div>
+              <input type="hidden" name="requiereFinanciamiento" id="financiaInput" value="No">
+            </div>
+          </div>
+
+          <!-- Disclaimer Institucional de Traspaso Bancario -->
+          <div class="form-group full" id="bancoDisclaimerBox" style="display: none; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 12px 14px;">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <i class="fa-solid fa-shield-halved" style="color: #2563EB; font-size: 1.1rem; margin-top: 2px;"></i>
+              <div style="font-size: 0.78rem; color: #1E3A8A; line-height: 1.5;">
+                <strong>Aviso de Consentimiento & Derivación Bancaria:</strong> Al seleccionar financiamiento, el inversionista autoriza a <strong>CIASA, S.R.L.</strong> a remitir su información de contacto a los oficiales de crédito de la banca aliada (Banreservas, Banco BHD, Banco Popular Dominicano) para su evaluación y precalificación hipotecaria oficial.
+              </div>
+            </div>
+          </div>
+
           <!-- Dropdown Personalizado: Estado Inicial -->
           <div class="form-group">
             <label class="form-label">Estado Inicial en Pipeline</label>
