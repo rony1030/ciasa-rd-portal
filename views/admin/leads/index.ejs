@@ -2,21 +2,21 @@
 
 <div class="section-header">
   <div>
-    <h2>Gestión de Prospectos & Leads <span style="color: var(--text-muted); font-weight: 500; font-size: 1rem;">(<%= totalLeads %> registros)</span></h2>
-    <p>Seguimiento comercial, pipeline de oportunidades y trazabilidad de notas</p>
+    <h2>Pipeline & Gestión de Leads <span style="color: var(--text-muted); font-weight: 500; font-size: 0.95rem;">(<%= totalLeads %> prospectos)</span></h2>
+    <p>Trazabilidad comercial, embudo de conversión y notas 360°</p>
   </div>
-  <div style="display: flex; align-items: center; gap: 10px;">
+  <div style="display: flex; align-items: center; gap: 8px;">
     <!-- Switch de Vista: Kanban vs Tabla -->
-    <div style="background: #E2E8F0; padding: 3px; border-radius: 10px; display: flex; align-items: center; gap: 2px;">
-      <button type="button" id="btnKanbanView" onclick="setLeadView('kanban')" style="border: none; background: #FFFFFF; color: var(--text-heading); font-size: 0.82rem; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
-        <i class="fa-solid fa-columns"></i> Pipeline (Deals)
+    <div style="background: #E5E7EB; padding: 2px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 2px;">
+      <button type="button" id="btnKanbanView" onclick="setLeadView('kanban')" style="border: none; background: #FFFFFF; color: var(--text-heading); font-size: 0.78rem; font-weight: 700; padding: 5px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px; box-shadow: var(--shadow-xs);">
+        <i class="fa-solid fa-table-columns"></i> Pipeline
       </button>
-      <button type="button" id="btnTableView" onclick="setLeadView('table')" style="border: none; background: transparent; color: #64748B; font-size: 0.82rem; font-weight: 700; padding: 6px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
-        <i class="fa-solid fa-table-list"></i> Lista / Tabla
+      <button type="button" id="btnTableView" onclick="setLeadView('table')" style="border: none; background: transparent; color: var(--text-muted); font-size: 0.78rem; font-weight: 600; padding: 5px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+        <i class="fa-solid fa-list"></i> Lista
       </button>
     </div>
 
-    <a href="/admin/leads/nuevo" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Registrar Lead</a>
+    <a href="/admin/leads/nuevo" class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Registrar Lead</a>
   </div>
 </div>
 

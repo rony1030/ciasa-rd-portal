@@ -1,53 +1,45 @@
 <%- include('layout', { pageTitle, activePage: 'dashboard' }) %>
 
-<!-- WIDGETS DE RENDIMIENTO Y VENTAS (ESTILO SAAS TRACKFLOW EXACTO) -->
+<!-- TARJETAS DE MÉTRICAS PRINCIPALES (ESTILO WOWDASH / FILLOW) -->
 <div class="stat-grid">
   <!-- 1. Ventas Proyectadas -->
   <div class="stat-card">
-    <div style="font-size: 0.78rem; font-weight: 600; color: #64748B; margin-bottom: 8px;">Ventas Proyectadas</div>
-    <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px;">
-      <span style="font-size: 1.85rem; font-weight: 800; color: #0F172A; letter-spacing: -0.5px;">$1,840,000</span>
-      <span style="background: #ECFDF5; color: #059669; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 3px;">
-        +18.4% <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.60rem;"></i>
-      </span>
+    <div class="stat-card-label">Ventas Proyectadas</div>
+    <div style="display: flex; align-items: baseline; gap: 8px; margin: 4px 0;">
+      <span class="stat-card-value">$1,840,000</span>
+      <span class="badge badge-green">+18.4%</span>
     </div>
-    <div style="font-size: 0.78rem; color: #64748B;">+$284,000 en 4 cierres en proceso</div>
+    <div class="stat-card-sub">+$284,000 en 4 cierres en proceso</div>
   </div>
 
   <!-- 2. Prospectos & Leads -->
   <div class="stat-card">
-    <div style="font-size: 0.78rem; font-weight: 600; color: #64748B; margin-bottom: 8px;">Prospectos & Leads Activos</div>
-    <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px;">
-      <span style="font-size: 1.85rem; font-weight: 800; color: #0F172A; letter-spacing: -0.5px;"><%= stats ? stats.totalLeads : 6 %></span>
-      <span style="background: #EFF6FF; color: #2563EB; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 3px;">
-        +82% Diáspora
-      </span>
+    <div class="stat-card-label">Prospectos & Leads Activos</div>
+    <div style="display: flex; align-items: baseline; gap: 8px; margin: 4px 0;">
+      <span class="stat-card-value"><%= stats ? stats.totalLeads : 6 %></span>
+      <span class="badge badge-blue">+82% Diáspora</span>
     </div>
-    <div style="font-size: 0.78rem; color: #64748B;"><%= stats ? stats.leadsHoy : 2 %> nuevos registrados hoy</div>
+    <div class="stat-card-sub"><%= stats ? stats.leadsHoy : 2 %> nuevos registrados hoy</div>
   </div>
 
   <!-- 3. Email Marketing (Reach) -->
   <div class="stat-card">
-    <div style="font-size: 0.78rem; font-weight: 600; color: #64748B; margin-bottom: 8px;">Email Marketing (Hostinger Reach)</div>
-    <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px;">
-      <span style="font-size: 1.85rem; font-weight: 800; color: #0F172A; letter-spacing: -0.5px;">44.8%</span>
-      <span style="background: #ECFDF5; color: #059669; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 3px;">
-        +14.2% Clics
-      </span>
+    <div class="stat-card-label">Email Marketing (Reach)</div>
+    <div style="display: flex; align-items: baseline; gap: 8px; margin: 4px 0;">
+      <span class="stat-card-value">44.8%</span>
+      <span class="badge badge-green">+14.2% Clics</span>
     </div>
-    <div style="font-size: 0.78rem; color: #64748B;">3 secuencias activas para médicos NPI</div>
+    <div class="stat-card-sub">3 secuencias activas para médicos NPI</div>
   </div>
 
   <!-- 4. Catálogo de Proyectos -->
   <div class="stat-card">
-    <div style="font-size: 0.78rem; font-weight: 600; color: #64748B; margin-bottom: 8px;">Catálogo de Proyectos</div>
-    <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px;">
-      <span style="font-size: 1.85rem; font-weight: 800; color: #0F172A; letter-spacing: -0.5px;"><%= stats ? stats.proyectosDisponibles : 27 %></span>
-      <span style="background: #F1F5F9; color: #475569; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 6px;">
-        CONFOTUR
-      </span>
+    <div class="stat-card-label">Catálogo de Proyectos</div>
+    <div style="display: flex; align-items: baseline; gap: 8px; margin: 4px 0;">
+      <span class="stat-card-value"><%= stats ? stats.proyectosDisponibles : 27 %></span>
+      <span class="badge badge-gray">CONFOTUR</span>
     </div>
-    <div style="font-size: 0.78rem; color: #64748B;">100% verificados y disponibles</div>
+    <div class="stat-card-sub">100% verificados y disponibles</div>
   </div>
 </div>
 
