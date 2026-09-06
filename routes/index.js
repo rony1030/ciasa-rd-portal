@@ -32,7 +32,19 @@ function getBlogData() {
 // 1. Inicio
 router.get('/', (req, res) => {
   const projects = getProjectsData();
-  const featuredProjects = projects.filter(p => p.featured).slice(0, 6);
+  const featuredIds = [
+    'ciasa-001-pc', // Marina Garden 2 (Cap Cana)
+    'ciasa-002-pc', // Moon Garden (Punta Cana)
+    'ciasa-004-pc', // Crystal Garden (Punta Cana)
+    'ciasa-020-sd', // Level Business Center (Santo Domingo)
+    'ciasa-021-jd', // Cassia (Juan Dolio)
+    'ciasa-022-by'  // Estrella Dominicus (Bayahíbe)
+  ];
+  let featuredProjects = projects.filter(p => featuredIds.includes(p.id));
+  if (featuredProjects.length < 6) {
+    const additional = projects.filter(p => !featuredProjects.some(fp => fp.id === p.id) && p.available !== false);
+    featuredProjects = featuredProjects.concat(additional).slice(0, 6);
+  }
   res.render('pages/index', {
     pageTitle: 'CIASA Bolsa Inmobiliaria — Inversión Inmobiliaria en RD',
     pageDesc: 'Portal oficial de CIASA Bolsa Inmobiliaria. Inversión inmobiliaria con Ley CONFOTUR para dominicanos en el exterior.',
@@ -335,9 +347,17 @@ router.post('/api/leads', (req, res) => {
     leads.unshift(newLead);
     fs.writeFileSync(dataPath, JSON.stringify(leads, null, 2), 'utf-8');
 
+    // Despacho de Correos Automáticos (Notificación a Dirección y Confirmación al Cliente)
+    try {
+      const { sendLeadEmails } = require('../services/emailService');
+      sendLeadEmails(newLead).catch(err => console.warn('Email dispatch background error:', err));
+    } catch (e) {
+      console.warn('Email service load error:', e);
+    }
+
     return res.json({
       success: true,
-      message: 'Prospecto registrado exitosamente en el CRM.',
+      message: 'Prospecto registrado exitosamente en el CRM y notificaciones enviadas.',
       leadId: newLead._id
     });
   } catch (error) {

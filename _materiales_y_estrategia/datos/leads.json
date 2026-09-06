@@ -1,5 +1,42 @@
 [
   {
+    "_id": "lead_1787971544048_fsglyt",
+    "nombre": "Dr. Carlos Mendoza",
+    "email": "carlos.mendoza@example.com",
+    "telefono": "+1 (809) 555-1234",
+    "pais": "EE.UU.",
+    "ciudad": "",
+    "estado": "",
+    "montoInversion": "",
+    "region": "Punta Cana",
+    "proyectoInteres": "",
+    "comoNosEncontro": "",
+    "razones": "",
+    "source": "Smart Assistant (Chatbot Web)",
+    "statusVentas": "nuevo",
+    "statusConstructora": "pendiente",
+    "notas": [
+      {
+        "id": "n_1787971544049",
+        "texto": "Mensaje de contacto inicial: Interesado en proyecto con exención CONFOTUR",
+        "fecha": "2026-08-29T02:45:44.049Z",
+        "autor": "Sistema Web CIASA"
+      }
+    ],
+    "tareas": [
+      {
+        "id": "t_1787971544049",
+        "titulo": "Contactar a Dr. Carlos Mendoza por consulta general",
+        "fechaLimite": "2026-08-30",
+        "completada": false,
+        "prioridad": "alta"
+      }
+    ],
+    "documentos": [],
+    "createdAt": "2026-08-29T02:45:44.049Z",
+    "updatedAt": "2026-08-29T02:45:44.049Z"
+  },
+  {
     "_id": "lead_1787331587189_sp5tis",
     "nombre": "Dra. Carmen Tejada (Prueba Directa)",
     "email": "carmen.tejada.md@gmail.com",

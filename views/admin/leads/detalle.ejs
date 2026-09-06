@@ -359,6 +359,11 @@
   </div>
 
   <div style="display: flex; gap: 8px;">
+    <% if (lead.email && lead.email.includes('@')) { %>
+      <button type="button" class="btn btn-primary btn-sm" onclick="openLeadEmailModal()" style="padding: 5px 12px; font-size: 0.76rem; background: #15803D;">
+        <i class="fa-solid fa-paper-plane"></i> Enviar Email / Dossier
+      </button>
+    <% } %>
     <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()" style="padding: 5px 10px; font-size: 0.76rem;">
       <i class="fa-solid fa-print"></i> Imprimir Ficha
     </button>
@@ -701,7 +706,82 @@
   </div>
 </div>
 
+<!-- MODAL ENVÍO DE EMAIL / DOSSIER -->
+<div id="leadEmailModal" style="display: none; position: fixed; inset: 0; background: rgba(10,30,54,0.7); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+  <div style="background: var(--card-bg); border-radius: var(--radius-md); max-width: 480px; width: 90%; margin: auto; box-shadow: var(--shadow-dropdown); border: 1px solid var(--border-color); overflow: hidden;">
+    <div style="padding: 14px 18px; background: #0A1E36; color: #FFFFFF; display: flex; justify-content: space-between; align-items: center;">
+      <strong style="font-size: 0.90rem;"><i class="fa-solid fa-paper-plane" style="color: #A3E635;"></i> Enviar Correo a <%= lead.nombre %></strong>
+      <button type="button" onclick="closeLeadEmailModal()" style="background: transparent; border: none; color: #94A3B8; font-size: 1.2rem; cursor: pointer;">&times;</button>
+    </div>
+    <form onsubmit="submitLeadEmailSend(event)" style="padding: 18px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div>
+          <label class="form-label" style="font-size: 0.74rem;">Seleccionar Plantilla Oficial *</label>
+          <select id="leadEmailTemplate" class="form-input compact-form-input" required>
+            <option value="bienvenida_dossier">1. Bienvenida & Dossier CONFOTUR (15 Años Exención)</option>
+            <option value="drip_regiones">2. Comparativa: Punta Cana vs Santo Domingo vs Samaná</option>
+            <option value="drip_financiamiento">3. Financiamiento a Distancia para la Diáspora</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label" style="font-size: 0.74rem;">Destinatario Confirmado</label>
+          <input type="text" class="form-input compact-form-input" value="<%= lead.email %>" readonly style="background: #F1F5F9;">
+        </div>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--border-color);">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="closeLeadEmailModal()">Cancelar</button>
+        <button type="submit" id="btnSendLeadEmailSubmit" class="btn btn-primary btn-sm" style="background: #15803D; font-weight: 800;">
+          <i class="fa-solid fa-paper-plane"></i> Despachar Correo Ahora
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script>
+  function openLeadEmailModal() {
+    document.getElementById('leadEmailModal').style.display = 'flex';
+  }
+  function closeLeadEmailModal() {
+    document.getElementById('leadEmailModal').style.display = 'none';
+  }
+
+  async function submitLeadEmailSend(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnSendLeadEmailSubmit');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+
+    const templateId = document.getElementById('leadEmailTemplate').value;
+
+    try {
+      const res = await fetch('/admin/marketing/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          templateId,
+          leadId: '<%= lead._id || lead.id %>',
+          customNombre: '<%= lead.nombre %>',
+          customEmail: '<%= lead.email %>'
+        })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        alert('¡Correo procesado y despachado con éxito al prospecto!');
+        window.location.reload();
+      } else {
+        alert('Error al despachar: ' + (data.error || 'Desconocido'));
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Despachar Correo Ahora';
+      }
+    } catch (err) {
+      alert('Error de conexión al enviar correo.');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Despachar Correo Ahora';
+    }
+  }
+
   function switchContactTab(tab) {
     const btnAgendar = document.getElementById('tabBtnActividad');
     const btnBitacora = document.getElementById('tabBtnBitacora');

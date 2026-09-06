@@ -1,0 +1,308 @@
+<!-- ==========================================================================
+     CIASA RD — BANNER DE COOKIES & MODAL DE PRIVACIDAD (SIN ICONO DE GALLETA)
+     ========================================================================== -->
+<style>
+  /* Banner Flotante de Consentimiento */
+  .ciasa-cookie-banner {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    right: 24px;
+    max-width: 980px;
+    margin: 0 auto;
+    background: rgba(10, 30, 54, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    z-index: 9998;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    animation: cookieSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ciasa-cookie-banner.show {
+    display: flex;
+  }
+  @keyframes cookieSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .ciasa-cookie-content {
+    flex: 1;
+    min-width: 280px;
+  }
+  .ciasa-cookie-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ciasa-cookie-desc {
+    font-size: 0.84rem;
+    color: #CBD5E1;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .ciasa-cookie-desc a {
+    color: #A3E635;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .ciasa-cookie-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .btn-cookie-accept {
+    background: #7DB33A;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(125, 179, 58, 0.35);
+  }
+  .btn-cookie-accept:hover {
+    background: #6CA02E;
+    transform: translateY(-1px);
+  }
+  .btn-cookie-reject {
+    background: rgba(255, 255, 255, 0.08);
+    color: #CBD5E1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-cookie-reject:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+  }
+
+  @media (max-width: 768px) {
+    .ciasa-cookie-banner {
+      flex-direction: column;
+      align-items: flex-start;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      padding: 18px;
+    }
+    .ciasa-cookie-actions {
+      width: 100%;
+      justify-content: flex-end;
+      margin-top: 6px;
+    }
+    .btn-cookie-accept, .btn-cookie-reject {
+      flex: 1;
+      text-align: center;
+    }
+  }
+
+  /* Modal de Aviso Legal & Política de Privacidad */
+  .ciasa-legal-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 30, 54, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .ciasa-legal-modal-overlay.open {
+    display: flex;
+  }
+  .ciasa-legal-modal {
+    background: #FFFFFF;
+    border-radius: 20px;
+    max-width: 720px;
+    width: 100%;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    animation: modalPop 0.2s ease;
+  }
+  @keyframes modalPop {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .ciasa-legal-header {
+    padding: 18px 24px;
+    background: #0A1E36;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .ciasa-legal-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin: 0;
+  }
+  .ciasa-legal-close {
+    background: transparent;
+    border: none;
+    color: #94A3B8;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .ciasa-legal-close:hover {
+    color: #FFFFFF;
+  }
+  .ciasa-legal-body {
+    padding: 24px;
+    overflow-y: auto;
+    font-size: 0.90rem;
+    color: #475569;
+    line-height: 1.7;
+  }
+  .ciasa-legal-body h4 {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0A1E36;
+    margin: 20px 0 8px;
+  }
+  .ciasa-legal-body h4:first-child {
+    margin-top: 0;
+  }
+  .ciasa-legal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #E2E8F0;
+    background: #F8FAFC;
+    display: flex;
+    justify-content: flex-end;
+  }
+</style>
+
+<!-- Banner HTML -->
+<div class="ciasa-cookie-banner" id="ciasaCookieBanner">
+  <div class="ciasa-cookie-content">
+    <div class="ciasa-cookie-title">
+      Privacidad y Experiencia de Usuario
+    </div>
+    <p class="ciasa-cookie-desc">
+      Utilizamos tecnologías esenciales y cookies analíticas para garantizar la seguridad de tus datos, personalizar tu búsqueda de proyectos inmobiliarios y optimizar el rendimiento del portal. Consulta nuestra 
+      <a href="javascript:void(0)" onclick="openLegalModal('privacidad')">Política de Privacidad</a> y 
+      <a href="javascript:void(0)" onclick="openLegalModal('disclaimer')">Aviso Legal</a>.
+    </p>
+  </div>
+  <div class="ciasa-cookie-actions">
+    <button type="button" class="btn-cookie-reject" onclick="dismissCookieConsent('esenciales')">Solo Necesarias</button>
+    <button type="button" class="btn-cookie-accept" onclick="dismissCookieConsent('todas')">Aceptar Todo</button>
+  </div>
+</div>
+
+<!-- Modal Legal HTML -->
+<div class="ciasa-legal-modal-overlay" id="ciasaLegalModal" onclick="closeLegalModalOnBackdrop(event)">
+  <div class="ciasa-legal-modal">
+    <div class="ciasa-legal-header">
+      <h3 class="ciasa-legal-title" id="ciasaLegalModalTitle">Aviso Legal & Términos</h3>
+      <button type="button" class="ciasa-legal-close" onclick="closeLegalModal()">&times;</button>
+    </div>
+    <div class="ciasa-legal-body" id="ciasaLegalModalContent">
+      <!-- Inyectado dinámicamente -->
+    </div>
+    <div class="ciasa-legal-footer">
+      <button type="button" class="btn-cta" style="background: #0A1E36; color: #FFFFFF; padding: 8px 20px; font-size: 0.86rem; border-radius: 8px;" onclick="closeLegalModal()">Entendido y Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const consent = localStorage.getItem('ciasa_cookie_consent_v1');
+    if (!consent) {
+      setTimeout(() => {
+        const banner = document.getElementById('ciasaCookieBanner');
+        if (banner) banner.classList.add('show');
+      }, 1200);
+    }
+  })();
+
+  function dismissCookieConsent(tipo) {
+    localStorage.setItem('ciasa_cookie_consent_v1', tipo || 'todas');
+    const banner = document.getElementById('ciasaCookieBanner');
+    if (banner) banner.classList.remove('show');
+  }
+
+  const LEGAL_TEXTS = {
+    disclaimer: {
+      title: "Aviso Legal & Términos de Uso",
+      html: `
+        <h4>1. Titularidad y Objeto</h4>
+        <p>El presente portal web es operado por <strong>CIASA Bolsa Inmobiliaria</strong>, entidad dedicada a la intermediación, asesoría técnica y comercialización de proyectos inmobiliarios en la República Dominicana.</p>
+        
+        <h4>2. Naturaleza Informativa & CONFOTUR</h4>
+        <p>Los precios, especificaciones arquitectónicas, esquemas de pago y proyecciones de retorno de inversión (ROI) mostrados en el catálogo son proporcionados directamente por las empresas constructoras y promotoras de cada desarrollo inmobiliario. Las exenciones de la Ley 158-01 (CONFOTUR) están sujetas a la calificación oficial otorgada a cada proyecto por los ministerios correspondientes.</p>
+        
+        <h4>3. Contacto Institucional</h4>
+        <p>Para consultas legales, verificación de títulos o aclaraciones técnicas, puedes contactar a nuestro equipo en <a href="mailto:info@ciasard.org.do" style="color: #2563EB; font-weight: 700;">info@ciasard.org.do</a>.</p>
+      `
+    },
+    privacidad: {
+      title: "Política de Privacidad y Tratamiento de Datos",
+      html: `
+        <h4>1. Responsable del Tratamiento</h4>
+        <p>CIASA Bolsa Inmobiliaria, con domicilio en Santo Domingo, República Dominicana, es responsable de la recopilación y custodia confidencial de los datos personales suministrados por nuestros usuarios e inversionistas.</p>
+
+        <h4>2. Finalidad de los Datos</h4>
+        <p>Los datos solicitados a través de formularios (nombre, teléfono, correo electrónico y rango de inversión) se utilizan exclusivamente para:</p>
+        <ul>
+          <li>Proveer asesoría personalizada sobre proyectos inmobiliarios en República Dominicana.</li>
+          <li>Calcular planes de pago y estructuración de compras bajo Ley CONFOTUR.</li>
+          <li>Facilitar la comunicación directa vía WhatsApp o correo electrónico con la Dirección Comercial.</li>
+        </ul>
+
+        <h4>3. No Cesión a Terceros</h4>
+        <p>CIASA no vende, alquila ni comparte bases de datos personales con terceros ajenos a la transacción de compraventa inmobiliaria.</p>
+
+        <h4>4. Derechos de Acceso y Rectificación</h4>
+        <p>Puedes ejercer tus derechos de actualización, rectificación o supresión de tus datos enviando una solicitud formal a <a href="mailto:info@ciasard.org.do" style="color: #2563EB; font-weight: 700;">info@ciasard.org.do</a>.</p>
+      `
+    }
+  };
+
+  function openLegalModal(tipo) {
+    const modal = document.getElementById('ciasaLegalModal');
+    const titleEl = document.getElementById('ciasaLegalModalTitle');
+    const contentEl = document.getElementById('ciasaLegalModalContent');
+    const data = LEGAL_TEXTS[tipo] || LEGAL_TEXTS.disclaimer;
+    
+    if (titleEl && contentEl && modal) {
+      titleEl.innerText = data.title;
+      contentEl.innerHTML = data.html;
+      modal.classList.add('open');
+    }
+  }
+
+  function closeLegalModal() {
+    const modal = document.getElementById('ciasaLegalModal');
+    if (modal) modal.classList.remove('open');
+  }
+
+  function closeLegalModalOnBackdrop(e) {
+    if (e.target.id === 'ciasaLegalModal') {
+      closeLegalModal();
+    }
+  }
+</script>

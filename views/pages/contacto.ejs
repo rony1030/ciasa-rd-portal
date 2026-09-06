@@ -354,9 +354,9 @@
                 <i class="fa-solid fa-envelope"></i>
               </div>
               <div>
-                <div class="contact-item-title">Email</div>
+                <div class="contact-item-title">Email Institucional</div>
                 <div class="contact-item-value">
-                  <a href="mailto:paola.caram@ciasard.org.do">paola.caram@ciasard.org.do</a>
+                  <a href="mailto:<%= (typeof ajustes !== 'undefined' && ajustes.contactoEmail) ? ajustes.contactoEmail : 'info@ciasard.org.do' %>"><%= (typeof ajustes !== 'undefined' && ajustes.contactoEmail) ? ajustes.contactoEmail : 'info@ciasard.org.do' %></a>
                 </div>
               </div>
             </div>

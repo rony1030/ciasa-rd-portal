@@ -1,0 +1,550 @@
+<!-- ==========================================================================
+     CIASA AI CHATBOT WIDGET (CEREBRO LOCAL RAG - FASE 2)
+     ========================================================================== -->
+<style>
+  /* Botón Flotante del Chatbot */
+  .ciasa-chat-launcher {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #0A1E36 0%, #153356 100%);
+    color: #FFFFFF;
+    border: 2px solid rgba(163, 230, 53, 0.4);
+    border-radius: 50px;
+    padding: 10px 18px 10px 14px;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(10, 30, 54, 0.35);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: inherit;
+  }
+  .ciasa-chat-launcher:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(10, 30, 54, 0.45);
+    border-color: #A3E635;
+  }
+  .ciasa-chat-launcher-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #A3E635;
+    color: #0A1E36;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    box-shadow: 0 2px 8px rgba(163, 230, 53, 0.4);
+  }
+  .ciasa-chat-launcher-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  .ciasa-chat-launcher-title {
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ciasa-chat-launcher-sub {
+    font-size: 0.68rem;
+    color: #A3E635;
+    font-weight: 700;
+  }
+  .ciasa-online-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22C55E;
+    box-shadow: 0 0 6px #22C55E;
+    display: inline-block;
+  }
+
+  /* Ventana Flotante del Chatbot */
+  .ciasa-chat-window {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    height: 540px;
+    max-height: calc(100vh - 120px);
+    background: #FFFFFF;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(10, 30, 54, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.06);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ciasa-chat-window.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Header del Chat */
+  .ciasa-chat-header {
+    background: linear-gradient(135deg, #0A1E36 0%, #153356 100%);
+    color: #FFFFFF;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .ciasa-chat-header-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ciasa-chat-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #A3E635;
+    color: #0A1E36;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 900;
+  }
+  .ciasa-chat-header-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    line-height: 1.2;
+  }
+  .ciasa-chat-header-status {
+    font-size: 0.70rem;
+    color: #A3E635;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .ciasa-chat-close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #CBD5E1;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+  }
+  .ciasa-chat-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+  }
+
+  /* Cuerpo de Mensajes */
+  .ciasa-chat-body {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    background: #F8FAFC;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .ciasa-chat-msg {
+    display: flex;
+    flex-direction: column;
+    max-width: 86%;
+    animation: chatFade 0.25s ease-out;
+  }
+  @keyframes chatFade {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .ciasa-chat-msg.bot {
+    align-self: flex-start;
+  }
+  .ciasa-chat-msg.user {
+    align-self: flex-end;
+  }
+  .ciasa-chat-bubble {
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+  .ciasa-chat-msg.bot .ciasa-chat-bubble {
+    background: #FFFFFF;
+    color: #1E293B;
+    border: 1px solid #E2E8F0;
+    border-bottom-left-radius: 3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  }
+  .ciasa-chat-msg.user .ciasa-chat-bubble {
+    background: #0A1E36;
+    color: #FFFFFF;
+    border-bottom-right-radius: 3px;
+  }
+  .ciasa-chat-time {
+    font-size: 0.65rem;
+    color: #94A3B8;
+    margin-top: 3px;
+    padding: 0 4px;
+  }
+  .ciasa-chat-msg.user .ciasa-chat-time {
+    text-align: right;
+  }
+
+  /* Chips / Sugerencias de Acciones Rápidas */
+  .ciasa-chat-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .ciasa-chat-chip {
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    color: #0A1E36;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+  .ciasa-chat-chip:hover {
+    background: #0A1E36;
+    color: #FFFFFF;
+    border-color: #0A1E36;
+    transform: translateY(-1px);
+  }
+
+  /* Footer del Input */
+  .ciasa-chat-footer {
+    padding: 12px 14px;
+    background: #FFFFFF;
+    border-top: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ciasa-chat-input {
+    flex: 1;
+    height: 40px;
+    padding: 0 14px;
+    border: 1.5px solid #E2E8F0;
+    border-radius: 20px;
+    font-size: 0.86rem;
+    font-family: inherit;
+    color: #0A1E36;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .ciasa-chat-input:focus {
+    border-color: var(--green);
+  }
+  .ciasa-chat-send-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #7DB33A;
+    border: none;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+  }
+  .ciasa-chat-send-btn:hover {
+    background: #6CA02E;
+    transform: scale(1.05);
+  }
+</style>
+
+<!-- Botón Flotante Launcher -->
+<div class="ciasa-chat-launcher" id="ciasaChatLauncher" onclick="toggleCiasaChat()">
+  <div class="ciasa-chat-launcher-icon">
+    <i class="fa-solid fa-robot"></i>
+  </div>
+  <div class="ciasa-chat-launcher-text">
+    <span class="ciasa-chat-launcher-title">CIASA AI <span class="ciasa-online-dot"></span></span>
+    <span class="ciasa-chat-launcher-sub">Asistente Virtual</span>
+  </div>
+</div>
+
+<!-- Ventana del Chat -->
+<div class="ciasa-chat-window" id="ciasaChatWindow">
+  <!-- Header -->
+  <div class="ciasa-chat-header">
+    <div class="ciasa-chat-header-info">
+      <div>
+        <div class="ciasa-chat-header-title">Smart Assistant</div>
+        <div class="ciasa-chat-header-status">
+          <span class="ciasa-online-dot"></span> Inteligencia Inmobiliaria RD
+        </div>
+      </div>
+    </div>
+    <button class="ciasa-chat-close-btn" onclick="toggleCiasaChat()" title="Cerrar chat">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="ciasa-chat-body" id="ciasaChatBody">
+    <div class="ciasa-chat-msg bot">
+      <div class="ciasa-chat-bubble">
+        ¡Hola! 👋 Soy el <strong>Asistente Virtual Inteligente</strong> de CIASA Bolsa Inmobiliaria.<br><br>
+        Puedo ayudarte a consultar proyectos, beneficios de la <strong>Ley CONFOTUR</strong>, calcular rentabilidad o conectarte con un asesor. ¿Qué te gustaría saber?
+        <div class="ciasa-chat-chips">
+          <button type="button" class="ciasa-chat-chip" onclick="askCiasaAi('¿Qué es la Ley CONFOTUR?')">📜 ¿Qué es CONFOTUR?</button>
+          <button type="button" class="ciasa-chat-chip" onclick="askCiasaAi('Proyectos en Punta Cana')">🏖️ Proyectos Punta Cana</button>
+          <button type="button" class="ciasa-chat-chip" onclick="askCiasaAi('Proyectos en Santo Domingo')">🏙️ Santo Domingo</button>
+          <button type="button" class="ciasa-chat-chip" onclick="askCiasaAi('¿Cómo invertir desde USA?')">🇺🇸 Invertir desde el Exterior</button>
+          <button type="button" class="ciasa-chat-chip" onclick="showInlineChatLeadForm()">📝 Solicitar Dossier & Asesoría</button>
+          <button type="button" class="ciasa-chat-chip" onclick="askCiasaAi('Hablar con Paola Caram')">📱 Contactar por WhatsApp</button>
+        </div>
+      </div>
+      <span class="ciasa-chat-time">En línea</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="ciasa-chat-footer">
+    <input type="text" id="ciasaChatInput" class="ciasa-chat-input" placeholder="Escribe tu duda sobre proyectos, zonas..." onkeypress="handleChatKeyPress(event)">
+    <button type="button" class="ciasa-chat-send-btn" onclick="sendUserMessage()" title="Enviar">
+      <i class="fa-solid fa-paper-plane"></i>
+    </button>
+  </div>
+</div>
+
+<script>
+  function toggleCiasaChat() {
+    const win = document.getElementById('ciasaChatWindow');
+    if (!win) return;
+    win.classList.toggle('open');
+    if (win.classList.contains('open')) {
+      setTimeout(() => {
+        const inp = document.getElementById('ciasaChatInput');
+        if (inp) inp.focus();
+      }, 300);
+    }
+  }
+
+  function handleChatKeyPress(e) {
+    if (e.key === 'Enter') {
+      sendUserMessage();
+    }
+  }
+
+  function sendUserMessage() {
+    const inp = document.getElementById('ciasaChatInput');
+    if (!inp) return;
+    const query = inp.value.trim();
+    if (!query) return;
+    inp.value = '';
+    askCiasaAi(query);
+  }
+
+  function askCiasaAi(query) {
+    const body = document.getElementById('ciasaChatBody');
+    if (!body) return;
+
+    // Agregar mensaje del usuario
+    const userMsg = document.createElement('div');
+    userMsg.className = 'ciasa-chat-msg user';
+    userMsg.innerHTML = `<div class="ciasa-chat-bubble">${escapeHtml(query)}</div><span class="ciasa-chat-time">Tú</span>`;
+    body.appendChild(userMsg);
+    body.scrollTop = body.scrollHeight;
+
+    // Procesar respuesta con Cerebro Local (IA RAG Híbrida $0 Costo)
+    setTimeout(() => {
+      const response = processCiasaBrainQuery(query);
+      const botMsg = document.createElement('div');
+      botMsg.className = 'ciasa-chat-msg bot';
+      botMsg.innerHTML = `<div class="ciasa-chat-bubble">${response}</div><span class="ciasa-chat-time">Smart Assistant</span>`;
+      body.appendChild(botMsg);
+      body.scrollTop = body.scrollHeight;
+    }, 450);
+  }
+
+  function showInlineChatLeadForm() {
+    const body = document.getElementById('ciasaChatBody');
+    if (!body) return;
+
+    const formHtml = `
+      <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 14px; margin-top: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <div style="font-size: 0.86rem; font-weight: 800; color: #0A1E36; margin-bottom: 8px;">
+          Recibe el Dossier de Proyectos & Asesoría CONFOTUR
+        </div>
+        <form id="chatLeadInlineForm" onsubmit="submitChatLead(event)" style="display: flex; flex-direction: column; gap: 8px;">
+          <input type="text" id="chatLeadNombre" placeholder="Tu Nombre Completo *" required style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.82rem; outline: none; box-sizing: border-box;">
+          <input type="tel" id="chatLeadTelefono" placeholder="WhatsApp / Teléfono *" required style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.82rem; outline: none; box-sizing: border-box;">
+          <input type="email" id="chatLeadEmail" placeholder="Correo Electrónico (para el dossier)" style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.82rem; outline: none; box-sizing: border-box;">
+          <select id="chatLeadZona" style="width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.82rem; outline: none; background: #FFFFFF; box-sizing: border-box;">
+            <option value="Punta Cana / Cap Cana">Punta Cana / Cap Cana</option>
+            <option value="Santo Domingo">Santo Domingo / DN</option>
+            <option value="Samaná / Las Terrenas">Samaná / Las Terrenas</option>
+            <option value="Juan Dolio / Bayahíbe">Juan Dolio / Bayahíbe</option>
+            <option value="Interés General">Cualquier zona con CONFOTUR</option>
+          </select>
+          <button type="submit" id="chatLeadSubmitBtn" style="background: #7DB33A; color: #FFFFFF; border: none; padding: 9px; border-radius: 6px; font-size: 0.85rem; font-weight: 800; cursor: pointer; transition: background 0.2s; margin-top: 4px;">
+            Enviar Solicitud
+          </button>
+        </form>
+      </div>
+    `;
+
+    const botMsg = document.createElement('div');
+    botMsg.className = 'ciasa-chat-msg bot';
+    botMsg.innerHTML = `<div class="ciasa-chat-bubble" style="max-width: 95%;">${formHtml}</div><span class="ciasa-chat-time">Smart Assistant</span>`;
+    body.appendChild(botMsg);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  async function submitChatLead(e) {
+    e.preventDefault();
+    const btn = document.getElementById('chatLeadSubmitBtn');
+    if (btn) {
+      btn.disabled = true;
+      btn.innerText = 'Enviando al CRM...';
+    }
+
+    const nombre = document.getElementById('chatLeadNombre').value.trim();
+    const telefono = document.getElementById('chatLeadTelefono').value.trim();
+    const email = document.getElementById('chatLeadEmail').value.trim();
+    const zona = document.getElementById('chatLeadZona').value;
+
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre,
+          telefono,
+          email,
+          region: zona,
+          source: 'Smart Assistant (Chatbot Web)',
+          mensaje: `Lead captado vía Chatbot interactivo. Interés en zona: ${zona}`
+        })
+      });
+
+      const data = await res.json();
+      const body = document.getElementById('ciasaChatBody');
+      if (body) {
+        const confirmMsg = document.createElement('div');
+        confirmMsg.className = 'ciasa-chat-msg bot';
+        confirmMsg.innerHTML = `
+          <div class="ciasa-chat-bubble" style="background: #F0FDF4; border: 1px solid #BBF7D0; color: #15803D;">
+            <strong>¡Solicitud Registrada con Éxito!</strong><br><br>
+            Gracias <strong>${escapeHtml(nombre)}</strong>. Hemos guardado tus datos en nuestro sistema y enviado la notificación a la Dirección Ejecutiva.<br><br>
+            <strong>Paola Caram</strong> o un asesor patrimonial te contactará en breve a tu WhatsApp o correo.<br><br>
+            👉 <a href="https://wa.me/18092995233?text=Hola%20Paola,%20acabo%20de%20dejar%20mis%20datos%20en%20el%20asistente%20web%20(${encodeURIComponent(nombre)})." target="_blank" style="color: #15803D; font-weight: 800; text-decoration: underline;">Abrir WhatsApp directo ahora</a>
+          </div>
+          <span class="ciasa-chat-time">Smart Assistant</span>
+        `;
+        body.appendChild(confirmMsg);
+        body.scrollTop = body.scrollHeight;
+      }
+    } catch (err) {
+      console.warn('Error al guardar lead desde chat:', err);
+      alert('Hubo un inconveniente al conectar. Por favor intenta de nuevo.');
+      if (btn) {
+        btn.disabled = false;
+        btn.innerText = 'Enviar Solicitud';
+      }
+    }
+  }
+
+  function processCiasaBrainQuery(q) {
+    const query = q.toLowerCase();
+
+    // Si el usuario quiere cotizar o dejar datos
+    if (query.includes('cotizar') || query.includes('dossier') || query.includes('precio') || query.includes('asesoria') || query.includes('quiero comprar') || query.includes('interesado')) {
+      setTimeout(() => {
+        showInlineChatLeadForm();
+      }, 400);
+      return `¡Con gusto! Para enviarte el dossier completo de proyectos verificados y conectarte con un asesor patrimonial, completa estos breves datos:`;
+    }
+
+    // 1. CONFOTUR / Impuestos
+    if (query.includes('confotur') || query.includes('impuesto') || query.includes('ipi') || query.includes('exencion') || query.includes('fiscal')) {
+      return `La <strong>Ley CONFOTUR (Ley 158-01)</strong> otorga incentivos fiscales extraordinarios para inversionistas inmobiliarios:<br><br>
+      • <strong>15 años de exención del 100%</strong> del impuesto a la propiedad inmobiliaria (IPI).<br>
+      • <strong>0% de impuesto de transferencia</strong> inmobiliaria (3% de ahorro directo en la compra).<br>
+      • <strong>0% impuesto sobre la renta</strong> por alquileres vacacionales.<br><br>
+      👉 <a href="/invertir" style="color: #15803D; font-weight: 700; text-decoration: underline;">Conoce todos los detalles en la Guía CONFOTUR</a>`;
+    }
+
+    // 2. Punta Cana / Cap Cana
+    if (query.includes('punta cana') || query.includes('cap cana') || query.includes('bavaro') || query.includes('marina')) {
+      return `🏖️ En <strong>Punta Cana & Cap Cana</strong> contamos con <strong>12 proyectos exclusivos</strong> con alta demanda turística:<br><br>
+      • <strong>Marina Garden 2</strong> (Cap Cana) — Desde US$ 630,000<br>
+      • <strong>Moon Garden</strong> — Desde US$ 160,000<br>
+      • <strong>Crystal Garden</strong> — Desde US$ 178,000<br>
+      • <strong>Wave Garden</strong> — Desde US$ 185,000<br><br>
+      👉 <a href="/proyectos?region=punta-cana" style="color: #15803D; font-weight: 700; text-decoration: underline;">Ver todos los proyectos de Punta Cana</a>`;
+    }
+
+    // 3. Santo Domingo / Distrito Nacional
+    if (query.includes('santo domingo') || query.includes('distrito') || query.includes('naco') || query.includes('piantini')) {
+      return `🏙️ En <strong>Santo Domingo & DN</strong> disponemos de torres residenciales y corporativas de alta plusvalía:<br><br>
+      • <strong>Level Business Center</strong> — Oficinas y suites corporativas.<br>
+      • <strong>Casa Almirall</strong> & <strong>Residencial Bolero</strong> — Aptos desde US$ 98,000.<br><br>
+      👉 <a href="/proyectos?region=santo-domingo" style="color: #15803D; font-weight: 700; text-decoration: underline;">Explorar proyectos en Santo Domingo</a>`;
+    }
+
+    // 4. Invertir desde el exterior / Diáspora USA
+    if (query.includes('usa') || query.includes('estados unidos') || query.includes('exterior') || query.includes('diaspora') || query.includes('remoto') || query.includes('lejos')) {
+      return `🇺🇸 <strong>¡El 100% de nuestros trámites se pueden realizar a distancia!</strong><br><br>
+      Asistimos a dominicanos y extranjeros en EE.UU., Puerto Rico y Europa con:<br>
+      • Firma digital de contratos de reserva y promesa.<br>
+      • Pagos seguros mediante cuentas de fideicomiso bancario regulado.<br>
+      • Asesoría financiera confidencial para trámites y transferencias.<br><br>
+      👉 <a href="https://wa.me/18092995233?text=Hola%20Paola,%20deseo%20asesor%C3%ADa%20para%20invertir%20desde%20el%20exterior." target="_blank" style="color: #15803D; font-weight: 700; text-decoration: underline;">Agenda tu asesoría por WhatsApp</a>`;
+    }
+
+    // 5. Calculadora / ROI / Rentabilidad
+    if (query.includes('roi') || query.includes('calcular') || query.includes('rentabilidad') || query.includes('ganancia') || query.includes('retorno')) {
+      return `📊 El ROI promedio estimado en nuestros proyectos en República Dominicana oscila entre un <strong>7% y un 14% anual en USD</strong> gracias al auge del alquiler vacacional Airbnb.<br><br>
+      👉 <a href="/herramientas" style="color: #15803D; font-weight: 700; text-decoration: underline;">Abrir la Calculadora Interactiva de Rentabilidad</a>`;
+    }
+
+    // 6. Contacto / Paola Caram
+    if (query.includes('contacto') || query.includes('paola') || query.includes('telefono') || query.includes('whatsapp') || query.includes('hablar') || query.includes('asesor')) {
+      return `📱 Puedes comunicarte de inmediato con nuestra Directora Ejecutiva, <strong>Paola Caram</strong>:<br><br>
+      • <strong>WhatsApp Directo:</strong> +1 (809) 299-5233<br>
+      • <strong>Email:</strong> paola.caram@ciasard.org.do<br><br>
+      👉 <a href="https://wa.me/18092995233?text=Hola%20Paola,%20vi%20la%20p%C3%A1gina%20de%20CIASA%20y%20deseo%20informaci%C3%B3n." target="_blank" style="background: #25D366; color: #FFFFFF; font-weight: 800; padding: 6px 12px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-top: 4px;"><i class="fa-brands fa-whatsapp"></i> Escribir a Paola por WhatsApp</a>`;
+    }
+
+    // Respuesta General Inteligente
+    return `Gracias por tu consulta. En CIASA Bolsa Inmobiliaria te brindamos acceso a más de <strong>27 proyectos verificados</strong> en Punta Cana, Cap Cana, Santo Domingo, Juan Dolio, Bayahíbe y Samaná con beneficios de la <strong>Ley CONFOTUR</strong>.<br><br>
+    ¿Deseas que te enviemos el catálogo o te pongamos en contacto con un asesor?<br><br>
+    👉 <a href="javascript:void(0)" onclick="showInlineChatLeadForm()" style="color: #15803D; font-weight: 700; text-decoration: underline;">Solicitar Asesoría Personalizada</a>`;
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+</script>

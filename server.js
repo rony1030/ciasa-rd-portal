@@ -33,6 +33,37 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// 2b.1 Middleware Global de Datos Dinámicos de Perfil CRM y Ajustes
+app.use((req, res, next) => {
+  try {
+    const perfilPath = path.join(__dirname, '_materiales_y_estrategia', 'datos', 'perfil.json');
+    if (fs.existsSync(perfilPath)) {
+      res.locals.perfil = JSON.parse(fs.readFileSync(perfilPath, 'utf-8'));
+    }
+  } catch (e) {
+    res.locals.perfil = {
+      nombre: 'Paola Caram',
+      cargo: 'Directora Ejecutiva',
+      email: 'paola.caram@ciasard.org.do',
+      telefono: '+1 (809) 299-5233'
+    };
+  }
+
+  try {
+    const ajustesPath = path.join(__dirname, '_materiales_y_estrategia', 'datos', 'ajustes.json');
+    if (fs.existsSync(ajustesPath)) {
+      res.locals.ajustes = JSON.parse(fs.readFileSync(ajustesPath, 'utf-8'));
+    }
+  } catch (e) {
+    res.locals.ajustes = {
+      whatsappPhone: '+18092995233',
+      contactoEmail: 'info@ciasard.org.do'
+    };
+  }
+
+  next();
+});
+
 // 2c. Soporte para scripts en rutas anidadas de admin (/admin/js/*)
 app.use('/admin/js', express.static(path.join(PUBLIC_DIR, 'js')));
 app.use('/admin/js', express.static(path.join(SITIO_DIR, 'js')));

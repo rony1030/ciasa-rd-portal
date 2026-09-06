@@ -590,47 +590,271 @@
     </section>
 
     <!-- ==========================================================================
-         EQUIPO DIRECTIVO (DETALLE BIOGRÁFICO EXACTO)
+         LIDERAZGO & DIRECCIÓN EJECUTIVA (PERFIL PAOLA CARAM)
          ========================================================================== -->
-    <section class="team">
+    <section class="team" style="background: #FFFFFF; padding: 90px 0; border-top: 1px solid #E2E8F0;">
       <div class="container">
-        <div style="max-width: 720px; margin: 0 auto; text-align: center;" data-aos="fade-up">
+        <div style="max-width: 760px; margin: 0 auto 50px; text-align: center;" data-aos="fade-up">
           <span class="story-eyebrow" style="display: block;">Liderazgo & Dirección</span>
-          <h2 style="font-size: 2.2rem; font-weight: 800; color: #0A1E36; margin-top: 8px;">Experiencia internacional, visión patrimonial y compromiso familiar.</h2>
-          <p style="font-size: 1.1rem; color: #64748B; margin-top: 12px;">
-            Acompañamiento personalizado directo con la dirección ejecutiva. Sin intermediarios ni intermediaciones complejas.
+          <h2 style="font-size: clamp(2rem, 3.5vw, 2.6rem); font-weight: 900; color: #0A1E36; margin-top: 8px; line-height: 1.2;">
+            Experiencia internacional, visión patrimonial y compromiso familiar.
+          </h2>
+          <p style="font-size: 1.05rem; color: #64748B; margin-top: 14px; line-height: 1.6;">
+            Acompañamiento personalizado directo con la dirección ejecutiva. Sin intermediarios, con total transparencia y rigor técnico.
           </p>
         </div>
 
-        <div style="max-width: 580px; margin: 48px auto 0;">
-          <!-- Paola Caram Ibarra -->
-          <article class="team-card shine-effect interactive-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="team-photo" style="background: #ffffff; max-height: 420px;">
-              <img src="/assets/images/team/paola-caram.jpg?v=3" alt="Paola Caram Ibarra" style="object-position: center top; object-fit: cover;">
-              <span class="team-role-tag animate-pulse-subtle">Directora Ejecutiva</span>
+        <style>
+          .executive-showcase {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 24px;
+            padding: 44px 40px;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 48px;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(10, 30, 54, 0.05);
+            position: relative;
+            overflow: hidden;
+          }
+          @media (max-width: 960px) {
+            .executive-showcase {
+              grid-template-columns: 1fr;
+              padding: 30px 24px;
+              gap: 36px;
+            }
+          }
+          .executive-info {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+          }
+          .exec-badge-role {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #F0FDF4;
+            color: #15803D;
+            border: 1px solid #BBF7D0;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            width: fit-content;
+          }
+          .exec-name {
+            font-size: clamp(1.8rem, 2.5vw, 2.3rem);
+            font-weight: 900;
+            color: #0A1E36;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin: 0;
+          }
+          .exec-subtitle {
+            font-size: 0.96rem;
+            color: #2563EB;
+            font-weight: 700;
+            margin-top: -4px;
+          }
+          .exec-bio-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #475569;
+            margin: 0;
+          }
+          .exec-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px 0;
+          }
+          .exec-pill {
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #1E293B;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+          }
+          .exec-contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 1px solid #E2E8F0;
+          }
+          @media (max-width: 580px) {
+            .exec-contact-grid {
+              grid-template-columns: 1fr;
+            }
+          }
+          .exec-contact-btn {
+            padding: 13px 18px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            transition: all 0.2s ease;
+          }
+          .btn-exec-wa {
+            background: #25D366;
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+          }
+          .btn-exec-wa:hover {
+            background: #20BD5A;
+            transform: translateY(-2px);
+            color: #FFFFFF;
+          }
+          .btn-exec-call {
+            background: #0A1E36;
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px rgba(10, 30, 54, 0.2);
+          }
+          .btn-exec-call:hover {
+            background: #1E3A8A;
+            transform: translateY(-2px);
+            color: #FFFFFF;
+          }
+          .btn-exec-email {
+            grid-column: 1 / -1;
+            width: 100%;
+            background: #FFFFFF;
+            color: #0A1E36;
+            border: 1.5px solid #CBD5E1;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+          }
+          .btn-exec-email:hover {
+            background: #F8FAFC;
+            border-color: #0A1E36;
+            transform: translateY(-2px);
+            color: #0A1E36;
+          }
+          
+          /* Columna de Imagen */
+          .executive-image-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #FFFFFF;
+            box-shadow: 0 16px 36px rgba(10, 30, 54, 0.12);
+            border: 1px solid #E2E8F0;
+          }
+          .executive-photo-wrap {
+            aspect-ratio: 4 / 4.8;
+            width: 100%;
+            overflow: hidden;
+            background: #FFFFFF;
+          }
+          .executive-photo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.6s ease;
+          }
+          .executive-image-card:hover .executive-photo-wrap img {
+            transform: scale(1.03);
+          }
+          .exec-photo-footer {
+            padding: 16px 20px;
+            background: #0A1E36;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+          .exec-footer-tag {
+            font-size: 0.74rem;
+            color: #A3E635;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+          }
+          .exec-footer-val {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #FFFFFF;
+          }
+        </style>
+
+        <div class="executive-showcase" data-aos="fade-up">
+          <!-- Columna Izquierda: Información & Vías de Contacto -->
+          <div class="executive-info">
+            <span class="exec-badge-role"><i class="fa-solid fa-star"></i> Dirección Ejecutiva</span>
+            <div>
+              <h3 class="exec-name"><%= (typeof perfil !== 'undefined' && perfil.nombre) ? perfil.nombre : 'Paola Caram' %></h3>
+              <div class="exec-subtitle">Directora Ejecutiva · Economista (PUCMM) · M.Sc. Hult International Business School</div>
             </div>
-            <div class="team-body" style="padding: 32px 28px;">
-              <h3>Paola Caram Ibarra</h3>
-              <div class="team-credentials">Economista — M.Sc. Hult International Business School · Directora Ejecutiva</div>
-              <p class="team-bio">
-                Paola es economista por la PUCMM y posgraduada de Hult International Business School. Pero los renglones importantes de su carrera ocurrieron fuera del aula: más de dos décadas en el sistema de Naciones Unidas, trabajando con el PNUD, el Banco Mundial, el BID, USAID y la Harvard Kennedy School.
-              </p>
-              <p class="team-bio">
-                Lideró negociaciones que movilizaron cerca de mil millones de dólares hacia reformas clave: la modernización aduanal, la banca electrónica del Banco Central y el Sistema de Protección Social. Hoy lidera CIASA con esa misma visión: estructurar inversiones sólidas que trasciendan generaciones.
-              </p>
-              <div class="team-meta">
-                <span class="team-tag"><i class="fa-solid fa-landmark" style="color: #2563EB;"></i> PNUD · BID · Banco Mundial</span>
-                <span class="team-tag"><i class="fa-solid fa-graduation-cap" style="color: #7DB33A;"></i> Harvard Kennedy School</span>
-                <span class="team-tag"><i class="fa-solid fa-building-columns" style="color: #0A1E36;"></i> Sucesión Ibarra</span>
-              </div>
-              <a href="https://wa.me/18092995233?text=Hola%20Paola,%20quisiera%20conversar%20sobre%20una%20inversi%C3%B3n%20en%20RD." target="_blank" class="team-wa-btn" style="margin-top: 18px; width: 100%; font-size: 0.95rem; padding: 14px 20px;">
-                <i class="fa-brands fa-whatsapp"></i> Hablar directamente con Paola
+            
+            <p class="exec-bio-text">
+              Economista y posgraduada de <strong>Hult International Business School</strong> con más de dos décadas de trayectoria en el sistema de organismos multilaterales (<strong>PNUD, Banco Mundial, BID, USAID</strong> y la <strong>Harvard Kennedy School</strong>).
+            </p>
+            <p class="exec-bio-text">
+              Lideró negociaciones institucionales que movilizaron más de mil millones de dólares hacia reformas de modernización bancaria y aduanal en República Dominicana. Hoy dirige <strong>CIASA Bolsa Inmobiliaria</strong> con el mismo rigor: asesorar a dominicanos y extranjeros en inversiones de alto patrimonio seguras y rentables.
+            </p>
+
+            <div class="exec-highlights">
+              <span class="exec-pill"><i class="fa-solid fa-landmark" style="color: #2563EB;"></i> PNUD · BID · Banco Mundial</span>
+              <span class="exec-pill"><i class="fa-solid fa-graduation-cap" style="color: #7DB33A;"></i> Harvard Kennedy School</span>
+              <span class="exec-pill"><i class="fa-solid fa-shield-halved" style="color: #0A1E36;"></i> Ley CONFOTUR</span>
+              <span class="exec-pill"><i class="fa-solid fa-earth-americas" style="color: #059669;"></i> Diáspora EE.UU. / Europa</span>
+            </div>
+
+            <!-- Vías de Contacto Directas: WhatsApp, Teléfono y Correo (Sincronizadas con Perfil CRM) -->
+            <% 
+              const contactPhone = (typeof perfil !== 'undefined' && perfil.telefono) ? perfil.telefono : '+1 (809) 299-5233';
+              const cleanPhone = contactPhone.replace(/[^0-9]/g, '');
+              const contactEmail = (typeof perfil !== 'undefined' && perfil.email) ? perfil.email : 'info@ciasard.com';
+              const contactName = (typeof perfil !== 'undefined' && perfil.nombre) ? perfil.nombre : 'Paola Caram';
+            %>
+            <div class="exec-contact-grid">
+              <!-- 1. WhatsApp -->
+              <a href="https://wa.me/<%= cleanPhone %>?text=Hola%20<%= encodeURIComponent(contactName) %>,%20quisiera%20conversar%20sobre%20una%20inversi%C3%B3n%20patrimonial%20en%20RD." target="_blank" class="exec-contact-btn btn-exec-wa" title="Escribir por WhatsApp">
+                <i class="fa-brands fa-whatsapp" style="font-size: 1.15rem;"></i> WhatsApp Directo
+              </a>
+
+              <!-- 2. Llamada Telefónica -->
+              <a href="tel:+<%= cleanPhone %>" class="exec-contact-btn btn-exec-call" title="Llamar directamente">
+                <i class="fa-solid fa-phone" style="font-size: 0.95rem;"></i> Llamar: <%= contactPhone %>
+              </a>
+
+              <!-- 3. Correo Electrónico (Full width span) -->
+              <a href="mailto:<%= contactEmail %>" class="exec-contact-btn btn-exec-email" title="Enviar correo electrónico">
+                <i class="fa-solid fa-envelope" style="font-size: 0.95rem; color: #2563EB;"></i> <%= contactEmail %>
               </a>
             </div>
-          </article>
+          </div>
+
+          <!-- Columna Derecha: Retrato Ejecutivo con Elementos de Confianza -->
+          <div class="executive-image-card" data-aos="zoom-in" data-aos-delay="150">
+            <div class="executive-photo-wrap">
+              <img src="/assets/images/team/paola-caram.jpg?v=4" alt="Paola Caram - Directora Ejecutiva CIASA">
+            </div>
+            <div class="exec-photo-footer">
+              <div>
+                <div class="exec-footer-tag">Atención Personalizada</div>
+                <div class="exec-footer-val">Paola Caram</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="exec-footer-tag">Respuesta Garantizada</div>
+                <div class="exec-footer-val" style="color: #A3E635;"><i class="fa-solid fa-circle-check"></i> En menos de 24h</div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
       </div>
     </section>
 

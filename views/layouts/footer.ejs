@@ -227,7 +227,7 @@
           <div class="footer-col-head">Contacto</div>
           <ul class="footer-links-list">
             <li><a href="tel:+18092995233">+1 (809) 299-5233</a></li>
-            <li><a href="mailto:paola.caram@ciasard.org.do">paola.caram@ciasard.org.do</a></li>
+            <li><a href="mailto:<%= (typeof ajustes !== 'undefined' && ajustes.contactoEmail) ? ajustes.contactoEmail : 'info@ciasard.org.do' %>"><%= (typeof ajustes !== 'undefined' && ajustes.contactoEmail) ? ajustes.contactoEmail : 'info@ciasard.org.do' %></a></li>
             <li><a href="https://wa.me/18092995233" target="_blank" style="color: #22C55E; font-weight: 600;"><i class="fa-brands fa-whatsapp"></i> WhatsApp Directo</a></li>
           </ul>
         </div>
@@ -236,9 +236,14 @@
 
       <!-- Barra Inferior del Footer -->
       <div class="footer-sub-bar">
-        <div>
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
           <span>&copy; 2026 CIASA Bolsa Inmobiliaria. Todos los derechos reservados.</span>
+          <span>·</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('privacidad')" style="color: #94A3B8; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#FFFFFF'" onmouseout="this.style.color='#94A3B8'">Política de Privacidad</a>
+          <span>·</span>
+          <a href="javascript:void(0)" onclick="openLegalModal('disclaimer')" style="color: #94A3B8; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#FFFFFF'" onmouseout="this.style.color='#94A3B8'">Aviso Legal & Términos</a>
         </div>
+        <div>
           <a href="/admin" class="crm-discreet-link" title="Panel Administrativo CIASA">CRM</a>
         </div>
       </div>
@@ -260,33 +265,23 @@
         });
       }
 
-      // 2. Contadores Numéricos Animados con Easing (Estilo Altnest home-three)
-      const counters = document.querySelectorAll('.animate-number');
+      // 2. Animador de contadores numéricos al entrar en pantalla
+      const counters = document.querySelectorAll('.stat-number');
       if (counters.length > 0) {
-        // Inicializar texto en 0
-        counters.forEach(c => {
-          const suffix = c.getAttribute('data-suffix') || '';
-          c.innerText = '0' + suffix;
-        });
-
         const countObserver = new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               const el = entry.target;
-              const target = +el.getAttribute('data-target');
+              const target = parseInt(el.getAttribute('data-count'), 10) || 0;
               const suffix = el.getAttribute('data-suffix') || '';
-              const duration = 1600; // ms
-              const startTime = performance.now();
+              const duration = 1800;
+              const start = performance.now();
 
-              function updateCount(currentTime) {
-                const elapsed = currentTime - startTime;
+              function updateCount(now) {
+                const elapsed = now - start;
                 const progress = Math.min(elapsed / duration, 1);
-                
-                // Función de aceleración suave (ease-out quad)
-                const easeProgress = 1 - (1 - progress) * (1 - progress);
-                const currentVal = Math.floor(easeProgress * target);
-
-                el.innerText = currentVal + suffix;
+                const current = Math.floor(progress * target);
+                el.innerText = current + suffix;
 
                 if (progress < 1) {
                   requestAnimationFrame(updateCount);
@@ -313,5 +308,8 @@
       });
     }
   </script>
+
+  <%- include('../partials/cookie_banner') %>
+  <%- include('../partials/chatbot') %>
 </body>
 </html>

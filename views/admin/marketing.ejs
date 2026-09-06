@@ -1,0 +1,1065 @@
+<%- include('layout', { pageTitle: 'Campaign Builder — CIASA Admin', activePage: 'marketing' }) %>
+
+<style>
+  /* Mailchimp-Style Campaign Builder CSS */
+  .mc-builder-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 120px);
+    margin: -15px -20px -20px -20px;
+    background: #F4F6F8;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Top Bar */
+  .mc-topbar {
+    height: 56px;
+    min-height: 56px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 20;
+    flex-shrink: 0;
+  }
+  .mc-campaign-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .mc-campaign-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #0A1E36;
+    border: 1px solid transparent;
+    padding: 4px 8px;
+    border-radius: 6px;
+    outline: none;
+  }
+  .mc-campaign-title:focus {
+    border-color: #CBD5E1;
+    background: #F8FAFC;
+  }
+  .mc-status-badge {
+    font-size: 0.70rem;
+    color: #15803D;
+    background: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 700;
+  }
+
+  /* Studio Workspace */
+  .mc-workspace {
+    display: flex;
+    flex: 1;
+    height: calc(100% - 56px);
+    overflow: hidden;
+  }
+
+  /* Icon Navigation Sidebar (Leftmost) */
+  .mc-icon-nav {
+    width: 64px;
+    background: #FFFFFF;
+    border-right: 1px solid #E2E8F0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .mc-icon-tab {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #64748B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    font-size: 0.65rem;
+    font-weight: 800;
+    transition: all 0.15s ease;
+  }
+  .mc-icon-tab i {
+    font-size: 1.1rem;
+  }
+  .mc-icon-tab:hover {
+    background: #F1F5F9;
+    color: #0A1E36;
+  }
+  .mc-icon-tab.active {
+    background: #0A1E36;
+    color: #FFFFFF;
+  }
+
+  /* Settings / Palette Panel (Left Side Panel) */
+  .mc-sidepanel {
+    width: 320px;
+    background: #FFFFFF;
+    border-right: 1px solid #E2E8F0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 18px 18px 80px 18px;
+    height: 100%;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+  .mc-sidepanel::-webkit-scrollbar {
+    width: 6px;
+  }
+  .mc-sidepanel::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 3px;
+  }
+  .mc-sidepanel-title {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #0A1E36;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Grid de Bloques Mailchimp */
+  .mc-blocks-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .mc-block-item {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  }
+  .mc-block-item i {
+    font-size: 1.25rem;
+    color: #0A1E36;
+  }
+  .mc-block-item:hover {
+    border-color: #7DB33A;
+    background: #F0FDF4;
+    color: #15803D;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(125, 179, 58, 0.15);
+  }
+  .mc-block-item:hover i {
+    color: #15803D;
+  }
+
+  /* Canvas Central con Scrollbar Fluida */
+  .mc-canvas-area {
+    flex: 1;
+    background: #F1F5F9;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 20px 140px 20px;
+    position: relative;
+    height: 100%;
+  }
+  .mc-canvas-area::-webkit-scrollbar {
+    width: 8px;
+  }
+  .mc-canvas-area::-webkit-scrollbar-track {
+    background: #E2E8F0;
+  }
+  .mc-canvas-area::-webkit-scrollbar-thumb {
+    background: #94A3B8;
+    border-radius: 4px;
+  }
+  .mc-canvas-area::-webkit-scrollbar-thumb:hover {
+    background: #64748B;
+  }
+
+  /* Inline Text Formatting Bar (Mailchimp Floating Toolbar) */
+  .mc-inline-toolbar {
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    margin-bottom: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .mc-tool-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    color: #475569;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+  }
+  .mc-tool-btn:hover {
+    background: #F1F5F9;
+    color: #0A1E36;
+  }
+  .mc-tool-sep {
+    width: 1px;
+    height: 18px;
+    background: #E2E8F0;
+    margin: 0 4px;
+  }
+
+  /* Contenedor del Correo (Canvas Real) */
+  .mc-email-document {
+    width: 100%;
+    max-width: 600px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(10,30,54,0.08);
+    overflow: hidden;
+    transition: max-width 0.3s ease;
+    border: 1px solid #E2E8F0;
+    margin-bottom: 80px;
+  }
+  .mc-email-document.mobile-view {
+    max-width: 375px;
+    border: 12px solid #0F172A;
+    border-radius: 36px;
+  }
+
+  /* Bloque en el Canvas (con borde activo y toolbar flotante) */
+  .mc-canvas-block {
+    position: relative;
+    padding: 8px 12px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+  }
+  .mc-canvas-block:hover {
+    border-color: rgba(125, 179, 58, 0.4);
+  }
+  .mc-canvas-block.selected {
+    border-color: #7DB33A;
+    background: rgba(125, 179, 58, 0.02);
+  }
+
+  .mc-block-tag {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #7DB33A;
+    color: #FFFFFF;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    display: none;
+    z-index: 10;
+  }
+  .mc-canvas-block.selected .mc-block-tag {
+    display: block;
+  }
+
+  /* Barra flotante inferior de acciones del bloque */
+  .mc-block-actionbar {
+    position: absolute;
+    bottom: -14px;
+    right: 10px;
+    background: #0A1E36;
+    border-radius: 6px;
+    padding: 2px 4px;
+    display: none;
+    align-items: center;
+    gap: 2px;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+  .mc-canvas-block.selected .mc-block-actionbar {
+    display: flex;
+  }
+  .mc-block-action-btn {
+    width: 22px;
+    height: 22px;
+    border: none;
+    background: transparent;
+    color: #FFFFFF;
+    font-size: 0.70rem;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mc-block-action-btn:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Formulario de Propiedades en el Sidepanel */
+  .mc-prop-group {
+    margin-bottom: 14px;
+  }
+  .mc-prop-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #475569;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    display: block;
+  }
+</style>
+
+<div class="mc-builder-wrapper">
+  
+  <!-- TOPBAR -->
+  <div class="mc-topbar">
+    <div class="mc-campaign-title-wrap">
+      <a href="/admin/marketing" style="color: #64748B; font-size: 1.1rem; text-decoration: none;" title="Volver">
+        <i class="fa-solid fa-arrow-left"></i>
+      </a>
+      <input type="text" id="campaignNameInput" class="mc-campaign-title" value="Campaña: Contenido Inmobiliario & Ley CONFOTUR">
+      <span class="mc-status-badge"><i class="fa-solid fa-check"></i> Guardado en tiempo real</span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <!-- Toggle Dispositivo -->
+      <div style="background: #F1F5F9; border-radius: 6px; padding: 2px; display: flex; gap: 2px; margin-right: 8px;">
+        <button type="button" class="mc-tool-btn" id="btnViewDesktop" title="Vista Escritorio" onclick="setCanvasView('desktop')" style="background: #FFFFFF; color: #0A1E36; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+          <i class="fa-solid fa-desktop"></i>
+        </button>
+        <button type="button" class="mc-tool-btn" id="btnViewMobile" title="Vista Móvil" onclick="setCanvasView('mobile')">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+        </button>
+      </div>
+
+      <button type="button" class="btn btn-secondary btn-sm" onclick="sendDirectTestEmail()">
+        <i class="fa-solid fa-vial"></i> Enviar Prueba
+      </button>
+      <button type="button" class="btn btn-primary btn-sm" style="background: #15803D; font-weight: 800;" onclick="submitCampaignSend()">
+        <i class="fa-solid fa-paper-plane"></i> Guardar y Despachar
+      </button>
+    </div>
+  </div>
+
+  <!-- WORKSPACE -->
+  <div class="mc-workspace">
+    
+    <!-- BARRA LATERAL DE ICONOS -->
+    <div class="mc-icon-nav">
+      <button type="button" class="mc-icon-tab active" id="tabIconBlocks" onclick="switchSideTab('blocks')">
+        <i class="fa-solid fa-cubes"></i>
+        <span>Bloques</span>
+      </button>
+      <button type="button" class="mc-icon-tab" id="tabIconTemplates" onclick="switchSideTab('templates')">
+        <i class="fa-solid fa-layer-group"></i>
+        <span>Plantillas</span>
+      </button>
+      <button type="button" class="mc-icon-tab" id="tabIconAudience" onclick="switchSideTab('audience')">
+        <i class="fa-solid fa-users"></i>
+        <span>Audiencia</span>
+      </button>
+      <button type="button" class="mc-icon-tab" id="tabIconStyles" onclick="switchSideTab('styles')">
+        <i class="fa-solid fa-palette"></i>
+        <span>Estilos</span>
+      </button>
+    </div>
+
+    <!-- PANEL LATERAL DE CONFIGURACIÓN / PALETA -->
+    <div class="mc-sidepanel" id="mcSidepanel">
+      
+      <!-- CONTENIDO TAB 1: BLOQUES -->
+      <div id="panelContentBlocks">
+        <div class="mc-sidepanel-title">
+          <span>Bloques de Contenido</span>
+          <span style="font-size: 0.70rem; color: #64748B;">Haz clic para insertar</span>
+        </div>
+        
+        <div class="mc-blocks-grid">
+          <div class="mc-block-item" onclick="insertBlock('hero')">
+            <i class="fa-regular fa-image"></i>
+            <span>Imagen</span>
+          </div>
+          <div class="mc-block-item" onclick="insertBlock('heading')">
+            <i class="fa-solid fa-heading"></i>
+            <span>Encabezado</span>
+          </div>
+          <div class="mc-block-item" onclick="insertBlock('paragraph')">
+            <i class="fa-solid fa-paragraph"></i>
+            <span>Párrafo</span>
+          </div>
+          <div class="mc-block-item" onclick="insertBlock('button')">
+            <i class="fa-solid fa-arrow-pointer"></i>
+            <span>Botón CTA</span>
+          </div>
+          <div class="mc-block-item" onclick="insertBlock('confotur')">
+            <i class="fa-solid fa-shield-halved" style="color: #15803D;"></i>
+            <span>CONFOTUR</span>
+          </div>
+          <div class="mc-block-item" onclick="insertBlock('cards')">
+            <i class="fa-solid fa-table-columns"></i>
+            <span>Zonas RD</span>
+          </div>
+          <div class="mc-block-item" onclick="insertBlock('social')">
+            <i class="fa-solid fa-share-nodes"></i>
+            <span>Redes</span>
+          </div>
+          <div class="mc-block-item" onclick="insertBlock('signature')">
+            <i class="fa-solid fa-signature"></i>
+            <span>Firma Paola</span>
+          </div>
+          <div class="mc-block-item" onclick="insertBlock('divider')">
+            <i class="fa-solid fa-minus"></i>
+            <span>Divisor</span>
+          </div>
+          <div class="mc-block-item" onclick="insertBlock('spacer')">
+            <i class="fa-solid fa-arrows-up-down"></i>
+            <span>Espaciador</span>
+          </div>
+        </div>
+
+        <!-- Propiedades del Bloque Seleccionado -->
+        <div id="selectedBlockPropsWrapper" style="margin-top: 24px; padding-top: 18px; border-top: 1px solid #E2E8F0; display: none;">
+          <div class="mc-sidepanel-title">
+            <span id="selectedBlockTitle">Propiedades del Bloque</span>
+            <button type="button" onclick="deselectBlock()" style="border: none; background: transparent; color: #94A3B8; font-size: 0.80rem; cursor: pointer;">Cerrar</button>
+          </div>
+          <div id="selectedBlockPropsForm"></div>
+        </div>
+      </div>
+
+      <!-- CONTENIDO TAB 2: PLANTILLAS BASE -->
+      <div id="panelContentTemplates" style="display: none;">
+        <div class="mc-sidepanel-title">
+          <span>Plantillas Oficiales</span>
+        </div>
+        <p style="font-size: 0.78rem; color: #64748B; line-height: 1.5; margin-bottom: 14px;">
+          Selecciona una plantilla corporativa para cargar todos sus bloques listos:
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button type="button" class="btn btn-secondary btn-sm" style="text-align: left; padding: 10px; font-weight: 700;" onclick="loadTemplatePreset('bienvenida')">
+            <i class="fa-solid fa-envelope-circle-check" style="color: #15803D;"></i> 1. Bienvenida & CONFOTUR (Minuto 0)
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" style="text-align: left; padding: 10px; font-weight: 700;" onclick="loadTemplatePreset('regiones')">
+            <i class="fa-solid fa-chart-line" style="color: #2563EB;"></i> 2. Comparativa Zonas & ROI (Día 2)
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" style="text-align: left; padding: 10px; font-weight: 700;" onclick="loadTemplatePreset('financiamiento')">
+            <i class="fa-solid fa-building-columns" style="color: #D97706;"></i> 3. Financiamiento Diáspora (Día 4)
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" style="text-align: left; padding: 10px; font-weight: 700;" onclick="loadTemplatePreset('blank')">
+            <i class="fa-solid fa-file" style="color: #64748B;"></i> 4. Correo en Blanco (Desde Cero)
+          </button>
+        </div>
+      </div>
+
+      <!-- CONTENIDO TAB 3: AUDIENCIA & DESTINO -->
+      <div id="panelContentAudience" style="display: none;">
+        <div class="mc-sidepanel-title">
+          <span>Audiencia & Destinatario</span>
+        </div>
+
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Seleccionar Lead del CRM</label>
+          <select id="crmLeadSelect" class="form-input" style="padding: 6px 10px; font-size: 0.80rem;" onchange="onCrmLeadChange(this)">
+            <option value="">-- Manual / Escribir abajo --</option>
+            <% leads.filter(l => l.email && l.email.includes('@')).forEach(l => { %>
+              <option value="<%= l._id || l.id %>" data-nombre="<%= l.nombre %>" data-email="<%= l.email %>">
+                <%= l.nombre %> (<%= l.email %>) — <%= l.region || 'General' %>
+              </option>
+            <% }) %>
+          </select>
+        </div>
+
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Nombre del Cliente *</label>
+          <input type="text" id="targetLeadName" class="form-input" value="Dr. Carlos Mendoza" oninput="renderCanvas()">
+        </div>
+
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Correo Electrónico Destino *</label>
+          <input type="email" id="targetLeadEmail" class="form-input" value="carlos.mendoza@example.com">
+        </div>
+
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Asunto (Subject) *</label>
+          <input type="text" id="targetEmailSubject" class="form-input" value="CIASA Bolsa Inmobiliaria — Confirmación de Asesoría de Inversión" oninput="renderCanvas()">
+        </div>
+      </div>
+
+      <!-- CONTENIDO TAB 4: ESTILOS GLOBALES -->
+      <div id="panelContentStyles" style="display: none;">
+        <div class="mc-sidepanel-title">
+          <span>Estilos Globales</span>
+        </div>
+
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Color de Fondo Exterior</label>
+          <input type="color" id="globalBgColor" value="#F1F5F9" class="form-input" style="height: 36px; padding: 2px;" onchange="renderCanvas()">
+        </div>
+
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Color de Fondo Contenedor</label>
+          <input type="color" id="globalContainerColor" value="#FFFFFF" class="form-input" style="height: 36px; padding: 2px;" onchange="renderCanvas()">
+        </div>
+
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Color de Botón Primario</label>
+          <input type="color" id="globalButtonColor" value="#7DB33A" class="form-input" style="height: 36px; padding: 2px;" onchange="renderCanvas()">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CANVAS CENTRAL CON DOCUMENTO INTERACTIVO -->
+    <div class="mc-canvas-area" onclick="onCanvasAreaClick(event)">
+      
+      <!-- TOOLBAR DE FORMATO EN LINEA -->
+      <div class="mc-inline-toolbar" onclick="event.stopPropagation()">
+        <button type="button" class="mc-tool-btn" title="Negrita" onclick="formatText('bold')"><i class="fa-solid fa-bold"></i></button>
+        <button type="button" class="mc-tool-btn" title="Cursiva" onclick="formatText('italic')"><i class="fa-solid fa-italic"></i></button>
+        <button type="button" class="mc-tool-btn" title="Subrayado" onclick="formatText('underline')"><i class="fa-solid fa-underline"></i></button>
+        <div class="mc-tool-sep"></div>
+        <button type="button" class="mc-tool-btn" title="Alinear Izquierda" onclick="formatText('justifyLeft')"><i class="fa-solid fa-align-left"></i></button>
+        <button type="button" class="mc-tool-btn" title="Alinear Centro" onclick="formatText('justifyCenter')"><i class="fa-solid fa-align-center"></i></button>
+        <button type="button" class="mc-tool-btn" title="Alinear Derecha" onclick="formatText('justifyRight')"><i class="fa-solid fa-align-right"></i></button>
+        <div class="mc-tool-sep"></div>
+        <button type="button" class="mc-tool-btn" title="Insertar Enlace" onclick="insertLink()"><i class="fa-solid fa-link"></i></button>
+        <div class="mc-tool-sep"></div>
+        <span style="font-size: 0.70rem; font-weight: 800; color: #64748B; padding: 0 4px;">Variables:</span>
+        <button type="button" class="btn btn-secondary btn-sm" style="font-size: 0.70rem; padding: 2px 6px;" onclick="insertMergeTag('{{nombre}}')">{{nombre}}</button>
+      </div>
+
+      <!-- DOCUMENTO REAL DE CORREO -->
+      <div class="mc-email-document" id="emailDocContainer">
+        
+        <!-- Header Barra Superior de Marca -->
+        <div style="height: 5px; background: linear-gradient(90deg, #0A1E36 0%, #7DB33A 50%, #A3E635 100%);"></div>
+
+        <!-- Header Institucional -->
+        <div style="padding: 24px 32px 18px; text-align: center; background-color: #0A1E36;">
+          <div style="font-size: 1.35rem; font-weight: 900; color: #FFFFFF; line-height: 1.1;">
+            CIASA <span style="color: #A3E635; font-weight: 700; font-size: 1.1rem;">Bolsa Inmobiliaria</span>
+          </div>
+          <div style="font-size: 0.72rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.12em; margin-top: 3px;">
+            República Dominicana · Asesoría Patrimonial & Ley CONFOTUR
+          </div>
+        </div>
+
+        <!-- Contenedor Dinámico de Bloques del Correo -->
+        <div id="emailBlocksContainer" style="padding: 24px 32px;">
+          <!-- Se renderizan los bloques interactivos aquí -->
+        </div>
+
+        <!-- Footer Institucional -->
+        <div style="background-color: #0A1E36; padding: 28px 32px; text-align: center; color: #CBD5E1;">
+          <div style="font-size: 11.5px; color: #94A3B8; margin-bottom: 12px;">
+            <strong>Dirección Ejecutiva:</strong> Paola Caram · <span style="color: #A3E635;">paola.caram@ciasard.org.do</span><br>
+            <strong>Atención General:</strong> <span style="color: #A3E635;">info@ciasard.org.do</span> · Tel: +1 (809) 299-5233
+          </div>
+          <div style="font-size: 10.5px; color: #64748B; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 12px;">
+            Exenciones fiscales según Ley 158-01 (CONFOTUR). Santo Domingo / Punta Cana, República Dominicana.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  // ─── ESTADO DE BLOQUES DEL CAMPAIGN BUILDER ─────────────────────────────────
+  let canvasBlocks = [
+    {
+      id: "b_hero",
+      type: "hero",
+      src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1000&auto=format&fit=crop&q=80",
+      alt: "Inversión Inmobiliaria en República Dominicana"
+    },
+    {
+      id: "b_head",
+      type: "heading",
+      text: "Hola {{nombre}},",
+      level: "h2",
+      align: "left"
+    },
+    {
+      id: "b_text",
+      type: "paragraph",
+      html: "Gracias por contactar a <strong>CIASA Bolsa Inmobiliaria</strong>. Hemos recibido tu solicitud de asesoría patrimonial sobre proyectos verificados en República Dominicana.<br><br>Nuestro equipo directivo, encabezado por <strong>Paola Caram</strong>, está analizando las oportunidades que mejor se adaptan a tu presupuesto y objetivo financiero."
+    },
+    {
+      id: "b_confotur",
+      type: "confotur",
+      title: "Beneficios Exclusivos Ley CONFOTUR 158-01",
+      items: [
+        "15 Años de Exención del 100% del IPI (Impuesto a la Propiedad Inmobiliaria).",
+        "0% Impuesto de Transferencia Inmobiliaria (Ahorro del 3% en titulación).",
+        "0% Impuesto sobre la Renta por ingresos de alquileres turísticos."
+      ]
+    },
+    {
+      id: "b_btn",
+      type: "button",
+      label: "Hablar Directamente con Paola Caram por WhatsApp",
+      url: "https://wa.me/18092995233?text=Hola%20Paola,%20recib%C3%AD%20el%20correo%20de%20CIASA%20y%20deseo%20dar%20seguimiento%20a%20mi%20inversi%C3%B3n.",
+      bgColor: "#7DB33A"
+    },
+    {
+      id: "b_sig",
+      type: "signature",
+      name: "Paola Caram",
+      role: "Directora Ejecutiva · CIASA Bolsa Inmobiliaria",
+      contact: "paola.caram@ciasard.org.do · +1 (809) 299-5233"
+    }
+  ];
+
+  let selectedBlockId = null;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCanvas();
+  });
+
+  // ─── NAVEGACIÓN Y DISPOSITIVOS ──────────────────────────────────────────────
+  function switchSideTab(tab) {
+    document.querySelectorAll('.mc-icon-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('panelContentBlocks').style.display = 'none';
+    document.getElementById('panelContentTemplates').style.display = 'none';
+    document.getElementById('panelContentAudience').style.display = 'none';
+    document.getElementById('panelContentStyles').style.display = 'none';
+
+    if (tab === 'blocks') {
+      document.getElementById('tabIconBlocks').classList.add('active');
+      document.getElementById('panelContentBlocks').style.display = 'block';
+    } else if (tab === 'templates') {
+      document.getElementById('tabIconTemplates').classList.add('active');
+      document.getElementById('panelContentTemplates').style.display = 'block';
+    } else if (tab === 'audience') {
+      document.getElementById('tabIconAudience').classList.add('active');
+      document.getElementById('panelContentAudience').style.display = 'block';
+    } else if (tab === 'styles') {
+      document.getElementById('tabIconStyles').classList.add('active');
+      document.getElementById('panelContentStyles').style.display = 'block';
+    }
+  }
+
+  function setCanvasView(device) {
+    const doc = document.getElementById('emailDocContainer');
+    const btnDesk = document.getElementById('btnViewDesktop');
+    const btnMob = document.getElementById('btnViewMobile');
+
+    if (device === 'mobile') {
+      doc.classList.add('mobile-view');
+      btnMob.style.background = '#FFFFFF';
+      btnMob.style.color = '#0A1E36';
+      btnMob.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+      btnDesk.style.background = 'transparent';
+      btnDesk.style.color = '#475569';
+      btnDesk.style.boxShadow = 'none';
+    } else {
+      doc.classList.remove('mobile-view');
+      btnDesk.style.background = '#FFFFFF';
+      btnDesk.style.color = '#0A1E36';
+      btnDesk.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+      btnMob.style.background = 'transparent';
+      btnMob.style.color = '#475569';
+      btnMob.style.boxShadow = 'none';
+    }
+  }
+
+  // ─── RENDER DEL CANVAS INTERACTIVO ──────────────────────────────────────────
+  function renderCanvas() {
+    const container = document.getElementById('emailBlocksContainer');
+    const recipientName = document.getElementById('targetLeadName').value.trim() || 'Inversionista';
+
+    container.innerHTML = canvasBlocks.map((block, idx) => {
+      const isSelected = (block.id === selectedBlockId);
+      let contentHtml = '';
+
+      if (block.type === 'hero') {
+        contentHtml = `
+          <div style="border-radius: 10px; overflow: hidden; margin: 4px 0;">
+            <img src="${block.src}" alt="${block.alt || ''}" style="width: 100%; display: block; border-radius: 10px;">
+          </div>
+        `;
+      } else if (block.type === 'heading') {
+        const text = (block.text || '').replace(/{{nombre}}/g, recipientName);
+        contentHtml = `<h2 contenteditable="true" onblur="onBlockContentBlur('${block.id}', this.innerText)" style="font-family: sans-serif; font-size: 20px; font-weight: 800; color: #0A1E36; margin: 6px 0; text-align: ${block.align || 'left'}; outline: none;">${text}</h2>`;
+      } else if (block.type === 'paragraph') {
+        const text = (block.html || '').replace(/{{nombre}}/g, recipientName);
+        contentHtml = `<div contenteditable="true" onblur="onBlockContentBlur('${block.id}', this.innerHTML)" style="font-family: sans-serif; font-size: 14.5px; color: #334155; line-height: 1.7; margin: 6px 0; outline: none;">${text}</div>`;
+      } else if (block.type === 'button') {
+        const bg = block.bgColor || '#7DB33A';
+        contentHtml = `
+          <div style="text-align: center; margin: 18px 0;">
+            <a href="${block.url || '#'}" target="_blank" style="background: ${bg}; color: #FFFFFF; font-family: sans-serif; font-size: 13.5px; font-weight: 800; text-decoration: none; padding: 13px 26px; border-radius: 8px; display: inline-block; box-shadow: 0 4px 12px rgba(0,0,0,0.12);">
+              ${block.label || 'Ver más'}
+            </a>
+          </div>
+        `;
+      } else if (block.type === 'confotur') {
+        const items = (block.items || []).map(it => `<li>${it}</li>`).join('');
+        contentHtml = `
+          <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 18px; margin: 14px 0;">
+            <div style="font-size: 12.5px; font-weight: 800; text-transform: uppercase; color: #15803D; letter-spacing: 0.05em; margin-bottom: 8px;">
+              ${block.title || 'Beneficios Ley CONFOTUR 158-01'}
+            </div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 13.5px; color: #475569; line-height: 1.6;">
+              ${items}
+            </ul>
+          </div>
+        `;
+      } else if (block.type === 'cards') {
+        contentHtml = `
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 14px 0;">
+            <tr>
+              <td width="48%" valign="top" style="padding-right: 6px;">
+                <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 14px;">
+                  <div style="font-size: 18px; margin-bottom: 4px;">🏖️</div>
+                  <strong style="color: #0A1E36; font-size: 13px; display: block; margin-bottom: 4px;">Punta Cana & Cap Cana</strong>
+                  <p style="font-size: 11.5px; color: #64748B; margin: 0; line-height: 1.4;">Alta demanda turística y ROI 9-14% en USD.</p>
+                </div>
+              </td>
+              <td width="48%" valign="top" style="padding-left: 6px;">
+                <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 14px;">
+                  <div style="font-size: 18px; margin-bottom: 4px;">🏙️</div>
+                  <strong style="color: #0A1E36; font-size: 13px; display: block; margin-bottom: 4px;">Santo Domingo & DN</strong>
+                  <p style="font-size: 11.5px; color: #64748B; margin: 0; line-height: 1.4;">Plusvalía patrimonial y contratos corporativos.</p>
+                </div>
+              </td>
+            </tr>
+          </table>
+        `;
+      } else if (block.type === 'social') {
+        contentHtml = `
+          <div style="text-align: center; margin: 16px 0; display: flex; justify-content: center; gap: 14px;">
+            <a href="https://instagram.com" target="_blank" style="color: #E1306C; font-size: 18px;"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://facebook.com" target="_blank" style="color: #1877F2; font-size: 18px;"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://wa.me/18092995233" target="_blank" style="color: #25D366; font-size: 18px;"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        `;
+      } else if (block.type === 'signature') {
+        contentHtml = `
+          <div style="border-top: 1px solid #E2E8F0; padding-top: 16px; margin-top: 20px;">
+            <strong style="color: #0A1E36; font-size: 14px; display: block;">${block.name || 'Paola Caram'}</strong>
+            <span style="font-size: 12px; color: #64748B;">${block.role || 'Directora Ejecutiva · CIASA Bolsa Inmobiliaria'}</span><br>
+            <span style="font-size: 12px; color: #2563EB;">${block.contact || 'paola.caram@ciasard.org.do'}</span>
+          </div>
+        `;
+      } else if (block.type === 'divider') {
+        contentHtml = `<div style="border-top: 1px solid #E2E8F0; margin: 18px 0;"></div>`;
+      } else if (block.type === 'spacer') {
+        contentHtml = `<div style="height: ${block.height || 24}px;"></div>`;
+      }
+
+      return `
+        <div class="mc-canvas-block ${isSelected ? 'selected' : ''}" id="block_dom_${block.id}" onclick="selectBlock('${block.id}', event)">
+          <span class="mc-block-tag">${block.type} | ${idx + 1}</span>
+          
+          <div class="mc-block-actionbar" onclick="event.stopPropagation()">
+            <button type="button" class="mc-block-action-btn" title="Subir" onclick="moveBlock('${block.id}', -1)"><i class="fa-solid fa-arrow-up"></i></button>
+            <button type="button" class="mc-block-action-btn" title="Bajar" onclick="moveBlock('${block.id}', 1)"><i class="fa-solid fa-arrow-down"></i></button>
+            <button type="button" class="mc-block-action-btn" title="Duplicar" onclick="duplicateBlock('${block.id}')"><i class="fa-solid fa-copy"></i></button>
+            <button type="button" class="mc-block-action-btn" title="Eliminar" onclick="deleteBlock('${block.id}')" style="color: #F87171;"><i class="fa-solid fa-trash"></i></button>
+          </div>
+
+          ${contentHtml}
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ─── GESTIÓN DE BLOQUES ─────────────────────────────────────────────────────
+  function selectBlock(id, e) {
+    if (e) e.stopPropagation();
+    selectedBlockId = id;
+    renderCanvas();
+    renderBlockProperties(id);
+    switchSideTab('blocks');
+  }
+
+  function deselectBlock() {
+    selectedBlockId = null;
+    document.getElementById('selectedBlockPropsWrapper').style.display = 'none';
+    renderCanvas();
+  }
+
+  function onCanvasAreaClick(e) {
+    deselectBlock();
+  }
+
+  function insertBlock(type) {
+    const newId = "blk_" + Date.now();
+    let newBlock = { id: newId, type };
+
+    if (type === 'hero') {
+      newBlock.src = "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1000&auto=format&fit=crop&q=80";
+      newBlock.alt = "Proyecto Inmobiliario";
+    } else if (type === 'heading') {
+      newBlock.text = "Nuevo Encabezado Destacado";
+      newBlock.align = "left";
+    } else if (type === 'paragraph') {
+      newBlock.html = "Escribe aquí tu párrafo de texto. Puedes usar negritas y enlaces.";
+    } else if (type === 'button') {
+      newBlock.label = "Contactar por WhatsApp";
+      newBlock.url = "https://wa.me/18092995233";
+      newBlock.bgColor = "#7DB33A";
+    } else if (type === 'confotur') {
+      newBlock.title = "Beneficios Fiscales Ley CONFOTUR";
+      newBlock.items = ["15 Años de Exención del 100% del IPI.", "0% Impuesto de Transferencia Inmobiliaria."];
+    } else if (type === 'cards') {
+      newBlock.title = "Zonas Destacadas";
+    } else if (type === 'social') {
+      newBlock.title = "Redes Sociales";
+    } else if (type === 'signature') {
+      newBlock.name = "Paola Caram";
+      newBlock.role = "Directora Ejecutiva · CIASA Bolsa Inmobiliaria";
+      newBlock.contact = "paola.caram@ciasard.org.do · +1 (809) 299-5233";
+    } else if (type === 'divider') {
+      newBlock.color = "#E2E8F0";
+    } else if (type === 'spacer') {
+      newBlock.height = 24;
+    }
+
+    canvasBlocks.push(newBlock);
+    selectBlock(newId);
+  }
+
+  function moveBlock(id, direction) {
+    const idx = canvasBlocks.findIndex(b => b.id === id);
+    if (idx === -1) return;
+    const target = idx + direction;
+    if (target < 0 || target >= canvasBlocks.length) return;
+    const temp = canvasBlocks[idx];
+    canvasBlocks[idx] = canvasBlocks[target];
+    canvasBlocks[target] = temp;
+    renderCanvas();
+  }
+
+  function duplicateBlock(id) {
+    const idx = canvasBlocks.findIndex(b => b.id === id);
+    if (idx === -1) return;
+    const clone = JSON.parse(JSON.stringify(canvasBlocks[idx]));
+    clone.id = "blk_" + Date.now();
+    canvasBlocks.splice(idx + 1, 0, clone);
+    selectBlock(clone.id);
+  }
+
+  function deleteBlock(id) {
+    canvasBlocks = canvasBlocks.filter(b => b.id !== id);
+    deselectBlock();
+  }
+
+  function onBlockContentBlur(id, content) {
+    const block = canvasBlocks.find(b => b.id === id);
+    if (block) {
+      if (block.type === 'heading') block.text = content;
+      if (block.type === 'paragraph') block.html = content;
+    }
+  }
+
+  // ─── PROPIEDADES EN EL PANEL LATERAL ────────────────────────────────────────
+  function renderBlockProperties(id) {
+    const block = canvasBlocks.find(b => b.id === id);
+    if (!block) return;
+
+    const wrapper = document.getElementById('selectedBlockPropsWrapper');
+    const form = document.getElementById('selectedBlockPropsForm');
+    const title = document.getElementById('selectedBlockTitle');
+
+    title.innerText = 'Editar ' + block.type.toUpperCase();
+    wrapper.style.display = 'block';
+
+    let propsHtml = '';
+
+    if (block.type === 'hero') {
+      propsHtml = `
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">URL de la Imagen</label>
+          <input type="text" class="form-input" style="padding: 6px; font-size: 0.80rem;" value="${block.src}" oninput="updateBlockProp('${id}', 'src', this.value)">
+        </div>
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Texto Alternativo (Alt)</label>
+          <input type="text" class="form-input" style="padding: 6px; font-size: 0.80rem;" value="${block.alt || ''}" oninput="updateBlockProp('${id}', 'alt', this.value)">
+        </div>
+      `;
+    } else if (block.type === 'button') {
+      propsHtml = `
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Texto del Botón</label>
+          <input type="text" class="form-input" style="padding: 6px; font-size: 0.80rem;" value="${block.label || ''}" oninput="updateBlockProp('${id}', 'label', this.value)">
+        </div>
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Enlace URL</label>
+          <input type="text" class="form-input" style="padding: 6px; font-size: 0.80rem;" value="${block.url || ''}" oninput="updateBlockProp('${id}', 'url', this.value)">
+        </div>
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Color de Fondo</label>
+          <input type="color" class="form-input" style="height: 34px; padding: 2px;" value="${block.bgColor || '#7DB33A'}" onchange="updateBlockProp('${id}', 'bgColor', this.value)">
+        </div>
+      `;
+    } else if (block.type === 'heading') {
+      propsHtml = `
+        <div class="mc-prop-group">
+          <label class="mc-prop-label">Alineación</label>
+          <select class="form-input" style="padding: 6px; font-size: 0.80rem;" onchange="updateBlockProp('${id}', 'align', this.value)">
+            <option value="left" ${block.align === 'left' ? 'selected' : ''}>Izquierda</option>
+            <option value="center" ${block.align === 'center' ? 'selected' : ''}>Centro</option>
+            <option value="right" ${block.align === 'right' ? 'selected' : ''}>Derecha</option>
+          </select>
+        </div>
+      `;
+    }
+
+    form.innerHTML = propsHtml || '<div style="font-size: 0.76rem; color: #64748B;">Edita directamente el texto sobre el lienzo.</div>';
+  }
+
+  function updateBlockProp(id, prop, val) {
+    const block = canvasBlocks.find(b => b.id === id);
+    if (block) {
+      block[prop] = val;
+      renderCanvas();
+    }
+  }
+
+  // ─── CARGA DE PLANTILLAS BASE ───────────────────────────────────────────────
+  function loadTemplatePreset(preset) {
+    if (preset === 'bienvenida') {
+      document.getElementById('targetEmailSubject').value = "CIASA Bolsa Inmobiliaria — Confirmación de Asesoría de Inversión";
+      canvasBlocks = [
+        { id: "b1", type: "hero", src: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=1000&auto=format&fit=crop&q=80" },
+        { id: "b2", type: "heading", text: "Hola {{nombre}},", align: "left" },
+        { id: "b3", type: "paragraph", html: "Gracias por contactar a <strong>CIASA Bolsa Inmobiliaria</strong>. Hemos recibido tu solicitud de asesoría patrimonial sobre proyectos en República Dominicana." },
+        { id: "b4", type: "confotur", title: "Beneficios Exclusivos Ley CONFOTUR 158-01", items: ["15 Años de Exención del 100% del IPI.", "0% Impuesto de Transferencia Inmobiliaria.", "0% Impuesto sobre la Renta."] },
+        { id: "b5", type: "button", label: "Hablar Directamente con Paola Caram por WhatsApp", url: "https://wa.me/18092995233", bgColor: "#7DB33A" },
+        { id: "b6", type: "signature", name: "Paola Caram", role: "Directora Ejecutiva · CIASA Bolsa Inmobiliaria", contact: "paola.caram@ciasard.org.do · +1 (809) 299-5233" }
+      ];
+    } else if (preset === 'regiones') {
+      document.getElementById('targetEmailSubject').value = "¿Punta Cana, Santo Domingo o Samaná? — Comparativa de Inversión CIASA";
+      canvasBlocks = [
+        { id: "b1", type: "heading", text: "Hola {{nombre}},", align: "left" },
+        { id: "b2", type: "paragraph", html: "Al momento de invertir en bienes raíces en República Dominicana, la ubicación determina tu flujo de caja por rentas vacacionales." },
+        { id: "b3", type: "cards" },
+        { id: "b4", type: "button", label: "Ver Catálogo de 27 Proyectos", url: "https://ciasard.org.do/proyectos", bgColor: "#0A1E36" }
+      ];
+    } else if (preset === 'financiamiento') {
+      document.getElementById('targetEmailSubject').value = "¿Cómo financiar tu propiedad en RD desde EE.UU. o Europa?";
+      canvasBlocks = [
+        { id: "b1", type: "heading", text: "Hola {{nombre}},", align: "left" },
+        { id: "b2", type: "paragraph", html: "Comprar y financiar una propiedad en República Dominicana a distancia es 100% seguro con Fideicomiso Inmobiliario y Firma Digital." },
+        { id: "b3", type: "confotur", title: "Pilares de Seguridad Jurídica", items: ["Precalificación hipotecaria en USD.", "Cuentas fiduciarias reguladas Banreservas/BHD/Popular."] },
+        { id: "b4", type: "button", label: "Solicitar Asesoría Financiera", url: "https://wa.me/18092995233", bgColor: "#7DB33A" }
+      ];
+    } else {
+      document.getElementById('targetEmailSubject').value = "Comunicado Oficial — CIASA Bolsa Inmobiliaria";
+      canvasBlocks = [
+        { id: "b1", type: "heading", text: "Hola {{nombre}},", align: "left" },
+        { id: "b2", type: "paragraph", html: "Escribe aquí tu comunicado." }
+      ];
+    }
+    deselectBlock();
+    renderCanvas();
+    switchSideTab('blocks');
+  }
+
+  function onCrmLeadChange(select) {
+    const opt = select.options[select.selectedIndex];
+    if (opt && opt.value) {
+      document.getElementById('targetLeadName').value = opt.getAttribute('data-nombre') || '';
+      document.getElementById('targetLeadEmail').value = opt.getAttribute('data-email') || '';
+      renderCanvas();
+    }
+  }
+
+  // ─── HERRAMIENTAS DE FORMATO WYSIWYG ────────────────────────────────────────
+  function formatText(cmd) {
+    document.execCommand(cmd, false, null);
+  }
+
+  function insertLink() {
+    const url = prompt('Introduce la dirección URL del enlace:', 'https://ciasard.org.do');
+    if (url) {
+      document.execCommand('createLink', false, url);
+    }
+  }
+
+  function insertMergeTag(tag) {
+    document.execCommand('insertText', false, tag);
+  }
+
+  // ─── ACCIONES DE DESPACHO & PRUEBA ──────────────────────────────────────────
+  async function submitCampaignSend() {
+    const email = document.getElementById('targetLeadEmail').value.trim();
+    const name = document.getElementById('targetLeadName').value.trim();
+    const subject = document.getElementById('targetEmailSubject').value.trim();
+    const leadSelect = document.getElementById('crmLeadSelect');
+    const leadId = leadSelect ? leadSelect.value : '';
+
+    if (!email || !email.includes('@')) {
+      alert('Por favor especifica un correo electrónico válido en la pestaña Audiencia.');
+      switchSideTab('audience');
+      return;
+    }
+
+    try {
+      const res = await fetch('/admin/marketing/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          templateId: 'bienvenida_dossier',
+          leadId,
+          customNombre: name,
+          customEmail: email,
+          customSubject: subject
+        })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        alert('¡Campaña procesada y despachada exitosamente a ' + email + '!');
+      } else {
+        alert('Error al despachar: ' + (data.error || 'Desconocido'));
+      }
+    } catch (e) {
+      alert('Error de conexión al enviar correo.');
+    }
+  }
+
+  function sendDirectTestEmail() {
+    const testEmail = prompt('Introduce el correo electrónico para enviar la prueba:', 'paola.caram@ciasard.org.do');
+    if (testEmail && testEmail.includes('@')) {
+      document.getElementById('targetLeadEmail').value = testEmail;
+      submitCampaignSend();
+    }
+  }
+</script>
+
+<%- include('layout-end') %>
