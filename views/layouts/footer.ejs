@@ -308,6 +308,9 @@
         navLinks.classList.toggle('open');
         const isOpen = navLinks.classList.contains('open');
         document.body.classList.toggle('mobile-nav-open', isOpen);
+        if (!isOpen) {
+          document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
+        }
       });
     }
 
@@ -323,6 +326,7 @@
             parent.classList.toggle('open');
             const isExpanded = parent.classList.contains('open');
             btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+            btn.blur();
           }
         }
       });
