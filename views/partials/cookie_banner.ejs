@@ -2,7 +2,7 @@
      CIASA RD — BANNER DE COOKIES & MODAL DE PRIVACIDAD (SIN ICONO DE GALLETA)
      ========================================================================== -->
 <style>
-  /* Banner Flotante de Consentimiento */
+  /* Banner Flotante de Consentimiento (Z-INDEX SUPERIOR AL CHATBOT) */
   .ciasa-cookie-banner {
     position: fixed;
     bottom: 24px;
@@ -10,14 +10,14 @@
     right: 24px;
     max-width: 980px;
     margin: 0 auto;
-    background: rgba(10, 30, 54, 0.96);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(10, 30, 54, 0.98);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 16px;
     padding: 20px 24px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-    z-index: 9998;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+    z-index: 10005; /* Siempre por encima del launcher del bot (9999) */
     display: none;
     align-items: center;
     justify-content: space-between;
@@ -72,6 +72,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 4px 14px rgba(125, 179, 58, 0.35);
+    white-space: nowrap;
   }
   .btn-cookie-accept:hover {
     background: #6CA02E;
@@ -87,6 +88,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
+    white-space: nowrap;
   }
   .btn-cookie-reject:hover {
     background: rgba(255, 255, 255, 0.15);
@@ -96,20 +98,41 @@
   @media (max-width: 768px) {
     .ciasa-cookie-banner {
       flex-direction: column;
-      align-items: flex-start;
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
-      padding: 18px;
+      align-items: stretch;
+      bottom: 14px;
+      left: 12px;
+      right: 12px;
+      padding: 16px 18px;
     }
     .ciasa-cookie-actions {
       width: 100%;
-      justify-content: flex-end;
-      margin-top: 6px;
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
     }
     .btn-cookie-accept, .btn-cookie-reject {
       flex: 1;
       text-align: center;
+      padding: 11px 12px;
+      font-size: 0.84rem;
+    }
+  }
+
+  /* Coordinación de Visibilidad: Mientras el banner de cookies esté activo */
+  body.has-cookie-banner .ciasa-chat-launcher {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(20px) scale(0.9) !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  @media (min-width: 1025px) {
+    body.has-cookie-banner .ciasa-chat-launcher {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      bottom: 125px !important;
+      transform: none !important;
     }
   }
 
@@ -117,9 +140,9 @@
   .ciasa-legal-modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(10, 30, 54, 0.75);
-    backdrop-filter: blur(6px);
-    z-index: 10000;
+    background: rgba(10, 30, 54, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 10020; /* Superior a todo */
     display: none;
     align-items: center;
     justify-content: center;
@@ -232,15 +255,17 @@
   (function() {
     const consent = localStorage.getItem('ciasa_cookie_consent_v1');
     if (!consent) {
+      document.body.classList.add('has-cookie-banner');
       setTimeout(() => {
         const banner = document.getElementById('ciasaCookieBanner');
         if (banner) banner.classList.add('show');
-      }, 1200);
+      }, 800);
     }
   })();
 
   function dismissCookieConsent(tipo) {
     localStorage.setItem('ciasa_cookie_consent_v1', tipo || 'todas');
+    document.body.classList.remove('has-cookie-banner');
     const banner = document.getElementById('ciasaCookieBanner');
     if (banner) banner.classList.remove('show');
   }

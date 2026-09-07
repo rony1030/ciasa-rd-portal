@@ -21,6 +21,22 @@
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     font-family: inherit;
   }
+  /* Si el banner de cookies está activo, no interferir con las cookies en móvil */
+  body.has-cookie-banner .ciasa-chat-launcher {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(20px) scale(0.9) !important;
+  }
+  @media (min-width: 1025px) {
+    body.has-cookie-banner .ciasa-chat-launcher {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      bottom: 125px !important;
+      transform: none !important;
+    }
+  }
   .ciasa-chat-launcher:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 12px 30px rgba(10, 30, 54, 0.45);
