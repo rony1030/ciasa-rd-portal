@@ -303,8 +303,49 @@
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
     if (navToggle && navLinks) {
-      navToggle.addEventListener('click', () => {
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         navLinks.classList.toggle('open');
+        const isOpen = navLinks.classList.contains('open');
+        document.body.classList.toggle('mobile-nav-open', isOpen);
+      });
+    }
+
+    // Toggle submenú Asesoría en móvil (plegar/desplegar)
+    const dropdownTriggers = document.querySelectorAll('.nav-dropdown-trigger');
+    dropdownTriggers.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        if (window.innerWidth <= 920) {
+          e.preventDefault();
+          e.stopPropagation();
+          const parent = btn.closest('.nav-dropdown');
+          if (parent) {
+            parent.classList.toggle('open');
+            const isExpanded = parent.classList.contains('open');
+            btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+          }
+        }
+      });
+    });
+
+    // Cerrar menú móvil al hacer click en enlaces o fuera
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 920 && navLinks && navLinks.classList.contains('open')) {
+        if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+          navLinks.classList.remove('open');
+          document.body.classList.remove('mobile-nav-open');
+        }
+      }
+    });
+
+    if (navLinks) {
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          if (window.innerWidth <= 920) {
+            navLinks.classList.remove('open');
+            document.body.classList.remove('mobile-nav-open');
+          }
+        });
       });
     }
   </script>

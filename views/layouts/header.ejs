@@ -602,9 +602,15 @@
         width: 100%;
         justify-content: space-between;
       }
+      .nav-dropdown-trigger i {
+        transition: transform 0.25s ease;
+      }
+      .nav-dropdown.open .nav-dropdown-trigger i {
+        transform: rotate(180deg);
+      }
       .nav-dropdown .dropdown-menu {
         position: static;
-        display: flex;
+        display: none; /* Por defecto contraído en móvil */
         box-shadow: none;
         border: 1px solid #E2E8F0;
         background: #F8FAFC;
@@ -614,6 +620,15 @@
         border-left: 4px solid var(--green);
         border-radius: 12px;
         gap: 4px;
+        flex-direction: column;
+      }
+      .nav-dropdown.open .dropdown-menu {
+        display: flex;
+        animation: subMenuSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      @keyframes subMenuSlide {
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
       }
       .nav-dropdown .dropdown-menu a {
         display: flex;
@@ -630,6 +645,16 @@
         background: #FFFFFF;
         color: var(--green);
         transform: translateX(3px);
+      }
+
+      /* Ocultar Launcher de CIASA AI cuando el menú móvil esté abierto */
+      body.mobile-nav-open .ciasa-chat-launcher,
+      body:has(.nav-links.open) .ciasa-chat-launcher {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        transform: translateY(24px) scale(0.85) !important;
+        transition: all 0.25s ease !important;
       }
     }
     @media (max-width: 480px) {
