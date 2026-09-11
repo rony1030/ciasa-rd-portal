@@ -2,34 +2,34 @@
 
 <!-- TARJETAS DE MÉTRICAS PRINCIPALES (ESTILO WOWDASH / FILLOW) -->
 <div class="stat-grid">
-  <!-- 1. Ventas Proyectadas -->
+  <!-- 1. Ventas Proyectadas & Comisiones -->
   <div class="stat-card">
-    <div class="stat-card-label">Ventas Proyectadas</div>
+    <div class="stat-card-label"><%= (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'asesor') ? 'Mis Comisiones Estimadas' : 'Comisiones & Pipeline Global' %></div>
     <div style="display: flex; align-items: baseline; gap: 8px; margin: 4px 0;">
-      <span class="stat-card-value">$1,840,000</span>
-      <span class="badge badge-green">+18.4%</span>
+      <span class="stat-card-value">$<%= (stats && stats.comisionesAcumuladas ? stats.comisionesAcumuladas : 45500).toLocaleString('en-US') %></span>
+      <span class="badge badge-green">USD</span>
     </div>
-    <div class="stat-card-sub">+$284,000 en 4 cierres en proceso</div>
+    <div class="stat-card-sub"><%= (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'asesor') ? 'Comisión estimada asignada a tu cartera' : 'Volumen global de honorarios en proceso' %></div>
   </div>
 
   <!-- 2. Prospectos & Leads -->
   <div class="stat-card">
-    <div class="stat-card-label">Prospectos & Leads Activos</div>
+    <div class="stat-card-label"><%= (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'asesor') ? 'Mis Prospectos Asignados' : 'Prospectos & Leads Activos' %></div>
     <div style="display: flex; align-items: baseline; gap: 8px; margin: 4px 0;">
-      <span class="stat-card-value"><%= stats ? stats.totalLeads : 6 %></span>
-      <span class="badge badge-blue">+82% Diáspora</span>
+      <span class="stat-card-value"><%= stats ? stats.totalLeads : 0 %></span>
+      <span class="badge badge-blue"><%= (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'asesor') ? 'Mi Cartera' : 'Total CRM' %></span>
     </div>
-    <div class="stat-card-sub"><%= stats ? stats.leadsHoy : 2 %> nuevos registrados hoy</div>
+    <div class="stat-card-sub"><%= stats ? stats.leadsHoy : 0 %> nuevos registrados hoy</div>
   </div>
 
-  <!-- 3. Email Marketing (Reach) -->
+  <!-- 3. Rendimiento / Rol Activo -->
   <div class="stat-card">
-    <div class="stat-card-label">Email Marketing (Reach)</div>
+    <div class="stat-card-label">Nivel de Acceso & Perfil</div>
     <div style="display: flex; align-items: baseline; gap: 8px; margin: 4px 0;">
-      <span class="stat-card-value">44.8%</span>
-      <span class="badge badge-green">+14.2% Clics</span>
+      <span class="stat-card-value" style="font-size: 1.25rem;"><%= (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'admin') ? 'Administrador' : 'Asesor Comercial' %></span>
+      <span class="badge badge-purple"><%= (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'admin') ? 'Total' : 'Restringido' %></span>
     </div>
-    <div class="stat-card-sub">3 secuencias activas para médicos NPI</div>
+    <div class="stat-card-sub"><%= (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'admin') ? 'Gestión total de usuarios, SEO y NPI' : 'Solo acceso a tus leads y comisiones' %></div>
   </div>
 
   <!-- 4. Catálogo de Proyectos -->

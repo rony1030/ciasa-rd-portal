@@ -226,6 +226,7 @@
         <th>Proyecto de Interés</th>
         <th>Canal</th>
         <th>Ubicación</th>
+        <th>Asesor / Comisión</th>
         <th>Estado Pipeline</th>
         <th>Bitácora</th>
         <th>Acción</th>
@@ -258,6 +259,10 @@
           </td>
           <td style="font-size: 0.82rem; color: var(--text-muted);">
             <%= [lead.ciudad, lead.pais].filter(Boolean).join(', ') || '—' %>
+          </td>
+          <td>
+            <div style="font-size: 0.82rem; font-weight: 700; color: #1D4ED8;"><i class="fa-solid fa-user-tie"></i> <%= lead.asesorAsignado || 'Paola Caram' %></div>
+            <span style="font-size: 0.72rem; color: #16A34A; font-weight: 800;">$<%= (lead.comisionEstimadaUSD || 9250).toLocaleString('en-US') %> USD com.</span>
           </td>
           <td>
             <% const sv = (lead.statusVentas || 'nuevo').toLowerCase(); %>

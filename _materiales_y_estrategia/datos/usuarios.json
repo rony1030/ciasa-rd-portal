@@ -1,0 +1,30 @@
+[
+  {
+    "id": "usr_admin_paola",
+    "nombre": "Paola Caram",
+    "email": "paola.caram@ciasard.org.do",
+    "username": "paola.caram",
+    "role": "admin",
+    "cargo": "Directora Ejecutiva",
+    "telefono": "+1 (809) 299-5233",
+    "avatar": "/assets/images/team/paola-caram-avatar.jpg",
+    "activo": true,
+    "passwordHash": "81fb13be76945bba8a7ce057fbb51edc:f5269700ae06ce0d5ea257d4cb67163dc331a1cde64fcd41f277cde983c4f34f600e21e759243e5952c725bf35b65a4e0bb49b90999a48fbafe6ad89fd54c340",
+    "comisionPorcentaje": 100,
+    "createdAt": "2026-08-01T10:00:00.000Z"
+  },
+  {
+    "id": "usr_asesor_gisselle",
+    "nombre": "Gisselle de los Santos",
+    "email": "gisselle@ciasard.org.do",
+    "username": "gisselle",
+    "role": "asesor",
+    "cargo": "Asesora Inmobiliaria Senior",
+    "telefono": "+1 (809) 555-0144",
+    "avatar": "/assets/images/team/paola-caram-avatar.jpg",
+    "activo": true,
+    "passwordHash": "67fbfa9362ccfe393909c1de1a983e21:61c48a28c61b44ffdef75238736e7d309ec389a82f003c03526fb987293dd121699cd486b4c195be0c01ab1753da41d780aa9f262c86c506c8dab01fa003aa72",
+    "comisionPorcentaje": 50,
+    "createdAt": "2026-08-15T10:00:00.000Z"
+  }
+]

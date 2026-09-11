@@ -231,6 +231,34 @@
             </div>
           </div>
 
+          <!-- Selector de Asesor Responsable & Atribución de Comisiones -->
+          <% const isRoleAdmin = (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'admin'); %>
+          <div class="form-group">
+            <label class="form-label">Asesor Comercial Asignado (Atribución)</label>
+            <% if (isRoleAdmin && typeof users !== 'undefined' && users && users.length > 0) { %>
+              <div class="custom-dropdown-wrap" id="leadAsesorDropdownWrap">
+                <div class="custom-dropdown-trigger" onclick="toggleAdminDropdown('leadAsesorDropdownWrap')">
+                  <span id="leadAsesorSelectedLabel"><%= currentUser.nombre %> (<%= currentUser.role === 'admin' ? 'Admin' : 'Asesor' %>)</span>
+                  <i class="fa-solid fa-chevron-down chevron-icon"></i>
+                </div>
+                <div class="custom-dropdown-menu">
+                  <% users.forEach(u => { %>
+                    <div class="custom-dropdown-item <%= u.id === currentUser.id ? 'selected' : '' %>" onclick="selectAdminOption('leadAsesorInput', '<%= u.id %>', '<%= u.nombre %> (<%= u.role === 'admin' ? 'Admin' : 'Asesor' %>)', 'leadAsesorSelectedLabel', 'leadAsesorDropdownWrap')">
+                      <span><strong><%= u.nombre %></strong> · <%= u.cargo || (u.role === 'admin' ? 'Directora' : 'Asesor') %></span>
+                    </div>
+                  <% }) %>
+                </div>
+                <input type="hidden" name="asesorId" id="leadAsesorInput" value="<%= currentUser.id %>">
+              </div>
+            <% } else { %>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-user-check" style="color: #16A34A;"></i>
+                <input type="text" class="form-input" value="<%= (typeof currentUser !== 'undefined' && currentUser) ? currentUser.nombre : 'Asesor Asignado' %>" readonly style="background: #F8FAFC; color: #1E293B; font-weight: 700;">
+                <input type="hidden" name="asesorId" value="<%= (typeof currentUser !== 'undefined' && currentUser) ? currentUser.id : '' %>">
+              </div>
+            <% } %>
+          </div>
+
           <!-- Dropdown Personalizado: Origen -->
           <div class="form-group">
             <label class="form-label">Origen / Canal de Captación</label>

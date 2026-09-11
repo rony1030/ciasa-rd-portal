@@ -1,0 +1,214 @@
+<%- include('./layout', { pageTitle: 'Gestión de Usuarios & Asesores', activePage: 'usuarios' }) %>
+ 
+ <div class="section-header">
+   <div>
+     <h2>Equipo, Asesores & Control de Acceso</h2>
+     <p>Gestión de usuarios, roles de seguridad y carteras de comisiones</p>
+   </div>
+   <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('modalNuevoUsuario').style.display='flex'">
+     <i class="fa-solid fa-user-plus"></i> Nuevo Asesor / Usuario
+   </button>
+ </div>
+ 
+<% if (typeof success !== 'undefined' && success) { %>
+   <div style="background: #F0FDF4; border: 1px solid #BBF7D0; color: #166534; padding: 12px 18px; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 700;">
+     <i class="fa-solid fa-circle-check" style="font-size: 1.1rem;"></i>
+     <span>Usuario guardado y credenciales activadas exitosamente.</span>
+   </div>
+ <% } %>
+ 
+<% if (typeof error !== 'undefined' && error) { %>
+   <div style="background: #FEF2F2; border: 1px solid #FECACA; color: #DC2626; padding: 12px 18px; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 700;">
+     <i class="fa-solid fa-circle-exclamation" style="font-size: 1.1rem;"></i>
+     <span><%= error %></span>
+   </div>
+ <% } %>
+ 
+ <!-- TARJETAS DE RESUMEN DE ROLES -->
+ <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 28px;">
+   <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-card); display: flex; align-items: center; gap: 16px;">
+     <div style="width: 48px; height: 48px; border-radius: 12px; background: #FEF3C7; color: #D97706; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+       <i class="fa-solid fa-crown"></i>
+     </div>
+     <div>
+       <div style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted);">Rol Administrador</div>
+       <div style="font-size: 1.35rem; font-weight: 900; color: var(--text-heading);">
+         <%= usuarios.filter(u => u.role === 'admin').length %>
+       </div>
+       <div style="font-size: 0.74rem; color: #16A34A; font-weight: 700;">Acceso global + comisiones</div>
+     </div>
+   </div>
+ 
+   <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-card); display: flex; align-items: center; gap: 16px;">
+     <div style="width: 48px; height: 48px; border-radius: 12px; background: #EFF6FF; color: #2563EB; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+       <i class="fa-solid fa-user-tie"></i>
+     </div>
+     <div>
+       <div style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted);">Asesores Comerciales</div>
+       <div style="font-size: 1.35rem; font-weight: 900; color: var(--text-heading);">
+         <%= usuarios.filter(u => u.role === 'asesor').length %>
+       </div>
+       <div style="font-size: 0.74rem; color: #2563EB; font-weight: 700;">Acceso restringido a sus leads</div>
+     </div>
+   </div>
+ 
+   <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 16px; padding: 20px; box-shadow: var(--shadow-card); display: flex; align-items: center; gap: 16px;">
+     <div style="width: 48px; height: 48px; border-radius: 12px; background: #F0FDF4; color: #16A34A; display: flex; align-items: center; justify-content: center; font-size: 1.4rem;">
+       <i class="fa-solid fa-shield-halved"></i>
+     </div>
+     <div>
+       <div style="font-size: 0.76rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted);">Seguridad Activa</div>
+       <div style="font-size: 1.05rem; font-weight: 900; color: #15803D;">Criptografía Scrypt</div>
+       <div style="font-size: 0.74rem; color: var(--text-muted);">Sessions HTTPOnly + Salt</div>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- TABLA DE USUARIOS / ASESORES -->
+ <div style="background: #FFFFFF; border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-card); margin-bottom: 40px;">
+   <div style="padding: 18px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #FAFAFC;">
+     <div>
+       <h3 style="font-size: 0.95rem; font-weight: 800; text-transform: uppercase; margin: 0; color: var(--text-heading);">Listado de Usuarios Registrados</h3>
+       <span style="font-size: 0.74rem; color: var(--text-muted);">Control de estado y auditoría de accesos</span>
+     </div>
+     <span class="badge badge-purple"><= usuarios.length %> Cuentas</span>
+   </div>
+ 
+   <div style="overflow-x: auto;">
+     <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+       <thead>
+         <tr style="background: #F8FAFC; border-bottom: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px;">
+           <th style="padding: 14px 20px;">Usuario / Asesor</th>
+           <th style="padding: 14px 16px;">Rol & Permisos</th>
+           <th style="padding: 14px 16px;">Contacto</th>
+           <th style="padding: 14px 16px;">Leads Asignados</th>
+           <th style="padding: 14px 16px;">% Comisión</th>
+           <th style="padding: 14px 16px;">Estado</th>
+           <th style="padding: 14px 20px; text-align: right;">Acciones</th>
+         </tr>
+       </thead>
+       <tbody>
+         <% usuarios.forEach(u => { 
+            const userLeads = leads.filter(l => l.asesorId === u.id || l.asesorAsignado === u.nombre);
+            const comisionTotal = userLeads.reduce((acc, l) => acc + (l.comisionEstimadaUSD || 0), 0);
+          %>
+           <tr style="border-bottom: 1px solid var(--border-color); transition: background 0.15s;">
+             <td style="padding: 14px 20px;">
+               <div style="display: flex; align-items: center; gap: 12px;">
+                 <div style="width: 40px; height: 40px; border-radius: 50%; background: <%= u.role === 'admin' ? '#FEF3C7' : '#EFF6FF' %>; color: <%= u.role === 'admin' ? '#D97706' : '#2563EB' %>; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; flex-shrink: 0; border: 2px solid var(--border-color);">
+                   <%= (u.nombre || 'UN').charAt(0).toUpperCase() %>
+                 </div>
+                 <div>
+                   <strong style="color: var(--text-heading); font-size: 0.88rem; display: block;"><%= u.nombre %></strong>
+                   <span style="font-size: 0.74rem; color: var(--text-muted);">@<%= u.username %> · <%= u.cargo || 'Asesor' %></span>
+                 </div>
+               </div>
+             </td>
+             <td style="padding: 14px 16px;">
+               <% if (u.role === 'admin') { %>
+                 <span class="badge" style="background: #FEF3C7; color: #B45309; border: 1px solid #FCD34D;"><i class="fa-solid fa-crown"></i> Administrador</span>
+                 <div style="font-size: 0.70rem; color: var(--text-muted); margin-top: 2px;">Acceso global</div>
+               <% } else { %>
+                 <span class="badge" style="background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE;"><i class="fa-solid fa-user-tie"></i> Asesor Limitado</span>
+                 <div style="font-size: 0.70rem; color: #2563EB; margin-top: 2px;">Solo ve sus prospectos</div>
+               <% } %>
+             </td>
+             <td style="padding: 14px 16px;">
+               <div style="font-size: 0.80rem; color: var(--text-heading);"><%= u.email %></div>
+               <div style="font-size: 0.74rem; color: var(--text-muted);"><%= u.telefono || 'Sin teléfono' %></div>
+             </td>
+             <td style="padding: 14px 16px;">
+               <span style="font-weight: 800; color: var(--text-heading); font-size: 0.90rem;"><%= userLeads.length %> leads</span>
+               <div style="font-size: 0.72rem; color: #16A34A; font-weight: 700;">$<%= comisionTotal.toLocaleString('en-US') %> USD com.</div>
+             </td>
+             <td style="padding: 14px 16px;">
+               <span style="font-weight: 800; color: #1E293B;"><%= u.comisionPorcentaje || 50 %>%</span>
+               <div style="font-size: 0.70rem; color: var(--text-muted);">Split de honorarios</div>
+             </td>
+             <td style="padding: 14px 16px;">
+               <% if (u.activo !== false) { %>
+                 <span class="badge badge-green"><i class="fa-solid fa-circle-check"></i> Activo</span>
+               <% } else { %>
+                 <span class="badge badge-gray"><i class="fa-solid fa-circle-xmark"></i> Inactivo</span>
+               <% } %>
+             </td>
+             <td style="padding: 14px 20px; text-align: right;">
+               <div style="display: flex; gap: 6px; justify-content: flex-end;">
+                 <a href="/admin/leads?asesorId=<%= u.id %>" class="btn btn-secondary btn-sm" style="padding: 4px 10px; font-size: 0.74rem;" title="Ver leads del asesor">
+                   <i class="fa-solid fa-address-book"></i> Leads
+                 </a>
+               </div>
+             </td>
+           </tr>
+         <% }) %>
+       </tbody>
+     </table>
+   </div>
+ </div>
+ 
+ <!-- MODAL CREACIÓN DE NUEVO ASESOR / USUARIO -->
+ <div id="modalNuevoUsuario" style="display: none; position: fixed; inset: 0; background: rgba(10, 30, 54, 0.7); z-index: 10000; align-items: center; justify-content: center; backdrop-filter: blur(5px); padding: 16px;">
+   <div style="background: #FFFFFF; border-radius: 20px; max-width: 520px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); overflow: hidden; border: 1px solid var(--border-color);">
+     <div style="background: #0A1E36; padding: 20px 24px; color: #FFFFFF; display: flex; justify-content: space-between; align-items: center;">
+       <div style="display: flex; align-items: center; gap: 10px;">
+         <i class="fa-solid fa-user-plus" style="color: #A3E635; font-size: 1.2rem;"></i>
+         <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #FFFFFF;">Registrar Asesor / Usuario</h3>
+       </div>
+       <button type="button" onclick="document.getElementById('modalNuevoUsuario').style.display='none'" style="background: rgba(255,255,255,0.1); border: none; color: #FFFFFF; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 1rem;">&times;</button>
+     </div>
+ 
+     <form method="POST" action="/admin/usuarios" style="padding: 24px;">
+       <div class="form-group" style="margin-bottom: 14px;">
+         <label class="form-label" style="font-size: 0.76rem;">Nombre Completo *</label>
+         <input type="text" name="nombre" class="form-input compact-form-input" placeholder="Ej. Carlos De la Rosa" required>
+       </div>
+ 
+       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+         <div class="form-group">
+           <label class="form-label" style="font-size: 0.76rem;">Correo Institucional *</label>
+           <input type="email" name="email" class="form-input compact-form-input" placeholder="carlos@ciasard.org.do" required>
+         </div>
+         <div class="form-group">
+           <label class="form-label" style="font-size: 0.76rem;">Usuario (Login) *</label>
+           <input type="text" name="username" class="form-input compact-form-input" placeholder="carlos" required>
+         </div>
+       </div>
+ 
+       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+         <div class="form-group">
+           <label class="form-label" style="font-size: 0.76rem;">Contraseña de Acceso *</label>
+           <input type="password" name="password" class="form-input compact-form-input" placeholder="Mínimo 8 caracteres" required>
+         </div>
+         <div class="form-group">
+           <label class="form-label" style="font-size: 0.76rem;">Teléfono / WhatsApp</label>
+           <input type="text" name="telefono" class="form-input compact-form-input" placeholder="+1 (809) 000-0000">
+         </div>
+       </div>
+ 
+       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px;">
+         <div class="form-group">
+           <label class="form-label" style="font-size: 0.76rem;">Rol del Sistema</label>
+           <select name="role" class="form-input compact-form-input" style="height: 42px;">
+             <option value="asesor" selected>Asesor Comercial (Solo sus leads)</option>
+             <option value='admin'>Administrador (Acceso total)</option>
+           </select>
+         </div>
+         <div class="form-group">
+           <label class="form-label" style="font-size: 0.76rem;">% de Comisión Pactada</label>
+           <input type="number" name="comisionPorcentaje" class="form-input compact-form-input" value="50" min="1" max="100">
+         </div>
+       </div>
+ 
+       <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 10px 14px; margin-bottom: 18px; font-size: 0.74rem; color: #1E40AF;">
+         <i class="fa-solid fa-shield-halved"></i> <strong>Seguridad Garantizada:</strong> Si seleccionas rol <em>Asesor Comercial</em>, el usuario NO podrá ver los leads de otros asesores, ni la configuración de SEO, ni la base de datos NPI ni ajustes maestros.
+       </div>
+ 
+       <div style="display: flex; gap: 10px; justify-content: flex-end;">
+         <button type="button" onclick="document.getElementById('modalNuevoUsuario').style.display='none'" class="btn btn-secondary">Cancelar</button>
+         <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Guardar y Activar Acceso</button>
+       </div>
+     </form>
+   </div>
+ </div>
+ 
+ <%- include('./layout-end') %>

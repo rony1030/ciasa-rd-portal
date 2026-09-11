@@ -57,11 +57,13 @@
     <% } %>
   </div>
 
-  <!-- Footer: Precio y Fecha -->
+  <!-- Footer: Precio, Fecha y Asesor -->
   <div class="kc-footer">
     <div class="kc-price"><%= monto %></div>
-    <div class="kc-meta">
-      <i class="fa-regular fa-calendar" style="font-size: 0.65rem;"></i>
+    <div class="kc-meta" style="display: flex; align-items: center; gap: 6px;">
+      <span style="background: #F1F5F9; color: #475569; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 700;">
+        <i class="fa-solid fa-user-tie" style="font-size: 0.60rem; color: #2563EB;"></i> <%= asesor.split(' ')[0] %>
+      </span>
       <span><%= fecha %></span>
     </div>
   </div>

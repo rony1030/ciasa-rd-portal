@@ -34,7 +34,12 @@
     ],
     "documentos": [],
     "createdAt": "2026-08-29T02:45:44.049Z",
-    "updatedAt": "2026-08-29T02:45:44.049Z"
+    "updatedAt": "2026-08-29T02:45:44.049Z",
+    "asesorAsignado": "Paola Caram",
+    "asesorId": "usr_admin_paola",
+    "montoEstimadoUSD": 185000,
+    "comisionPorcentaje": 5,
+    "comisionEstimadaUSD": 9250
   },
   {
     "_id": "lead_1787331587189_sp5tis",
@@ -71,7 +76,12 @@
     ],
     "documentos": [],
     "createdAt": "2026-08-21T16:59:47.190Z",
-    "updatedAt": "2026-08-21T16:59:47.190Z"
+    "updatedAt": "2026-08-21T16:59:47.190Z",
+    "asesorAsignado": "Gisselle de los Santos",
+    "asesorId": "usr_asesor_gisselle",
+    "montoEstimadoUSD": 0,
+    "comisionPorcentaje": 5,
+    "comisionEstimadaUSD": 0
   },
   {
     "_id": "8RkP2TNaynVLJsBwjBWH",
@@ -136,7 +146,12 @@
         "fecha": "2026-06-14",
         "url": "#"
       }
-    ]
+    ],
+    "asesorAsignado": "Paola Caram",
+    "asesorId": "usr_admin_paola",
+    "montoEstimadoUSD": 240000,
+    "comisionPorcentaje": 5,
+    "comisionEstimadaUSD": 12000
   },
   {
     "_id": "aGN05znxH2uj4AZpNO9P",
@@ -201,7 +216,12 @@
         "fecha": "2026-06-14",
         "url": "#"
       }
-    ]
+    ],
+    "asesorAsignado": "Gisselle de los Santos",
+    "asesorId": "usr_asesor_gisselle",
+    "montoEstimadoUSD": 240000,
+    "comisionPorcentaje": 5,
+    "comisionEstimadaUSD": 12000
   },
   {
     "_id": "ra7546gb8OZmUnX3xMD9",
@@ -266,7 +286,12 @@
         "fecha": "2026-06-14",
         "url": "#"
       }
-    ]
+    ],
+    "asesorAsignado": "Paola Caram",
+    "asesorId": "usr_admin_paola",
+    "montoEstimadoUSD": 240000,
+    "comisionPorcentaje": 5,
+    "comisionEstimadaUSD": 12000
   },
   {
     "_id": "rmsf221dRAePjhZAMStP",
@@ -331,7 +356,12 @@
         "fecha": "2026-06-14",
         "url": "#"
       }
-    ]
+    ],
+    "asesorAsignado": "Gisselle de los Santos",
+    "asesorId": "usr_asesor_gisselle",
+    "montoEstimadoUSD": 240000,
+    "comisionPorcentaje": 5,
+    "comisionEstimadaUSD": 12000
   },
   {
     "_id": "vT2f5Wuqst4nyHHbzTq7",
@@ -396,6 +426,11 @@
         "fecha": "2026-06-14",
         "url": "#"
       }
-    ]
+    ],
+    "asesorAsignado": "Paola Caram",
+    "asesorId": "usr_admin_paola",
+    "montoEstimadoUSD": 100000,
+    "comisionPorcentaje": 5,
+    "comisionEstimadaUSD": 5000
   }
 ]

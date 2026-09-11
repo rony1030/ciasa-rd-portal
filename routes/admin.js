@@ -6,12 +6,28 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 
 // ─── Rutas de datos ─────────────────────────────────────────────────────────
 const DATA_DIR = path.join(__dirname, '..', '_materiales_y_estrategia', 'datos');
 const PROPS_FILE  = path.join(DATA_DIR, 'propiedades.json');
 const LEADS_FILE  = path.join(DATA_DIR, 'leads.json');
 const BLOG_FILE   = path.join(DATA_DIR, 'blog.json');
+const USERS_FILE  = path.join(DATA_DIR, 'usuarios.json');
+
+// ─── Helpers de Criptografía Segura (Scrypt + Salt) ──────────────────────────
+function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.scryptSync(password, salt, 64).toString('hex');
+  return `${salt}:${hash}`;
+}
+
+function verifyPassword(password, storedHash) {
+  if (!storedHash || !storedHash.includes(':')) return false;
+  const [salt, originalHash] = storedHash.split(':');
+  const hash = crypto.scryptSync(password, salt, 64).toString('hex');
+  return crypto.timingSafeEqual(Buffer.from(hash, 'hex'), Buffer.from(originalHash, 'hex'));
+}
 
 // ─── Helpers de lectura/escritura ───────────────────────────────────────────
 function readJSON(file) {
@@ -33,11 +49,9 @@ function slugify(text) {
     .replace(/-+/g, '-').trim();
 }
 
-// ─── Custom Web Login & Session Middleware ────────────────────────────────────
-const ADMIN_USER = process.env.ADMIN_USER || 'info@ciasard.com';
-const ADMIN_PASS = process.env.ADMIN_PASS || 'CiasaRD2026!';
-const AUTH_COOKIE = 'ciasa_admin_token';
-const VALID_TOKEN = 'ciasa_session_' + Buffer.from(ADMIN_USER + ':' + ADMIN_PASS).toString('base64');
+// ─── Custom Web Login & Session Middleware con RBAC y Criptografía ────────────
+const AUTH_COOKIE = 'ciasa_user_session';
+const SESSION_SECRET = process.env.SESSION_SECRET || 'ciasa_secure_secret_token_2026_rbac';
 
 // Helper to parse cookies
 function parseCookies(req) {
@@ -52,37 +66,120 @@ function parseCookies(req) {
   return list;
 }
 
+function signSession(userData) {
+  const payload = Buffer.from(JSON.stringify(userData)).toString('base64url');
+  const signature = crypto.createHmac('sha256', SESSION_SECRET).update(payload).digest('base64url');
+  return `${payload}.${signature}`;
+}
+
+function verifySession(token) {
+  if (!token || !token.includes('.')) return null;
+  const [payload, signature] = token.split('.');
+  const expectedSignature = crypto.createHmac('sha256', SESSION_SECRET).update(payload).digest('base64url');
+  if (signature !== expectedSignature) return null;
+  try {
+    const data = JSON.parse(Buffer.from(payload, 'base64url').toString('utf-8'));
+    if (data.exp && data.exp < Date.now()) return null;
+    return data;
+  } catch (e) {
+    return null;
+  }
+}
+
 // 1. Ruta pública de Login (GET)
 router.get('/login', (req, res) => {
   const cookies = parseCookies(req);
-  if (cookies[AUTH_COOKIE] === VALID_TOKEN) {
+  const sessionUser = verifySession(cookies[AUTH_COOKIE]);
+  if (sessionUser) {
     return res.redirect('/admin');
   }
   res.render('admin/login', { error: null });
 });
 
-// 1.1 Ruta de Acceso Rápido / Bypass para Desarrollo Local
+// 1.1 Ruta de Acceso Rápido / Bypass para Desarrollo Local (Entra como Paola Caram - Admin)
 router.get(['/bypass', '/dev-login', '/autologin'], (req, res) => {
-  res.setHeader('Set-Cookie', `${AUTH_COOKIE}=${VALID_TOKEN}; Path=/; HttpOnly; SameSite=Lax; Max-Age=864000`);
+  const users = readJSON(USERS_FILE);
+  const adminUser = users.find(u => u.role === 'admin' && u.activo !== false) || {
+    id: 'usr_admin_paola',
+    nombre: 'Paola Caram',
+    username: 'paola.caram',
+    email: 'paola.caram@ciasard.org.do',
+    role: 'admin',
+    cargo: 'Directora Ejecutiva',
+    comisionPorcentaje: 100
+  };
+
+  const sessionToken = signSession({
+    id: adminUser.id,
+    username: adminUser.username,
+    role: adminUser.role,
+    nombre: adminUser.nombre,
+    cargo: adminUser.cargo,
+    email: adminUser.email,
+    comisionPorcentaje: adminUser.comisionPorcentaje || 100,
+    exp: Date.now() + 1000 * 60 * 60 * 24 * 7
+  });
+
+  res.setHeader('Set-Cookie', `${AUTH_COOKIE}=${sessionToken}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800`);
   res.redirect('/admin');
 });
 
-// 2. Procesar Login (POST) - Autenticación Flexible y Robusta
+// 2. Procesar Login (POST) - Autenticación Multi-Usuario contra usuarios.json con fallback
 router.post('/login', (req, res) => {
-  const user = (req.body.username || '').trim().toLowerCase();
-  const pass = (req.body.password || '').trim();
+  const userIdentifier = (req.body.username || '').trim().toLowerCase();
+  const passwordInput = (req.body.password || '').trim();
 
-  // Usuarios autorizados
-  const validUsers = ['info@ciasard.org.do', 'paola.caram@ciasard.org.do', 'info@ciasard.com', 'info', 'admin', (ADMIN_USER || '').toLowerCase()];
-  
-  // Contraseñas autorizadas
-  const validPass = ['CiasaRD2026!', 'ciasa2026', 'Ciasa2026!', 'ciasa2026!', ADMIN_PASS];
+  const users = readJSON(USERS_FILE);
+  let matchedUser = users.find(u => 
+    (u.username && u.username.toLowerCase() === userIdentifier) || 
+    (u.email && u.email.toLowerCase() === userIdentifier)
+  );
 
-  const userMatches = validUsers.includes(user);
-  const passMatches = validPass.includes(pass);
+  let authenticated = false;
 
-  if (userMatches && passMatches) {
-    res.setHeader('Set-Cookie', `${AUTH_COOKIE}=${VALID_TOKEN}; Path=/; HttpOnly; SameSite=Lax; Max-Age=864000`);
+  if (matchedUser) {
+    if (matchedUser.activo === false) {
+      return res.render('admin/login', { error: 'Esta cuenta ha sido desactivada. Contacta a la administración.' });
+    }
+    if (matchedUser.passwordHash && verifyPassword(passwordInput, matchedUser.passwordHash)) {
+      authenticated = true;
+    }
+  }
+
+  // Fallback de compatibilidad para credenciales de entorno
+  if (!authenticated) {
+    const adminUserEnv = (process.env.ADMIN_USER || 'info@ciasard.com').toLowerCase();
+    const adminPassEnv = process.env.ADMIN_PASS || 'CiasaRD2026!';
+    const validAliases = ['info@ciasard.org.do', 'paola.caram@ciasard.org.do', 'info@ciasard.com', 'admin', 'paola.caram', adminUserEnv];
+    const validPasses = ['CiasaRD2026!', 'ciasa2026', 'Ciasa2026!', 'ciasa2026!', adminPassEnv];
+
+    if (validAliases.includes(userIdentifier) && validPasses.includes(passwordInput)) {
+      matchedUser = users.find(u => u.role === 'admin') || {
+        id: 'usr_admin_paola',
+        nombre: 'Paola Caram',
+        username: 'paola.caram',
+        email: 'paola.caram@ciasard.org.do',
+        role: 'admin',
+        cargo: 'Directora Ejecutiva',
+        comisionPorcentaje: 100
+      };
+      authenticated = true;
+    }
+  }
+
+  if (authenticated && matchedUser) {
+    const sessionToken = signSession({
+      id: matchedUser.id,
+      username: matchedUser.username,
+      role: matchedUser.role,
+      nombre: matchedUser.nombre,
+      cargo: matchedUser.cargo,
+      email: matchedUser.email,
+      comisionPorcentaje: matchedUser.comisionPorcentaje || 50,
+      exp: Date.now() + 1000 * 60 * 60 * 24 * 7
+    });
+
+    res.setHeader('Set-Cookie', `${AUTH_COOKIE}=${sessionToken}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800`);
     return res.redirect('/admin');
   }
 
@@ -95,42 +192,84 @@ router.get('/logout', (req, res) => {
   res.redirect('/admin/login');
 });
 
-// 4. Middleware de Protección para el resto de rutas de /admin
+// 4. Middleware de Protección para todo /admin con Inyección de Usuario
 router.use((req, res, next) => {
   const cookies = parseCookies(req);
-  if (cookies[AUTH_COOKIE] === VALID_TOKEN) {
-    return next();
+  const sessionUser = verifySession(cookies[AUTH_COOKIE]);
+
+  if (!sessionUser) {
+    return res.redirect('/admin/login');
   }
-  res.redirect('/admin/login');
+
+  // Refrescar datos del usuario desde usuarios.json
+  const users = readJSON(USERS_FILE);
+  const currentUser = users.find(u => u.id === sessionUser.id) || sessionUser;
+
+  if (currentUser.activo === false) {
+    res.setHeader('Set-Cookie', `${AUTH_COOKIE}=; Path=/; HttpOnly; Max-Age=0`);
+    return res.redirect('/admin/login?error=inactive');
+  }
+
+  req.user = currentUser;
+  res.locals.currentUser = currentUser;
+  next();
 });
+
+// Helper de Autorización por Rol (RBAC)
+function requireRole(...allowedRoles) {
+  return (req, res, next) => {
+    if (!req.user || !allowedRoles.includes(req.user.role)) {
+      return res.status(403).render('admin/dashboard', {
+        pageTitle: 'Acceso Denegado — CIASA Admin',
+        error: 'No tienes los permisos de autorización requeridos para acceder a este módulo.',
+        stats: null,
+        recentLeads: []
+      });
+    }
+    next();
+  };
+}
 
 // ═══════════════════════════════════════════════════════════════════════════
 // DASHBOARD
 // ═══════════════════════════════════════════════════════════════════════════
 router.get('/', (req, res) => {
   const projects = readJSON(PROPS_FILE);
-  const leads    = readJSON(LEADS_FILE);
+  let allLeads   = readJSON(LEADS_FILE);
   const articles = readJSON(BLOG_FILE);
 
+  // RBAC: Si el usuario es asesor comercial, filtrar exclusivamente sus leads asignados
+  let visibleLeads = [...allLeads];
+  if (req.user && req.user.role === 'asesor') {
+    visibleLeads = visibleLeads.filter(l => 
+      l.asesorId === req.user.id || 
+      (l.asesorAsignado && l.asesorAsignado.toLowerCase() === req.user.nombre.toLowerCase())
+    );
+  }
+
   const hoy = new Date().toISOString().slice(0, 10);
-  const leadsHoy = leads.filter(l => (l.createdAt || '').slice(0, 10) === hoy).length;
+  const leadsHoy = visibleLeads.filter(l => (l.createdAt || '').slice(0, 10) === hoy).length;
   const proyectosDisponibles = projects.filter(p => p.available !== false).length;
   const articulosPublicados  = articles.filter(a => a.estado === 'publicado').length;
 
-  // Últimos 5 leads
-  const recentLeads = leads
+  // Comisiones del usuario si es asesor o globales si es admin
+  const comisionesAcumuladas = visibleLeads.reduce((acc, l) => acc + (l.comisionEstimadaUSD || 0), 0);
+
+  // Últimos 5 leads visibles
+  const recentLeads = visibleLeads
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 5);
 
   res.render('admin/dashboard', {
     pageTitle: 'Dashboard — CIASA Admin',
     stats: {
-      totalLeads: leads.length,
+      totalLeads: visibleLeads.length,
       leadsHoy,
       proyectosDisponibles,
       totalProyectos: projects.length,
       articulosPublicados,
-      totalArticulos: articles.length
+      totalArticulos: articles.length,
+      comisionesAcumuladas
     },
     recentLeads
   });
@@ -141,7 +280,17 @@ router.get('/', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════
 router.get('/leads', (req, res) => {
   let allLeads = readJSON(LEADS_FILE);
-  const { estado, proyecto, q, limit = 100, page = 1 } = req.query;
+  const { estado, proyecto, q, asesorId, limit = 100, page = 1 } = req.query;
+
+  // RBAC: Si el usuario es asesor, aislar estrictamente su cartera comercial
+  if (req.user && req.user.role === 'asesor') {
+    allLeads = allLeads.filter(l => 
+      l.asesorId === req.user.id || 
+      (l.asesorAsignado && l.asesorAsignado.toLowerCase() === req.user.nombre.toLowerCase())
+    );
+  } else if (asesorId) {
+    allLeads = allLeads.filter(l => l.asesorId === asesorId);
+  }
 
   let leads = [...allLeads];
   if (estado && estado !== 'all') leads = leads.filter(l => l.statusVentas === estado || l.estado === estado);
@@ -152,7 +301,8 @@ router.get('/leads', (req, res) => {
       (l.nombre || '').toLowerCase().includes(query) ||
       (l.email || '').toLowerCase().includes(query) ||
       (l.telefono || '').toLowerCase().includes(query) ||
-      (l.pais || '').toLowerCase().includes(query)
+      (l.pais || '').toLowerCase().includes(query) ||
+      (l.asesorAsignado || '').toLowerCase().includes(query)
     );
   }
 
@@ -173,29 +323,52 @@ router.get('/leads', (req, res) => {
     page: parsedPage,
     totalPages: parsedLimit === -1 ? 1 : Math.ceil(totalFiltered / parsedLimit),
     projects,
-    filtros: { estado: estado || 'all', proyecto: proyecto || 'all', q: q || '', limit: parsedLimit }
+    filtros: { estado: estado || 'all', proyecto: proyecto || 'all', q: q || '', limit: parsedLimit, asesorId: asesorId || '' }
   });
 });
 
 router.get('/leads/nuevo', (req, res) => {
   const projects = readJSON(PROPS_FILE).map(p => ({ id: p.id, name: p.name, code: p.code }));
-  res.render('admin/leads/nuevo', { pageTitle: 'Nuevo Lead — CIASA Admin', projects, error: null });
+  const users = readJSON(USERS_FILE);
+  res.render('admin/leads/nuevo', { pageTitle: 'Nuevo Lead — CIASA Admin', projects, users, error: null });
 });
 
 router.post('/leads/nuevo', (req, res) => {
   const leads = readJSON(LEADS_FILE);
-  const { nombre, email, telefono, pais, ciudad, proyectoInteres, montoInversion, source, statusVentas, notas } = req.body;
+  const users = readJSON(USERS_FILE);
+  const { nombre, email, telefono, pais, ciudad, proyectoInteres, montoInversion, source, statusVentas, notas, asesorId } = req.body;
 
   if (!nombre || !email) {
     const projects = readJSON(PROPS_FILE).map(p => ({ id: p.id, name: p.name, code: p.code }));
-    return res.render('admin/leads/nuevo', { pageTitle: 'Nuevo Lead — CIASA Admin', projects, error: 'Nombre y email son requeridos.' });
+    return res.render('admin/leads/nuevo', { pageTitle: 'Nuevo Lead — CIASA Admin', projects, users, error: 'Nombre y email son requeridos.' });
   }
+
+  // Determinar asesor asignado con seguridad
+  let assignedUser = null;
+  if (req.user && req.user.role === 'asesor') {
+    assignedUser = req.user;
+  } else if (asesorId) {
+    assignedUser = users.find(u => u.id === asesorId);
+  }
+  if (!assignedUser) {
+    assignedUser = users.find(u => u.role === 'admin') || req.user;
+  }
+
+  const montoNum = parseFloat(String(montoInversion || '185000').replace(/[^0-9.]/g, '')) || 185000;
+  const comisionPct = assignedUser.comisionPorcentaje || 5;
+  const comisionEstimada = Math.round(montoNum * (comisionPct / 100));
 
   const newLead = {
     _id: Date.now().toString(36).toUpperCase(),
     nombre, email, telefono: telefono || '', pais: pais || '',
     ciudad: ciudad || '', proyectoInteres: proyectoInteres || '',
-    montoInversion: montoInversion || '', source: source || 'admin-manual',
+    montoInversion: montoInversion || '',
+    montoEstimadoUSD: montoNum,
+    comisionPorcentaje: comisionPct,
+    comisionEstimadaUSD: comisionEstimada,
+    asesorId: assignedUser.id,
+    asesorAsignado: assignedUser.nombre,
+    source: source || 'admin-manual',
     statusVentas: statusVentas || 'nuevo', estado: 'Nacional',
     nurtureStatus: '', razones: notas || '',
     createdAt: new Date().toISOString(),
@@ -207,11 +380,25 @@ router.post('/leads/nuevo', (req, res) => {
   res.redirect('/admin/leads?success=1');
 });
 
-// Ficha 360° Detallada del Lead
+// Ficha 360° Detallada del Lead (Protegida por RBAC)
 router.get('/leads/:id', (req, res) => {
   const leads = readJSON(LEADS_FILE);
   const lead = leads.find(l => l._id === req.params.id || l.id === req.params.id);
   if (!lead) return res.redirect('/admin/leads');
+
+  // RBAC: Si es asesor, verificar que el lead le pertenezca
+  if (req.user && req.user.role === 'asesor') {
+    const isOwner = lead.asesorId === req.user.id || (lead.asesorAsignado && lead.asesorAsignado.toLowerCase() === req.user.nombre.toLowerCase());
+    if (!isOwner) {
+      return res.status(403).render('admin/dashboard', {
+        pageTitle: 'Acceso Denegado — CIASA Admin',
+        error: 'No tienes autorización para consultar la ficha de un prospecto no asignado a tu cartera.',
+        stats: null,
+        recentLeads: []
+      });
+    }
+  }
+
   res.render('admin/leads/detalle', { lead });
 });
 
@@ -589,7 +776,7 @@ router.post('/blog/:id/eliminar', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════
 // MÓDULO MARKETING & CRM NPI (Integrado nativo en panel Admin)
 // ═══════════════════════════════════════════════════════════════════════════
-router.get(['/npi', '/crm-npi'], (req, res) => {
+router.get(['/npi', '/crm-npi'], requireRole('admin'), (req, res) => {
   res.render('admin/npi', {
     pageTitle: 'Marketing & Proveedores NPI — CIASA Admin',
     activePage: 'npi'
@@ -643,7 +830,15 @@ router.post('/perfil', (req, res) => {
 
 // 2. Mis Tareas Globales
 router.get('/tareas', (req, res) => {
-  const leads = readJSON(LEADS_FILE);
+  let leads = readJSON(LEADS_FILE);
+  // RBAC: Si es asesor, únicamente sus tareas
+  if (req.user && req.user.role === 'asesor') {
+    leads = leads.filter(l => 
+      l.asesorId === req.user.id || 
+      (l.asesorAsignado && l.asesorAsignado.toLowerCase() === req.user.nombre.toLowerCase())
+    );
+  }
+
   let allTareas = [];
   leads.forEach(l => {
     (l.tareas || []).forEach(t => {
@@ -663,7 +858,7 @@ router.get('/tareas', (req, res) => {
 });
 
 // 3. Ajustes Generales & SEO Manager
-router.get('/seo', (req, res) => {
+router.get('/seo', requireRole('admin'), (req, res) => {
   const ajustes = readJSON(AJUSTES_FILE);
   res.render('admin/seo', {
     pageTitle: 'Ajustes & SEO — CIASA Admin',
@@ -672,7 +867,7 @@ router.get('/seo', (req, res) => {
   });
 });
 
-router.post('/seo', (req, res) => {
+router.post('/seo', requireRole('admin'), (req, res) => {
   const ajustes = readJSON(AJUSTES_FILE);
   const { siteTitle, siteDescription, metaKeywords, googleAnalyticsId, ogImage, whatsappPhone, contactoEmail } = req.body;
   const updated = {
@@ -690,14 +885,61 @@ router.post('/seo', (req, res) => {
   res.redirect('/admin/seo?success=1');
 });
 
-router.get('/usuarios', (req, res) => {
-  res.render('admin/placeholders/usuarios', { pageTitle: 'Usuarios — CIASA Admin' });
+// MÓDULO DE GESTIÓN DE USUARIOS, ASESORES & COMISIONES (SOLO ADMIN)
+router.get('/usuarios', requireRole('admin'), (req, res) => {
+  const usuarios = readJSON(USERS_FILE);
+  const leads    = readJSON(LEADS_FILE);
+  res.render('admin/usuarios', {
+    pageTitle: 'Gestión de Usuarios & Asesores — CIASA Admin',
+    activePage: 'usuarios',
+    usuarios,
+    leads,
+    success: req.query.success === '1',
+    error: req.query.error || null
+  });
+});
+
+router.post('/usuarios', requireRole('admin'), (req, res) => {
+  const usuarios = readJSON(USERS_FILE);
+  const { nombre, email, username, password, telefono, role, comisionPorcentaje } = req.body;
+
+  if (!nombre || !email || !username || !password) {
+    return res.redirect('/admin/usuarios?error=' + encodeURIComponent('Todos los campos marcados con * son requeridos.'));
+  }
+
+  const cleanUsername = username.trim().toLowerCase();
+  const cleanEmail = email.trim().toLowerCase();
+
+  // Validar duplicados
+  const exists = usuarios.find(u => u.username.toLowerCase() === cleanUsername || u.email.toLowerCase() === cleanEmail);
+  if (exists) {
+    return res.redirect('/admin/usuarios?error=' + encodeURIComponent('El nombre de usuario o correo ya se encuentra registrado.'));
+  }
+
+  const newUser = {
+    id: 'usr_' + (role || 'asesor') + '_' + Date.now().toString(36),
+    nombre: nombre.trim(),
+    email: cleanEmail,
+    username: cleanUsername,
+    role: role === 'admin' ? 'admin' : 'asesor',
+    cargo: role === 'admin' ? 'Director(a) / Administrador(a)' : 'Asesor(a) Inmobiliario(a)',
+    telefono: telefono ? telefono.trim() : '',
+    avatar: '/assets/images/team/paola-caram-avatar.jpg',
+    activo: true,
+    passwordHash: hashPassword(password),
+    comisionPorcentaje: parseInt(comisionPorcentaje) || (role === 'admin' ? 100 : 50),
+    createdAt: new Date().toISOString()
+  };
+
+  usuarios.push(newUser);
+  writeJSON(USERS_FILE, usuarios);
+  res.redirect('/admin/usuarios?success=1');
 });
 
 // 4. Módulo de Email Marketing & Automatizaciones
 const { EMAIL_TEMPLATES, sendTemplateEmail, readEmailLogs } = require('../services/emailService');
 
-router.get('/marketing', (req, res) => {
+router.get('/marketing', requireRole('admin'), (req, res) => {
   const leads = readJSON(LEADS_FILE);
   const logs = readEmailLogs();
   res.render('admin/marketing', {
@@ -729,7 +971,7 @@ router.get('/marketing/preview/:templateId', (req, res) => {
   res.send(html);
 });
 
-router.post('/marketing/send', async (req, res) => {
+router.post('/marketing/send', requireRole('admin'), async (req, res) => {
   try {
     const { templateId, leadId, customEmail, customNombre, customSubject } = req.body;
     let lead = {
