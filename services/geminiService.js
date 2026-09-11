@@ -5,7 +5,7 @@ const AJUSTES_FILE = path.join(__dirname, '../_materiales_y_estrategia/datos/aju
 
 function getGeminiConfig() {
   let apiKey = process.env.GEMINI_API_KEY || '';
-  let model = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+  let model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
   let enabled = true;
 
   try {
@@ -28,7 +28,7 @@ function getGeminiConfig() {
 async function testGeminiConnection(customKey = '', customModel = '') {
   const config = getGeminiConfig();
   const apiKey = (customKey || config.apiKey || '').trim();
-  const model = customModel || config.model || 'gemini-1.5-flash';
+  const model = customModel || config.model || 'gemini-2.5-flash';
 
   if (!apiKey) {
     return {
