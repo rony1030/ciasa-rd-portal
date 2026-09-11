@@ -138,7 +138,8 @@ app.get(['/api/npi.php', '/api/npi/states', '/api/npi/search', '/api/npi'], asyn
 
   const { state, specialty, quintile, latino_only, has_phone, has_email, has_social, q, page = 1, limit = 100 } = req.query;
   const parsedPage = parseInt(page) || 1;
-  const parsedLimit = Math.min(500, parseInt(limit) || 100);
+  const rawLimit = parseInt(limit) || 100;
+  const parsedLimit = rawLimit === -1 ? 50000 : Math.min(50000, Math.max(1, rawLimit));
   const offset = (parsedPage - 1) * parsedLimit;
 
   // Intento de Consulta en MySQL Real

@@ -1044,24 +1044,23 @@
       <i class="fa-solid fa-user-plus"></i> Registrar Lead
     </a>
 
+    <% const userRole = (typeof currentUser !== 'undefined' && currentUser && currentUser.role) ? currentUser.role : 'admin'; %>
+
     <div class="sidebar-section-label">Catálogo & Contenido</div>
     <a href="/admin/propiedades" class="sidebar-link <%= activePage === 'propiedades' ? 'active' : '' %>">
       <i class="fa-solid fa-hotel"></i> Propiedades
     </a>
+    <% if (userRole === 'admin') { %>
     <a href="/admin/blog" class="sidebar-link <%= activePage === 'blog' ? 'active' : '' %>">
       <i class="fa-solid fa-pen-nib"></i> Blog & Artículos
     </a>
 
-    <% const userRole = (typeof currentUser !== 'undefined' && currentUser && currentUser.role) ? currentUser.role : 'admin'; %>
-    <% if (userRole === 'admin') { %>
     <div class="sidebar-section-label">Marketing & Prospección</div>
     <a href="/admin/marketing" class="sidebar-link <%= activePage === 'marketing' ? 'active' : '' %>">
       <i class="fa-solid fa-envelope-open-text"></i> Email Marketing
-      <span class="sidebar-badge" style="background: #15803D;">IA</span>
     </a>
     <a href="/admin/npi" class="sidebar-link <%= activePage === 'npi' ? 'active' : '' %>">
-      <i class="fa-solid fa-stethoscope"></i> Médicos NPI (USA)
-      <span class="sidebar-badge" style="background: #2563EB;">PRO</span>
+      <i class="fa-solid fa-database"></i> Base de Datos NPI
     </a>
 
     <div class="sidebar-section-label">Sistema</div>
@@ -1070,7 +1069,6 @@
     </a>
     <a href="/admin/usuarios" class="sidebar-link <%= activePage === 'usuarios' ? 'active' : '' %>">
       <i class="fa-solid fa-users-gear"></i> Usuarios & Asesores
-      <span class="sidebar-badge" style="background: #D97706;">RBAC</span>
     </a>
     <% } %>
 
@@ -1147,10 +1145,17 @@
         const uName = (typeof currentUser !== 'undefined' && currentUser && currentUser.nombre) ? currentUser.nombre : 'Paola Caram';
         const uRole = (typeof currentUser !== 'undefined' && currentUser && currentUser.cargo) ? currentUser.cargo : 'Directora Ejecutiva';
         const isAdm = (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'admin');
+        const userInitials = uName.split(' ').filter(Boolean).map(n => n[0]).slice(0, 2).join('').toUpperCase() || 'CI';
       %>
       <div style="position: relative;">
         <div class="user-pill" onclick="toggleDropdown('userDropdown')">
-          <img src="/assets/images/team/paola-caram.jpg" alt="<%= uName %>" class="user-avatar-img" onerror="this.src='/favicon.png';">
+          <% if (isAdm) { %>
+            <img src="/assets/images/team/paola-caram.jpg" alt="<%= uName %>" class="user-avatar-img" onerror="this.src='/favicon.png';">
+          <% } else { %>
+            <div style="width: 32px; height: 32px; border-radius: 6px; background: #0A1E36; color: #A3E635; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.75rem; letter-spacing: 0.04em; flex-shrink: 0;">
+              <%= userInitials %>
+            </div>
+          <% } %>
           <div>
             <span class="user-name"><%= uName %></span>
             <span class="user-role-label"><%= uRole %></span>

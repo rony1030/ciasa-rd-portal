@@ -1,4 +1,5 @@
-<%- include('layout', { pageTitle: 'Marketing & Proveedores NPI — CIASA Admin', activePage: 'npi' }) %>
+<%- include('layout', { pageTitle: 'Base de Datos NPI — CIASA Admin', activePage: 'npi' }) %>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <style>
   /* ==========================================================================
@@ -255,8 +256,8 @@
 <!-- ENCABEZADO DE SECCIÓN -->
 <div class="section-header">
   <div>
-    <h2>Marketing & Base de Datos Médicos NPI <span style="color: var(--text-muted); font-weight: 500; font-size: 0.95rem;">(EE.UU.)</span></h2>
-    <p>Segmentación y prospección hiper-enfocada de médicos inversionistas</p>
+    <h2>Base de Datos NPI</h2>
+    <p>Segmentación y prospección hiper-enfocada de inversionistas calificados</p>
   </div>
   <div style="display: flex; gap: 8px;">
     <a href="/admin/leads" class="btn btn-secondary"><i class="fa-solid fa-user-group"></i> Ver Pipeline</a>
@@ -449,7 +450,7 @@
       <table class="npi-table">
         <thead>
           <tr>
-            <th style="width: 40px; text-align: center;"><input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)"></th>
+            <th style="width: 40px; text-align: center;"><input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this)" title="Seleccionar todos"></th>
             <th>NPI</th>
             <th>Nombre del Proveedor</th>
             <th>Especialidad</th>
@@ -551,27 +552,68 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
 
 <!-- Modal 3: Exportador General -->
 <div class="modal-backdrop" id="exportModal" style="display: none;">
-  <div class="modal-dialog" style="max-width: 520px;">
+  <div class="modal-dialog" style="max-width: 560px;">
     <div class="modal-header">
       <strong style="font-size: 1.05rem; color: var(--text-heading); display: flex; align-items: center; gap: 8px;">
         <i class="fa-solid fa-file-export" style="color: var(--primary);"></i> Exportar Base de Datos NPI
       </strong>
       <button class="modal-close" onclick="closeExportModal()">&times;</button>
     </div>
-    <div class="modal-body">
-      <label class="form-label">Formato de Exportación:</label>
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.86rem; cursor: pointer;">
-          <input type="radio" name="exportOption" value="csv" checked> Descargar CSV con todos los filtros actuales
-        </label>
-        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.86rem; cursor: pointer;">
-          <input type="radio" name="exportOption" value="selected"> Descargar solo registros seleccionados manualmente
-        </label>
+    <div class="modal-body" style="gap: 14px;">
+      
+      <div>
+        <label class="form-label" style="font-weight: 700; margin-bottom: 8px;">Selecciona la modalidad de descarga:</label>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          
+          <!-- Opción 1: Todo el filtro -->
+          <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; background: #FAFCFF;">
+            <input type="radio" name="exportOption" value="all_filter" checked onchange="onExportOptionChange()" style="margin-top: 3px; accent-color: var(--primary);">
+            <div style="flex: 1;">
+              <strong style="font-size: 0.86rem; color: var(--text-heading); display: block;">Descargar todos los registros del filtro actual (CSV Completo)</strong>
+              <span style="font-size: 0.74rem; color: var(--text-muted);" id="exportFilterTotalLabel">Descarga la totalidad de prospectos que coinciden con los filtros aplicados.</span>
+            </div>
+          </label>
+
+          <!-- Opción 2: Lotes Configurables -->
+          <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; background: #FAFCFF;">
+            <input type="radio" name="exportOption" value="batch" onchange="onExportOptionChange()" style="margin-top: 3px; accent-color: var(--primary);">
+            <div style="flex: 1;">
+              <strong style="font-size: 0.86rem; color: var(--text-heading); display: block;">Descargar en lotes para campañas (Hostinger Reach / Mailchimp / Brevo)</strong>
+              <span style="font-size: 0.74rem; color: var(--text-muted);">Fracciona los leads del filtro en lotes configurables (100, 150 o la cantidad deseada).</span>
+            </div>
+          </label>
+
+          <!-- Configuración de Lote Dinámico -->
+          <div id="batchConfigWrap" style="display: none; padding: 12px 14px; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 8px; margin-left: 24px; flex-direction: column; gap: 8px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <label class="form-label" style="font-size: 0.78rem; margin: 0; color: #166534; font-weight: 700;">Tamaño de cada lote (leads por archivo):</label>
+              <input type="number" id="batchSizeInput" value="100" min="10" max="5000" step="10" class="form-input" style="width: 110px; padding: 4px 8px; font-weight: 700;" oninput="updateBatchCalculation()">
+            </div>
+            <div id="batchCalculationInfo" style="font-size: 0.76rem; color: #15803D; font-weight: 600;">
+              Calculando lotes...
+            </div>
+          </div>
+
+          <!-- Opción 3: Solo Seleccionados -->
+          <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; background: #FAFCFF;">
+            <input type="radio" name="exportOption" value="selected" onchange="onExportOptionChange()" style="margin-top: 3px; accent-color: var(--primary);">
+            <div style="flex: 1;">
+              <strong style="font-size: 0.86rem; color: var(--text-heading); display: block;">Descargar solo registros seleccionados manualmente</strong>
+              <span style="font-size: 0.74rem; color: var(--text-muted);" id="exportSelectedCountLabel">0 prospectos seleccionados en la tabla con checkboxes.</span>
+            </div>
+          </label>
+
+        </div>
       </div>
+
+      <div id="exportStatusMsg" style="display: none; padding: 10px 14px; border-radius: 6px; font-size: 0.80rem; background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE;">
+        <i class="fa-solid fa-spinner fa-spin"></i> Preparando descarga...
+      </div>
+
     </div>
     <div class="modal-footer">
       <button class="btn btn-secondary btn-sm" onclick="closeExportModal()">Cancelar</button>
-      <button class="btn btn-primary btn-sm" onclick="executeStandardExport()"><i class="fa-solid fa-download"></i> Descargar Archivo</button>
+      <button class="btn btn-primary btn-sm" id="btnConfirmExport" onclick="executeEnhancedExport()"><i class="fa-solid fa-download"></i> Iniciar Descarga CSV</button>
     </div>
   </div>
 </div>
@@ -858,7 +900,7 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
 
       tableHtml += `
         <tr>
-          <td style="text-align: center;"><input type="checkbox" ${isChecked} onchange="toggleSelectLead('${p.npi}', this.checked)"></td>
+          <td style="text-align: center;"><input type="checkbox" ${isChecked} data-npi="${p.npi}" onchange="toggleSelectLead('${p.npi}', this.checked)"></td>
           <td style="font-family: monospace; font-weight: 700; color: #475569;">${p.npi}</td>
           <td style="font-weight: 700; color: #0F172A;">${p.name || 'N/A'} ${latinoBadge}</td>
           <td style="color: #475569; font-size: 0.82rem;">${p.specialty || 'General'}</td>
@@ -879,6 +921,7 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
       `;
     });
     tbody.innerHTML = tableHtml;
+    updateSelectAllCheckboxState();
 
     let cardsHtml = '';
     rows.forEach(p => {
@@ -928,20 +971,33 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
   }
 
   function toggleSelectLead(npi, isSelected) {
-    if (isSelected) selectedNpis.add(npi);
-    else selectedNpis.delete(npi);
+    if (isSelected) selectedNpis.add(String(npi));
+    else selectedNpis.delete(String(npi));
+    updateSelectAllCheckboxState();
   }
 
-  function toggleSelectAll(masterCheckbox) {
+  function toggleSelectAll(master) {
+    const isChecked = typeof master === 'boolean' ? master : (master ? !!master.checked : false);
     const checkboxes = document.querySelectorAll('#tableBody input[type="checkbox"]');
     checkboxes.forEach(cb => {
-      cb.checked = masterCheckbox.checked;
-      const npi = cb.getAttribute('onchange').match(/'(\d+)'/)?.[1];
+      cb.checked = isChecked;
+      const npi = cb.getAttribute('data-npi') || cb.getAttribute('onchange')?.match(/'(\d+)'/)?.[1];
       if (npi) {
-        if (masterCheckbox.checked) selectedNpis.add(npi);
-        else selectedNpis.delete(npi);
+        if (isChecked) selectedNpis.add(String(npi));
+        else selectedNpis.delete(String(npi));
       }
     });
+    updateSelectAllCheckboxState();
+  }
+
+  function updateSelectAllCheckboxState() {
+    const checkboxes = document.querySelectorAll('#tableBody input[type="checkbox"]');
+    const master = document.getElementById('selectAllCheckbox');
+    if (!master || checkboxes.length === 0) return;
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+    const someChecked = Array.from(checkboxes).some(cb => cb.checked);
+    master.checked = allChecked;
+    master.indeterminate = !allChecked && someChecked;
   }
 
   function updatePagination() {
@@ -974,7 +1030,7 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
   }
 
   function downloadSocialAudience() {
-    const data = (selectedNpis.size > 0) ? currentRows.filter(p => selectedNpis.has(p.npi)) : currentRows;
+    const data = (selectedNpis.size > 0) ? currentRows.filter(p => selectedNpis.has(String(p.npi))) : currentRows;
     let csv = '';
     let filename = '';
     if (currentSocialTab === 'meta') {
@@ -1011,17 +1067,166 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
     closeEmailModal();
   }
 
-  function openExportModal() { document.getElementById('exportModal').style.display = 'flex'; }
-  function closeExportModal() { document.getElementById('exportModal').style.display = 'none'; }
-  function executeStandardExport() {
-    const opt = document.querySelector('input[name="exportOption"]:checked').value;
-    const data = (opt === 'selected' && selectedNpis.size > 0) ? currentRows.filter(p => selectedNpis.has(p.npi)) : currentRows;
-    let csv = 'NPI,Nombre,Especialidad,Credenciales,Ciudad,Estado,ZIP,Telefono,Email,Quintil,Es_Latino\n';
-    data.forEach(p => {
-      csv += `"${p.npi}","${p.name}","${p.specialty}","${p.credentials||''}","${p.city||''}","${p.state||''}","${p.zip||''}","${p.phone||''}","${p.email||''}","Q${p.income_quintile||3}","${p.is_latino?'Si':'No'}"\n`;
+  /* -------------------------------------------------------------
+     EXPORTADOR AVANZADO (Filtro Completo, Lotes y Seleccionados)
+     ------------------------------------------------------------- */
+  function onExportOptionChange() {
+    const opt = document.querySelector('input[name="exportOption"]:checked')?.value;
+    const batchWrap = document.getElementById('batchConfigWrap');
+    if (opt === 'batch') {
+      batchWrap.style.display = 'flex';
+      updateBatchCalculation();
+    } else {
+      batchWrap.style.display = 'none';
+    }
+  }
+
+  function updateBatchCalculation() {
+    const size = Math.max(10, parseInt(document.getElementById('batchSizeInput').value) || 100);
+    const total = totalMatching || currentRows.length || 0;
+    const batches = Math.ceil(total / size) || 1;
+    document.getElementById('batchCalculationInfo').innerHTML = `<i class="fa-solid fa-boxes-stacked"></i> Se generarán <strong>${batches} lote(s)</strong> de hasta <strong>${size} leads</strong> cada uno (Total a procesar: ${total.toLocaleString()} leads).`;
+  }
+
+  function openExportModal() {
+    const total = totalMatching || currentRows.length || 0;
+    document.getElementById('exportFilterTotalLabel').textContent = `Total a exportar: ${total.toLocaleString()} prospectos que coinciden con los filtros.`;
+    document.getElementById('exportSelectedCountLabel').textContent = `${selectedNpis.size} prospectos seleccionados actualmente en la tabla.`;
+    document.getElementById('exportStatusMsg').style.display = 'none';
+    document.getElementById('btnConfirmExport').disabled = false;
+    onExportOptionChange();
+    document.getElementById('exportModal').style.display = 'flex';
+  }
+
+  function closeExportModal() {
+    document.getElementById('exportModal').style.display = 'none';
+  }
+
+  async function getFullFilteredData() {
+    const state = document.getElementById('stateSelect').value;
+    const specialty = document.getElementById('specialtySelect').value;
+    const quintile = document.getElementById('quintileSelect').value;
+    const latinoOnly = document.getElementById('checkLatino').checked ? '1' : '0';
+    const hasPhone = document.getElementById('checkPhone').checked ? '1' : '0';
+    const hasEmail = document.getElementById('checkEmail').checked ? '1' : '0';
+    const hasSocial = document.getElementById('checkSocial').checked ? '1' : '0';
+    const q = document.getElementById('searchInput').value.trim();
+
+    const params = new URLSearchParams({
+      state, specialty, quintile, latino_only: latinoOnly, has_phone: hasPhone, has_email: hasEmail, has_social: hasSocial, q, page: 1, limit: -1
     });
-    triggerDownload(new Blob([csv], {type:'text/csv;charset=utf-8;'}), `export_leads_ciasa_${data.length}.csv`);
-    closeExportModal();
+
+    try {
+      const res = await fetch(`${API_BASE}/search?${params.toString()}`);
+      if (!res.ok) throw new Error('API offline');
+      const data = await res.json();
+      return data.providers || [];
+    } catch (e) {
+      const all = window.CURATED_NPI_LEADS || [];
+      return all.filter(p => {
+        if (state && state !== 'ALL' && p.state !== state) return false;
+        if (specialty && specialty !== 'ALL' && !p.specialty.toLowerCase().includes(specialty.toLowerCase())) return false;
+        if (quintile && quintile !== 'ALL' && String(p.income_quintile) !== String(quintile)) return false;
+        if (latinoOnly === '1' && !p.is_latino) return false;
+        if (hasPhone === '1' && !p.phone) return false;
+        if (hasEmail === '1' && !p.email) return false;
+        if (hasSocial === '1' && !(p.linkedin_url || p.facebook_url || p.instagram_url)) return false;
+        if (q) {
+          const query = q.toLowerCase();
+          if (!(p.name || '').toLowerCase().includes(query) && !(p.city || '').toLowerCase().includes(query)) return false;
+        }
+        return true;
+      });
+    }
+  }
+
+  function generateCSVString(leads) {
+    let csv = 'NPI,Nombre,Especialidad,Credenciales,Ciudad,Estado,ZIP,Telefono,Email,Quintil,Es_Latino,LinkedIn,Facebook,Instagram,Website\n';
+    leads.forEach(p => {
+      csv += `"${p.npi || ''}","${(p.name || '').replace(/"/g, '""')}","${(p.specialty || '').replace(/"/g, '""')}","${p.credentials || 'MD'}","${p.city || ''}","${p.state || ''}","${p.zip || ''}","${p.phone || ''}","${p.email || ''}","Q${p.income_quintile || 3}","${p.is_latino ? 'Si' : 'No'}","${p.linkedin_url || ''}","${p.facebook_url || ''}","${p.instagram_url || ''}","${p.website_url || ''}"\n`;
+    });
+    return csv;
+  }
+
+  async function executeEnhancedExport() {
+    const opt = document.querySelector('input[name="exportOption"]:checked')?.value || 'all_filter';
+    const statusMsg = document.getElementById('exportStatusMsg');
+    const btn = document.getElementById('btnConfirmExport');
+    
+    statusMsg.style.display = 'block';
+    statusMsg.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Obteniendo registros del servidor...';
+    btn.disabled = true;
+
+    try {
+      if (opt === 'selected') {
+        if (selectedNpis.size === 0) {
+          alert('No has seleccionado ningún prospecto con las casillas de verificación de la tabla.');
+          statusMsg.style.display = 'none';
+          btn.disabled = false;
+          return;
+        }
+        const fullData = await getFullFilteredData();
+        const data = fullData.filter(p => selectedNpis.has(String(p.npi)));
+        const csv = generateCSVString(data);
+        triggerDownload(new Blob([csv], { type: 'text/csv;charset=utf-8;' }), `ciasa_npi_seleccionados_${data.length}_leads.csv`);
+        closeExportModal();
+        return;
+      }
+
+      if (opt === 'all_filter') {
+        const fullData = await getFullFilteredData();
+        if (fullData.length === 0) {
+          alert('No hay prospectos que coincidan con el filtro actual.');
+          statusMsg.style.display = 'none';
+          btn.disabled = false;
+          return;
+        }
+        const csv = generateCSVString(fullData);
+        triggerDownload(new Blob([csv], { type: 'text/csv;charset=utf-8;' }), `ciasa_npi_filtro_completo_${fullData.length}_leads.csv`);
+        closeExportModal();
+        return;
+      }
+
+      if (opt === 'batch') {
+        const batchSize = Math.max(10, parseInt(document.getElementById('batchSizeInput').value) || 100);
+        const fullData = await getFullFilteredData();
+        if (fullData.length === 0) {
+          alert('No hay prospectos para fragmentar.');
+          statusMsg.style.display = 'none';
+          btn.disabled = false;
+          return;
+        }
+
+        const totalBatches = Math.ceil(fullData.length / batchSize);
+
+        if (typeof JSZip !== 'undefined' && totalBatches > 1) {
+          statusMsg.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Comprimiendo ${totalBatches} lotes en archivo ZIP...`;
+          const zip = new JSZip();
+          for (let i = 0; i < totalBatches; i++) {
+            const chunk = fullData.slice(i * batchSize, (i + 1) * batchSize);
+            const csvChunk = generateCSVString(chunk);
+            const batchName = `lote_${String(i + 1).padStart(2, '0')}_de_${totalBatches}_(${chunk.length}_leads).csv`;
+            zip.file(batchName, csvChunk);
+          }
+          const content = await zip.generateAsync({ type: 'blob' });
+          triggerDownload(content, `ciasa_npi_campana_${totalBatches}_lotes_${fullData.length}_leads.zip`);
+        } else {
+          for (let i = 0; i < totalBatches; i++) {
+            const chunk = fullData.slice(i * batchSize, (i + 1) * batchSize);
+            const csvChunk = generateCSVString(chunk);
+            triggerDownload(new Blob([csvChunk], { type: 'text/csv;charset=utf-8;' }), `lote_${i + 1}_de_${totalBatches}_(${chunk.length}_leads).csv`);
+            if (i < totalBatches - 1) await new Promise(r => setTimeout(r, 400));
+          }
+        }
+        closeExportModal();
+        return;
+      }
+    } catch (err) {
+      alert('Error durante la exportación: ' + err.message);
+    } finally {
+      statusMsg.style.display = 'none';
+      btn.disabled = false;
+    }
   }
 
   function triggerDownload(blob, filename) {

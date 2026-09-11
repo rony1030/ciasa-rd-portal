@@ -684,7 +684,7 @@ router.post('/propiedades/:id/editar', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════
 // BLOG
 // ═══════════════════════════════════════════════════════════════════════════
-router.get('/blog', (req, res) => {
+router.get('/blog', requireRole('admin'), (req, res) => {
   const articles = readJSON(BLOG_FILE).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   res.render('admin/blog/index', {
     pageTitle: 'Blog — CIASA Admin',
@@ -692,14 +692,14 @@ router.get('/blog', (req, res) => {
   });
 });
 
-router.get('/blog/nuevo', (req, res) => {
+router.get('/blog/nuevo', requireRole('admin'), (req, res) => {
   res.render('admin/blog/form', {
     pageTitle: 'Nuevo Artículo — CIASA Admin',
     article: null, isNew: true, error: null
   });
 });
 
-router.get('/blog/:id/editar', (req, res) => {
+router.get('/blog/:id/editar', requireRole('admin'), (req, res) => {
   const articles = readJSON(BLOG_FILE);
   const article = articles.find(a => a.id === req.params.id);
   if (!article) return res.redirect('/admin/blog');
@@ -709,7 +709,7 @@ router.get('/blog/:id/editar', (req, res) => {
   });
 });
 
-router.post('/blog/nuevo', (req, res) => {
+router.post('/blog/nuevo', requireRole('admin'), (req, res) => {
   const articles = readJSON(BLOG_FILE);
   const { titulo, categoria, categoriaNombre, categoriaColor, extracto, contenido, tiempoLectura, estado, autor, imagen, seoTitle, seoDesc } = req.body;
 
@@ -738,7 +738,7 @@ router.post('/blog/nuevo', (req, res) => {
   res.redirect('/admin/blog?success=1');
 });
 
-router.post('/blog/:id/editar', (req, res) => {
+router.post('/blog/:id/editar', requireRole('admin'), (req, res) => {
   const articles = readJSON(BLOG_FILE);
   const idx = articles.findIndex(a => a.id === req.params.id);
   if (idx === -1) return res.redirect('/admin/blog');
@@ -766,7 +766,7 @@ router.post('/blog/:id/editar', (req, res) => {
   res.redirect('/admin/blog?success=1');
 });
 
-router.post('/blog/:id/eliminar', (req, res) => {
+router.post('/blog/:id/eliminar', requireRole('admin'), (req, res) => {
   const articles = readJSON(BLOG_FILE);
   const updated = articles.filter(a => a.id !== req.params.id);
   writeJSON(BLOG_FILE, updated);
