@@ -6,5 +6,8 @@
   "googleAnalyticsId": "G-CIASARD2026",
   "sitemapAutoGenerate": true,
   "whatsappPhone": "+18092995233",
-  "contactoEmail": "info@ciasard.org.do"
+  "contactoEmail": "info@ciasard.org.do",
+  "geminiApiKey": "",
+  "geminiModel": "gemini-2.5-flash",
+  "geminiEnabled": true
 }

@@ -858,6 +858,8 @@ router.get('/tareas', (req, res) => {
 });
 
 // 3. Ajustes Generales & SEO Manager
+const { testGeminiConnection } = require('../services/geminiService');
+
 router.get('/seo', requireRole('admin'), (req, res) => {
   const ajustes = readJSON(AJUSTES_FILE);
   res.render('admin/seo', {
@@ -869,7 +871,8 @@ router.get('/seo', requireRole('admin'), (req, res) => {
 
 router.post('/seo', requireRole('admin'), (req, res) => {
   const ajustes = readJSON(AJUSTES_FILE);
-  const { siteTitle, siteDescription, metaKeywords, googleAnalyticsId, ogImage, whatsappPhone, contactoEmail } = req.body;
+  const { siteTitle, siteDescription, metaKeywords, googleAnalyticsId, ogImage, whatsappPhone, contactoEmail, geminiApiKey, geminiModel, geminiEnabled } = req.body;
+  
   const updated = {
     ...ajustes,
     siteTitle: siteTitle || ajustes.siteTitle,
@@ -879,10 +882,30 @@ router.post('/seo', requireRole('admin'), (req, res) => {
     ogImage: ogImage || ajustes.ogImage,
     whatsappPhone: whatsappPhone || ajustes.whatsappPhone,
     contactoEmail: contactoEmail || ajustes.contactoEmail,
+    geminiApiKey: typeof geminiApiKey !== 'undefined' ? geminiApiKey.trim() : (ajustes.geminiApiKey || ''),
+    geminiModel: geminiModel || ajustes.geminiModel || 'gemini-2.5-flash',
+    geminiEnabled: geminiEnabled === 'true' || geminiEnabled === true,
     updatedAt: new Date().toISOString()
   };
+
+  // Mantener sincronizada la variable de entorno en caliente si se actualiza
+  if (updated.geminiApiKey) {
+    process.env.GEMINI_API_KEY = updated.geminiApiKey;
+  }
+
   writeJSON(AJUSTES_FILE, updated);
   res.redirect('/admin/seo?success=1');
+});
+
+// Endpoint AJAX para probar conexión de Gemini en tiempo real desde Ajustes
+router.post('/api/test-gemini', requireRole('admin'), async (req, res) => {
+  try {
+    const { apiKey, model } = req.body;
+    const result = await testGeminiConnection(apiKey, model);
+    return res.json(result);
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message });
+  }
 });
 
 // MÓDULO DE GESTIÓN DE USUARIOS, ASESORES & COMISIONES (SOLO ADMIN)
