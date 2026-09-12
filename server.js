@@ -217,17 +217,20 @@ app.get(['/api/npi.php', '/api/npi/states', '/api/npi/search', '/api/npi'], asyn
     leadsData = [];
   }
 
+  const normalizeStr = (s) => (s || '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const normQ = normalizeStr(q);
+
   let filtered = leadsData.filter(p => {
     if (state && state !== 'ALL' && p.state !== state) return false;
-    if (specialty && specialty !== 'ALL' && !p.specialty.toLowerCase().includes(specialty.toLowerCase())) return false;
+    if (specialty && specialty !== 'ALL' && !normalizeStr(p.specialty).includes(normalizeStr(specialty))) return false;
     if (quintile && quintile !== 'ALL' && String(p.income_quintile) !== String(quintile)) return false;
     if (latino_only === '1' && !p.is_latino) return false;
     if (has_phone === '1' && !p.phone) return false;
     if (has_email === '1' && (!p.email || p.email.includes('@ciasaleads-dr.com'))) return false;
-    if (has_social === '1' && !(p.linkedin_url || p.facebook_url || p.instagram_url)) return false;
-    if (q) {
-      const query = q.toLowerCase();
-      if (!(p.name || '').toLowerCase().includes(query) && !(p.city || '').toLowerCase().includes(query)) return false;
+    if (has_social === '1' && !(p.linkedin_url || p.facebook_url || p.instagram_url || p.twitter_url || p.website_url)) return false;
+    if (normQ) {
+      const haystack = normalizeStr(`${p.name || ''} ${p.city || ''} ${p.state || ''} ${p.zip || ''} ${p.specialty || ''} ${p.npi || ''} ${p.phone || ''} ${p.email || ''}`);
+      if (!haystack.includes(normQ)) return false;
     }
     return true;
   });

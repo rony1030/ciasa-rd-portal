@@ -325,28 +325,16 @@
       <div class="form-group">
         <label class="form-label">Estado de EE.UU.</label>
         <select id="stateSelect" class="form-input" onchange="onFilterChange()">
-          <option value="FL" selected>Florida (FL)</option>
+          <option value="ALL" selected>Todos los Estados (Base Completa)</option>
+          <option value="FL">Florida (FL)</option>
           <option value="NY">Nueva York (NY)</option>
+          <option value="CT">Connecticut (CT — Redes Sociales)</option>
           <option value="CA">California (CA)</option>
           <option value="TX">Texas (TX)</option>
           <option value="NJ">New Jersey (NJ)</option>
-          <option value="CT">Connecticut (CT — Con Redes)</option>
-          <option value="ALL">Todos los Estados</option>
-        </select>
-      </div>
-
-      <!-- Preset Rápido -->
-      <div class="form-group">
-        <label class="form-label">Segmento / Filtro Rápido</label>
-        <select id="presetSelect" class="form-input" onchange="onPresetDropdownChange(this)">
-          <option value="FL_LATINO" selected>FL Latinos (Florida)</option>
-          <option value="CT_LATINO">CT Latinos (Connecticut — Redes Sociales)</option>
-          <option value="NY_LATINO">NY Latinos (Nueva York)</option>
-          <option value="CA_LATINO">CA Latinos (California)</option>
-          <option value="TX_LATINO">TX Latinos (Texas)</option>
-          <option value="Q5_ALL">Quintil 5 (Alto Patrimonio)</option>
-          <option value="DENTISTAS">Odontólogos / Dentistas</option>
-          <option value="TODOS">Todos los Médicos / Base Completa</option>
+          <option value="IL">Illinois (IL)</option>
+          <option value="MA">Massachusetts (MA)</option>
+          <option value="PA">Pennsylvania (PA)</option>
         </select>
       </div>
 
@@ -354,7 +342,7 @@
       <div class="form-group">
         <label class="form-label">Especialidad Médica</label>
         <select id="specialtySelect" class="form-input" onchange="onFilterChange()">
-          <option value="ALL">Todas las especialidades</option>
+          <option value="ALL" selected>Todas las especialidades</option>
           <option value="Medicina Familiar">Medicina Familiar</option>
           <option value="Medicina Interna">Medicina Interna</option>
           <option value="Odontología / Dentista">Odontología / Dentistas</option>
@@ -369,21 +357,21 @@
 
       <!-- Nivel de Inversión (Quintil) -->
       <div class="form-group">
-        <label class="form-label">Nivel Inversión</label>
+        <label class="form-label">Nivel Inversión (Poder Adquisitivo)</label>
         <select id="quintileSelect" class="form-input" onchange="onFilterChange()">
-          <option value="ALL">Todos los quintiles</option>
-          <option value="5">Quintil 5 (Mayor Poder)</option>
+          <option value="ALL" selected>Todos los niveles / quintiles</option>
+          <option value="5">Quintil 5 (Alto Patrimonio / Inversionistas)</option>
           <option value="4">Quintil 4 (Medio-Alto)</option>
           <option value="3">Quintil 3 (Medio)</option>
         </select>
       </div>
 
-      <!-- Búsqueda Rápida -->
+      <!-- Búsqueda Rápida Universal -->
       <div class="form-group">
-        <label class="form-label">Búsqueda Rápida</label>
+        <label class="form-label">Búsqueda Rápida Universal</label>
         <div style="position: relative;">
           <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94A3B8; font-size: 0.85rem; pointer-events: none;"></i>
-          <input type="text" id="searchInput" class="form-input" style="padding-left: 36px;" placeholder="Nombre, apellido, ciudad..." oninput="onSearchInput()">
+          <input type="text" id="searchInput" class="form-input" style="padding-left: 36px;" placeholder="Nombre, especialidad, ciudad, NPI, teléfono..." oninput="onSearchInput()">
         </div>
       </div>
 
@@ -738,7 +726,8 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
 
   document.addEventListener('DOMContentLoaded', async () => {
     await loadStatesAndGlobalMetrics();
-    document.getElementById('stateSelect').value = 'FL';
+    document.getElementById('stateSelect').value = 'ALL';
+    document.getElementById('checkLatino').checked = false;
     fetchLeads();
     switchSocialTab('meta');
   });
@@ -766,40 +755,11 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
     onFilterChange();
   }
 
-  function onPresetDropdownChange(selectEl) {
-    applyPreset(selectEl.value);
-  }
-
-  function applyPreset(presetType) {
-    const stateSelect = document.getElementById('stateSelect');
-    const specSelect = document.getElementById('specialtySelect');
-    const quintSelect = document.getElementById('quintileSelect');
-    const checkLatino = document.getElementById('checkLatino');
-    const checkPhone = document.getElementById('checkPhone');
-    const checkEmail = document.getElementById('checkEmail');
-
-    checkPhone.checked = false;
-    checkEmail.checked = false;
-    specSelect.value = 'ALL';
-    quintSelect.value = 'ALL';
-
-    if (presetType === 'FL_LATINO') { stateSelect.value = 'FL'; checkLatino.checked = true; }
-    else if (presetType === 'CT_LATINO') { stateSelect.value = 'CT'; checkLatino.checked = true; }
-    else if (presetType === 'NY_LATINO') { stateSelect.value = 'NY'; checkLatino.checked = true; }
-    else if (presetType === 'CA_LATINO') { stateSelect.value = 'CA'; checkLatino.checked = true; }
-    else if (presetType === 'TX_LATINO') { stateSelect.value = 'TX'; checkLatino.checked = true; }
-    else if (presetType === 'Q5_ALL') { stateSelect.value = 'ALL'; quintSelect.value = '5'; checkLatino.checked = false; }
-    else if (presetType === 'DENTISTAS') { stateSelect.value = 'ALL'; specSelect.value = 'Odontología / Dentista'; checkLatino.checked = false; }
-    else { stateSelect.value = 'ALL'; checkLatino.checked = false; }
-
-    onFilterChange();
-  }
-
   function resetFilters() {
-    document.getElementById('stateSelect').value = 'FL';
+    document.getElementById('stateSelect').value = 'ALL';
     document.getElementById('specialtySelect').value = 'ALL';
     document.getElementById('quintileSelect').value = 'ALL';
-    document.getElementById('checkLatino').checked = true;
+    document.getElementById('checkLatino').checked = false;
     document.getElementById('checkPhone').checked = false;
     document.getElementById('checkEmail').checked = false;
     document.getElementById('checkSocial').checked = false;
@@ -820,6 +780,10 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
       currentPage = 1;
       fetchLeads();
     }, 350);
+  }
+
+  function normalizeText(str) {
+    return (str || '').normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   }
 
   async function fetchLeads() {
@@ -854,17 +818,18 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
     } catch (err) {
       // Fallback local dataset en memoria
       const all = window.CURATED_NPI_LEADS || [];
+      const normQ = normalizeText(q);
       const filtered = all.filter(p => {
         if (state && state !== 'ALL' && p.state !== state) return false;
-        if (specialty && specialty !== 'ALL' && !p.specialty.toLowerCase().includes(specialty.toLowerCase())) return false;
+        if (specialty && specialty !== 'ALL' && !normalizeText(p.specialty).includes(normalizeText(specialty))) return false;
         if (quintile && quintile !== 'ALL' && String(p.income_quintile) !== String(quintile)) return false;
         if (latinoOnly === '1' && !p.is_latino) return false;
         if (hasPhone === '1' && !p.phone) return false;
         if (hasEmail === '1' && !p.email) return false;
-        if (hasSocial === '1' && !(p.linkedin_url || p.facebook_url || p.instagram_url)) return false;
-        if (q) {
-          const query = q.toLowerCase();
-          if (!(p.name || '').toLowerCase().includes(query) && !(p.city || '').toLowerCase().includes(query)) return false;
+        if (hasSocial === '1' && !(p.linkedin_url || p.facebook_url || p.instagram_url || p.twitter_url || p.website_url)) return false;
+        if (normQ) {
+          const haystack = normalizeText(`${p.name || ''} ${p.city || ''} ${p.state || ''} ${p.zip || ''} ${p.specialty || ''} ${p.npi || ''} ${p.phone || ''} ${p.email || ''}`);
+          if (!haystack.includes(normQ)) return false;
         }
         return true;
       });
