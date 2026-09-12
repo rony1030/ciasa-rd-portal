@@ -330,6 +330,7 @@
           <option value="CA">California (CA)</option>
           <option value="TX">Texas (TX)</option>
           <option value="NJ">New Jersey (NJ)</option>
+          <option value="CT">Connecticut (CT — Con Redes)</option>
           <option value="ALL">Todos los Estados</option>
         </select>
       </div>
@@ -339,6 +340,7 @@
         <label class="form-label">Segmento / Filtro Rápido</label>
         <select id="presetSelect" class="form-input" onchange="onPresetDropdownChange(this)">
           <option value="FL_LATINO" selected>FL Latinos (Florida)</option>
+          <option value="CT_LATINO">CT Latinos (Connecticut — Redes Sociales)</option>
           <option value="NY_LATINO">NY Latinos (Nueva York)</option>
           <option value="CA_LATINO">CA Latinos (California)</option>
           <option value="TX_LATINO">TX Latinos (Texas)</option>
@@ -782,6 +784,7 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
     quintSelect.value = 'ALL';
 
     if (presetType === 'FL_LATINO') { stateSelect.value = 'FL'; checkLatino.checked = true; }
+    else if (presetType === 'CT_LATINO') { stateSelect.value = 'CT'; checkLatino.checked = true; }
     else if (presetType === 'NY_LATINO') { stateSelect.value = 'NY'; checkLatino.checked = true; }
     else if (presetType === 'CA_LATINO') { stateSelect.value = 'CA'; checkLatino.checked = true; }
     else if (presetType === 'TX_LATINO') { stateSelect.value = 'TX'; checkLatino.checked = true; }
@@ -914,6 +917,9 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
               ${p.phone ? `<a href="${waUrl}" target="_blank" style="color: #16A34A; font-size: 1rem;" title="Abrir WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>` : ''}
               ${p.email ? `<a href="mailto:${p.email}" style="color: #2563EB; font-size: 0.95rem;" title="Enviar Email"><i class="fa-regular fa-envelope"></i></a>` : ''}
               <a href="${linkedinUrl}" target="_blank" style="color: #0A66C2; font-size: 0.95rem;" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+              ${p.instagram_url ? `<a href="${p.instagram_url}" target="_blank" style="color: #E1306C; font-size: 0.95rem;" title="Instagram"><i class="fa-brands fa-instagram"></i></a>` : ''}
+              ${p.facebook_url ? `<a href="${p.facebook_url}" target="_blank" style="color: #1877F2; font-size: 0.95rem;" title="Facebook"><i class="fa-brands fa-facebook"></i></a>` : ''}
+              ${p.twitter_url ? `<a href="${p.twitter_url}" target="_blank" style="color: #0F172A; font-size: 0.95rem;" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>` : ''}
               <a href="${googleSearchUrl}" target="_blank" style="color: #EA4335; font-size: 0.95rem;" title="Buscar en Google"><i class="fa-brands fa-google"></i></a>
             </div>
           </td>
@@ -940,10 +946,12 @@ WhatsApp Directo: +1 (809) 299-5233</textarea>
             <span class="badge-quintile q${p.income_quintile || 3}">Q${p.income_quintile || 3}</span>
           </div>
           <div style="font-size: 0.76rem; color: #64748B;"><i class="fa-solid fa-location-dot"></i> ${p.city || ''}, ${p.state || ''}</div>
-          <div style="display: flex; gap: 8px; margin-top: 6px; border-top: 1px solid #F1F5F9; padding-top: 8px;">
+          <div style="display: flex; gap: 6px; margin-top: 6px; border-top: 1px solid #F1F5F9; padding-top: 8px; flex-wrap: wrap;">
             ${p.phone ? `<a href="tel:${p.phone}" class="btn btn-secondary btn-sm" style="flex:1; justify-content:center;"><i class="fa-solid fa-phone"></i> Llamar</a>` : ''}
             ${p.phone ? `<a href="${waUrl}" target="_blank" class="btn btn-sm" style="background:#25D366; color:#FFFFFF; flex:1; justify-content:center;"><i class="fa-brands fa-whatsapp"></i> Chat</a>` : ''}
             <a href="${linkedinUrl}" target="_blank" class="btn btn-secondary btn-sm" style="color:#0A66C2;"><i class="fa-brands fa-linkedin"></i></a>
+            ${p.instagram_url ? `<a href="${p.instagram_url}" target="_blank" class="btn btn-secondary btn-sm" style="color:#E1306C;"><i class="fa-brands fa-instagram"></i></a>` : ''}
+            ${p.facebook_url ? `<a href="${p.facebook_url}" target="_blank" class="btn btn-secondary btn-sm" style="color:#1877F2;"><i class="fa-brands fa-facebook"></i></a>` : ''}
           </div>
         </div>
       `;
